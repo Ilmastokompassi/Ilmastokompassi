@@ -29,3 +29,7 @@ def index():
 @app.route("/hannah")
 def index():
     return "Hannah"
+
+@app.route("/aarni")
+def index():
+    return "Aarni"
