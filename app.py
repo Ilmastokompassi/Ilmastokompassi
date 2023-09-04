@@ -25,3 +25,7 @@ def index():
 @app.route("/mika")
 def index():
     return "Mika"
+
+@app.route("/hannah")
+def index():
+    return "Hannah"
