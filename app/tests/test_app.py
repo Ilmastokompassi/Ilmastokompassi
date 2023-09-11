@@ -1,6 +1,6 @@
 import unittest
 from flask import Flask
-from ..app import app
+from app import app
 
 class TestApp(unittest.TestCase):
 
