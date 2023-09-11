@@ -11,7 +11,7 @@
 * Create a new branch `git switch -c <feature-YourBranch>`
 * Write the code
 * Writes tests
-* Run tests and debug until 100 % approval rate
+* Run tests and debug until 100 % approval rate: `invoke test`, for coverage: `coverage run --branch -m pytest src`, `coverage report -m`, `coverage html`
 * Commiting: add and commit changed files and push always to your own branch: `git push -u origin <feature-YourBranch>`
 * Create a pull request in GitHub
 * Post a short message in Discord about new pull request requiring to be approved and merged. Include a short description of added functionalities and/or bug fixes and if the branch can be closed after approval.
