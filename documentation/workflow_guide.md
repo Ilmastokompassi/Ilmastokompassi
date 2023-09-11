@@ -4,14 +4,14 @@
 ### Do this first
 * Check Discord messages
 * Check Sprint Backlog
-* Pull changes from GitHub: `git pull origin main`, make poetry up to date: `poetry install`, switch to: `poetry shell`
+* Pull changes from GitHub: `git pull origin main`, make poetry up to date: `poetry install`, switch to: `poetry shell` (remember to move to /backend first for poetry commands)
   
 ### Completing a task
 * Choose a task from the sprint backlog, assign yourself to the task and set task status to _In progress_
 * Create a new branch `git switch -c <feature-YourBranch>`
 * Write the code
 * Writes tests
-* Run tests and debug until 100 % approval rate: `invoke test`, for coverage: `coverage run --branch -m pytest src`, `coverage report -m`, `coverage html`
+* Run tests and debug until 100 % approval rate: `invoke test`, for coverage: `invoke coverage` and `invoke coverage-report`
 * Commiting: add and commit changed files and push always to your own branch: `git push -u origin <feature-YourBranch>`
 * Create a pull request in GitHub
 * Post a short message in Discord about new pull request requiring to be approved and merged. Include a short description of added functionalities and/or bug fixes and if the branch can be closed after approval.
