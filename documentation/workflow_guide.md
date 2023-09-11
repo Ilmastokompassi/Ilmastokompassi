@@ -10,7 +10,8 @@
 * Choose a task from the sprint backlog, assign yourself to the task and set task status to _In progress_
 * Create a new branch `git switch -c <feature-YourBranch>`
 * Write the code
-* Writes tests
+* Run your code with `invoke dev`
+* Write tests
 * Run tests and debug until 100 % approval rate: `invoke test`, for coverage: `invoke coverage` and `invoke coverage-report`
 * Commiting: add and commit changed files and push always to your own branch: `git push -u origin <feature-YourBranch>`
 * Create a pull request in GitHub
