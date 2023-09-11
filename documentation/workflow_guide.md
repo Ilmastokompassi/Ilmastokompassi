@@ -14,7 +14,7 @@
 * Write tests
 * Run tests and debug until 100 % approval rate: `invoke test`, for coverage: `invoke coverage` and `invoke coverage-report`
 * Commiting: add and commit changed files and push always to your own branch: `git push -u origin <feature-YourBranch>`
-* Create a pull request in GitHub
+* Create a pull request in GitHub. Add to the description `[skip ci]`, to avoid running unneeded tests
 * Post a short message in Discord about new pull request requiring to be approved and merged. Include a short description of added functionalities and/or bug fixes and if the branch can be closed after approval.
 * After the pull request is approved mark the task status as 'Done' in the sprint backlog
 
