@@ -22,6 +22,10 @@ jobs:
         run: |
           cd backend
           poetry install
+      - name: Run lint
+        run: |
+          cd backend
+          poetry run invoke lint
       - name: Run tests
         run: |
           cd backend
