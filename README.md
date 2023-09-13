@@ -1,9 +1,18 @@
-# Ilmastokompassi
+# Climate compass
+
 [![CI](https://github.com/Ilmastokompassi/Ilmastokompassi/actions/workflows/main.yml/badge.svg)](https://github.com/Ilmastokompassi/Ilmastokompassi/actions/workflows/main.yml)
 
-Nuorten ilmastokompassi on verkkotyökalu, joka innoittaa nuoria toimimaan ilmastonmuutoksen hillitsemiseksi.
+The Climate compass is an online tool to inspire young people to take action to mitigate climate change.
 
-Toteutettu Helsingin Yliopiston Ohjelmistotuotanto-projektina yhteistyössä Ilmakehätieteiden keskuksen INARin sekä Kasvatustieteellisen tiedekunnan kanssa.
+This is a Software production project developed during University of Helsinki's Ohjelmistotuotanto -course and was ordered by the Centre of Atmospheric Sciences INAR and the Faculty of Eduction.
 
+## Documents
 
-[Project backlogs](https://github.com/orgs/Ilmastokompassi/projects/1/views/3)
+- [Definition of done](documentation/definition_of_done.md)
+- [workflow guide](documentation/workflow_guide.md)
+- [Work hours](documentation/work_hours)
+- [Product and sprint backlogs](https://github.com/orgs/Ilmastokompassi/projects/1/views/3)
+
+## Project documentation
+
+- TBA
