@@ -1,6 +1,7 @@
 # Climate compass
 
-[![CI](https://github.com/Ilmastokompassi/Ilmastokompassi/actions/workflows/main.yml/badge.svg)](https://github.com/Ilmastokompassi/Ilmastokompassi/actions/workflows/main.yml)
+[![CI/CD - Backend](https://github.com/Ilmastokompassi/Ilmastokompassi/actions/workflows/backend.yml/badge.svg)](https://github.com/Ilmastokompassi/Ilmastokompassi/actions/workflows/backend.yml)
+[![CI/CD - Frontend](https://github.com/Ilmastokompassi/Ilmastokompassi/actions/workflows/frontend.yml/badge.svg)](https://github.com/Ilmastokompassi/Ilmastokompassi/actions/workflows/frontend.yml)
 
 The Climate compass is an online tool to inspire young people to take action to mitigate climate change.
 
