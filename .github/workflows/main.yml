@@ -64,3 +64,4 @@ jobs:
           password: ${{ secrets.PASSWORD }}
           tags: staging
           dockerfile: ./backend/Dockerfile
+          path: ./backend
