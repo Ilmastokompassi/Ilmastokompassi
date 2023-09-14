@@ -1,0 +1,12 @@
+"ci/cd":
+  - .github/**
+
+"frontend":
+  - frontend/**
+
+"backend":
+  - backend/**
+
+"documentation":
+  - documentation/**
+  - README.md
