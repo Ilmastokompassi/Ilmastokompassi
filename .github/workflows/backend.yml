@@ -1,4 +1,4 @@
-name: CI - Backend
+name: CI/CD - Backend
 
 env:
   IMAGE_REPOSITORY: ilmastokompassi
