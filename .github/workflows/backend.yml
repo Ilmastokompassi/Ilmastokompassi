@@ -31,21 +31,18 @@ jobs:
   deploy-backend:
     needs: build-and-test-backend
     runs-on: ubuntu-latest
-    env:
-      IMAGE_REPOSITORY: ilmastokompassi
-      BACKEND_IMAGE: ${{ env.IMAGE_REPOSITORY }}/backend
     steps:
       - uses: actions/checkout@v3
       - name: Docker metadata
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: ${{ env.BACKEND_IMAGE }}
+          images: ilmastokompassi/backend
       - name: Push backend to Docker Hub
         uses: docker/build-push-action@v5
         with:
           context: ./backend
-          repository: ${{ env.BACKEND_IMAGE }}
+          repository: ilmastokompassi/backend
           username: ${{ secrets.USERNAME }}
           password: ${{ secrets.PASSWORD }}
           push: ${{ github.event_name != 'pull_request' }}
