@@ -23,7 +23,6 @@ jobs:
        with:
          node-version: 18
          cache: "npm"
-       continue-on-error: true
      - run: npm ci
      - run: npm run lint
   deploy-frontend:
