@@ -6,10 +6,10 @@ def index():
     return "Hello world!"
 
 
-@app.route("/api/test")
+@app.route("/api/test-content")
 def apitest():
     res = {
-        "content": "This is the content"
+        "content": "This is the test content"
     }
 
     return res
