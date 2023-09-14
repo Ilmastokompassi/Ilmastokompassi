@@ -1,8 +1,4 @@
-name: CI - Frontend
-
-env:
-  IMAGE_REPOSITORY: ilmastokompassi
-  BACKEND_IMAGE: ${{ env.IMAGE_REPOSITORY }}/backend
+name: CI/CD - Frontend
 
 on:
   push:
@@ -33,6 +29,9 @@ jobs:
   deploy-frontend:
     needs: build-and-test-frontend
     runs-on: ubuntu-latest
+    env:
+      IMAGE_REPOSITORY: ilmastokompassi
+      FRONTEND_IMAGE: ${{ env.IMAGE_REPOSITORY }}/frontend
     steps:
       - uses: actions/checkout@v3
       - name: Docker metadata
