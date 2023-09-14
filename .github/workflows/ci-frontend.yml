@@ -1,0 +1,53 @@
+name: CI - Frontend
+
+env:
+  IMAGE_REPOSITORY: ilmastokompassi
+  BACKEND_IMAGE: ${{ env.IMAGE_REPOSITORY }}/backend
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "frontend/**"
+  pull_request:
+    branches: [main]
+    paths:
+      - "frontend/**"
+
+jobs:
+  build-and-test-frontend:
+   runs-on: ubuntu-latest
+   defaults:
+     run:
+       working-directory: frontend
+   steps:
+     - uses: actions/checkout@v3
+     - name: Setup Node.js
+       uses: actions/setup-node@v3
+       with:
+         node-version: 18
+         cache: "npm"
+       continue-on-error: true
+     - run: npm ci
+     - run: npm run lint
+  deploy-frontend:
+    needs: build-and-test-frontend
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Docker metadata
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.FRONTEND_IMAGE }}
+      - name: Push frontend to Docker Hub
+        uses: docker/build-push-action@v5
+        with:
+          context: ./frontend
+          repository: ${{ env.FRONTEND_IMAGE }}
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
+          push: ${{ github.event_name != 'pull_request' }}
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+  
