@@ -1,0 +1,54 @@
+name: CI/CD - Backend
+
+env:
+  IMAGE_REPOSITORY: ilmastokompassi
+  FRONTEND_IMAGE: ${{ env.IMAGE_REPOSITORY }}/frontend
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "backend/**"
+  pull_request:
+    branches: [main]
+    paths:
+      - "backend/**"
+
+jobs:
+  build-and-test-backend:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: backend
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python 3.10
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+          cache: "poetry"
+      - run: pip install poetry==1.6.1
+      - run: poetry install
+      - run: poetry run invoke lint
+      - name: Run tests
+        run: poetry run coverage run --branch -m pytest
+  deploy-backend:
+    needs: build-and-test-backend
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Docker metadata
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.BACKEND_IMAGE }}
+      - name: Push backend to Docker Hub
+        uses: docker/build-push-action@v5
+        with:
+          context: ./backend
+          repository: ${{ env.BACKEND_IMAGE }}
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
+          push: ${{ github.event_name != 'pull_request' }}
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
