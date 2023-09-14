@@ -31,6 +31,7 @@ jobs:
   deploy-backend:
     needs: build-and-test-backend
     runs-on: ubuntu-latest
+    if: github.event_name != 'pull_request'
     steps:
       - uses: actions/checkout@v3
       - name: Docker metadata
@@ -41,10 +42,10 @@ jobs:
       - name: Push backend to Docker Hub
         uses: docker/build-push-action@v5
         with:
+          push: true
           context: ./backend
           repository: ilmastokompassi/backend
           username: ${{ secrets.USERNAME }}
           password: ${{ secrets.PASSWORD }}
-          push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
