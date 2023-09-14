@@ -9,7 +9,7 @@ This is a Software production project developed during University of Helsinki's 
 ## Documents
 
 - [Definition of done](documentation/definition_of_done.md)
-- [workflow guide](documentation/workflow_guide.md)
+- [Workflow guide](documentation/workflow_guide.md)
 - [Work hours](documentation/work_hours)
 - [Product and sprint backlogs](https://github.com/orgs/Ilmastokompassi/projects/1/views/3)
 
