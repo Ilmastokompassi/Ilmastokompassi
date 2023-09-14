@@ -1,9 +1,5 @@
 name: CI/CD - Backend
 
-env:
-  IMAGE_REPOSITORY: ilmastokompassi
-  FRONTEND_IMAGE: ${{ env.IMAGE_REPOSITORY }}/frontend
-
 on:
   push:
     branches: [main]
@@ -19,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: backend
+        working-directory: ./backend
     steps:
       - uses: actions/checkout@v3
       - name: Set up Python 3.10
@@ -35,20 +31,21 @@ jobs:
   deploy-backend:
     needs: build-and-test-backend
     runs-on: ubuntu-latest
+    if: github.event_name != 'pull_request'
     steps:
       - uses: actions/checkout@v3
       - name: Docker metadata
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: ${{ env.BACKEND_IMAGE }}
+          images: ilmastokompassi/backend
       - name: Push backend to Docker Hub
         uses: docker/build-push-action@v5
         with:
+          push: true
           context: ./backend
-          repository: ${{ env.BACKEND_IMAGE }}
+          repository: ilmastokompassi/backend
           username: ${{ secrets.USERNAME }}
           password: ${{ secrets.PASSWORD }}
-          push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}

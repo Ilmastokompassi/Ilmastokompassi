@@ -1,8 +1,4 @@
-name: CI - Frontend
-
-env:
-  IMAGE_REPOSITORY: ilmastokompassi
-  BACKEND_IMAGE: ${{ env.IMAGE_REPOSITORY }}/backend
+name: CI/CD - Frontend
 
 on:
   push:
@@ -19,7 +15,7 @@ jobs:
    runs-on: ubuntu-latest
    defaults:
      run:
-       working-directory: frontend
+       working-directory: ./frontend
    steps:
      - uses: actions/checkout@v3
      - name: Setup Node.js
@@ -27,27 +23,27 @@ jobs:
        with:
          node-version: 18
          cache: "npm"
-       continue-on-error: true
+         cache-dependency-path: ./frontend/package-lock.json
      - run: npm ci
      - run: npm run lint
   deploy-frontend:
     needs: build-and-test-frontend
     runs-on: ubuntu-latest
+    if: github.event_name != 'pull_request'
     steps:
       - uses: actions/checkout@v3
       - name: Docker metadata
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: ${{ env.FRONTEND_IMAGE }}
+          images: ilmastokompassi/frontend
       - name: Push frontend to Docker Hub
         uses: docker/build-push-action@v5
         with:
+          push: true
           context: ./frontend
-          repository: ${{ env.FRONTEND_IMAGE }}
+          repository: ilmastokompassi/frontend
           username: ${{ secrets.USERNAME }}
           password: ${{ secrets.PASSWORD }}
-          push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-  
