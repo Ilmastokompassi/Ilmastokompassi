@@ -32,7 +32,6 @@ jobs:
       - run: poetry run invoke lint
       - name: Run tests
         run: poetry run coverage run --branch -m pytest
-
   deploy-backend:
     needs: build-and-test-backend
     runs-on: ubuntu-latest
