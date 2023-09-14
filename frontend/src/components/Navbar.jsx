@@ -12,8 +12,12 @@ import Button from '@mui/material/Button'
 import Tooltip from '@mui/material/Tooltip'
 import MenuItem from '@mui/material/MenuItem'
 import AdbIcon from '@mui/icons-material/Adb'
+import { NavLink } from 'react-router-dom'
 
-const pages = ['Kysely', 'Materiaali']
+const pages = [
+    { name: 'Kysely', route: '/' },
+    { name: 'Materiaali', route: '/material' },
+]
 const group = ['Ryhmä']
 
 function ResponsiveAppBar() {
@@ -96,11 +100,13 @@ function ResponsiveAppBar() {
                         >
                             {pages.map((page) => (
                                 <MenuItem
+                                    component={NavLink}
+                                    to={page.route}
                                     key={page}
                                     onClick={handleCloseNavMenu}
                                 >
                                     <Typography textAlign="center">
-                                        {page}
+                                        {page.name}
                                     </Typography>
                                 </MenuItem>
                             ))}
@@ -135,11 +141,13 @@ function ResponsiveAppBar() {
                     >
                         {pages.map((page) => (
                             <Button
+                                component={NavLink}
+                                to={page.route}
                                 key={page}
                                 onClick={handleCloseNavMenu}
                                 sx={{ my: 2, color: 'white', display: 'block' }}
                             >
-                                {page}
+                                {page.name}
                             </Button>
                         ))}
                     </Box>

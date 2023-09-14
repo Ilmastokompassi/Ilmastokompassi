@@ -1,25 +1,15 @@
-import { useState, useEffect } from 'react'
-import axios from 'axios'
+import { RouterProvider } from 'react-router-dom'
+import { CircularProgress } from '@mui/material'
 import './App.css'
-import Navbar from './components/Navbar'
+import { router } from './router'
 
-function App() {
-    const [content, setContent] = useState([])
-    useEffect(() => {
-        const getContent = async () => {
-            const res = await axios('http://localhost:5000/apitest')
-            setContent(res)
-            setContent(res.data.content)
-        }
-        getContent()
-    }, [])
-
+export default function App() {
     return (
         <>
-            <Navbar />
-            <p>{content}</p>
+            <RouterProvider
+                router={router}
+                fallbackElement={<CircularProgress />}
+            />
         </>
     )
 }
-
-export default App
