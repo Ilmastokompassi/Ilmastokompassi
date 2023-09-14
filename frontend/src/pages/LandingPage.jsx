@@ -6,7 +6,7 @@ export const LandingPage = () => {
 
     useEffect(() => {
         const getContent = async () => {
-            const res = await axios('http://localhost:5000/apitest')
+            const res = await axios('/api/test')
             setContent(res)
             setContent(res.data.content)
         }
