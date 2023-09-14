@@ -59,7 +59,7 @@ jobs:
       - name: to dockerhub
         uses: docker/build-push-action@v1.1.0
         with:
-          repository: desipeli/ilmasto-backend
+          repository: ilmastokompassi/backend
           username: ${{ secrets.USERNAME }}
           password: ${{ secrets.PASSWORD }}
           tags: staging
