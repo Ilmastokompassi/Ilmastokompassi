@@ -23,6 +23,7 @@ jobs:
        with:
          node-version: 18
          cache: "npm"
+         cache-dependency-path: ./frontend/package-lock.json
      - run: npm ci
      - run: npm run lint
   deploy-frontend:
@@ -46,4 +47,3 @@ jobs:
           password: ${{ secrets.PASSWORD }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-  
