@@ -7,6 +7,9 @@
 "backend":
   - backend/**
 
+"tests":
+  - '**/tests/**'
+
 "documentation":
   - documentation/**
   - README.md
