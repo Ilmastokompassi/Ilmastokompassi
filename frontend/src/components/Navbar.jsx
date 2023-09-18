@@ -15,7 +15,7 @@ import AdbIcon from '@mui/icons-material/Adb'
 import { NavLink } from 'react-router-dom'
 
 const pages = [
-    { name: 'Kysely', route: '/' },
+    { name: 'Kysely', route: '/survey' },
     { name: 'Materiaali', route: '/material' },
 ]
 const group = ['Ryhmä']
@@ -102,7 +102,7 @@ function ResponsiveAppBar() {
                                 <MenuItem
                                     component={NavLink}
                                     to={page.route}
-                                    key={page}
+                                    key={page.name}
                                     onClick={handleCloseNavMenu}
                                 >
                                     <Typography textAlign="center">
@@ -143,7 +143,7 @@ function ResponsiveAppBar() {
                             <Button
                                 component={NavLink}
                                 to={page.route}
-                                key={page}
+                                key={page.name}
                                 onClick={handleCloseNavMenu}
                                 sx={{ my: 2, color: 'white', display: 'block' }}
                             >
