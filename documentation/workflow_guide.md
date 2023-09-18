@@ -4,7 +4,12 @@
 ### Do this first
 * Check Discord messages
 * Check Sprint Backlog
-* Pull changes from GitHub: `git pull origin main`, make poetry up to date: `poetry install`, switch to: `poetry shell` (remember to move to /backend first for poetry commands)
+* Pull changes from GitHub: `git pull origin main`
+  
+### Run
+* Open two terminals
+    * Move to /backend: `poetry install`, `poetry shell`, `invoke dev`
+    * Move to /frontend: `npm install`, `npm run dev`,  ctrl + click to open site
   
 ### Completing a task
 * Choose a task from the sprint backlog, assign yourself to the task and set task status to _In progress_
