@@ -1,15 +1,15 @@
 "ci/cd":
-  - .github/**
+  - .github/**/*
 
 "frontend":
-  - frontend/**
+  - frontend/**/*
 
 "backend":
-  - backend/**
+  - backend/**/*
 
 "tests":
-  - '**/tests/**'
+  - '**/tests/**/*'
 
 "documentation":
-  - documentation/**
+  - documentation/**/*
   - README.md
