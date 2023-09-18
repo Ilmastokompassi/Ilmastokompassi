@@ -25,6 +25,10 @@ const Heading = styled(Typography)`
     font-size: 50px;
 `
 
+const handelGroup = () => {
+    console.log('moi')
+}
+
 export function SurveyPage() {
     return (
         <SurveyPageContainer>
@@ -33,16 +37,16 @@ export function SurveyPage() {
                 <Stack spacing={2}>
                     <SurveyOptionButton
                         component={NavLink}
-                        to="/"
+                        to="/question/1"
                         variant="contained"
+                        data-testid="btn-start-survey"
                     >
                         <Typography className="survey-option">
                             Tee kysely yksin :(
                         </Typography>
                     </SurveyOptionButton>
                     <SurveyOptionButton
-                        component={NavLink}
-                        to="/"
+                        onClick={() => handelGroup()}
                         variant="contained"
                     >
                         <Typography className="survey-option">
