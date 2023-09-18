@@ -9,11 +9,11 @@ const SurveyOptionButton = styled(Button)`
     /* You can add any CSS properties you need */
 `
 
-const SurveyOptions = styled.div`
+const SurveyOptionsContainer = styled.div`
     margin: 50px;
 `
 
-const SurveyOptionContainer = styled.div`
+const SurveyPageContainer = styled.div`
     display: flex; /* Use flexbox layout */
     flex-direction: column; /* Stack elements vertically */
     align-items: center; /* Center items horizontally */
@@ -27,9 +27,9 @@ const Heading = styled(Typography)`
 
 export function SurveyPage() {
     return (
-        <SurveyOptionContainer>
+        <SurveyPageContainer>
             <Heading variant="h1">Miten haluat tehdä kyselyn?</Heading>
-            <SurveyOptions>
+            <SurveyOptionsContainer>
                 <Stack spacing={2}>
                     <SurveyOptionButton
                         component={NavLink}
@@ -50,7 +50,7 @@ export function SurveyPage() {
                         </Typography>
                     </SurveyOptionButton>
                 </Stack>
-            </SurveyOptions>
-        </SurveyOptionContainer>
+            </SurveyOptionsContainer>
+        </SurveyPageContainer>
     )
 }
