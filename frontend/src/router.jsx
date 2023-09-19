@@ -3,7 +3,7 @@ import { Layout } from './components/Layout'
 import { LandingPage } from './pages/LandingPage'
 import { MaterialPage } from './pages/MaterialPage'
 import { SurveyPage } from './pages/SurveyPage'
-
+import { QuestionPage } from './pages/QuestionPage'
 // Defines the routes of the application
 export const router = createBrowserRouter([
     {
@@ -16,6 +16,10 @@ export const router = createBrowserRouter([
             {
                 path: '/survey',
                 element: <SurveyPage />,
+            },
+            {
+                path: '/question/:id',
+                element: <QuestionPage />,
             },
             {
                 path: '/material',
