@@ -23,7 +23,7 @@ def load_json():
     questions_file_path = os.path.join(
         dir_path, 'static', 'questions.json')
     try:
-        with open(questions_file_path, 'r') as file:
+        with open(questions_file_path, 'r', encoding='utf-8') as file:
             questions = json.load(file)
     except FileNotFoundError:
         abort(500, description="questions.json not found")
