@@ -1,0 +1,14 @@
+[
+  {
+    "id": 1,
+    "question": "How often do you use this app?",
+    "options": ["Kerran vuodessa", "Kerran kuukaudessa", "Kerran viikossa"],
+    "correctOption": null
+  },
+  {
+    "id": 2,
+    "question": "Another question here?",
+    "options": ["Option 1", "Option 2", "Option 3"],
+    "correctOption": null
+  }
+]
