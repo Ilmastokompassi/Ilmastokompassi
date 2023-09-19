@@ -1,7 +1,7 @@
-from flask import jsonify, abort
-import json
-from app import app
 import os
+import json
+from flask import jsonify, abort
+from app import app
 
 
 @app.route("/")
@@ -36,11 +36,11 @@ def total_questions():
     return load_json()
 
 
-@app.route("/api/question/<int:id>")
-def question(id):
+@app.route("/api/question/<int:question_id>")
+def individual_question(question_id):
     questions = load_json()
 
-    question = next((q for q in questions if q['id'] == id), None)
+    question = next((q for q in questions if q['id'] == question_id), None)
 
     if question is None:
         abort(404, description="Question not found")
