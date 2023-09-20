@@ -1,6 +1,8 @@
 name: CI/CD - Frontend
 
 on:
+  release:
+    types: [published]
   push:
     branches: [main]
     paths:
