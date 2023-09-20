@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ilmastokompassi-frontend
+  labels:
+    app: ilmastokompassi
+    tier: frontend
+    app.kubernetes.io/part-of: ilmastokompassi
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ilmastokompassi
+      tier: frontend
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: ilmastokompassi
+        tier: frontend
+        app.kubernetes.io/part-of: ilmastokompassi
+    spec:
+      containers:
+        - name: ilmastokompassi-frontend
+          image: docker.io/ilmastokompassi/frontend:main
+          ports:
+            - containerPort: 8080
+              name: ilmastokompassi-frontend-container
+          resources:
+            requests:
+              cpu: 50m
+              memory: 20Mi
+            limits:
+              cpu: 200m
+              memory: 100Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ilmastokompassi-frontend
+  labels:
+    app: ilmastokompassi
+    tier: frontend
+    app.kubernetes.io/part-of: ilmastokompassi
+spec:
+  type: ClusterIP
+  clusterIP: None
+  ports:
+    - port: 8080
+      name: ilmastokompassi-frontend-svc
+      targetPort: ilmastokompassi-frontend-container
+  selector:
+    app: ilmastokompassi
+    tier: frontend
