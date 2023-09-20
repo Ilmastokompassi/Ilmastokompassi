@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
-import { Card, CardContent, IconButton, Stack } from '@mui/material'
+import { Card, CardContent, Button, IconButton, Stack } from '@mui/material'
 import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight'
 import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft'
 import QuestionButton from './QuestionButton'
@@ -9,6 +9,7 @@ import { Typography } from '@mui/material'
 
 export const Heading = styled(Typography)`
     font-size: 50px;
+    text-align: center
 `
 
 export const QuestionOptionsContainer = styled.div`
@@ -93,6 +94,9 @@ function Question() {
             navigate(`/question/${previousId}`)
         }
     }
+    const handleSubmit = () => {
+        pass // Add submit function
+    }
 
     if (!questionData) return null
 
@@ -108,6 +112,8 @@ function Question() {
         overflowY: 'auto',
     }
 
+    const isLastQuestion = questionId >= totalQuestions;
+    
     return (
         <QuestionPageContainer>
             <Card sx={cardStyles}>
@@ -134,12 +140,19 @@ function Question() {
                 <IconButton onClick={handlePrevious} disabled={questionId <= 1}>
                     <ArrowCircleLeftIcon fontSize="large" />
                 </IconButton>
+                {isLastQuestion &&
+                    <Button variant="contained" color="primary" onClick={handleSubmit}>
+                    Submit
+                </Button>
+                }
                 <IconButton
                     onClick={handleNext}
                     disabled={!totalQuestions || questionId >= totalQuestions}
                 >
                     <ArrowCircleRightIcon fontSize="large" />
                 </IconButton>
+                
+                
             </Stack>
         </QuestionPageContainer>
     )
