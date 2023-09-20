@@ -12,7 +12,9 @@ export const Heading = styled(Typography)`
 `
 
 export const QuestionOptionsContainer = styled.div`
-    margin: 50px;
+    margin: 30px;
+    
+
 `
 
 export const QuestionPageContainer = styled.div`
@@ -35,9 +37,7 @@ function Question() {
     useEffect(() => {
         const fetchTotalQuestions = async () => {
             try {
-                const response = await fetch(
-                    `/api/question`
-                )
+                const response = await fetch(`/api/question`)
                 if (!response.ok) {
                     throw new Error('Network response was not ok')
                 }
@@ -55,9 +55,7 @@ function Question() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch(
-                    `/api/question/${questionId}`
-                )
+                const response = await fetch(`/api/question/${questionId}`)
                 if (!response.ok) {
                     throw new Error('Network response was not ok')
                 }
@@ -90,12 +88,15 @@ function Question() {
     if (!questionData) return null
 
     const cardStyles = {
-        minWidth: 275,
+        width: '80%',
+        maxWidth: '800px',
+        height: '50vh',
         backgroundColor: '#f9f9f9',
         borderRadius: '16px',
-        padding: '20px',
+        padding: '10px',
         marginTop: '50px',
         marginBottom: '20px',
+        overflowY: 'auto',
     }
 
     return (
