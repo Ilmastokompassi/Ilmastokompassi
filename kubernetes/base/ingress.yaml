@@ -1,28 +1,27 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: ilmastokompassi-ingress
+  name: ingress
   labels:
-    app: ilmastokompassi
-    app.kubernetes.io/part-of: ilmastokompassi
+    type: external
 spec:
   rules:
-    - host: ilmastokompassi.ext.ocp-test-0.k8s.it.helsinki.fi
+    - host: ilmastokompassi.local
       http:
         paths:
           - path: /
             pathType: Prefix
             backend:
               service:
-                name: ilmastokompassi-frontend
+                name: frontend
                 port:
-                  name: ilmastokompassi-frontend-svc
+                  number: 8080
           - path: /api
             pathType: Prefix
             backend:
               service:
-                name: ilmastokompassi-backend
+                name: backend
                 port:
-                  name: ilmastokompassi-frontend-svc
+                  number: 5000
   tls:
     - {}

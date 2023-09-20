@@ -1,32 +1,26 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: ilmastokompassi-backend
+  name: backend
   labels:
-    app: ilmastokompassi
     tier: backend
-    app.kubernetes.io/part-of: ilmastokompassi
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: ilmastokompassi
       tier: backend
   strategy:
     type: Recreate
   template:
     metadata:
       labels:
-        app: ilmastokompassi
         tier: backend
-        app.kubernetes.io/part-of: ilmastokompassi
     spec:
       containers:
-        - name: ilmastokompassi-backend
-          image: docker.io/ilmastokompassi/backend:main
+        - name: backend
+          image: ilmastokompassi/backend
           ports:
             - containerPort: 5000
-              name: ilmastokompassi-backend-container
           resources:
             requests:
               cpu: 50m
@@ -38,18 +32,14 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: ilmastokompassi-backend
+  name: backend
   labels:
-    app: ilmastokompassi
     tier: backend
-    app.kubernetes.io/part-of: ilmastokompassi
 spec:
   type: ClusterIP
   clusterIP: None
   ports:
     - port: 5000
-      name: ilmastokompassi-backend-svc
-      targetPort: ilmastokompassi-backend-container
+      targetPort: 5000
   selector:
-    app: ilmastokompassi
     tier: backend
