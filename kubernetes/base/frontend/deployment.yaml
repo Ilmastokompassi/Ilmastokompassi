@@ -28,6 +28,13 @@ spec:
             limits:
               cpu: 200m
               memory: 100Mi
+          volumeMounts:
+            - name: ingress-nginx-conf
+              mountPath: /etc/nginx/conf.d/
+      volumes:
+        - name: ingress-nginx-conf
+          configMap:
+            name: ingress-nginx-conf
 ---
 apiVersion: v1
 kind: Service

@@ -9,3 +9,7 @@ commonLabels:
   app: ilmastokompassi
   app.kubernetes.io/part-of: ilmastokompassi
 namePrefix: ilmastokompassi-
+configMapGenerator:
+  - name: ingress-nginx-conf
+    files:
+      - default.conf=frontend/nginx.conf
