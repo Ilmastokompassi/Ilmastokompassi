@@ -12,7 +12,9 @@ export const Heading = styled(Typography)`
 `
 
 export const QuestionOptionsContainer = styled.div`
-    margin: 50px;
+    margin: 30px;
+    
+
 `
 
 export const QuestionPageContainer = styled.div`
@@ -95,12 +97,15 @@ function Question() {
     if (!questionData) return null
 
     const cardStyles = {
-        minWidth: 275,
+        width: '80%',
+        maxWidth: '800px',
+        height: '50vh',
         backgroundColor: '#f9f9f9',
         borderRadius: '16px',
-        padding: '20px',
+        padding: '10px',
         marginTop: '50px',
         marginBottom: '20px',
+        overflowY: 'auto',
     }
 
     return (
