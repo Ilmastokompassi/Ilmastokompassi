@@ -1,0 +1,64 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ilmastokompassi-backend
+  labels:
+    app: ilmastokompassi-backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ilmastokompassi-backend
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: ilmastokompassi-backend
+    spec:
+      containers:
+        - image: docker.io/ilmastokompassi/backend:main
+          imagePullPolicy: Always
+          name: ilmastokompassi-backend
+          ports:
+            - containerPort: 5000
+          resources:
+            requests:
+              cpu: 50m
+              memory: 100Mi
+            limits:
+              cpu: 100m
+              memory: 300Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: ilmastokompassi-backend
+  name: ilmastokompassi-backend
+spec:
+  type: ClusterIP
+  clusterIP: None
+  sessionAffinity: None
+  ports:
+    - port: 5000
+      targetPort: ilmastokompassi-backend
+  selector:
+    app: ilmastokompassi-backend
+---
+apiVersion: image.openshift.io/v1
+kind: ImageStream
+metadata:
+  name: ilmastokompassi-backend
+  labels:
+    app: ilmastokompassi-backend
+spec:
+  lookupPolicy:
+    local: false
+  tags:
+    - from:
+        kind: DockerImage
+        name: docker.io/ilmastokompassi/backend:main
+      importPolicy:
+        scheduled: true
+      name: main
