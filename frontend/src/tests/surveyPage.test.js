@@ -3,23 +3,19 @@ import { render, screen } from '@testing-library/react'
 import { SurveyPage } from '../pages/SurveyPage'
 import { BrowserRouter } from 'react-router-dom'
 
-test('renders heading', () => {
+beforeEach(() => {
     render(
         <BrowserRouter>
             <SurveyPage />
         </BrowserRouter>
     )
+})
 
+test('renders heading', () => {
     screen.getByText('Miten haluat tehdä kyselyn?')
 })
 
 test('renders buttons and links', () => {
-    render(
-        <BrowserRouter>
-            <SurveyPage />
-        </BrowserRouter>
-    )
-
     const links = screen.getAllByRole('link')
     expect(links.length).toBe(1)
 
@@ -28,12 +24,6 @@ test('renders buttons and links', () => {
 })
 
 test('Survey start link', () => {
-    render(
-        <BrowserRouter>
-            <SurveyPage />
-        </BrowserRouter>
-    )
-
     const link = screen.queryByTestId('btn-start-survey')
     expect(link.href).toMatch(/\/question\/1$/)
 })
