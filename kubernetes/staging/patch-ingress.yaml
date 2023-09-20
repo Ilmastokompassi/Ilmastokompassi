@@ -1,0 +1,3 @@
+- op: replace
+  path: "/spec/rules/0/host"
+  value: ilmastokompassi.ext.ocp-test-0.k8s.it.helsinki.fi

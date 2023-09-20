@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend
+  labels:
+    tier: backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      tier: backend
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        tier: backend
+    spec:
+      containers:
+        - name: backend
+          image: ilmastokompassi/backend
+          ports:
+            - containerPort: 5000
+          resources:
+            requests:
+              cpu: 50m
+              memory: 100Mi
+            limits:
+              cpu: 100m
+              memory: 300Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend
+  labels:
+    tier: backend
+spec:
+  type: ClusterIP
+  clusterIP: None
+  ports:
+    - port: 5000
+      targetPort: 5000
+  selector:
+    tier: backend

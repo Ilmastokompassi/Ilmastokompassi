@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend
+  labels:
+    tier: frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      tier: frontend
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        tier: frontend
+    spec:
+      containers:
+        - name: frontend
+          image: ilmastokompassi/frontend
+          ports:
+            - containerPort: 8080
+          resources:
+            requests:
+              cpu: 50m
+              memory: 20Mi
+            limits:
+              cpu: 200m
+              memory: 100Mi
+          volumeMounts:
+            - name: ingress-nginx-conf
+              mountPath: /etc/nginx/conf.d/
+      volumes:
+        - name: ingress-nginx-conf
+          configMap:
+            name: ingress-nginx-conf
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend
+  labels:
+    tier: frontend
+spec:
+  type: ClusterIP
+  clusterIP: None
+  ports:
+    - port: 8080
+      targetPort: 8080
+  selector:
+    tier: frontend
