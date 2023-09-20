@@ -35,14 +35,11 @@ function Question() {
     useEffect(() => {
         const fetchTotalQuestions = async () => {
             try {
-                const response = await fetch(
-                    `/api/question`
-                )
+                const response = await fetch(`/api/question`)
                 if (!response.ok) {
                     throw new Error('Network response was not ok')
                 }
                 const questions = await response.json()
-                console.log(questions.length)
                 setTotalQuestions(questions.length)
             } catch (error) {
                 console.error('Error fetching the total questions:', error)
@@ -55,9 +52,7 @@ function Question() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch(
-                    `/api/question/${questionId}`
-                )
+                const response = await fetch(`/api/question/${questionId}`)
                 if (!response.ok) {
                     throw new Error('Network response was not ok')
                 }
@@ -71,8 +66,18 @@ function Question() {
         fetchData()
     }, [questionId])
 
+    useEffect(() => {
+        const savedResponses =
+            JSON.parse(localStorage.getItem('surveyResponses')) || {}
+        setSelectedOption(savedResponses[questionId])
+    }, [questionId])
+
     const handleOptionClick = (option) => {
         setSelectedOption(option)
+        const savedResponses =
+            JSON.parse(localStorage.getItem('surveyResponses')) || {}
+        savedResponses[questionId] = option
+        localStorage.setItem('surveyResponses', JSON.stringify(savedResponses))
     }
 
     const handleNext = () => {
