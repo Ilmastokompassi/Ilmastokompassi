@@ -95,7 +95,7 @@ function Question() {
         }
     }
     const handleSubmit = () => {
-        pass // Add submit function
+        return null // Add submit function
     }
 
     if (!questionData) return null
