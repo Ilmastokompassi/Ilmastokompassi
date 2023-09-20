@@ -1,6 +1,8 @@
 name: CI/CD - Backend
 
 on:
+  release:
+    types: [published]
   push:
     branches: [main]
     paths:
