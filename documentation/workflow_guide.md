@@ -18,6 +18,10 @@
 * Run your code with `invoke dev`
 * Write tests
 * Run tests and debug until 100 % approval rate: `invoke test`, for coverage: `invoke coverage` and `invoke coverage-report`
+* To run cybress tests open 3 terminals:
+    - backend: `poetry sehll`, `invoke dev`
+    - frontend: `npm run dev`
+    - frontend: `npm run cypress:open`
 * Commiting: add and commit changed files. Add to a commit message `[skip ci]`, to avoid running unneeded tests. Push always to your own branch: `git push -u origin <feature-YourBranch>`
 * Create a pull request in GitHub. 
 * Post a short message in Discord about new pull request requiring to be approved and merged. Include a short description of added functionalities and/or bug fixes and if the branch can be closed after approval.
