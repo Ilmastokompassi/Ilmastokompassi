@@ -15,8 +15,8 @@ import Public from '@mui/icons-material/Public'
 import { NavLink } from 'react-router-dom'
 
 const pages = [
-    { name: 'Kysely', route: '/survey' },
-    { name: 'Materiaali', route: '/material' },
+    { name: 'Kysely', route: '/survey', id: 'survey' },
+    { name: 'Materiaali', route: '/material', id: 'material' },
 ]
 const group = ['Ryhmä']
 
@@ -76,6 +76,7 @@ function ResponsiveAppBar() {
                             aria-haspopup="true"
                             onClick={handleOpenNavMenu}
                             color="inherit"
+                            id="hamburger"
                         >
                             <MenuIcon />
                         </IconButton>
@@ -102,6 +103,7 @@ function ResponsiveAppBar() {
                                     component={NavLink}
                                     to={page.route}
                                     key={page.name}
+                                    id={page.id + '-hamburger'}
                                     onClick={handleCloseNavMenu}
                                 >
                                     <Typography textAlign="center">
@@ -142,6 +144,7 @@ function ResponsiveAppBar() {
                                 component={NavLink}
                                 to={page.route}
                                 key={page.name}
+                                id={page.id}
                                 onClick={handleCloseNavMenu}
                                 sx={{ my: 2, color: 'white', display: 'block' }}
                             >
