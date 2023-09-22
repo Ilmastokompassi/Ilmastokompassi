@@ -44,3 +44,15 @@ test('renders question options', async () => {
         expect(screen.getByText('Cloudy')).toBeInTheDocument()
     })
 })
+test('renders move next button on the first page', () => {
+    const submitButton = screen.getByRole('button', {
+        name: /next question/i,
+    })
+    expect(submitButton).toBeInTheDocument()
+})
+test('renders previous question button on the first page', () => {
+    const submitButton = screen.getByRole('button', {
+        name: /previous question/i,
+    })
+    expect(submitButton).toBeInTheDocument()
+})
