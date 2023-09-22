@@ -5,6 +5,10 @@ export const LandingPage = () => {
     const [content, setContent] = useState([])
 
     useEffect(() => {
+        document.title = 'Ilmastokompassi'
+    }, [])
+
+    useEffect(() => {
         const getContent = async () => {
             const res = await axios('/api/test-content')
             setContent(res)

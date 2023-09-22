@@ -1,6 +1,7 @@
 import { Typography, Button, Stack } from '@mui/material'
 import { NavLink } from 'react-router-dom'
 import styled from '@emotion/styled'
+import { useEffect } from 'react'
 
 const SurveyOptionButton = styled(Button)`
     /* Add your styling here */
@@ -30,6 +31,9 @@ const handelGroup = () => {
 }
 
 export function SurveyPage() {
+    useEffect(() => {
+        document.title = 'Kysely'
+    }, [])
     return (
         <SurveyPageContainer>
             <Heading variant="h1">Miten haluat tehdä kyselyn?</Heading>
