@@ -10,7 +10,7 @@ patches:
 images:
   - name: ilmastokompassi/backend
     newName: docker.io/ilmastokompassi/backend
-    newTag: main
+    newTag: latest
   - name: ilmastokompassi/frontend
     newName: docker.io/ilmastokompassi/frontend
-    newTag: main
+    newTag: latest
