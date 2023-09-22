@@ -19,7 +19,7 @@
 * Write tests
 * Run tests and debug until 100 % approval rate: `invoke test`, for coverage: `invoke coverage` and `invoke coverage-report`
 * To run cybress tests open 3 terminals:
-    - backend: `poetry sehll`, `invoke dev`
+    - backend: `poetry shell`, `invoke dev`
     - frontend: `npm run dev`
     - frontend: `npm run cypress:open`
 * Commiting: add and commit changed files. Add to a commit message `[skip ci]`, to avoid running unneeded tests. Push always to your own branch: `git push -u origin <feature-YourBranch>`
