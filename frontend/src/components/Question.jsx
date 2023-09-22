@@ -9,13 +9,11 @@ import { Typography } from '@mui/material'
 
 export const Heading = styled(Typography)`
     font-size: 50px;
-    text-align: center
+    text-align: center;
 `
 
 export const QuestionOptionsContainer = styled.div`
     margin: 30px;
-    
-
 `
 
 export const QuestionPageContainer = styled.div`
@@ -112,8 +110,8 @@ function Question() {
         overflowY: 'auto',
     }
 
-    const isLastQuestion = questionId >= totalQuestions;
-    
+    const isLastQuestion = questionId >= totalQuestions
+
     return (
         <QuestionPageContainer>
             <Card sx={cardStyles}>
@@ -137,22 +135,29 @@ function Question() {
                 direction="row"
                 sx={{ width: '275px', justifyContent: 'space-between' }}
             >
-                <IconButton onClick={handlePrevious} disabled={questionId <= 1}>
+                <IconButton
+                    aria-label="previous question"
+                    onClick={handlePrevious}
+                    disabled={questionId <= 1}
+                >
                     <ArrowCircleLeftIcon fontSize="large" />
                 </IconButton>
-                {isLastQuestion &&
-                    <Button variant="contained" color="primary" onClick={handleSubmit}>
-                    Submit
-                </Button>
-                }
+                {isLastQuestion && (
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        onClick={handleSubmit}
+                    >
+                        Submit
+                    </Button>
+                )}
                 <IconButton
+                    aria-label="next question"
                     onClick={handleNext}
                     disabled={!totalQuestions || questionId >= totalQuestions}
                 >
                     <ArrowCircleRightIcon fontSize="large" />
                 </IconButton>
-                
-                
             </Stack>
         </QuestionPageContainer>
     )
