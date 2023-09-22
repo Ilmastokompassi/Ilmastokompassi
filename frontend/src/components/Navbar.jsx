@@ -16,7 +16,6 @@ import { NavLink } from 'react-router-dom'
 
 const pages = [
     { name: 'Kysely', route: '/survey' },
-    { name: 'Kysymys', route: '/question/1' },
     { name: 'Materiaali', route: '/material' },
 ]
 const group = ['Ryhmä']
@@ -117,7 +116,7 @@ function ResponsiveAppBar() {
                         sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }}
                     />
                     <Typography
-                        variant="h5"
+                        variant="h6"
                         noWrap
                         component="a"
                         href="/"
