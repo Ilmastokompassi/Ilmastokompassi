@@ -22,6 +22,9 @@
     - backend: `poetry shell`, `invoke dev`
     - frontend: `npm run dev`
     - frontend: `npm run cypress:open`
+* Run lint
+    - backend: `invoke lint`
+    - frontend: `npm run lint`
 * Commiting: add and commit changed files. Add to a commit message `[skip ci]`, to avoid running unneeded tests. Push always to your own branch: `git push -u origin <feature-YourBranch>`
 * Create a pull request in GitHub. 
 * Post a short message in Discord about new pull request requiring to be approved and merged. Include a short description of added functionalities and/or bug fixes and if the branch can be closed after approval.
