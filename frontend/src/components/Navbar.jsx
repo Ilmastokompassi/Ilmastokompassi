@@ -116,7 +116,7 @@ function ResponsiveAppBar() {
                         sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }}
                     />
                     <Typography
-                        variant="h7"
+                        variant="h6"
                         noWrap
                         component="a"
                         href="/"
