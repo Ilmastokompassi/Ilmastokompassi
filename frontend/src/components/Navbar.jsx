@@ -11,7 +11,7 @@ import Avatar from '@mui/material/Avatar'
 import Button from '@mui/material/Button'
 import Tooltip from '@mui/material/Tooltip'
 import MenuItem from '@mui/material/MenuItem'
-import AdbIcon from '@mui/icons-material/Adb'
+import Public from '@mui/icons-material/Public'
 import { NavLink } from 'react-router-dom'
 
 const pages = [
@@ -43,7 +43,7 @@ function ResponsiveAppBar() {
         <AppBar position="static">
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
-                    <AdbIcon
+                    <Public
                         sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }}
                     />
                     <Typography
@@ -112,7 +112,7 @@ function ResponsiveAppBar() {
                             ))}
                         </Menu>
                     </Box>
-                    <AdbIcon
+                    <Public
                         sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }}
                     />
                     <Typography
