@@ -18,10 +18,10 @@
 * Run your code with `invoke dev`
 * Write tests
 * Run tests and debug until 100 % approval rate: `invoke test`, for coverage: `invoke coverage` and `invoke coverage-report`
-* To run cybress tests open 3 terminals:
+* To run Cypress tests open 3 terminals:
     - backend: `poetry shell`, `invoke dev`
     - frontend: `npm run dev`
-    - frontend: `npm run cypress:open`
+    - frontend: `npm run cypress:open` or headless: `npm run cypress:headless`
 * Run lint
     - backend: `invoke lint`
     - frontend: `npm run lint`
