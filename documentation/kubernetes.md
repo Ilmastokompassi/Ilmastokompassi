@@ -36,7 +36,7 @@ This document describes how to deploy the application to a OpenShfit (Kubernetes
 
 ### Choosing the environment
 There is two OpenShift clusters available for the project. One for the staging environment and one for the production environment. 
-* The staging cluster is gets updated automatically from the `main` branch. Every commit to the `main` branch will trigger a new images to be pushed to Docker Hub with `latest` tag. The staging environment has `ImageStream` with a trigger which will then pull the latest image from Docker Hub and deploy it. 
+* The staging cluster gets updated automatically from the `main` branch. Every commit to the `main` branch will trigger a new image to be pushed to Docker Hub with `latest` tag. The staging environment has `ImageStream` with a trigger which will then pull the latest image from Docker Hub and deploy it. 
 * The production cluster is updated manually by creating a new release tag. 
 
 ### Login to OpenShift cluster
@@ -84,7 +84,7 @@ Now the production environment is updated to use the new images. However, the po
 oc rollout restart deploy -l app=ilmastokompassi
 ```
 
-*After* each version deployment, remember to commit the changes to the `kubernetes/production` directory to the `main` branch. 
+*After* each version deployment, remember to commit the changes done to the `kubernetes/production` directory to the `main` branch. 
 
 ## Deployment of the application from scratch
 
@@ -98,7 +98,7 @@ This process will create all the necessary objects to run the application on the
 > **Important**
 > Use `--dry-run=server` flag to test the deployment without actually applying it. This will show what objects would be created from applying the configuration or any potential errors in it.
 
-For example, for the staging deployment which Kustomize configuration is located in `kubernetes/staging` directory, run the following command:
+For example, for the staging deployment the Kustomize configuration is located in `kubernetes/staging` directory, run the following command:
 
 ```bash
 oc apply -k kubernetes/staging
