@@ -1,0 +1,4 @@
+- op: add
+  path: "/spec/template/metadata/annotations"
+  value:
+    alpha.image.policy.openshift.io/resolve-names: "*"
