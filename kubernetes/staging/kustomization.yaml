@@ -18,6 +18,8 @@ patches:
       name: frontend
 images:
   - name: ilmastokompassi/backend
+    newName: ilmastokompassi-backend
     newTag: latest
   - name: ilmastokompassi/frontend
+    newName: ilmastokompassi-frontend
     newTag: latest

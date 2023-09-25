@@ -8,6 +8,10 @@
             "kind": "ImageStreamTag",
             "name": "ilmastokompassi-frontend:latest"
           },
-          "fieldPath": "spec.template.spec.containers[?(@.name=='frontend')].image"
+          "fieldPath": "spec.template.spec.containers[?(@.name==\"frontend\")].image"
         }
       ]
+- op: add
+  path: "/spec/template/metadata/annotations"
+  value:
+    alpha.image.policy.openshift.io/resolve-names: "*"

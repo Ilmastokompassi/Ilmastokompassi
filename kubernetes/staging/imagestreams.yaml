@@ -6,10 +6,12 @@ metadata:
     app: ilmastokompassi
     app.kubernetes.io/part-of: ilmastokompassi
 spec:
+  lookupPolicy:
+    local: true
   tags:
     - from:
         kind: DockerImage
-        name: docker.io/ilmastokompassi/backend
+        name: docker.io/ilmastokompassi/backend:latest
       name: latest
       annotations:
         app: ilmastokompassi
@@ -25,10 +27,12 @@ metadata:
     app: ilmastokompassi
     app.kubernetes.io/part-of: ilmastokompassi
 spec:
+  lookupPolicy:
+    local: true
   tags:
     - from:
         kind: DockerImage
-        name: docker.io/ilmastokompassi/frontend
+        name: docker.io/ilmastokompassi/frontend:latest
       name: latest
       annotations:
         app: ilmastokompassi
