@@ -33,3 +33,21 @@ describe('From front page ', function () {
         cy.title().should('eq', 'Materiaalit')
     })
 })
+
+describe('From survey page ', function () {
+    beforeEach(function () {
+        cy.visit('http://localhost:5173/survey')
+    })
+
+    it('navbar sends to landing page', function () {
+        cy.viewport(900, 1000)
+        cy.get('#navbar-brand-large').click()
+        cy.title().should('eq', 'Ilmastokompassi')
+    })
+
+    it('navbar sends to landing page', function () {
+        cy.viewport(899, 1000)
+        cy.get('#navbar-brand-small').click()
+        cy.title().should('eq', 'Ilmastokompassi')
+    })
+})
