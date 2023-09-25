@@ -49,6 +49,7 @@ function ResponsiveAppBar() {
                     <Typography
                         variant="h6"
                         noWrap
+                        id="navbar-brand-large"
                         component={NavLink}
                         sx={{
                             mr: 2,
@@ -120,6 +121,7 @@ function ResponsiveAppBar() {
                         variant="h6"
                         noWrap
                         component={NavLink}
+                        id="navbar-brand-small"
                         sx={{
                             mr: 2,
                             display: { xs: 'flex', md: 'none' },

@@ -11,7 +11,8 @@
         "preview": "vite preview",
         "format": "npx prettier . --write",
         "test": "jest",
-        "cypress:open": "cypress open"
+        "cypress:open": "cypress open",
+        "cypress:headless": "npx cypress run --headless"
     },
     "dependencies": {
         "@emotion/react": "^11.11.1",

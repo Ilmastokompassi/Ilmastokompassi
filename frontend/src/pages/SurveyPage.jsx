@@ -44,6 +44,7 @@ export function SurveyPage() {
                         to="/question/1"
                         variant="contained"
                         data-testid="btn-start-survey"
+                        id="btn-survey-alone"
                     >
                         <Typography className="survey-option">
                             Tee kysely yksin :(
