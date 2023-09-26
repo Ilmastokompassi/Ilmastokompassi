@@ -16,4 +16,4 @@ This is a Software production project developed during University of Helsinki's 
 
 ## Project documentation
 
-- TBA
+- [Kubernetes documentation](documentation/kubernetes.md)
