@@ -4,6 +4,7 @@ import { LandingPage } from './pages/LandingPage'
 import { MaterialPage } from './pages/MaterialPage'
 import { SurveyPage } from './pages/SurveyPage'
 import { QuestionPage } from './pages/QuestionPage'
+import { ClimateProfilePage } from './pages/ClimateProfilePage'
 // Defines the routes of the application
 export const router = createBrowserRouter([
     {
@@ -24,6 +25,10 @@ export const router = createBrowserRouter([
             {
                 path: '/material',
                 element: <MaterialPage />,
+            },
+            {
+                path: '/profiles',
+                element: <ClimateProfilePage />,
             },
         ],
     },

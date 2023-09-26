@@ -17,6 +17,7 @@ import { NavLink } from 'react-router-dom'
 const pages = [
     { name: 'Kysely', route: '/survey', id: 'survey' },
     { name: 'Materiaali', route: '/material', id: 'material' },
+    { name: 'Ilmastoprofiilit', route: '/profiles', id: 'profiles' },
 ]
 const group = ['Ryhmä']
 
