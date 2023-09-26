@@ -4,10 +4,12 @@ resources:
   - backend/deployment.yaml
   - frontend/deployment.yaml
   - ingress.yaml
+# Add useful metadata to the resources
 buildMetadata: [managedByLabel, originAnnotations]
 commonLabels:
   app: ilmastokompassi
   app.kubernetes.io/part-of: ilmastokompassi
+# Add a prefix to all resource names
 namePrefix: ilmastokompassi-
 configMapGenerator:
   - name: ingress-nginx-conf

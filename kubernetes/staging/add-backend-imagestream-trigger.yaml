@@ -1,0 +1,13 @@
+- op: add
+  path: "/metadata/annotations"
+  value:
+    image.openshift.io/triggers: |-
+      [
+        {
+          "from": {
+            "kind": "ImageStreamTag",
+            "name": "ilmastokompassi-backend:latest"
+          },
+          "fieldPath": "spec.template.spec.containers[?(@.name==\"backend\")].image"
+        }
+      ]

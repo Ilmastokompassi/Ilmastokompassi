@@ -1,0 +1,41 @@
+apiVersion: image.openshift.io/v1
+kind: ImageStream
+metadata:
+  name: ilmastokompassi-backend
+  labels:
+    app: ilmastokompassi
+    app.kubernetes.io/part-of: ilmastokompassi
+spec:
+  lookupPolicy:
+    local: true
+  tags:
+    - from:
+        kind: DockerImage
+        name: docker.io/ilmastokompassi/backend:latest
+      name: latest
+      annotations:
+        app: ilmastokompassi
+        app.kubernetes.io/part-of: ilmastokompassi
+      importPolicy:
+        scheduled: true
+---
+apiVersion: image.openshift.io/v1
+kind: ImageStream
+metadata:
+  name: ilmastokompassi-frontend
+  labels:
+    app: ilmastokompassi
+    app.kubernetes.io/part-of: ilmastokompassi
+spec:
+  lookupPolicy:
+    local: true
+  tags:
+    - from:
+        kind: DockerImage
+        name: docker.io/ilmastokompassi/frontend:latest
+      name: latest
+      annotations:
+        app: ilmastokompassi
+        app.kubernetes.io/part-of: ilmastokompassi
+      importPolicy:
+        scheduled: true

@@ -2,15 +2,31 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
   - ../base
+  - imagestreams.yaml
 patches:
+  # Patch the ingress to use the staging hostname
   - path: patch-ingress.yaml
     target:
       kind: Ingress
       name: ingress
+  # Add OpenShit ImageStream triggers to update containers to point new images
+  - path: add-backend-imagestream-trigger.yaml
+    target:
+      kind: Deployment
+      name: backend
+  - path: add-frontend-imagestream-trigger.yaml
+    target:
+      kind: Deployment
+      name: frontend
+  # Enable Kubernetes deployments to lookup OpenShift specific ImageStreamTags
+  - path: enable-imagestream-lookup.yaml
+    target:
+      kind: Deployment
+# Override the staging container images to use the OpenShift ImageStreamTags
 images:
   - name: ilmastokompassi/backend
-    newName: docker.io/ilmastokompassi/backend
+    newName: ilmastokompassi-backend
     newTag: latest
   - name: ilmastokompassi/frontend
-    newName: docker.io/ilmastokompassi/frontend
+    newName: ilmastokompassi-frontend
     newTag: latest

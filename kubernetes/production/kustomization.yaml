@@ -3,14 +3,16 @@ kind: Kustomization
 resources:
   - ../base
 patches:
+  # Patch the ingress to use the production hostname
   - path: patch-ingress.yaml
     target:
       kind: Ingress
       name: ingress
+# Override the production container image tags to point to specific version.
 images:
   - name: ilmastokompassi/backend
     newName: docker.io/ilmastokompassi/backend
-    newTag: v0.0.1
+    newTag: 0.0.1
   - name: ilmastokompassi/frontend
     newName: docker.io/ilmastokompassi/frontend
-    newTag: v0.0.1
+    newTag: 0.0.1
