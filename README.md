@@ -11,6 +11,7 @@ This is a Software production project developed during University of Helsinki's 
 
 - [Definition of done](documentation/definition_of_done.md)
 - [Workflow guide](documentation/workflow_guide.md)
+- [Enviroment setup workflow guide](documentation/environment_setup_workflow.md)
 - [Work hours](documentation/work_hours)
 - [Product and sprint backlogs](https://github.com/orgs/Ilmastokompassi/projects/1/views/3)
 
