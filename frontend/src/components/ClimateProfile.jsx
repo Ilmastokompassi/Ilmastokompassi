@@ -1,7 +1,8 @@
-import { Card, CardContent, CardHeader, CardMedia, Box } from '@mui/material'
+import { Card, CardContent, CardHeader, Box } from '@mui/material'
 import styled from '@emotion/styled'
 import { Typography } from '@mui/material'
 import WbSunnyIcon from '@mui/icons-material/WbSunny'
+import PropTypes from 'prop-types'
 
 export const ProfileContainer = styled.div`
     margin: 30px;
@@ -29,4 +30,9 @@ export const ClimateProfile = ({ title, description }) => {
             <WbSunnyIcon color="black" fontSize="large" />
         </Card>
     )
+}
+
+ClimateProfile.propTypes = {
+    title: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
 }

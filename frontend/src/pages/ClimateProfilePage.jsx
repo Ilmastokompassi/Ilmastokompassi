@@ -17,19 +17,14 @@ export const ClimateProfilePage = () => {
     return (
         <Container>
             <Stack spacing={3}>
-                <Typography variant="h1">Climatechangeprofile</Typography>
-                {profileList.map(
-                    (profile) => (
-                        console.log('profile', profile),
-                        (
-                            <ClimateProfile
-                                key={profile.id}
-                                title={profile.title}
-                                description={profile.description}
-                            />
-                        )
-                    )
-                )}
+                <Typography variant="h1">Climatprofile</Typography>
+                {profileList.map((profile) => (
+                    <ClimateProfile
+                        key={profile.id}
+                        title={profile.title}
+                        description={profile.description}
+                    />
+                ))}
             </Stack>
         </Container>
     )
