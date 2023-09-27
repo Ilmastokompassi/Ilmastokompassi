@@ -1,8 +1,6 @@
 import os
 import json
-from flask import jsonify, abort
-from app import app
-
+from flask import jsonify, abort, current_app as app
 
 @app.route("/")
 def index():
