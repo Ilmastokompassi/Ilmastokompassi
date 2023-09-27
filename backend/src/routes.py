@@ -1,9 +1,7 @@
 import os
 import json
-from flask import jsonify, abort
-from app import app
+from flask import jsonify, abort, current_app as app
 from services.profile_service import default_profile_service
-
 
 @app.route("/")
 def index():
