@@ -1,11 +1,13 @@
 import { useState, useEffect } from 'react'
-import { useParams, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { Card, CardContent, Button, IconButton, Stack } from '@mui/material'
 import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight'
 import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft'
 import QuestionButton from './QuestionButton'
 import styled from '@emotion/styled'
 import { Typography } from '@mui/material'
+import useSWR from 'swr'
+import PropTypes from 'prop-types'
 
 export const Heading = styled(Typography)`
     font-size: 50px;
@@ -24,48 +26,15 @@ export const QuestionPageContainer = styled.div`
     margin-top: 100px;
 `
 
-function Question() {
-    const { id } = useParams()
-    const questionId = Number(id)
+function Question({ questionId }) {
     const navigate = useNavigate()
 
     const [selectedOption, setSelectedOption] = useState(null)
-    const [questionData, setQuestionData] = useState(null)
-    const [totalQuestions, setTotalQuestions] = useState(null)
 
-    useEffect(() => {
-        const fetchTotalQuestions = async () => {
-            try {
-                const response = await fetch(`/api/question`)
-                if (!response.ok) {
-                    throw new Error('Network response was not ok')
-                }
-                const questions = await response.json()
-                setTotalQuestions(questions.length)
-            } catch (error) {
-                console.error('Error fetching the total questions:', error)
-            }
-        }
+    const { data: questionData } = useSWR(`/api/question/${questionId}`)
+    const { data: allQuestions } = useSWR('/api/question')
 
-        fetchTotalQuestions()
-    }, [])
-
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await fetch(`/api/question/${questionId}`)
-                if (!response.ok) {
-                    throw new Error('Network response was not ok')
-                }
-                const questionData = await response.json()
-                setQuestionData(questionData)
-            } catch (error) {
-                console.error('Error fetching the question data:', error)
-            }
-        }
-
-        fetchData()
-    }, [questionId])
+    const totalQuestions = allQuestions?.length
 
     useEffect(() => {
         const savedResponses =
@@ -161,6 +130,10 @@ function Question() {
             </Stack>
         </QuestionPageContainer>
     )
+}
+
+Question.propTypes = {
+    questionId: PropTypes.number.isRequired,
 }
 
 export default Question
