@@ -1,4 +1,5 @@
 class ProfileRepository:
+    # pylint: disable=too-few-public-methods
 
     def get_profiles(self):
         profiles = [{'id': 1, 'description': 1, 'title': 1},

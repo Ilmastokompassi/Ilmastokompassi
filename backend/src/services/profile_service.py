@@ -2,6 +2,7 @@ from repositories.profile_repository import default_profile_repository
 
 
 class ProfileService:
+    # pylint: disable=too-few-public-methods
 
     def __init__(self, profile_repository=default_profile_repository):
         self.profile_repository = profile_repository
