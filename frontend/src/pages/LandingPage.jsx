@@ -1,20 +1,12 @@
-import axios from 'axios'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
+import useSWR from 'swr'
 
 export const LandingPage = () => {
-    const [content, setContent] = useState([])
+    const { data } = useSWR('/api/test-content')
+    const content = data?.content
 
     useEffect(() => {
         document.title = 'Ilmastokompassi'
-    }, [])
-
-    useEffect(() => {
-        const getContent = async () => {
-            const res = await axios('/api/test-content')
-            setContent(res)
-            setContent(res.data.content)
-        }
-        getContent()
     }, [])
 
     return (

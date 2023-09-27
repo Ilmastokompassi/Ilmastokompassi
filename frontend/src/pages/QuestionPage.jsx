@@ -3,14 +3,14 @@ import Question from '../components/Question'
 import { useEffect } from 'react'
 
 export function QuestionPage() {
-    const { id } = useParams()
+    const { questionId } = useParams()
     useEffect(() => {
         document.title = 'Kysymykset'
     }, [])
 
     return (
         <>
-            <Question questionId={id} />
+            <Question questionId={Number(questionId)} />
         </>
     )
 }
