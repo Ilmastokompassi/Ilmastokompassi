@@ -3,5 +3,5 @@
 class TestConfig:
     TESTING = True
     DEVELOPMENT = False
-    DATABASE_URL = "sqlite:///:memory:"
+    SQLALCHEMY_DATABASE_URI = "sqlite:///:memory:"
     SECRET_KEY = "secret"

@@ -4,5 +4,5 @@ from os import environ
 class EnvironmentConfig:
     TESTING = False
     DEVELOPMENT = environ.get("ENVIRONMENT") == "development"
-    DATABASE_URL = environ.get("DATABASE_URL")
+    SQLALCHEMY_DATABASE_URI = environ.get("DATABASE_URI")
     SECRET_KEY = environ.get("SECRET_KEY")

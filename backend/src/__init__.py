@@ -1,5 +1,6 @@
 from flask import Flask
 from flask_cors import CORS
+from src.extensions import db
 
 # Create the Flask app using the app factory pattern
 def create_app(config):
@@ -10,6 +11,9 @@ def create_app(config):
 
     # Apply configuration
     app.config.from_object(config)
+
+    # Initialize extensions
+    db.init_app(app)
 
     # Import routes
     with app.app_context():
