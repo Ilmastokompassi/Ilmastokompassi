@@ -7,7 +7,8 @@ import { SWRConfig } from 'swr'
 
 const swrConfig = {
     refreshInterval: 3000,
-    fetcher: (resource, init) => fetch(resource, init).then(res => res.json())
+    fetcher: (resource, init) =>
+        fetch(resource, init).then((res) => res.json()),
 }
 
 export default function App() {
