@@ -1,4 +1,4 @@
-from repositories.profile_repository import default_profile_repository
+from src.repositories.profile_repository import default_profile_repository
 
 
 class ProfileService:
