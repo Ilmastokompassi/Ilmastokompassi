@@ -1,14 +1,15 @@
 from flask import Flask
 from flask_cors import CORS
-from .config import config
 
 # Create the Flask app using the app factory pattern
-def create_app(environment):
+def create_app(config):
     app = Flask(__name__)
+
+    # Enable CORS
     CORS(app)
 
     # Apply configuration
-    app.config.from_object(config.get(environment or "Development"))
+    app.config.from_object(config)
 
     # Import routes
     with app.app_context():

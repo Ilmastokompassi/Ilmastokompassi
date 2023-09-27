@@ -1,14 +1,12 @@
 import unittest
-from flask import Flask
-from app import app
-
+import pytest
+from .config import TestConfig
+from src import create_app
 
 class TestApp(unittest.TestCase):
-
     def setUp(self):
-        # Create a test client using the Flask app
-        app.config['TESTING'] = True
-        self.client = app.test_client()
+        self.app = create_app(TestConfig)
+        self.client = self.app.test_client()
 
     def test_index_route(self):
         # Test the index route
