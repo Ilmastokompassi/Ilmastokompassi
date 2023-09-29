@@ -7,7 +7,7 @@ export const ProfileContainer = styled.div`
     margin: 30px;
 `
 
-export const ClimateProfile = ({ id, title, description }) => {
+export const ClimateProfile = ({ id, name, description }) => {
     return (
         <Card
             variant="outlined"
@@ -25,7 +25,7 @@ export const ClimateProfile = ({ id, title, description }) => {
                 <CardHeader
                     sx={{ textAlign: 'center' }}
                     titleTypographyProps={{ variant: 'h2' }}
-                    title={title}
+                    title={name}
                 />
                 <CardContent sx={{ flex: '1 0 auto' }}>
                     <Typography>{description}</Typography>
@@ -37,6 +37,6 @@ export const ClimateProfile = ({ id, title, description }) => {
 
 ClimateProfile.propTypes = {
     id: PropTypes.number.isRequired,
-    title: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
 }
