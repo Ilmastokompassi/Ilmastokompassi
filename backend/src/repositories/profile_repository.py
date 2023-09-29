@@ -2,10 +2,10 @@ class ProfileRepository:
     # pylint: disable=too-few-public-methods
 
     def get_profiles(self):
-        profiles = [{'id': 1, 'description': 1, 'title': 1},
-                    {'id': 2, 'description': 2, 'title': 2},
-                    {'id': 3, 'description': 3, 'title': 3},
-                    {'id': 4, 'description': 4, 'title': 4}]
+        profiles = [{'id': 1, 'description': 'first', 'title': 'first'},
+                    {'id': 2, 'description': 'sec', 'title': 'sec'},
+                    {'id': 3, 'description': 'third', 'title': 'third'},
+                    {'id': 4, 'description': 'fourth', 'title': 'fourth'}]
         return profiles
 
 
