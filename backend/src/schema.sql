@@ -20,6 +20,3 @@ CREATE TABLE answers (
     question_id INTEGER REFERENCES questions(id),
     score INTEGER
 );
-
-
-
