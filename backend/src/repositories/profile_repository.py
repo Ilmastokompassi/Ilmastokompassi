@@ -1,11 +1,14 @@
+from sqlalchemy import text
+from src.extensions import db
+
+
 class ProfileRepository:
     # pylint: disable=too-few-public-methods
 
     def get_profiles(self):
-        profiles = [{'id': 1, 'description': 'first', 'title': 'first'},
-                    {'id': 2, 'description': 'sec', 'title': 'sec'},
-                    {'id': 3, 'description': 'third', 'title': 'third'},
-                    {'id': 4, 'description': 'fourth', 'title': 'fourth'}]
+        result = db.session.execute(
+            text("SELECT * FROM climate_profiles;")).mappings().all()
+        profiles = [dict(row) for row in result]
         return profiles
 
 

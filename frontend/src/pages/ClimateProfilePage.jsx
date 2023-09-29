@@ -15,7 +15,7 @@ export const ClimateProfilePage = () => {
     return (
         <Container>
             <Stack spacing={3}>
-                <Typography variant="h1">Climatprofile</Typography>
+                <Typography variant="h1">Ilmastoprofiilit</Typography>
                 {profileList &&
                     profileList.map((profile) => (
                         <Box
@@ -43,7 +43,7 @@ export const ClimateProfilePage = () => {
                             <ClimateProfile
                                 id={profile.id}
                                 description={profile.description}
-                                title={profile.title}
+                                name={profile.name}
                             />
                         </Box>
                     ))}

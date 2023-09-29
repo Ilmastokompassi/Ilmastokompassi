@@ -3,6 +3,7 @@ import json
 from flask import jsonify, abort, current_app as app
 from src.services.profile_service import default_profile_service
 
+
 @app.route("/")
 def index():
     return "Hello world!"
@@ -37,9 +38,8 @@ def total_questions():
 
 @app.route("/api/profiles")
 def profiles():
-    pro = default_profile_service.get_profiles()
-    print(pro)
-    return json.dumps(pro)
+    profile_list = default_profile_service.get_profiles()
+    return jsonify(profile_list)
 
 
 @app.route("/api/question/<int:question_id>")
