@@ -18,6 +18,7 @@
 * Run your code with `invoke dev`
 * Write tests
 * Run tests and debug until 100 % approval rate: `invoke test`, for coverage: `invoke coverage` and `invoke coverage-report`
+* jest tests: `npm test`
 * To run Cypress tests open 3 terminals:
     - backend: `poetry shell`, `invoke dev`
     - frontend: `npm run dev`
