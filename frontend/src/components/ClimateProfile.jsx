@@ -1,30 +1,28 @@
 import { Card, CardContent, CardHeader, Box } from '@mui/material'
-import styled from '@emotion/styled'
 import { Typography } from '@mui/material'
 import PropTypes from 'prop-types'
 
-export const ProfileContainer = styled.div`
-    margin: 30px;
-`
-
-export const ClimateProfile = ({ id, name, description }) => {
+export const ClimateProfile = ({ name, description }) => {
     return (
         <Card
             variant="outlined"
             sx={{
-                display: 'flex',
-                flexDirection: 'row',
-                ...(id % 2 === 0 && {
-                    flexDirection: 'row-reverse',
-                }),
-                justifyContent: 'space-between',
-                width: '70%',
+                width: '100%',
             }}
         >
-            <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+            <Box
+                sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    overflowWrap: 'break-word',
+                }}
+            >
                 <CardHeader
                     sx={{ textAlign: 'center' }}
-                    titleTypographyProps={{ variant: 'h2' }}
+                    titleTypographyProps={{
+                        variant: 'h2',
+                        sx: { fontSize: '2em' },
+                    }}
                     title={name}
                 />
                 <CardContent sx={{ flex: '1 0 auto' }}>
@@ -36,7 +34,6 @@ export const ClimateProfile = ({ id, name, description }) => {
 }
 
 ClimateProfile.propTypes = {
-    id: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
 }
