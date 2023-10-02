@@ -1,5 +1,3 @@
-import os
-import json
 from flask import jsonify, abort, current_app as app
 from src.services.profile_service import default_profile_service
 from src.services.questions_service import default_questions_service
