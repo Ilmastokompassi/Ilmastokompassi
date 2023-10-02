@@ -1,6 +1,6 @@
 describe('From survey page large ', function () {
     beforeEach(function () {
-        cy.visit('http://localhost:5173/survey')
+        cy.visit('/survey')
         cy.viewport(900, 1000)
     })
 

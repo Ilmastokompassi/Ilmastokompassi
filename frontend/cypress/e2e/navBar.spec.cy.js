@@ -1,6 +1,6 @@
 describe('From front page ', function () {
     beforeEach(function () {
-        cy.visit('http://localhost:5173')
+        cy.visit('')
     })
 
     it('front page can be opened', function () {
@@ -36,7 +36,7 @@ describe('From front page ', function () {
 
 describe('From survey page ', function () {
     beforeEach(function () {
-        cy.visit('http://localhost:5173/survey')
+        cy.visit('/survey')
     })
 
     it('navbar sends to landing page', function () {
