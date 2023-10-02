@@ -1,6 +1,6 @@
 describe('Climate profiles page', function () {
     beforeEach(function () {
-        cy.visit('http://localhost:5173/profiles')
+        cy.visit('/profiles')
         cy.viewport(900, 1000)
     })
 
@@ -21,6 +21,26 @@ describe('Climate profiles page', function () {
     })
 
     it('Eettinen kuluttaja', function () {
+        cy.contains('Eettinen kuluttaja')
+    })
+
+    it('small screen ilmastoasiantuntija', function () {
+        cy.viewport(899, 1000)
+        cy.contains('Ilmastoasiantuntija')
+    })
+
+    it('small screen Mielipidevaikuttaja', function () {
+        cy.viewport(899, 1000)
+        cy.contains('Mielipidevaikuttaja')
+    })
+
+    it('small screen Kestävän elämäntavan etsijä', function () {
+        cy.viewport(899, 1000)
+        cy.contains('Kestävän elämäntavan etsijä')
+    })
+
+    it('small screen Eettinen kuluttaja', function () {
+        cy.viewport(899, 1000)
         cy.contains('Eettinen kuluttaja')
     })
 })
