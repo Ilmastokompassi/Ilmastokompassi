@@ -26,10 +26,11 @@ Either close psql connection with `\q` or open a new terminal window/tab and cre
 psql -d ilmastokompassi < backend/src/schema.sql
 ```
 
-Insert example climate profiles to the database:
+Insert climate profiles and questions into their databases:
 
 ```
 psql -d ilmastokompassi < backend/src/climateprofiles.sql
+psql -d ilmastokompassi < backend/src/questions.sql
 ```
 
 Update your .env file's DATABASE_URI:
