@@ -5,6 +5,7 @@ from src.services.profile_service import default_profile_service
 from src.services.questions_service import default_questions_service
 
 
+
 @app.route("/")
 def index():
     return "Hello world!"
@@ -28,7 +29,6 @@ def total_questions():
 @app.route("/api/profiles")
 def profiles():
     profile_list = default_profile_service.get_profiles()
-
     return jsonify(profile_list)
 
 
