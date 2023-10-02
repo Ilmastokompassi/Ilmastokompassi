@@ -93,7 +93,8 @@ function Question({ questionId }) {
             <Card sx={cardStyles}>
                 <CardContent>
                     <Heading variant="h1">
-                        {questionData.id}. {questionData.content}
+                        {questionData.id}/{totalQuestions}{' '}
+                        {questionData.content}
                     </Heading>
                     <QuestionOptionsContainer>
                         <Stack spacing={2}>
