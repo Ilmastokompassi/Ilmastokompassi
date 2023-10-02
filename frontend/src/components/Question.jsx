@@ -33,7 +33,6 @@ function Question({ questionId }) {
 
     const { data: questionData } = useSWR(`/api/question/${questionId}`)
     const { data: allQuestions } = useSWR('/api/question')
-
     const totalQuestions = allQuestions?.length
 
     useEffect(() => {
@@ -81,14 +80,24 @@ function Question({ questionId }) {
 
     const isLastQuestion = questionId >= totalQuestions
 
+    const options = [
+        'Täysin eri mieltä',
+        'Jokseenkin eri mieltä',
+        'En samaa enkä eri mieltä',
+        'Jokseenkin samaa mieltä',
+        'Täysin samaa mieltä',
+    ]
+
     return (
         <QuestionPageContainer>
             <Card sx={cardStyles}>
                 <CardContent>
-                    <Heading variant="h1">{questionData.question}</Heading>
+                    <Heading variant="h1">
+                        {questionData.id}. {questionData.content}
+                    </Heading>
                     <QuestionOptionsContainer>
                         <Stack spacing={2}>
-                            {questionData.options.map((option) => (
+                            {options.map((option) => (
                                 <QuestionButton
                                     key={option}
                                     option={option}

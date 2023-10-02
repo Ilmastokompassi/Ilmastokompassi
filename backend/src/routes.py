@@ -2,6 +2,7 @@ import os
 import json
 from flask import jsonify, abort, current_app as app
 from src.services.profile_service import default_profile_service
+from src.services.questions_service import default_questions_service
 
 
 @app.route("/")
@@ -18,36 +19,24 @@ def apitest():
     return res
 
 
-def load_json():
-    dir_path = os.path.dirname(os.path.realpath(__file__))
-    questions_file_path = os.path.join(
-        dir_path, 'static', 'questions.json')
-    try:
-        with open(questions_file_path, 'r', encoding='utf-8') as file:
-            questions = json.load(file)
-    except FileNotFoundError:
-        abort(500, description="questions.json not found")
-
-    return questions
-
-
 @app.route("/api/question")
 def total_questions():
-    return load_json()
+    questions_list = default_questions_service.get_questions()
+    return questions_list
 
 
 @app.route("/api/profiles")
 def profiles():
     profile_list = default_profile_service.get_profiles()
+
     return jsonify(profile_list)
 
 
 @app.route("/api/question/<int:question_id>")
 def individual_question(question_id):
-    questions = load_json()
-
-    question = next((q for q in questions if q['id'] == question_id), None)
-
+    questions_list = default_questions_service.get_questions()
+    question = next(
+        (q for q in questions_list if q['id'] == question_id), None)
     if question is None:
         abort(404, description="Question not found")
 
