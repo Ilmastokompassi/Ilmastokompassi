@@ -14,8 +14,15 @@ export const ClimateProfilePage = () => {
 
     return (
         <Container>
-            <Stack spacing={3}>
-                <Typography variant="h1">Ilmastoprofiilit</Typography>
+            <Stack spacing={3} paddingBottom={'50px'}>
+                <Typography
+                    variant="h1"
+                    fontSize={'4em'}
+                    align="center"
+                    paddingTop={'40px'}
+                >
+                    Ilmastoprofiilit
+                </Typography>
                 {profileList &&
                     profileList.map((profile) => (
                         <Box
@@ -33,18 +40,22 @@ export const ClimateProfilePage = () => {
                                         flexDirection: 'row-reverse',
                                     }),
                                 },
+                                paddingBottom: '40px',
                             }}
                         >
-                            <Skeleton
-                                variant="circular"
-                                width={250}
-                                height={250}
-                            />
-                            <ClimateProfile
-                                id={profile.id}
-                                description={profile.description}
-                                name={profile.name}
-                            />
+                            <Box paddingBottom={'20px'} padding={'10px'}>
+                                <Skeleton
+                                    variant="rectangular"
+                                    width={250}
+                                    height={250}
+                                />
+                            </Box>
+                            <Box padding={'10px'}>
+                                <ClimateProfile
+                                    description={profile.description}
+                                    name={profile.name}
+                                />
+                            </Box>
                         </Box>
                     ))}
             </Stack>
