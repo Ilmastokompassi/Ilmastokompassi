@@ -1,16 +1,109 @@
+import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import Question from '../components/Question'
-import { useEffect } from 'react'
+import styled from '@emotion/styled'
+import useSWR from 'swr'
+import { Button, IconButton, Stack, Typography } from '@mui/material'
+import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight'
+import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft'
+import QuestionCard from '../components/QuestionCard'
+
+export const QuestionPageContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+    margin-top: 100px;
+`
 
 export function QuestionPage() {
-    const { questionId } = useParams()
+    const { questionId: questionParamId } = useParams()
+    const [selectedOption, setSelectedOption] = useState(null)
+
+    const questionId = parseInt(questionParamId)
+
     useEffect(() => {
         document.title = 'Kysymykset'
     }, [])
 
+    const {
+        data: allQuestions,
+        isLoading: isLoadingAllQuestions
+    } = useSWR('/api/question')
+
+    const currentQuestion = allQuestions?.find(
+        (question) => question.id == questionId
+    )
+
+    const totalQuestions = allQuestions?.length
+    const isLastQuestion = questionId == totalQuestions
+
+    const handleSubmit = () => {
+        return null // Add submit function
+    }
+
+    // When new question is loaded, lookup the saved response for that question
+    // and set the selected option to that value.
+    useEffect(() => {
+        const savedResponses =
+            JSON.parse(localStorage.getItem('surveyResponses')) || {}
+        setSelectedOption(savedResponses[questionId])
+    }, [questionId])
+
+    // On option selected, save the selected option for the question 
+    // to the local storage.
+    const onOptionSelected = (option) => {
+        setSelectedOption(option)
+        const savedResponses =
+            JSON.parse(localStorage.getItem('surveyResponses')) || {}
+        savedResponses[questionId] = option
+        localStorage.setItem('surveyResponses', JSON.stringify(savedResponses))
+    }
+
     return (
-        <>
-            <Question questionId={Number(questionId)} />
-        </>
+        <QuestionPageContainer>
+            {isLoadingAllQuestions ? <p>Loading...</p> :
+                <>
+                    {/* Question options card */}
+                    <QuestionCard
+                        question={currentQuestion}
+                        selectedOption={selectedOption}
+                        onOptionSelected={onOptionSelected} />
+
+                    {/* Buttons */}
+                    <Stack
+                        direction="row"
+                        sx={{ width: '275px', justifyContent: 'space-between', alignItems: 'center' }}
+                    >
+                        <IconButton
+                            aria-label="previous question"
+                            href={`/question/${questionId - 1}`}
+                            disabled={questionId <= 1}
+                        >
+                            <ArrowCircleLeftIcon fontSize="large" />
+                        </IconButton>
+                        {isLastQuestion ? (
+                            <Button
+                                variant="contained"
+                                color="primary"
+                                onClick={handleSubmit}
+                            >
+                                Submit
+                            </Button>
+                        ) : (
+                            <Typography>
+                                {questionId}/{totalQuestions}
+                            </Typography>
+                        )}
+                        <IconButton
+                            aria-label="next question"
+                            href={`/question/${questionId + 1}`}
+                            disabled={!totalQuestions || questionId >= totalQuestions}
+                        >
+                            <ArrowCircleRightIcon fontSize="large" />
+                        </IconButton>
+                    </Stack>
+                </>
+            }
+        </QuestionPageContainer>
     )
 }
