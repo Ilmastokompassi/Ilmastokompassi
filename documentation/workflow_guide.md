@@ -12,8 +12,7 @@
     * Move to /frontend: `npm install`, `npm run dev`,  ctrl + click to open site
   
 ### Completing a task
-* Choose a task from the sprint backlog, assign yourself to the t
-* ask and set task status to _In progress_
+* Choose a task from the sprint backlog, assign yourself to the task and set task status to _In progress_
 * Create a new branch `git switch -c <branch-name>`
 * See [Run](#run)-section how to run application locally
 * Write and debug the code
