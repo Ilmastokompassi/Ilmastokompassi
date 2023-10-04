@@ -1,19 +1,10 @@
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import styled from '@emotion/styled'
 import useSWR from 'swr'
 import { Button, IconButton, Stack, Typography } from '@mui/material'
 import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight'
 import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft'
 import QuestionCard from '../components/QuestionCard'
-
-export const QuestionPageContainer = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    height: 100vh;
-    margin-top: 100px;
-`
 
 export function QuestionPage() {
     const { questionId: questionParamId } = useParams()
@@ -73,7 +64,13 @@ export function QuestionPage() {
     }
 
     return (
-        <QuestionPageContainer>
+        <Stack
+            direction="column"
+            justifyContent="center"
+            alignItems="center"
+            spacing={2}
+            margin={2}
+        >
             {isLoadingAllQuestions ? (
                 <p>Loading...</p>
             ) : (
@@ -84,15 +81,12 @@ export function QuestionPage() {
                         selectedOptionId={selectedOptionId}
                         onOptionSelected={onOptionSelected}
                     />
-
                     {/* Buttons */}
                     <Stack
                         direction="row"
-                        sx={{
-                            width: '275px',
-                            justifyContent: 'space-between',
-                            alignItems: 'center',
-                        }}
+                        justifyContent="space-evenly"
+                        alignItems="center"
+                        spacing={4}
                     >
                         <IconButton
                             aria-label="previous question"
@@ -126,6 +120,6 @@ export function QuestionPage() {
                     </Stack>
                 </>
             )}
-        </QuestionPageContainer>
+        </Stack>
     )
 }
