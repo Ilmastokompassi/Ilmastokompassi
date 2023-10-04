@@ -1,5 +1,8 @@
 FROM python:3.10-buster as builder
 
+RUN apt-get update && \
+    apt-get install -y libpq-dev gcc
+
 RUN pip install poetry==1.6.1
 
 ENV POETRY_NO_INTERACTION=1 \
@@ -14,6 +17,9 @@ COPY pyproject.toml poetry.lock ./
 RUN poetry install --without dev --no-root && rm -rf $POETRY_CACHE_DIR
 
 FROM python:3.10-slim-buster as runtime
+
+RUN apt-get update && \
+    apt-get install -y libpq-dev gcc
 
 ENV VIRTUAL_ENV=/app/.venv \
     PATH="/app/.venv/bin:$PATH"
