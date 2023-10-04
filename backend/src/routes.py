@@ -1,8 +1,6 @@
 from flask import jsonify, abort, request, current_app as app
-from sqlalchemy.sql import text
 from src.services.profile_service import default_profile_service
-from src.services.questions_service import default_questions_service
-from src.extensions import db
+from src.services.survey_service import default_survey_service
 
 
 @app.route("/")
@@ -21,7 +19,7 @@ def apitest():
 
 @app.route("/api/question")
 def total_questions():
-    questions_list = default_questions_service.get_questions()
+    questions_list = default_survey_service.get_questions()
     return questions_list
 
 
@@ -33,7 +31,7 @@ def profiles():
 
 @app.route("/api/question/<int:question_id>")
 def individual_question(question_id):
-    questions_list = default_questions_service.get_questions()
+    questions_list = default_survey_service.get_questions()
     question = next(
         (q for q in questions_list if q['id'] == question_id), None)
     if question is None:
@@ -41,27 +39,18 @@ def individual_question(question_id):
 
     return jsonify(question)
 
+
 @app.route("/api/submit", methods=['POST'])
 def submit():
     data = request.get_json()
     responses = data.get('responses')
 
-    sql_user = text(
-        "INSERT INTO users VALUES (default) RETURNING id"
-    )
-
-    user_id = db.session.execute(sql_user).fetchone()[0]
-
     try:
-        for question_id, answer in responses.items():
-            db.session.execute(text("""
-                INSERT INTO answers (user_id, question_id, score)
-                VALUES (:user_id, :question_id, :score)"""), {"user_id": user_id, "question_id": question_id, "score": answer}) # pylint: disable=line-too-long
-        db.session.commit()
-    except Exception as error: # pylint: disable=broad-except
-        print(error)
-        db.session.rollback()
-        return jsonify({"status": "error", "message": str(error)}), 500
-    return jsonify({"status": "success",
-                    "message": "Answers submitted successfully",
-                    "user_id": user_id}), 200
+        user_id = default_survey_service.save_answers(responses)
+        return jsonify({"status": "success",
+                        "message": "Answers submitted successfully",
+                        "user_id": user_id}), 200
+    except Exception as error:  # pylint: disable=broad-except
+        print("ROUTE submit", error)
+        return jsonify({"status": "fail",
+                        "message": "Something went wrong"}), 418
