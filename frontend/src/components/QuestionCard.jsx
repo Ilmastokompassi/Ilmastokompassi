@@ -6,12 +6,9 @@ function QuestionCard({ question, selectedOption, onOptionSelected }) {
     const cardStyles = {
         width: '80%',
         maxWidth: '800px',
-        height: '50vh',
         backgroundColor: '#f9f9f9',
         borderRadius: '16px',
-        padding: '10px',
-        marginTop: '50px',
-        marginBottom: '20px',
+        padding: '5px',
         overflowY: 'auto',
     }
 
@@ -26,14 +23,18 @@ function QuestionCard({ question, selectedOption, onOptionSelected }) {
     return (
         <Card sx={cardStyles}>
             <CardContent>
-                <Typography variant="h1" textAlign="center" fontSize={48}>
+                <Typography variant="h1" textAlign="center" fontSize={18}>
                     {question.id + '. ' + question.content}
                 </Typography>
                 <Stack spacing={2} marginTop={4}>
                     {options.map((option, index) => (
                         <Button
                             key={index}
-                            variant={selectedOption == option ? 'contained' : 'outlined'}
+                            variant={
+                                selectedOption == option
+                                    ? 'contained'
+                                    : 'outlined'
+                            }
                             onClick={() => onOptionSelected(option)}
                         >
                             {option}
@@ -47,7 +48,7 @@ function QuestionCard({ question, selectedOption, onOptionSelected }) {
 
 const questionProps = PropTypes.shape({
     id: PropTypes.number.isRequired,
-    content: PropTypes.string.isRequired
+    content: PropTypes.string.isRequired,
 })
 
 QuestionCard.propTypes = {

@@ -1,19 +1,10 @@
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import styled from '@emotion/styled'
 import useSWR from 'swr'
 import { Button, IconButton, Stack, Typography } from '@mui/material'
 import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight'
 import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft'
 import QuestionCard from '../components/QuestionCard'
-
-export const QuestionPageContainer = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    height: 100vh;
-    margin-top: 100px;
-`
 
 export function QuestionPage() {
     const { questionId: questionParamId } = useParams()
@@ -25,10 +16,8 @@ export function QuestionPage() {
         document.title = 'Kysymykset'
     }, [])
 
-    const {
-        data: allQuestions,
-        isLoading: isLoadingAllQuestions
-    } = useSWR('/api/question')
+    const { data: allQuestions, isLoading: isLoadingAllQuestions } =
+        useSWR('/api/question')
 
     const currentQuestion = allQuestions?.find(
         (question) => question.id == questionId
@@ -49,7 +38,7 @@ export function QuestionPage() {
         setSelectedOption(savedResponses[questionId])
     }, [questionId])
 
-    // On option selected, save the selected option for the question 
+    // On option selected, save the selected option for the question
     // to the local storage.
     const onOptionSelected = (option) => {
         setSelectedOption(option)
@@ -60,19 +49,29 @@ export function QuestionPage() {
     }
 
     return (
-        <QuestionPageContainer>
-            {isLoadingAllQuestions ? <p>Loading...</p> :
+        <Stack
+            direction="column"
+            justifyContent="center"
+            alignItems="center"
+            spacing={2}
+            margin={2}
+        >
+            {isLoadingAllQuestions ? (
+                <p>Loading...</p>
+            ) : (
                 <>
                     {/* Question options card */}
                     <QuestionCard
                         question={currentQuestion}
                         selectedOption={selectedOption}
-                        onOptionSelected={onOptionSelected} />
-
+                        onOptionSelected={onOptionSelected}
+                    />
                     {/* Buttons */}
                     <Stack
                         direction="row"
-                        sx={{ width: '275px', justifyContent: 'space-between', alignItems: 'center' }}
+                        justifyContent="space-evenly"
+                        alignItems="center"
+                        spacing={4}
                     >
                         <IconButton
                             aria-label="previous question"
@@ -97,13 +96,15 @@ export function QuestionPage() {
                         <IconButton
                             aria-label="next question"
                             href={`/question/${questionId + 1}`}
-                            disabled={!totalQuestions || questionId >= totalQuestions}
+                            disabled={
+                                !totalQuestions || questionId >= totalQuestions
+                            }
                         >
                             <ArrowCircleRightIcon fontSize="large" />
                         </IconButton>
                     </Stack>
                 </>
-            }
-        </QuestionPageContainer>
+            )}
+        </Stack>
     )
 }
