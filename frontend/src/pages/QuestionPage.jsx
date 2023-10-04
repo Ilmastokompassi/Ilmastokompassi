@@ -17,7 +17,7 @@ export const QuestionPageContainer = styled.div`
 
 export function QuestionPage() {
     const { questionId: questionParamId } = useParams()
-    const [selectedOption, setSelectedOption] = useState(null)
+    const [selectedOptionId, setSelectedOptionId] = useState(null)
 
     const questionId = parseInt(questionParamId)
 
@@ -25,10 +25,8 @@ export function QuestionPage() {
         document.title = 'Kysymykset'
     }, [])
 
-    const {
-        data: allQuestions,
-        isLoading: isLoadingAllQuestions
-    } = useSWR('/api/question')
+    const { data: allQuestions, isLoading: isLoadingAllQuestions } =
+        useSWR('/api/question')
 
     const currentQuestion = allQuestions?.find(
         (question) => question.id == questionId
@@ -38,7 +36,20 @@ export function QuestionPage() {
     const isLastQuestion = questionId == totalQuestions
 
     const handleSubmit = () => {
-        return null // Add submit function
+        const responses = JSON.parse(localStorage.getItem('surveyResponses'))
+        fetch('/api/submit', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ responses }),
+        })
+            .then((response) => response.json())
+            .then(() => {
+                // Handle response from server
+                // Possible redirect or show a thank-you message to user
+            })
+            .catch((error) => {
+                console.error('Error submitting data: ', error)
+            })
     }
 
     // When new question is loaded, lookup the saved response for that question
@@ -46,33 +57,42 @@ export function QuestionPage() {
     useEffect(() => {
         const savedResponses =
             JSON.parse(localStorage.getItem('surveyResponses')) || {}
-        setSelectedOption(savedResponses[questionId])
+        setSelectedOptionId(savedResponses[questionId])
     }, [questionId])
 
-    // On option selected, save the selected option for the question 
+    // On option selected, save the selected option for the question
     // to the local storage.
-    const onOptionSelected = (option) => {
-        setSelectedOption(option)
+    const onOptionSelected = (selectedOptionId) => {
+        setSelectedOptionId(selectedOptionId)
+
         const savedResponses =
             JSON.parse(localStorage.getItem('surveyResponses')) || {}
-        savedResponses[questionId] = option
+
+        savedResponses[questionId] = selectedOptionId
         localStorage.setItem('surveyResponses', JSON.stringify(savedResponses))
     }
 
     return (
         <QuestionPageContainer>
-            {isLoadingAllQuestions ? <p>Loading...</p> :
+            {isLoadingAllQuestions ? (
+                <p>Loading...</p>
+            ) : (
                 <>
                     {/* Question options card */}
                     <QuestionCard
                         question={currentQuestion}
-                        selectedOption={selectedOption}
-                        onOptionSelected={onOptionSelected} />
+                        selectedOptionId={selectedOptionId}
+                        onOptionSelected={onOptionSelected}
+                    />
 
                     {/* Buttons */}
                     <Stack
                         direction="row"
-                        sx={{ width: '275px', justifyContent: 'space-between', alignItems: 'center' }}
+                        sx={{
+                            width: '275px',
+                            justifyContent: 'space-between',
+                            alignItems: 'center',
+                        }}
                     >
                         <IconButton
                             aria-label="previous question"
@@ -97,13 +117,15 @@ export function QuestionPage() {
                         <IconButton
                             aria-label="next question"
                             href={`/question/${questionId + 1}`}
-                            disabled={!totalQuestions || questionId >= totalQuestions}
+                            disabled={
+                                !totalQuestions || questionId >= totalQuestions
+                            }
                         >
                             <ArrowCircleRightIcon fontSize="large" />
                         </IconButton>
                     </Stack>
                 </>
-            }
+            )}
         </QuestionPageContainer>
     )
 }
