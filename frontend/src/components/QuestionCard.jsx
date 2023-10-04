@@ -2,7 +2,7 @@ import { Button, Card, CardContent, Stack } from '@mui/material'
 import { Typography } from '@mui/material'
 import PropTypes from 'prop-types'
 
-function QuestionCard({ question, selectedOption, onOptionSelected }) {
+function QuestionCard({ question, selectedOptionId, onOptionSelected }) {
     const cardStyles = {
         width: '80%',
         maxWidth: '800px',
@@ -13,11 +13,11 @@ function QuestionCard({ question, selectedOption, onOptionSelected }) {
     }
 
     const options = [
-        'Täysin eri mieltä',
-        'Jokseenkin eri mieltä',
-        'En samaa enkä eri mieltä',
-        'Jokseenkin samaa mieltä',
-        'Täysin samaa mieltä',
+        { id: 1, name: 'Täysin eri mieltä' },
+        { id: 2, name: 'Jokseenkin eri mieltä' },
+        { id: 3, name: 'En samaa enkä eri mieltä' },
+        { id: 4, name: 'Jokseenkin samaa mieltä' },
+        { id: 5, name: 'Täysin samaa mieltä' },
     ]
 
     return (
@@ -27,17 +27,17 @@ function QuestionCard({ question, selectedOption, onOptionSelected }) {
                     {question.id + '. ' + question.content}
                 </Typography>
                 <Stack spacing={2} marginTop={4}>
-                    {options.map((option, index) => (
+                    {options.map((option) => (
                         <Button
-                            key={index}
+                            key={option.id}
                             variant={
-                                selectedOption == option
+                                option.id == selectedOptionId
                                     ? 'contained'
                                     : 'outlined'
                             }
-                            onClick={() => onOptionSelected(option)}
+                            onClick={() => onOptionSelected(option.id)}
                         >
-                            {option}
+                            {option.name}
                         </Button>
                     ))}
                 </Stack>
@@ -53,7 +53,7 @@ const questionProps = PropTypes.shape({
 
 QuestionCard.propTypes = {
     question: questionProps.isRequired,
-    selectedOption: PropTypes.string,
+    selectedOptionId: PropTypes.number,
     onOptionSelected: PropTypes.func,
 }
 

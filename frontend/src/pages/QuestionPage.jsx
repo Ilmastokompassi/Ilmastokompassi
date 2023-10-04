@@ -8,7 +8,7 @@ import QuestionCard from '../components/QuestionCard'
 
 export function QuestionPage() {
     const { questionId: questionParamId } = useParams()
-    const [selectedOption, setSelectedOption] = useState(null)
+    const [selectedOptionId, setSelectedOptionId] = useState(null)
 
     const questionId = parseInt(questionParamId)
 
@@ -27,7 +27,20 @@ export function QuestionPage() {
     const isLastQuestion = questionId == totalQuestions
 
     const handleSubmit = () => {
-        return null // Add submit function
+        const responses = JSON.parse(localStorage.getItem('surveyResponses'))
+        fetch('/api/submit', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ responses }),
+        })
+            .then((response) => response.json())
+            .then(() => {
+                // Handle response from server
+                // Possible redirect or show a thank-you message to user
+            })
+            .catch((error) => {
+                console.error('Error submitting data: ', error)
+            })
     }
 
     // When new question is loaded, lookup the saved response for that question
@@ -35,16 +48,18 @@ export function QuestionPage() {
     useEffect(() => {
         const savedResponses =
             JSON.parse(localStorage.getItem('surveyResponses')) || {}
-        setSelectedOption(savedResponses[questionId])
+        setSelectedOptionId(savedResponses[questionId])
     }, [questionId])
 
     // On option selected, save the selected option for the question
     // to the local storage.
-    const onOptionSelected = (option) => {
-        setSelectedOption(option)
+    const onOptionSelected = (selectedOptionId) => {
+        setSelectedOptionId(selectedOptionId)
+
         const savedResponses =
             JSON.parse(localStorage.getItem('surveyResponses')) || {}
-        savedResponses[questionId] = option
+
+        savedResponses[questionId] = selectedOptionId
         localStorage.setItem('surveyResponses', JSON.stringify(savedResponses))
     }
 
@@ -63,7 +78,7 @@ export function QuestionPage() {
                     {/* Question options card */}
                     <QuestionCard
                         question={currentQuestion}
-                        selectedOption={selectedOption}
+                        selectedOptionId={selectedOptionId}
                         onOptionSelected={onOptionSelected}
                     />
                     {/* Buttons */}

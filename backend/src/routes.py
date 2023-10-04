@@ -1,7 +1,8 @@
-from flask import jsonify, abort, current_app as app
+from flask import jsonify, abort, request, current_app as app
+from sqlalchemy.sql import text
 from src.services.profile_service import default_profile_service
 from src.services.questions_service import default_questions_service
-
+from src.extensions import db
 
 
 @app.route("/")
@@ -39,3 +40,28 @@ def individual_question(question_id):
         abort(404, description="Question not found")
 
     return jsonify(question)
+
+@app.route("/api/submit", methods=['POST'])
+def submit():
+    data = request.get_json()
+    responses = data.get('responses')
+
+    sql_user = text(
+        "INSERT INTO users VALUES (default) RETURNING id"
+    )
+
+    user_id = db.session.execute(sql_user).fetchone()[0]
+
+    try:
+        for question_id, answer in responses.items():
+            db.session.execute(text("""
+                INSERT INTO answers (user_id, question_id, score)
+                VALUES (:user_id, :question_id, :score)"""), {"user_id": user_id, "question_id": question_id, "score": answer}) # pylint: disable=line-too-long
+        db.session.commit()
+    except Exception as error: # pylint: disable=broad-except
+        print(error)
+        db.session.rollback()
+        return jsonify({"status": "error", "message": str(error)}), 500
+    return jsonify({"status": "success",
+                    "message": "Answers submitted successfully",
+                    "user_id": user_id}), 200
