@@ -4,15 +4,15 @@ import { LinkBehavior } from './components/LinkBehavior'
 export const theme = createTheme({
     palette: {
         primary: {
-            main: '#1976d2' /* MUI default */,
+            main: '#006600' /* MUI default */,
         },
     },
     components: {
         MuiLink: {
-            defaultProps: { component: LinkBehavior }
+            defaultProps: { component: LinkBehavior },
         },
         MuiButtonBase: {
-            defaultProps: { LinkComponent: LinkBehavior }
-        }
-    }
+            defaultProps: { LinkComponent: LinkBehavior },
+        },
+    },
 })
