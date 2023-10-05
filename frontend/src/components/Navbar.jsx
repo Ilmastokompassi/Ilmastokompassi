@@ -18,7 +18,7 @@ const pages = [
     { name: 'Kysely', route: '/survey', id: 'survey' },
     { name: 'Materiaali', route: '/material', id: 'material' },
     { name: 'Ilmastoprofiilit', route: '/profiles', id: 'profiles' },
-    { name: 'Ilmastoprofiili', route: '/profile', id: 'profile' },
+    { name: 'Ilmastoprofiili', route: '/summary', id: 'profile' },
 ]
 const group = ['Ryhmä']
 
