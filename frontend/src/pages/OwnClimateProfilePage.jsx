@@ -1,6 +1,5 @@
 import { Container } from '@mui/material'
 import { useEffect } from 'react'
-import useSWR from 'swr'
 
 export const OwnClimateProfilePage = () => {
     useEffect(() => {

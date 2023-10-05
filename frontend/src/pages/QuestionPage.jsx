@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { redirect, useParams, useNavigate } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 import useSWR from 'swr'
 import { Button, IconButton, Stack, Typography } from '@mui/material'
 import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight'
