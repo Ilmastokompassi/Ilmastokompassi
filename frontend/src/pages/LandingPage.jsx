@@ -1,10 +1,7 @@
 import { useEffect } from 'react'
 import { Typography, Container, Button, Stack } from '@mui/material'
-import useSWR from 'swr'
 
 export const LandingPage = () => {
-    const { data } = useSWR('/api/test-content')
-
     useEffect(() => {
         document.title = 'Ilmastokompassi'
     }, [])
