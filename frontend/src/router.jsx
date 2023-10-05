@@ -5,7 +5,7 @@ import { MaterialPage } from './pages/MaterialPage'
 import { SurveyPage } from './pages/SurveyPage'
 import { QuestionPage } from './pages/QuestionPage'
 import { ClimateProfilePage } from './pages/ClimateProfilePage'
-import { OwnClimateProfilePage } from './pages/OwnClimateProfilePage'
+import { SummaryPage } from './pages/SummaryPage'
 
 // Defines the routes of the application
 export const routes = [
@@ -33,8 +33,8 @@ export const routes = [
                 element: <ClimateProfilePage />,
             },
             {
-                path: '/profile',
-                element: <OwnClimateProfilePage />,
+                path: '/summary/:userId',
+                element: <SummaryPage />,
             },
         ],
     },
