@@ -45,3 +45,13 @@ def submit():
         print("ROUTE submit", error)
         return jsonify({"status": "fail",
                         "message": "Something went wrong"}), 418
+
+@app.route('/api/answers/count/<int:user_id>', methods=['GET'])
+def get_answer_count(user_id):
+    try:
+        result = default_survey_service.get_answer_count(user_id)
+        return jsonify(count=result)
+    except Exception as error: # pylint: disable=broad-except
+        print(error)
+        return jsonify(error="Something went wrong!"), 500
+    

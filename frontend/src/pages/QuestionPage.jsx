@@ -35,14 +35,14 @@ export function QuestionPage() {
             body: JSON.stringify({ responses }),
         })
             .then((response) => response.json())
-            .then(() => {
+            .then((data) => {
                 // Handle response from server
                 // Possible redirect or show a thank-you message to user
                 // User should get a pop up message for succesful submission
                 alert(
                     'Vastaukset tallennettu onnistuneesti! Siirry katsomaan oma ilmastoprofiilisi.'
                 )
-                navigate('/profile')
+                navigate('/summary/' + data.user_id)
             })
             .catch((error) => {
                 console.error('Error submitting data: ', error)
