@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { redirect, useParams, useNavigate } from 'react-router-dom'
 import useSWR from 'swr'
 import { Button, IconButton, Stack, Typography } from '@mui/material'
 import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight'
@@ -9,6 +9,7 @@ import QuestionCard from '../components/QuestionCard'
 export function QuestionPage() {
     const { questionId: questionParamId } = useParams()
     const [selectedOptionId, setSelectedOptionId] = useState(null)
+    const navigate = useNavigate()
 
     const questionId = parseInt(questionParamId)
 
@@ -37,6 +38,11 @@ export function QuestionPage() {
             .then(() => {
                 // Handle response from server
                 // Possible redirect or show a thank-you message to user
+                // User should get a pop up message for succesful submission
+                alert(
+                    'Vastaukset tallennettu onnistuneesti! Siirry katsomaan oma ilmastoprofiilisi.'
+                )
+                navigate('/profile')
             })
             .catch((error) => {
                 console.error('Error submitting data: ', error)
