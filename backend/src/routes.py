@@ -8,15 +8,6 @@ def index():
     return "Hello world!"
 
 
-@app.route("/api/test-content")
-def apitest():
-    res = {
-        "content": "This is the test content"
-    }
-
-    return res
-
-
 @app.route("/api/question")
 def total_questions():
     questions_list = default_survey_service.get_questions()
