@@ -29,17 +29,9 @@ spec:
             limits:
               cpu: 100m
               memory: 300Mi
-          env:
-            - name: DATABASE_URI
-              valueFrom:
-                secretKeyRef:
-                  name: ilmastokompassi-backend-config
-                  key: DATABASE_URI
-            - name: SECRET_KEY
-              valueFrom:
-                secretKeyRef:
-                  name: ilmastokompassi-backend-config
-                  key: SECRET_KEY
+          envFrom:
+            - secretRef:
+                name: ilmastokompassi-backend-config
 ---
 apiVersion: v1
 kind: Service
