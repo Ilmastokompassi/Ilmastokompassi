@@ -13,6 +13,7 @@ import Tooltip from '@mui/material/Tooltip'
 import MenuItem from '@mui/material/MenuItem'
 import Public from '@mui/icons-material/Public'
 import { NavLink } from 'react-router-dom'
+import { theme } from '../theme'
 
 const pages = [
     { name: 'Kysely', route: '/survey', id: 'survey' },
@@ -116,7 +117,10 @@ function ResponsiveAppBar() {
                         </Menu>
                     </Box>
                     <Public
-                        sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }}
+                        sx={{
+                            display: { nav_sm: 'flex', xs: 'none', md: 'none' },
+                            mr: 1,
+                        }}
                     />
                     <Typography
                         variant="h6"
@@ -124,14 +128,24 @@ function ResponsiveAppBar() {
                         component={NavLink}
                         id="navbar-brand-small"
                         sx={{
+                            fontSize: '20px',
+                            [theme.breakpoints.down('nav_sm')]: {
+                                fontSize: '14px',
+                            },
                             mr: 2,
-                            display: { xs: 'flex', md: 'none' },
+                            display: 'flex',
                             flexGrow: 1,
                             fontFamily: 'monospace',
                             fontWeight: 700,
                             letterSpacing: '.3rem',
                             color: 'inherit',
                             textDecoration: 'none',
+                            [theme.breakpoints.up('md')]: {
+                                display: 'none',
+                            },
+                            [theme.breakpoints.down('nav_xs')]: {
+                                display: 'none',
+                            },
                         }}
                     >
                         Ilmastokompassi

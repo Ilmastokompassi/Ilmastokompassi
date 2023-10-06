@@ -17,9 +17,14 @@ export const ClimateProfilePage = () => {
             <Stack spacing={3} paddingBottom={'50px'}>
                 <Typography
                     variant="h1"
-                    fontSize={'4em'}
                     align="center"
                     paddingTop={'40px'}
+                    sx={{
+                        fontSize: {
+                            xs: '3em',
+                            sm: '4em',
+                        },
+                    }}
                 >
                     Ilmastoprofiilit
                 </Typography>

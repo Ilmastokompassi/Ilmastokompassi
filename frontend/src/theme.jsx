@@ -7,6 +7,17 @@ export const theme = createTheme({
             main: '#006600' /* MUI default */,
         },
     },
+    breakpoints: {
+        values: {
+            xs: 0,
+            sm: 600,
+            md: 900,
+            lg: 1200,
+            xl: 1536,
+            nav_sm: 415,
+            nav_xs: 340,
+        },
+    },
     components: {
         MuiLink: {
             defaultProps: { component: LinkBehavior },
