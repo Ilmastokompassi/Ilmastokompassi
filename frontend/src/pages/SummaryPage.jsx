@@ -9,8 +9,6 @@ import {
     CardHeader,
 } from '@mui/material'
 import { useEffect, useState } from 'react'
-import { ClimateProfile } from '../components/ClimateProfile'
-import { theme } from '../theme'
 import { useParams } from 'react-router-dom'
 
 export const SummaryPage = () => {
