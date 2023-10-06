@@ -28,12 +28,10 @@ class SurveyRepository:
         return user_id
 
     def get_answer_count(self, user_id):
-        print(user_id)
         result = db.session.execute(
             text("SELECT COUNT(*) FROM answers WHERE user_id = :user_id"),
             {"user_id": user_id}).fetchone()[0]
         return result
-
 
 
 default_survey_repository = SurveyRepository()
