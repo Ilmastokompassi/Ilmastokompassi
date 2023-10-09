@@ -15,7 +15,9 @@ This document describes how to deploy the application to a OpenShfit (Kubernetes
     - [Login to OpenShift cluster](#login-to-openshift-cluster)
   - [Deploying new version to the production](#deploying-new-version-to-the-production)
   - [Deployment of the application from scratch](#deployment-of-the-application-from-scratch)
-    - [Apply the configuration](#apply-the-configuration)
+    - [Configuration](#configuration)
+      - [Secrets](#secrets)
+      - [Apply the configuration](#apply-the-configuration)
     - [List all objects of the app](#list-all-objects-of-the-app)
     - [Manually trigger redeployment of the pods](#manually-trigger-redeployment-of-the-pods)
 
@@ -93,11 +95,24 @@ This process will create all the necessary objects to run the application on the
 > **Important**
 > This is not needed if the application is already deployed and you just want to deploy a new version of it. Refer to the [Deploying new version to the production](#deploying-new-version-to-the-production) section for that.
 
-### Apply the configuration
+### Configuration
 
 > **Important**
 > Use `--dry-run=server` flag to test the deployment without actually applying it. This will show what objects would be created from applying the configuration or any potential errors in it.
 
+#### Secrets
+> **Important**
+> **Do not** commit the secret manifests to the version control!
+
+The backend deployment requires configuring secrets such as the database instance. These configuration values are pulled from the environment variables in the application. 
+
+We can create the secret configuration with following:
+```bash
+oc create secret generic ilmastokompassi-backend-config --from-env-file=path/to/environment-secrets.env
+```
+where ``--from-env-file`` option is given path to a file with ``KEY=VALUE`` pairs as the environment variables. See [.env.example](https://github.com/Ilmastokompassi/Ilmastokompassi/blob/edad5d68e28c3d7d671e11d6d8bb1fed6150733f/backend/.env.example) for the required environment variables.
+
+#### Apply the configuration
 For example, for the staging deployment the Kustomize configuration is located in `kubernetes/staging` directory, run the following command:
 
 ```bash
