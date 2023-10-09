@@ -13,7 +13,7 @@ function QuestionCard({ question, selectedOptionId, onOptionSelected }) {
         width: '80%',
         maxWidth: '800px',
         backgroundColor: '#f9f9f9',
-        borderRadius: '6px',
+        borderRadius: '16px',
         padding: '5px',
         overflow: 'hidden', // Hide overflow content
     }
