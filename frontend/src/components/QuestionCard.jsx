@@ -1,5 +1,11 @@
-import { Button, Card, CardContent, Stack } from '@mui/material'
-import { Typography } from '@mui/material'
+import {
+    Button,
+    Container,
+    Card,
+    CardContent,
+    Stack,
+    Typography,
+} from '@mui/material'
 import PropTypes from 'prop-types'
 
 function QuestionCard({ question, selectedOptionId, onOptionSelected }) {
@@ -23,15 +29,28 @@ function QuestionCard({ question, selectedOptionId, onOptionSelected }) {
     return (
         <Card sx={cardStyles}>
             <CardContent>
-                <Typography variant="h1" textAlign="center" fontSize={18}>
-                    {question.id + '. ' + question.content}
-                </Typography>
-                <Stack spacing={2} marginTop={4}>
+                <Container
+                    sx={{
+                        minHeight: {
+                            nav_sm: '160px',
+                            xs: '165px',
+                            sm: '100px',
+                        },
+                        padding: '5px',
+                        textAlign: 'center',
+                    }}
+                >
+                    <Typography variant="h1" textAlign="center" fontSize={18}>
+                        {question.id + '. ' + question.content}
+                    </Typography>
+                </Container>
+
+                <Stack spacing={2} marginTop={1}>
                     {options.map((option) => (
                         <Button
                             key={option.id}
                             variant={
-                                option.id == selectedOptionId
+                                option.id === selectedOptionId
                                     ? 'contained'
                                     : 'outlined'
                             }

@@ -98,6 +98,7 @@ export function QuestionPage() {
             alignItems="center"
             spacing={2}
             margin={2}
+            style={{ minHeight: '80vh' }}
         >
             {isLoadingAllQuestions ? (
                 <p>Loading...</p>
