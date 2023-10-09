@@ -37,7 +37,12 @@ export function SurveyPage() {
     }, [])
     return (
         <SurveyPageContainer>
-            <Heading variant="h1">Miten haluat tehdä kyselyn?</Heading>
+            <Heading
+                variant="h1"
+                sx={{ fontSize: { xs: '2em', sm: '3em', md: '4em' } }}
+            >
+                Miten haluat tehdä kyselyn?
+            </Heading>
             <SurveyOptionsContainer>
                 <Stack spacing={2}>
                     <SurveyOptionButton
@@ -48,7 +53,7 @@ export function SurveyPage() {
                         id="btn-survey-alone"
                     >
                         <Typography className="survey-option">
-                            Tee kysely yksin :(
+                            Teen kyselyn yksin
                         </Typography>
                     </SurveyOptionButton>
                     <SurveyOptionButton
@@ -56,7 +61,7 @@ export function SurveyPage() {
                         variant="contained"
                     >
                         <Typography className="survey-option">
-                            Tee kysely Ryhmässä :)
+                            Teen kyselyn ryhmässä
                         </Typography>
                     </SurveyOptionButton>
                 </Stack>
