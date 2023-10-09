@@ -15,7 +15,7 @@ function QuestionCard({ question, selectedOptionId, onOptionSelected }) {
         backgroundColor: '#f9f9f9',
         borderRadius: '16px',
         padding: '5px',
-        overflow: 'hidden',
+        overflowY: 'auto',
     }
 
     const options = [
