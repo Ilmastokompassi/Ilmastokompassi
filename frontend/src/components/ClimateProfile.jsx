@@ -21,7 +21,9 @@ export const ClimateProfile = ({ name, description }) => {
                     sx={{ textAlign: 'center' }}
                     titleTypographyProps={{
                         variant: 'h2',
-                        sx: { fontSize: '2em' },
+                        sx: {
+                            fontSize: { xs: '1.5em', sm: '1.75em', md: '2em' },
+                        },
                     }}
                     title={name}
                 />
