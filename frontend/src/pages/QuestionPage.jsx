@@ -74,6 +74,23 @@ export function QuestionPage() {
         }
     }
 
+    useEffect(() => {
+        const handleKeyUp = (e) => {
+            if (e.keyCode === 39) {
+                if (!isLastQuestion) {
+                    navigate(`/question/${questionId + 1}`)
+                }
+            } else if (e.keyCode === 37) {
+                if (questionId > 1) {
+                    navigate(`/question/${questionId - 1}`)
+                }
+            }
+        }
+        document.addEventListener('keyup', handleKeyUp)
+
+        return () => document.removeEventListener('keyup', handleKeyUp)
+    }, [questionId, isLastQuestion, navigate])
+
     return (
         <Stack
             direction="column"
