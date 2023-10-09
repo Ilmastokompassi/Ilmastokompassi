@@ -89,7 +89,7 @@ export function QuestionPage() {
         document.addEventListener('keyup', handleKeyUp)
 
         return () => document.removeEventListener('keyup', handleKeyUp)
-    }, [questionId])
+    }, [questionId, isLastQuestion, navigate])
 
     return (
         <Stack
