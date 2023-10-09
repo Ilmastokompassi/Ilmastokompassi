@@ -15,17 +15,17 @@ function QuestionCard({ question, selectedOptionId, onOptionSelected }) {
         backgroundColor: '#f9f9f9',
         borderRadius: '16px',
         padding: '5px',
-        overflow: 'hidden', // Hide overflow content
+        overflow: 'hidden',
     }
 
     const questionStyles = {
-        maxHeight: 'none', // Reset max height for the question
-        overflow: 'auto', // Enable vertical scrolling for the question
+        maxHeight: 'none',
+        overflow: 'auto',
     }
 
     const optionsContainerStyles = {
-        maxHeight: '300px', // Set a fixed height for the options container
-        overflowY: 'auto', // Enable vertical scrolling for the options
+        maxHeight: '300px',
+        overflowY: 'auto',
     }
 
     const options = [
