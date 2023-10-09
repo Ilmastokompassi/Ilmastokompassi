@@ -16,8 +16,19 @@ export const LandingPage = () => {
             }}
         >
             <Stack direction="column" alignItems="center">
-                <Typography variant="h2" align="center" paddingBottom={'80px'}>
-                    Tervetuloa!
+                <Typography
+                    variant="h2"
+                    align="center"
+                    paddingBottom={'80px'}
+                    sx={{
+                        fontSize: {
+                            xs: '2em',
+                            sm: '3em',
+                            md: '4em',
+                        },
+                    }}
+                >
+                    Tervetuloa Ilmastokompassiin!
                 </Typography>
                 <Button
                     style={{ width: 250, height: 60, fontSize: '20px' }}

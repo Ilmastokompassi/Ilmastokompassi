@@ -21,8 +21,9 @@ export const ClimateProfilePage = () => {
                     paddingTop={'40px'}
                     sx={{
                         fontSize: {
-                            xs: '3em',
-                            sm: '4em',
+                            xs: '2em',
+                            sm: '3em',
+                            md: '4em',
                         },
                     }}
                 >
