@@ -18,16 +18,6 @@ function QuestionCard({ question, selectedOptionId, onOptionSelected }) {
         overflow: 'hidden',
     }
 
-    const questionStyles = {
-        maxHeight: 'none',
-        overflow: 'auto',
-    }
-
-    const optionsContainerStyles = {
-        maxHeight: '300px',
-        overflowY: 'auto',
-    }
-
     const options = [
         { id: 1, name: 'Täysin eri mieltä' },
         { id: 2, name: 'Jokseenkin eri mieltä' },
@@ -50,17 +40,12 @@ function QuestionCard({ question, selectedOptionId, onOptionSelected }) {
                         textAlign: 'center',
                     }}
                 >
-                    <Typography
-                        variant="h1"
-                        textAlign="center"
-                        fontSize={18}
-                        sx={questionStyles}
-                    >
+                    <Typography variant="h1" textAlign="center" fontSize={18}>
                         {question.id + '. ' + question.content}
                     </Typography>
                 </Container>
 
-                <Stack spacing={2} marginTop={1} sx={optionsContainerStyles}>
+                <Stack spacing={2} marginTop={1}>
                     {options.map((option) => (
                         <Button
                             key={option.id}
