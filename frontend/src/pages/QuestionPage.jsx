@@ -58,7 +58,7 @@ export function QuestionPage() {
     }, [questionId])
 
     // On option selected, save the selected option for the question
-    // to the local storage.
+    // to the local storage and move to the next question.
     const onOptionSelected = (selectedOptionId) => {
         setSelectedOptionId(selectedOptionId)
 
@@ -67,6 +67,11 @@ export function QuestionPage() {
 
         savedResponses[questionId] = selectedOptionId
         localStorage.setItem('surveyResponses', JSON.stringify(savedResponses))
+
+        // Automatically move to the next question
+        if (!isLastQuestion) {
+            navigate(`/question/${questionId + 1}`)
+        }
     }
 
     return (
