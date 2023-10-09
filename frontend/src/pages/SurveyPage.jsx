@@ -24,6 +24,7 @@ const SurveyPageContainer = styled.div`
 
 const Heading = styled(Typography)`
     font-size: 50px;
+    text-align: center;
 `
 
 const handelGroup = () => {
