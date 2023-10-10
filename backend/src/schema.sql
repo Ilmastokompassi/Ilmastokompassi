@@ -1,5 +1,10 @@
+CREATE TABLE groups (
+    token TEXT PRIMARY KEY
+);
+
 CREATE TABLE users (
     id SERIAL PRIMARY KEY
+    group_token TEXT REFERENCES groups(token)
 );
 
 CREATE TABLE climate_profiles (
