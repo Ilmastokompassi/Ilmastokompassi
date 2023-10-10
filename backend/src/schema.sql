@@ -3,7 +3,7 @@ CREATE TABLE groups (
 );
 
 CREATE TABLE users (
-    id SERIAL PRIMARY KEY
+    id SERIAL PRIMARY KEY,
     group_token TEXT REFERENCES groups(token)
 );
 
