@@ -11,14 +11,17 @@ export function QuestionPage() {
     const [selectedOptionId, setSelectedOptionId] = useState(null)
     const navigate = useNavigate()
 
-    const questionId = parseInt(questionParamId)
+    const { data: allQuestions, isLoading: isLoadingAllQuestions } =
+        useSWR('/api/question')
+
+    const questionId = Math.min(
+        allQuestions?.length,
+        Math.max(1, parseInt(questionParamId))
+    )
 
     useEffect(() => {
         document.title = 'Kysymykset'
     }, [])
-
-    const { data: allQuestions, isLoading: isLoadingAllQuestions } =
-        useSWR('/api/question')
 
     const currentQuestion = allQuestions?.find(
         (question) => question.id == questionId
