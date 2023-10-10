@@ -32,20 +32,26 @@ function QuestionCard({ question, selectedOptionId, onOptionSelected }) {
                 <Container
                     sx={{
                         minHeight: {
-                            nav_sm: '160px',
-                            xs: '165px',
-                            sm: '100px',
+                            xs: '290px',
+                            sm: '160px',
                         },
-                        padding: '5px',
+                        padding: '15px',
                         textAlign: 'center',
                     }}
                 >
-                    <Typography variant="h1" textAlign="center" fontSize={18}>
+                    <Typography
+                        sx={{ typography: { xs: 'h6', sm: 'h6', md: 'h5' } }}
+                        textAlign="center"
+                    >
                         {question.id + '. ' + question.content}
                     </Typography>
                 </Container>
 
-                <Stack spacing={2} marginTop={1}>
+                <Stack
+                    spacing={2}
+                    marginTop={1}
+                    direction={{ xs: 'column', sm: 'column', md: 'row' }}
+                >
                     {options.map((option) => (
                         <Button
                             key={option.id}
