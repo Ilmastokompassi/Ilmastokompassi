@@ -7,6 +7,11 @@ export const theme = createTheme({
             main: '#006600' /* MUI default */,
         },
     },
+    typography: {
+        h6: {
+            fontWeight: 'normal',
+        },
+    },
     breakpoints: {
         values: {
             xs: 0,
