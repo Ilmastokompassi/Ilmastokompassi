@@ -1,17 +1,14 @@
-import { Typography, Button, Stack } from '@mui/material'
+import { Typography, Button, Stack, Box } from '@mui/material'
 import { NavLink } from 'react-router-dom'
 import styled from '@emotion/styled'
 import { useEffect } from 'react'
+import FormDialog from '../components/FormDialog'
 
 const SurveyOptionButton = styled(Button)`
     /* Add your styling here */
     /* Example: */
 
     /* You can add any CSS properties you need */
-`
-
-const SurveyOptionsContainer = styled.div`
-    margin: 50px;
 `
 
 const SurveyPageContainer = styled.div`
@@ -27,10 +24,6 @@ const Heading = styled(Typography)`
     text-align: center;
 `
 
-const handelGroup = () => {
-    console.log('moi')
-}
-
 export function SurveyPage() {
     useEffect(() => {
         document.title = 'Kysely'
@@ -43,8 +36,9 @@ export function SurveyPage() {
             >
                 Miten haluat tehdä kyselyn?
             </Heading>
-            <SurveyOptionsContainer>
+            <Stack spacing={7} margin={5}>
                 <Stack spacing={2}>
+                    <FormDialog />
                     <SurveyOptionButton
                         component={NavLink}
                         to="/question/1"
@@ -56,16 +50,13 @@ export function SurveyPage() {
                             Teen kyselyn yksin
                         </Typography>
                     </SurveyOptionButton>
-                    <SurveyOptionButton
-                        onClick={() => handelGroup()}
-                        variant="contained"
-                    >
-                        <Typography className="survey-option">
-                            Teen kyselyn ryhmässä
-                        </Typography>
-                    </SurveyOptionButton>
                 </Stack>
-            </SurveyOptionsContainer>
+                <Box>
+                    <Button variant="text" size="small">
+                        Luo ryhmä
+                    </Button>
+                </Box>
+            </Stack>
         </SurveyPageContainer>
     )
 }

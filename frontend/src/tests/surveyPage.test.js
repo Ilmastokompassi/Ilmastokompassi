@@ -21,7 +21,7 @@ describe('Survey page', () => {
         expect(links.length).toBe(1)
 
         const buttons = screen.getAllByRole('button')
-        expect(buttons.length).toBe(1)
+        expect(buttons.length).toBe(2)
     })
 
     test('Survey start link', () => {
