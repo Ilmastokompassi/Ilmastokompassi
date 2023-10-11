@@ -1,3 +1,5 @@
+import useSWR from 'swr'
+
 import {
     Typography,
     Container,
@@ -22,7 +24,7 @@ export const SummaryPage = () => {
         document.title = 'Oma ilmastoprofiili'
 
         // Fetch the count of answered questions from the API
-        fetch(`/api/answers/count/${userId}`)
+        fetch(`/api/summary/${userId}`)
             .then((response) => response.json())
             .then((data) => {
                 setAnswerCount(data.count)
