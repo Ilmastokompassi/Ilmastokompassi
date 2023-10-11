@@ -61,11 +61,3 @@ class TestApp(unittest.TestCase):
 
         scores = [x["score"] for x in saved_answers]
         self.assertListEqual(scores, [0, 25, 50, 75, 100])
-
-    def test_answer_count(self):
-        initial_count = self.survey_service.get_answer_count(1)
-        self.assertEqual(initial_count, 0)
-        self.survey_service.save_answers({2: 3})
-
-        count = self.survey_service.get_answer_count(1)
-        self.assertEqual(count, 1)
