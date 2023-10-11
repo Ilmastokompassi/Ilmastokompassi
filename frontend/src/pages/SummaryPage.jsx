@@ -1,3 +1,5 @@
+import useSWR from 'swr'
+
 import {
     Typography,
     Container,
@@ -8,28 +10,21 @@ import {
     CardContent,
     CardHeader,
 } from '@mui/material'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 
 export const SummaryPage = () => {
     const { userId: userParamId } = useParams()
-    const [answerCount, setAnswerCount] = useState(0)
-    const totalQuestions = 33
 
     const userId = parseInt(userParamId)
 
+    const { data: data } = useSWR(`/api/summary/${userId}`)
+
+    const answerCount = data?.count
+    const totalQuestions = data?.total_questions_count
+
     useEffect(() => {
         document.title = 'Oma ilmastoprofiili'
-
-        // Fetch the count of answered questions from the API
-        fetch(`/api/summary/${userId}`)
-            .then((response) => response.json())
-            .then((data) => {
-                setAnswerCount(data.count)
-            })
-            .catch((error) => {
-                console.error('Error fetching the data', error)
-            })
     })
 
     return (
