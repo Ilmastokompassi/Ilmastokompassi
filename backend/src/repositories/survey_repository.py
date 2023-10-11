@@ -27,6 +27,16 @@ class SurveyRepository:
         db.session.commit()
         return user_id
 
+    def get_user_answers(self, user_id):
+        sql = text("""SELECT score, Q.climate_profile_id FROM answers
+                        JOIN questions Q on question_id=Q.id
+                   WHERE user_id=:user_id;
+                   """)
+        try:
+            return db.session.execute(sql, {"user_id": user_id}).fetchall()
+        except Exception as error:
+            raise error
+
     def get_answer_count(self, user_id):
         result = db.session.execute(
             text("SELECT COUNT(*) FROM answers WHERE user_id = :user_id"),

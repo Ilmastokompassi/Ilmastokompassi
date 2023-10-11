@@ -24,12 +24,39 @@ class SurveyService:
             for question_id, answer in answers.items():
                 answers_with_scores[question_id] = SCORES[answer]
 
-            return self.survey_repository.save_answers(answers_with_scores)
+            user_id = self.survey_repository.save_answers(answers_with_scores)
         except Exception as error:
             raise error
 
-    def get_answer_count(self, user_id):
-        return self.survey_repository.get_answer_count(user_id)
+        return user_id
+
+    def get_climate_scores(self, user_id):
+        try:
+            score_profile = self.survey_repository.get_user_answers(user_id)
+        except Exception as error:
+            raise error
+
+        total_scores = {}
+
+        for score, profile_id in score_profile:
+            if profile_id not in total_scores:
+                total_scores[profile_id] = {"count": 0, "score": 0}
+
+            total_scores[profile_id] = {
+                "count": total_scores[profile_id]["count"] + 1,
+                "score": total_scores[profile_id]["score"] + score}
+
+        total_percentages = {}
+        for profile, values in total_scores.items():
+            total_percentages[profile] = round(
+                values["score"] / values["count"])
+
+        return total_percentages
+
+    def get_summary(self, user_id):
+        summary = self.get_climate_scores(user_id)
+        count = self.survey_repository.get_answer_count(user_id)
+        return summary, count
 
 
 default_survey_service = SurveyService(default_survey_repository)
