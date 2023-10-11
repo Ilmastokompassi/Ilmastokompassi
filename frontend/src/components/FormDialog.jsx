@@ -7,16 +7,27 @@ import DialogContent from '@mui/material/DialogContent'
 import DialogContentText from '@mui/material/DialogContentText'
 import DialogTitle from '@mui/material/DialogTitle'
 import Typography from '@mui/material/Typography'
+import { useNavigate } from 'react-router-dom'
 
 export default function FormDialog() {
     const [open, setOpen] = React.useState(false)
+    const [token, setToken] = React.useState('')
+    const navigate = useNavigate()
 
+    const handleTextFieldChange = (event) => {
+        setToken(event.target.value)
+    }
     const handleClickOpen = () => {
         setOpen(true)
     }
 
     const handleClose = () => {
         setOpen(false)
+    }
+
+    const handleSubmit = () => {
+        console.log('group token:', { token })
+        navigate('/question/1')
     }
 
     return (
@@ -42,11 +53,13 @@ export default function FormDialog() {
                         type="text"
                         fullWidth
                         variant="standard"
+                        onChange={handleTextFieldChange}
+                        value={token}
                     />
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClose}>EIKU</Button>
-                    <Button onClick={handleClose}>Liity ryhmään</Button>
+                    <Button onClick={handleSubmit}>Kyselyyn</Button>
                 </DialogActions>
             </Dialog>
         </div>
