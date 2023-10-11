@@ -55,11 +55,8 @@ class SurveyService:
 
     def get_summary(self, user_id):
         summary = self.get_climate_scores(user_id)
-        count = self.get_answer_count(user_id)
+        count = self.survey_repository.get_answer_count(user_id)
         return summary, count
-
-    def get_answer_count(self, user_id):
-        return self.survey_repository.get_answer_count(user_id)
 
 
 default_survey_service = SurveyService(default_survey_repository)
