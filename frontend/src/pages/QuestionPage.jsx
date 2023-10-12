@@ -73,7 +73,9 @@ export function QuestionPage() {
 
         // Automatically move to the next question
         if (!isLastQuestion) {
-            navigate(`/question/${questionId + 1}`)
+            setTimeout(() => {
+                navigate(`/question/${questionId + 1}`)
+            }, 500)
         }
     }
 
