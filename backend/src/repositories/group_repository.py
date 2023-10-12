@@ -3,7 +3,7 @@ from src.extensions import db
 
 class GroupRepository:
     # pylint: disable=too-few-public-methods
-    
+
     def save_group(self, token):
         try:
             sql = text("INSERT INTO groups (token) VALUES (:token)")
@@ -11,8 +11,7 @@ class GroupRepository:
         except Exception as error: # pylint: disable=broad-except
             db.session.rollback()
             raise error
-        
-        db.session.commit()
-        
-default_group_repository = GroupRepository()
 
+        db.session.commit()
+
+default_group_repository = GroupRepository()
