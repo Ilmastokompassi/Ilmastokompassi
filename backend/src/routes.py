@@ -1,6 +1,7 @@
 from flask import jsonify, abort, request, current_app as app
 from src.services.profile_service import default_profile_service
 from src.services.survey_service import default_survey_service
+from src.services.group_service import default_group_service
 
 
 @app.route("/")
@@ -56,3 +57,17 @@ def get_summary(user_id):
     except Exception as error:  # pylint: disable=broad-except
         print(error)
         return jsonify(error="Something went wrong!"), 500
+
+@app.route('/api/new-group', methods=['POST'])
+def new_group():
+    data = request.get_json()
+    token = data.get('token')
+    try:
+        group_token = default_group_service.save_group(token)
+        return jsonify({"status": "success",
+                        "message": "Group created successfully",
+                        "group_token": group_token}), 200
+    except Exception as error: #pylint: disable=broad-except
+        print(error)
+        return jsonify(error="Something went wrong!"), 500
+    

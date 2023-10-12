@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom'
 import styled from '@emotion/styled'
 import { useEffect } from 'react'
 import FormDialog from '../components/FormDialog'
+import GroupDialog from '../components/GroupDialog'
 
 const SurveyOptionButton = styled(Button)`
     /* Add your styling here */
@@ -51,10 +52,8 @@ export function SurveyPage() {
                         </Typography>
                     </SurveyOptionButton>
                 </Stack>
-                <Box>
-                    <Button variant="text" size="small">
-                        Luo ryhmä
-                    </Button>
+                <Box alignSelf="center">
+                    <GroupDialog />
                 </Box>
             </Stack>
         </SurveyPageContainer>
