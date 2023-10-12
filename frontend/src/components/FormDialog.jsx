@@ -26,8 +26,28 @@ export default function FormDialog() {
     }
 
     const handleSubmit = () => {
-        console.log('group token:', { token })
-        navigate('/question/1')
+        if (token === '') {
+            alert('Syötä ryhmätunnus')
+            return
+        }
+        fetch(`/api/group/${token}`, {
+            method: 'GET',
+            headers: { 'Content-Type': 'application/json' },
+        })
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error('Verkkoyhteysvirhe')
+                }
+                return response.json()
+            })
+            .then((data) => {
+                if (data.group_token) {
+                    navigate('/question/1')
+                    setOpen(false)
+                } else {
+                    alert('Ryhmätunnusta ei löytynyt')
+                }
+            })
     }
 
     return (
