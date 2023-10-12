@@ -16,7 +16,7 @@ export default function GroupDialog() {
     const navigate = useNavigate()
 
     const handleGroupNameChange = (event) => {
-        setGroupName(event.target.value)
+        setGroupName(event.target.value.toUpperCase())
     }
 
     const handleSubmit = () => {
@@ -25,7 +25,7 @@ export default function GroupDialog() {
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ token: groupName }),
+            body: JSON.stringify({ token: groupName.toUpperCase() }),
         })
             .then((response) => response.json())
             .then(() => {
