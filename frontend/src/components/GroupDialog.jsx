@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { useNavigate } from 'react-router-dom'
 import {
     Dialog,
     DialogTitle,
@@ -12,14 +13,27 @@ import {
 export default function GroupDialog() {
     const [groupName, setGroupName] = React.useState('')
     const [open, setOpen] = React.useState(false)
+    const navigate = useNavigate()
 
     const handleGroupNameChange = (event) => {
         setGroupName(event.target.value)
     }
 
     const handleSubmit = () => {
-        // Call function to submit group name to database with 'token' as its name
-        console.log(`Submitting group name: ${groupName}`)
+        fetch('/api/new-group', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ token: groupName }),
+        })
+            .then((response) => response.json())
+            .then(() => {
+                setOpen(false)
+                window.alert('Ryhmä luotu onnistuneesti!')
+                navigate('/survey/')
+            })
+            .catch((error) => console.error(error))
     }
 
     return (
