@@ -7,6 +7,8 @@ import {
     CardHeader,
 } from '@mui/material'
 
+import PropTypes from 'prop-types'
+
 export const SummaryProfile = ({ title, description }) => {
     return (
         <>
@@ -62,4 +64,8 @@ export const SummaryProfile = ({ title, description }) => {
             </Card>
         </>
     )
+}
+SummaryProfile.propTypes = {
+    title: PropTypes.string.isRequired, // You can adjust the PropTypes as needed
+    description: PropTypes.string.isRequired,
 }
