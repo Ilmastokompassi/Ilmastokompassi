@@ -104,3 +104,16 @@ class TestApp(unittest.TestCase):
             {1: 0, 2: 25, 3: 50, 4: 88},
             percentages
         )
+
+    def test_get_summary(self):
+        answers = {1: 1, 2: 2, 3: 3, 4: 4}
+        user_id = self.survey_service.save_answers(answers)
+        summary, count, total_questions_count = self.survey_service.get_summary(
+            user_id)
+
+        self.assertDictEqual(
+            {1: 0, 2: 25, 3: 50, 4: 75},
+            summary
+        )
+        self.assertEqual(count, 4)
+        self.assertEqual(total_questions_count, 5)
