@@ -17,15 +17,28 @@ class mock_survey_repository:
         ]
 
     def save_answers(self, answers):
-        for question_id, answer in answers.items():
+        for question_id, score in answers.items():
             self.answers.append(
-                {"id": 1,
+                {"id": len(self.answers) + 1,
                  "user_id": 1,
                  "question_id": question_id,
-                 "score": answer}
+                 "score": score}
             )
 
         return 1
+
+    def get_user_answers(self, user_id):
+        score_profile = []
+        for answer in self.answers:
+            climate_profile_id = None
+            for question in self.get_questions():
+                if question["id"] == answer["question_id"]:
+                    climate_profile_id = question["climate_profile_id"]
+                    break
+            score_profile.append(
+                (answer["score"], climate_profile_id))
+
+        return score_profile
 
     def get_answer_count(self, user_id):
         count = 0
@@ -61,3 +74,33 @@ class TestApp(unittest.TestCase):
 
         scores = [x["score"] for x in saved_answers]
         self.assertListEqual(scores, [0, 25, 50, 75, 100])
+
+    def test_climate_percentage_zero(self):
+        answers = {1: 1, 2: 1, 3: 1, 4: 1, 5: 1}
+        user_id = self.survey_service.save_answers(answers)
+        percentages = self.survey_service.get_climate_percentages(user_id)
+
+        self.assertDictEqual(
+            {1: 0, 2: 0, 3: 0, 4: 0},
+            percentages
+        )
+
+    def test_climate_percentage_100(self):
+        answers = {1: 5, 2: 5, 3: 5, 4: 5, 5: 5}
+        user_id = self.survey_service.save_answers(answers)
+        percentages = self.survey_service.get_climate_percentages(user_id)
+
+        self.assertDictEqual(
+            {1: 100, 2: 100, 3: 100, 4: 100},
+            percentages
+        )
+
+    def test_climate_percentages_mix(self):
+        answers = {1: 1, 2: 2, 3: 3, 4: 4, 5: 5}
+        user_id = self.survey_service.save_answers(answers)
+        percentages = self.survey_service.get_climate_percentages(user_id)
+
+        self.assertDictEqual(
+            {1: 0, 2: 25, 3: 50, 4: 88},
+            percentages
+        )

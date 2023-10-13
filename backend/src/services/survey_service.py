@@ -30,7 +30,7 @@ class SurveyService:
 
         return user_id
 
-    def get_climate_scores(self, user_id):
+    def get_climate_percentages(self, user_id):
         try:
             score_profile = self.survey_repository.get_user_answers(user_id)
         except Exception as error:
@@ -42,9 +42,12 @@ class SurveyService:
             if profile_id not in total_scores:
                 total_scores[profile_id] = {"count": 0, "score": 0}
 
+            total_count = total_scores[profile_id]["count"] + 1
+            total_score = total_scores[profile_id]["score"] + score
+
             total_scores[profile_id] = {
-                "count": total_scores[profile_id]["count"] + 1,
-                "score": total_scores[profile_id]["score"] + score}
+                "count": total_count,
+                "score": total_score}
 
         total_percentages = {}
         for profile, values in total_scores.items():
@@ -54,7 +57,7 @@ class SurveyService:
         return total_percentages
 
     def get_summary(self, user_id):
-        summary = self.get_climate_scores(user_id)
+        summary = self.get_climate_percentages(user_id)
         count = self.survey_repository.get_answer_count(user_id)
         total_questions_count = len(self.get_questions())
         return summary, count, total_questions_count
