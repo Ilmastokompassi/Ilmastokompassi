@@ -21,6 +21,16 @@ class GroupService:
             return result
         except Exception as error:
             raise error
-
+    
+    def is_group_name_valid(self, token):
+        if token == '':
+            return False
+        elif len(token) > 10:
+            return False
+        elif not token.isupper() and not token.isdigit():
+            return False
+        else:
+            return True
+        
 
 default_group_service = GroupService(default_group_repository)

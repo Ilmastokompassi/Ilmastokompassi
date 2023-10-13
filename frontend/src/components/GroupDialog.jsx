@@ -61,8 +61,10 @@ export default function GroupDialog() {
                 <DialogTitle>Luo uusi ryhmä</DialogTitle>
                 <DialogContent>
                     <DialogContentText>
-                        Syötä haluamasi uuden ryhmän tunnus ja paina
-                        &quot;Luo&quot;.
+                        Ryhmän tunnus voi sisältää vain isoja kirjaimia,
+                        numeroita tai niiden yhdistelmiä. Ryhmän tunnus saa olla
+                        enintään 10 merkkiä pitkä. Syötä haluamasi uuden ryhmän
+                        tunnus ja paina &quot;Luo&quot;.
                     </DialogContentText>
                     <TextField
                         autoFocus
