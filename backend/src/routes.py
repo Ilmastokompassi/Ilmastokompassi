@@ -70,11 +70,9 @@ def new_group():
                 return jsonify({"status": "success",
                                 "message": "Group created successfully",
                                 "group_token": group_token}), 200
-            else:
-                return jsonify({"status": "fail",
-                                "message": "Group already exists"}), 400
-        else:
             return jsonify({"status": "fail",
+                                "message": "Group already exists"}), 400
+        return jsonify({"status": "fail",
                             "message": "Invalid group name"}), 400
     except Exception as error:  # pylint: disable=broad-except
         print(error)
