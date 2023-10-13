@@ -20,6 +20,18 @@ export default function GroupDialog() {
     }
 
     const handleSubmit = () => {
+        if (groupName === '') {
+            window.alert('Ryhmän tunnus ei voi olla tyhjä merkkijono.')
+            return
+        } else if (groupName.length > 10) {
+            window.alert('Ryhmän tunnus ei voi olla yli 10 merkkiä pitkä.')
+            return
+        } else if (!/^[A-Z0-9]+$/.test(groupName)) {
+            window.alert(
+                'Ryhmän tunnus voi sisältää vain isoja kirjaimia ja numeroita.'
+            )
+            return
+        }
         fetch('/api/new-group', {
             method: 'POST',
             headers: {
