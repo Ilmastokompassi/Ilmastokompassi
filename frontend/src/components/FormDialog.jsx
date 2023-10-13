@@ -15,7 +15,7 @@ export default function FormDialog() {
     const navigate = useNavigate()
 
     const handleTextFieldChange = (event) => {
-        setToken(event.target.value)
+        setToken(event.target.value.toUpperCase())
     }
     const handleClickOpen = () => {
         setOpen(true)
