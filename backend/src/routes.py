@@ -64,10 +64,16 @@ def new_group():
     data = request.get_json()
     token = data.get('token')
     try:
-        group_token = default_group_service.save_group(token)
-        return jsonify({"status": "success",
-                        "message": "Group created successfully",
-                        "group_token": group_token}), 200
+        if default_group_service.is_group_name_valid(token):
+            if not default_group_service.check_if_group_exists(token):
+                group_token = default_group_service.save_group(token)
+                return jsonify({"status": "success",
+                                "message": "Group created successfully",
+                                "group_token": group_token}), 200
+            return jsonify({"status": "fail",
+                                "message": "Group already exists"}), 400
+        return jsonify({"status": "fail",
+                            "message": "Invalid group name"}), 400
     except Exception as error:  # pylint: disable=broad-except
         print(error)
         return jsonify(error="Something went wrong!"), 500
