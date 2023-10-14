@@ -1,28 +1,39 @@
 import useSWR from 'swr'
-
-import {
-    Typography,
-    Container,
-    Stack,
-    Skeleton,
-    Box,
-    Card,
-    CardContent,
-    CardHeader,
-    Button,
-} from '@mui/material'
+import { SummaryProfile } from '../components/SummaryProfile'
+import { Typography, Container, Stack, Button } from '@mui/material'
 import { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 
 export const SummaryPage = () => {
     const { userId: userParamId } = useParams()
-
     const userId = parseInt(userParamId)
 
     const { data: data } = useSWR(`/api/summary/${userId}`)
-
     const answerCount = data?.count
     const totalQuestions = data?.total_questions_count
+    const summary = data?.summary
+
+    // Create list and push profiles with calculated scores
+    let summaryList = []
+    for (let profile in summary) {
+        summaryList.push([profile, summary[profile]])
+    }
+
+    // Sort the list according to scores and remove everything except profile id
+    summaryList.sort((a, b) => b[1] - a[1])
+    summaryList = summaryList.map((x) => parseInt(x[0]))
+
+    // Fetch profiles from api
+    const { data: profiledata } = useSWR('/api/profiles')
+    const profileList = profiledata
+
+    // Sort profiles according to summaryList index, so that the profile with
+    // Greatest score is first in list and so on
+    if (profileList) {
+        profileList.sort(
+            (a, b) => summaryList.indexOf(a.id) - summaryList.indexOf(b.id)
+        )
+    }
 
     useEffect(() => {
         document.title = 'Oma ilmastoprofiili'
@@ -45,8 +56,9 @@ export const SummaryPage = () => {
                 >
                     Oma ilmastoprofiilisi
                 </Typography>
-
-                {answerCount > 0 ? (
+                {!profileList ? ( // Render profile only after fetching from api
+                    <p>Loading...</p>
+                ) : answerCount > 0 ? (
                     <>
                         <Typography
                             variant="h2"
@@ -64,70 +76,10 @@ export const SummaryPage = () => {
                             kysymykseen ja alta löydät oman ilmastoprofiilisi!
                         </Typography>
 
-                        <Box
-                            sx={{
-                                display: { xs: 'flex', md: 'flex' },
-                                flexDirection: 'column',
-                                justifyContent: 'center',
-                                alignItems: 'center',
-                                paddingBottom: '40px',
-                            }}
-                        >
-                            <Box paddingBottom={'20px'} padding={'10px'}>
-                                <Skeleton
-                                    variant="rectangular"
-                                    width={250}
-                                    height={250}
-                                />
-                            </Box>
-                        </Box>
-                        <Card variant="outlined" sx={{ width: '100%' }}>
-                            <Box
-                                sx={{
-                                    display: 'flex',
-                                    flexDirection: 'column',
-                                    overflowWrap: 'break-word',
-                                }}
-                            >
-                                <CardHeader
-                                    sx={{ textAlign: 'center' }}
-                                    titleTypographyProps={{
-                                        variant: 'h2',
-                                        fontSize: {
-                                            xs: '1.5em',
-                                            sm: '1.75em',
-                                            md: '2em',
-                                        },
-                                    }}
-                                    title="Ilmastoasiantuntija"
-                                ></CardHeader>
-                                <CardContent sx={{ flex: '1 0 auto' }}>
-                                    <Typography
-                                        variant="h3"
-                                        sx={{
-                                            fontSize: {
-                                                xs: '0.9em',
-                                                sm: '1em',
-                                                md: '1.1em',
-                                            },
-                                            p: '10px',
-                                        }}
-                                    >
-                                        Sinussa on potentiaalia
-                                        ilmastoasiantuntijaksi.
-                                        Ilmastoasiantuntijana olet kiinnostunut
-                                        ilmastonmuutoksen tieteellisestä
-                                        puolesta. Janoat saada tietää, kuinka
-                                        ilmasto ja yhteiskunta toimivat yhdessä.
-                                        Koet tieteeseen pohjautuvan
-                                        päätöksenteon tärkeäksi ja näet uusien
-                                        innovaatioiden välttämättömyyden
-                                        matkallamme kohti planetaarisia rajoja
-                                        kunnioittavaa elämää.
-                                    </Typography>
-                                </CardContent>
-                            </Box>
-                        </Card>
+                        <SummaryProfile
+                            title={profileList[0].name}
+                            description={profileList[0].description}
+                        />
                     </>
                 ) : (
                     <>
