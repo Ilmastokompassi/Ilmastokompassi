@@ -23,5 +23,18 @@ class GroupRepository:
         except Exception as error:
             raise error
 
+    def insert_group_token_to_users(self, token, user_id):
+        try:
+            sql = text(
+                "UPDATE users SET group_token = :token WHERE id = :user_id")
+            db.session.execute(
+                sql, {"token": token, "user_id": user_id})
+
+        except Exception as error:
+            db.session.rollback()
+            raise error
+
+        db.session.commit()
+
 
 default_group_repository = GroupRepository()

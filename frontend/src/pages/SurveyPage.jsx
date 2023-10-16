@@ -29,6 +29,12 @@ export function SurveyPage() {
     useEffect(() => {
         document.title = 'Kysely'
     }, [])
+
+    const removeGroupToken = () => {
+        localStorage.removeItem('groupToken')
+        window.dispatchEvent(new Event('setGroupToken'))
+    }
+
     return (
         <SurveyPageContainer>
             <Heading
@@ -42,6 +48,7 @@ export function SurveyPage() {
                     <FormDialog />
                     <SurveyOptionButton
                         component={NavLink}
+                        onClick={() => removeGroupToken()}
                         to="/question/1"
                         variant="contained"
                         data-testid="btn-start-survey"

@@ -32,10 +32,11 @@ export function QuestionPage() {
 
     const handleSubmit = () => {
         const responses = JSON.parse(localStorage.getItem('surveyResponses'))
+        const groupToken = localStorage.getItem('groupToken')
         fetch('/api/submit', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ responses }),
+            body: JSON.stringify({ responses, groupToken }),
         })
             .then((response) => response.json())
             .then((data) => {

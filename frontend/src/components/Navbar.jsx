@@ -47,9 +47,9 @@ function ResponsiveAppBar() {
         }
 
         refreshToken()
-        window.addEventListener('joinGroup', refreshToken)
+        window.addEventListener('setGroupToken', refreshToken)
         return () => {
-            window.removeEventListener('joinGroup', refreshToken)
+            window.removeEventListener('setGroupToken', refreshToken)
         }
     }, [])
 
