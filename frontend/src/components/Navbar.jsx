@@ -20,11 +20,11 @@ const pages = [
     { name: 'Materiaali', route: '/material', id: 'material' },
     { name: 'Ilmastoprofiilit', route: '/profiles', id: 'profiles' },
 ]
-const group = ['Ryhmä']
 
 function ResponsiveAppBar() {
     const [anchorElNav, setAnchorElNav] = React.useState(null)
     const [anchorElUser, setAnchorElUser] = React.useState(null)
+    const [groupToken, setGroupToken] = React.useState(null)
 
     const handleOpenNavMenu = (event) => {
         setAnchorElNav(event.currentTarget)
@@ -40,6 +40,18 @@ function ResponsiveAppBar() {
     const handleCloseUserMenu = () => {
         setAnchorElUser(null)
     }
+
+    React.useEffect(() => {
+        const refreshToken = () => {
+            setGroupToken(localStorage.getItem('groupToken'))
+        }
+
+        refreshToken()
+        window.addEventListener('joinGroup', refreshToken)
+        return () => {
+            window.removeEventListener('joinGroup', refreshToken)
+        }
+    }, [])
 
     return (
         <AppBar position="static">
@@ -192,16 +204,30 @@ function ResponsiveAppBar() {
                             open={Boolean(anchorElUser)}
                             onClose={handleCloseUserMenu}
                         >
-                            {group.map((setting) => (
+                            <MenuItem
+                                key="groupToken"
+                                onClick={handleCloseUserMenu}
+                            >
+                                <Typography textAlign="center">
+                                    {groupToken
+                                        ? `Ryhmätunnus: ${groupToken}`
+                                        : 'Et ole ryhmässä'}
+                                </Typography>
+                            </MenuItem>
+                            {groupToken ? (
                                 <MenuItem
-                                    key={setting}
-                                    onClick={handleCloseUserMenu}
+                                    key="leaveGroup"
+                                    onClick={() => {
+                                        localStorage.removeItem('groupToken')
+                                        setGroupToken(null)
+                                        handleCloseUserMenu()
+                                    }}
                                 >
                                     <Typography textAlign="center">
-                                        {setting}
+                                        Poistu ryhmästä
                                     </Typography>
                                 </MenuItem>
-                            ))}
+                            ) : null}
                         </Menu>
                     </Box>
                 </Toolbar>
