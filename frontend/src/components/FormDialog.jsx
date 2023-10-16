@@ -42,6 +42,8 @@ export default function FormDialog() {
             })
             .then((data) => {
                 if (data.group_token) {
+                    localStorage.setItem('groupToken', token)
+                    window.dispatchEvent(new Event('joinGroup'))
                     navigate('/question/1')
                     setOpen(false)
                 } else {
