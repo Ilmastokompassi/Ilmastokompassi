@@ -9,11 +9,11 @@ import MenuIcon from '@mui/icons-material/Menu'
 import Container from '@mui/material/Container'
 import Avatar from '@mui/material/Avatar'
 import Button from '@mui/material/Button'
-import Tooltip from '@mui/material/Tooltip'
 import MenuItem from '@mui/material/MenuItem'
 import Public from '@mui/icons-material/Public'
 import { NavLink } from 'react-router-dom'
 import { theme } from '../theme'
+import GroupIcon from '@mui/icons-material/Group'
 
 const pages = [
     { name: 'Kysely', route: '/survey', id: 'survey' },
@@ -85,7 +85,6 @@ function ResponsiveAppBar() {
                     >
                         <IconButton
                             size="large"
-                            aria-label="account of current user"
                             aria-controls="menu-appbar"
                             aria-haspopup="true"
                             onClick={handleOpenNavMenu}
@@ -177,18 +176,15 @@ function ResponsiveAppBar() {
                         ))}
                     </Box>
                     <Box sx={{ flexGrow: 0 }}>
-                        <Tooltip title="Open settings">
-                            <IconButton
-                                onClick={handleOpenUserMenu}
-                                sx={{ p: 0 }}
-                                id="btn-show-group-info"
-                            >
-                                <Avatar
-                                    alt="Remy Sharp"
-                                    src="/static/images/avatar/2.jpg"
-                                />
-                            </IconButton>
-                        </Tooltip>
+                        <IconButton
+                            onClick={handleOpenUserMenu}
+                            sx={{ p: 0 }}
+                            id="btn-show-group-info"
+                        >
+                            <Avatar sx={{ bgcolor: 'primary.main' }}>
+                                <GroupIcon />
+                            </Avatar>
+                        </IconButton>
                         <Menu
                             sx={{ mt: '45px' }}
                             id="menu-appbar"
