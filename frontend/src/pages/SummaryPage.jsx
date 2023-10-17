@@ -1,44 +1,48 @@
 import useSWR from 'swr'
 import { SummaryProfile } from '../components/SummaryProfile'
-import { Typography, Container, Stack, Button } from '@mui/material'
+import { Typography, Container, Stack, Button, Box } from '@mui/material'
 import { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
+import SummaryPie from '../components/SummaryPie'
 
 export const SummaryPage = () => {
+
     const { userId: userParamId } = useParams()
     const userId = parseInt(userParamId)
 
-    const { data: data } = useSWR(`/api/summary/${userId}`)
-    const answerCount = data?.count
-    const totalQuestions = data?.total_questions_count
-    const summary = data?.summary
+    // Fetch all profiles from api
+    const { data: profileData, isLoading: isLoadingProfiles } = useSWR('/api/profiles')
 
-    // Create list and push profiles with calculated scores
-    let summaryList = []
-    for (let profile in summary) {
-        summaryList.push([profile, summary[profile]])
-    }
+    // Fetch result summary from api
+    const { data: summaryData, isLoading: isLoadingSummary } = useSWR(`/api/summary/${userId}`)
 
-    // Sort the list according to scores and remove everything except profile id
-    summaryList.sort((a, b) => b[1] - a[1])
-    summaryList = summaryList.map((x) => parseInt(x[0]))
+    const answerCount = summaryData?.count
+    const totalQuestions = summaryData?.total_questions_count
 
-    // Fetch profiles from api
-    const { data: profiledata } = useSWR('/api/profiles')
-    const profileList = profiledata
+    // Turn the result key-value pairs into an array of objects
+    // e.g. {1: 50, 2: 50, ..} => [{id: 1, score: 50}, {id: 2, score: 50}, ..]
+    const results = Object.entries(summaryData?.summary || {})
+        .map((x) => ({
+            id: parseInt(x[0]),
+            score: x[1]
+        }))
 
-    // Sort profiles according to summaryList index, so that the profile with
-    // Greatest score is first in list and so on
-    if (profileList) {
-        profileList.sort(
-            (a, b) => summaryList.indexOf(a.id) - summaryList.indexOf(b.id)
-        )
-    }
+    // Get the top profile result
+    const topResult = results?.reduce((max, result) => (max.score > result.score ? max : result), {})
+
+    // Find the profile data for the top result
+    const topProfile = profileData?.find(profile => profile.id == topResult.id)
+
+    // Create pie chart data and fetch
+    const pieChartData = results?.map((result) => ({
+        id: result.id,
+        value: result.score,
+        label: profileData.find(profile => profile.id == result.id).name,
+    }))
 
     useEffect(() => {
         document.title = 'Oma ilmastoprofiili'
     })
-
     return (
         <Container>
             <Stack spacing={3} paddingBottom={'50px'} alignItems={'center'}>
@@ -56,7 +60,7 @@ export const SummaryPage = () => {
                 >
                     Oma ilmastoprofiilisi
                 </Typography>
-                {!profileList ? ( // Render profile only after fetching from api
+                {isLoadingProfiles || isLoadingSummary ? (
                     <p>Loading...</p>
                 ) : answerCount > 0 ? (
                     <>
@@ -77,9 +81,12 @@ export const SummaryPage = () => {
                         </Typography>
 
                         <SummaryProfile
-                            title={profileList[0].name}
-                            description={profileList[0].description}
+                            title={topProfile.name}
+                            description={topProfile.description}
                         />
+                        <Box width={{ xs: '100vw', sm: '100vw', md: '30vw' }}>
+                            <SummaryPie data={pieChartData} />
+                        </Box>
                     </>
                 ) : (
                     <>
