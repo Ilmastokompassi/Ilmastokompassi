@@ -1,11 +1,9 @@
-
-def test_index_route(client):
+def test_ping(client):
     response = client.get('/api/ping')
     assert response.status_code == 200
     assert response.data == b'pong'
 
 
-def test_index_route(client):
+def test_get_questions(client):
     response = client.get('/api/question')
     assert response.status_code == 200
-    assert response.data == b'pong'

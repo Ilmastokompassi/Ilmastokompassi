@@ -1,12 +1,11 @@
+"""This module contains fixtures for the tests."""
 import pytest
-from .config import TestConfig
 from src.app import create_app
 
 
 @pytest.fixture(scope='module')
 def app():
-    app = create_app(TestConfig)
-    return app
+    return create_app()
 
 
 @pytest.fixture(scope='module')
