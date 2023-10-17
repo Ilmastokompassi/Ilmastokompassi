@@ -16,15 +16,24 @@ class TestGroupService(unittest.TestCase):
     def test_check_if_group_exists(self):
         token = "test_token"
         self.group_service.check_if_group_exists(token)
-        self.mock_group_repository.check_if_group_exists.assert_called_once_with(token)
+        self.mock_group_repository.check_if_group_exists.assert_called_once_with(
+            token)
 
     def test_is_group_name_valid(self):
         self.assertTrue(self.group_service.is_group_name_valid("TEST1234"))
         self.assertTrue(self.group_service.is_group_name_valid("1234567890"))
         self.assertFalse(self.group_service.is_group_name_valid(""))
         self.assertFalse(self.group_service.is_group_name_valid("test"))
-        self.assertFalse(self.group_service.is_group_name_valid("test123456789"))
+        self.assertFalse(
+            self.group_service.is_group_name_valid("test123456789"))
+
+    def test_insert_group_token_to_users(self):
+        token = "test_token"
+        user_id = 1
+        self.group_service.insert_group_token_to_users(token, user_id)
+        self.mock_group_repository.insert_group_token_to_users.assert_called_once_with(
+            token, user_id)
+
 
 if __name__ == '__main__':
     unittest.main()
-    
