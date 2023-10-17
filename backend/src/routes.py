@@ -36,9 +36,13 @@ def individual_question(question_id):
 def submit():
     data = request.get_json()
     responses = data.get('responses')
+    group_token = data.get('groupToken')
 
     try:
         user_id = default_survey_service.save_answers(responses)
+        if group_token:
+            default_group_service.insert_group_token_to_users(
+                group_token, user_id)
         return jsonify({"status": "success",
                         "message": "Answers submitted successfully",
                         "user_id": user_id}), 200
@@ -71,9 +75,9 @@ def new_group():
                                 "message": "Group created successfully",
                                 "group_token": group_token}), 200
             return jsonify({"status": "fail",
-                                "message": "Group already exists"}), 400
+                            "message": "Group already exists"}), 400
         return jsonify({"status": "fail",
-                            "message": "Invalid group name"}), 400
+                        "message": "Invalid group name"}), 400
     except Exception as error:  # pylint: disable=broad-except
         print(error)
         return jsonify(error="Something went wrong!"), 500
