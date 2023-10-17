@@ -3,6 +3,7 @@ import { SummaryProfile } from '../components/SummaryProfile'
 import { Typography, Container, Stack, Button } from '@mui/material'
 import { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
+import SummaryPie from '../components/SummaryPie'
 
 export const SummaryPage = () => {
     const { userId: userParamId } = useParams()
@@ -21,15 +22,34 @@ export const SummaryPage = () => {
 
     // Sort the list according to scores and remove everything except profile id
     summaryList.sort((a, b) => b[1] - a[1])
+    const piedata = [...summaryList]
     summaryList = summaryList.map((x) => parseInt(x[0]))
+    console.log('Summary List:', summaryList)
+
+    // Sort profile list for pie chart
+    console.log('Original Pie Data:', [...piedata])
+    console.log('Pie Data:', piedata)
 
     // Fetch profiles from api
     const { data: profiledata } = useSWR('/api/profiles')
     const profileList = profiledata
 
-    // Sort profiles according to summaryList index, so that the profile with
-    // Greatest score is first in list and so on
+    let pieChartData = []
+
     if (profileList) {
+        const profileNameMapping = {}
+        profileList.forEach((profile) => {
+            profileNameMapping[profile.id] = profile.name
+        })
+
+        // Create pie chart data and fetch
+        pieChartData = piedata.map((x) => ({
+            id: x[0],
+            value: x[1],
+            label: profileNameMapping[x[0]],
+        }))
+        // Sort profiles according to summaryList index, so that the profile with
+        // Greatest score is first in list and so on
         profileList.sort(
             (a, b) => summaryList.indexOf(a.id) - summaryList.indexOf(b.id)
         )
@@ -38,7 +58,6 @@ export const SummaryPage = () => {
     useEffect(() => {
         document.title = 'Oma ilmastoprofiili'
     })
-
     return (
         <Container>
             <Stack spacing={3} paddingBottom={'50px'} alignItems={'center'}>
@@ -80,6 +99,7 @@ export const SummaryPage = () => {
                             title={profileList[0].name}
                             description={profileList[0].description}
                         />
+                        <SummaryPie data={pieChartData} />
                     </>
                 ) : (
                     <>
