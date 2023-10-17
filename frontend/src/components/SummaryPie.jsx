@@ -1,32 +1,18 @@
 import PropTypes from 'prop-types'
-import { PieChart, pieArcClasses } from '@mui/x-charts/PieChart'
+import { Chart as ChartJS, ArcElement, Tooltip, Legend, Colors } from 'chart.js';
+import { Pie } from 'react-chartjs-2';
 
-export default function SummaryPie(props) {
-    const { data } = props
+ChartJS.register(ArcElement, Tooltip, Legend, Colors);
 
-    console.log('SummaryPie data:', data)
-    const series = [
-        {
-            data: data.map((item) => ({
-                value: item.value,
-                label: item.label,
-            })),
-            highlightScope: { faded: 'global', highlighted: 'item' },
-            faded: { innerRadius: 30, additionalRadius: -30 },
-        },
-    ]
-    return (
-        <PieChart
-            series={series}
-            sx={{
-                [`& .${pieArcClasses.faded}`]: {
-                    fill: 'gray',
-                },
-            }}
-            height={200}
-        />
-    )
-}
+export const SummaryPie = ({ data }) => (
+    <Pie data={{
+        labels: data.map((x) => x.label),
+        datasets: [{
+            label: '%',
+            data: data.map((x) => x.value),
+        }]
+    }}
+    />)
 
 // Validate the data prop
 SummaryPie.propTypes = {
@@ -37,3 +23,5 @@ SummaryPie.propTypes = {
         })
     ).isRequired,
 }
+
+export default SummaryPie
