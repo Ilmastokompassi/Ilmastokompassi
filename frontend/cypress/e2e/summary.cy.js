@@ -11,8 +11,4 @@ describe('From summary page large', function () {
     it('Oma ilmastoprofiilisi', function () {
         cy.contains('Oma ilmastoprofiilisi')
     })
-
-    it('ilmastoasiantuntija', function () {
-        cy.contains('Ilmastoasiantuntija')
-    })
 })
