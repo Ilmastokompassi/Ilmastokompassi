@@ -181,6 +181,7 @@ function ResponsiveAppBar() {
                             <IconButton
                                 onClick={handleOpenUserMenu}
                                 sx={{ p: 0 }}
+                                id="btn-show-group-info"
                             >
                                 <Avatar
                                     alt="Remy Sharp"

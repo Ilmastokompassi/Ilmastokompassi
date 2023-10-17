@@ -51,13 +51,18 @@ export default function GroupDialog() {
     return (
         <div>
             <Button
+                id="btn-create-group-dialog"
                 variant="outlined"
                 color="primary"
                 onClick={() => setOpen(true)}
             >
                 Luo ryhmä
             </Button>
-            <Dialog open={open} onClose={() => setOpen(false)}>
+            <Dialog
+                id="dialog-create-group"
+                open={open}
+                onClose={() => setOpen(false)}
+            >
                 <DialogTitle>Luo uusi ryhmä</DialogTitle>
                 <DialogContent>
                     <DialogContentText>
@@ -75,11 +80,21 @@ export default function GroupDialog() {
                         variant="standard"
                         value={groupName}
                         onChange={handleGroupNameChange}
+                        id="input-create-group-token"
                     />
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={() => setOpen(false)}>Peruuta</Button>
-                    <Button onClick={handleSubmit} color="primary">
+                    <Button
+                        id="btn-cancel-group-creation"
+                        onClick={() => setOpen(false)}
+                    >
+                        Peruuta
+                    </Button>
+                    <Button
+                        id="btn-create-group-token"
+                        onClick={handleSubmit}
+                        color="primary"
+                    >
                         Luo
                     </Button>
                 </DialogActions>
