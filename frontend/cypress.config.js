@@ -8,5 +8,11 @@ export default defineConfig({
         },
         baseUrl: 'http://localhost:5173',
     },
+    env: {
+        screen_sizes: [
+            [901, 1000, 'Large'],
+            [899, 1000, 'Small'],
+        ],
+    },
 })
 /* eslint-enable */
