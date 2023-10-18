@@ -117,3 +117,13 @@ class TestApp(unittest.TestCase):
         )
         self.assertEqual(count, 4)
         self.assertEqual(total_questions_count, 5)
+
+    def test_save_answers_exception(self):
+        self.mock_survey_repository.save_answers = Exception("Test exception")
+        with self.assertRaises(Exception):
+            self.survey_service.save_answers({1: 1, 2: 2, 3: 3, 4: 4, 5: 5})
+            
+    def test_get_climate_percentages_exception(self):
+        self.mock_survey_repository.get_user_answers = Exception("Test exception")
+        with self.assertRaises(Exception):
+            self.survey_service.get_climate_percentages(1)

@@ -34,6 +34,23 @@ class TestGroupService(unittest.TestCase):
         self.mock_group_repository.insert_group_token_to_users.assert_called_once_with(
             token, user_id)
 
+    def test_save_group_exception(self):
+        self.mock_group_repository.save_group.side_effect = Exception(
+            "Error saving group")
+        with self.assertRaises(Exception):
+            self.group_service.save_group("test_token")
+
+    def test_check_if_group_exists_exception(self):
+        self.mock_group_repository.check_if_group_exists.side_effect = Exception(
+            "Error checking if group exists")
+        with self.assertRaises(Exception):
+            self.group_service.check_if_group_exists("test_token")
+
+    def test_insert_group_token_to_users(self):
+        self.mock_group_repository.insert_group_token_to_users.side_effect = Exception(
+            "Error inserting group token to users")
+        with self.assertRaises(Exception):
+            self.group_service.insert_group_token_to_users("test_token", 1)
 
 if __name__ == '__main__':
     unittest.main()
