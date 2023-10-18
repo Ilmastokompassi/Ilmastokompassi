@@ -27,13 +27,13 @@ export default function FormDialog() {
 
     const handleSubmit = () => {
         if (token === '') {
-            alert('Syötä ryhmätunnus')
+            alert('Syötä ryhmätunnus.')
             return
         } else if (token.length > 10) {
-            alert('Ryhmätunnus ei voi olla yli 10 merkkiä pitkä')
+            alert('Ryhmätunnus ei voi olla yli 10 merkkiä pitkä.')
             return
         } else if (!/^[A-Z0-9]+$/.test(token)) {
-            alert('Ryhmätunnus voi sisältää vain isoja kirjaimia ja numeroita')
+            alert('Ryhmätunnus voi sisältää vain isoja kirjaimia ja numeroita.')
             return
         }
         fetch(`/api/group/${token}`, {
@@ -53,7 +53,7 @@ export default function FormDialog() {
                     navigate('/question/1')
                     setOpen(false)
                 } else {
-                    alert('Ryhmätunnusta ei löytynyt')
+                    alert('Ryhmätunnusta ei löytynyt.')
                 }
             })
     }
@@ -81,7 +81,7 @@ export default function FormDialog() {
                         autoFocus
                         margin="dense"
                         id="input-join-group-token"
-                        label="Ryhmän tunnus"
+                        label="Ryhmäntunnus"
                         type="text"
                         fullWidth
                         variant="standard"
