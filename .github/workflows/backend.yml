@@ -32,7 +32,7 @@ jobs:
       run:
         working-directory: ./backend
     env:
-      DATABASE_URI: postgres://postgres:postgres@localhost:5432/ilmastokompassi-test
+      DATABASE_URI: postgresql://postgres:postgres@localhost:5432/ilmastokompassi-test
     steps:
       - uses: actions/checkout@v3
       - run: pipx install poetry==1.6.1
