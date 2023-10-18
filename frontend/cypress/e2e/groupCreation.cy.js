@@ -1,5 +1,5 @@
 Cypress.env('screen_sizes').forEach((size) => {
-    describe(`From survey page ${size[2]}`, function () {
+    describe(`Gropu creation ${size[2]}`, function () {
         beforeEach(function () {
             cy.visit('/survey')
             cy.viewport(size[0], size[1])

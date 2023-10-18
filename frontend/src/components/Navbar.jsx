@@ -203,6 +203,7 @@ function ResponsiveAppBar() {
                         >
                             <MenuItem
                                 key="groupToken"
+                                id="group-token"
                                 onClick={handleCloseUserMenu}
                             >
                                 <Typography textAlign="center">
@@ -214,6 +215,7 @@ function ResponsiveAppBar() {
                             {groupToken ? (
                                 <MenuItem
                                     key="leaveGroup"
+                                    id="btn-leave-group"
                                     onClick={() => {
                                         localStorage.removeItem('groupToken')
                                         setGroupToken(null)
