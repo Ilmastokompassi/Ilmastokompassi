@@ -4,6 +4,8 @@ metadata:
   name: backend
   labels:
     tier: backend
+    deploymentType: with-init-container
+    needs-db: "true"
 spec:
   replicas: 1
   selector:
@@ -28,6 +30,30 @@ spec:
               memory: 100Mi
             limits:
               cpu: 100m
+              memory: 300Mi
+          envFrom:
+            - secretRef:
+                name: ilmastokompassi-backend-config
+      initContainers:
+        - name: run-db-migrations
+          image: ilmastokompassi/backend
+          command:
+            - bash
+            - "-c"
+            - |
+              echo Waiting for postgres to be available
+              until pg_isready -d $DATABASE_URI; do sleep 1; done;
+              echo Postgres is available, applying migrations..
+              psql -d $DATABASE_URI < src/schema.sql
+              psql -d $DATABASE_URI < src/climateprofiles.sql
+              psql -d $DATABASE_URI < src/questions.sql
+              echo Migrations done!
+          resources:
+            requests:
+              cpu: 20m
+              memory: 100Mi
+            limits:
+              cpu: 200m
               memory: 300Mi
           envFrom:
             - secretRef:
