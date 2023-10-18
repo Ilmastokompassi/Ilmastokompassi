@@ -52,7 +52,7 @@ describe('From survey page large', function () {
         cy.get('#btn-create-group-token').click()
 
         cy.waitUntil(() =>
-            stub.calledWith('Ryhmän tunnus ei voi olla tyhjä merkkijono.')
+            stub.calledWith('Ryhmätunnus ei voi olla tyhjä merkkijono.')
         )
     })
 
@@ -67,7 +67,7 @@ describe('From survey page large', function () {
         cy.get('#btn-create-group-token').click()
 
         cy.waitUntil(() =>
-            stub.calledWith('Ryhmän tunnus ei voi olla yli 10 merkkiä pitkä.')
+            stub.calledWith('Ryhmätunnus ei voi olla yli 10 merkkiä pitkä.')
         )
     })
 
@@ -83,7 +83,7 @@ describe('From survey page large', function () {
 
         cy.waitUntil(() =>
             stub.calledWith(
-                'Ryhmän tunnus voi sisältää vain isoja kirjaimia ja numeroita.'
+                'Ryhmätunnus voi sisältää vain isoja kirjaimia ja numeroita.'
             )
         )
     })
