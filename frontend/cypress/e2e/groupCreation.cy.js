@@ -30,21 +30,21 @@ Cypress.env('screen_sizes').forEach((size) => {
         it('Creating group with empty inputfield fails', function () {
             cy.createGroupWithToken(
                 '',
-                'Ryhmän tunnus ei voi olla tyhjä merkkijono.'
+                'Ryhmätunnus ei voi olla tyhjä merkkijono.'
             )
         })
 
         it('Creating group with too long token fails', function () {
             cy.createGroupWithToken(
                 '12345678901',
-                'Ryhmän tunnus ei voi olla yli 10 merkkiä pitkä.'
+                'Ryhmätunnus ei voi olla yli 10 merkkiä pitkä.'
             )
         })
 
         it('Creating group with special character fails', function () {
             cy.createGroupWithToken(
                 'MORO!!',
-                'Ryhmän tunnus voi sisältää vain isoja kirjaimia ja numeroita.'
+                'Ryhmätunnus voi sisältää vain isoja kirjaimia ja numeroita.'
             )
         })
     })
