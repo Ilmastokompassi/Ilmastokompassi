@@ -81,7 +81,7 @@ export default function FormDialog() {
                         autoFocus
                         margin="dense"
                         id="input-join-group-token"
-                        label="Ryhmäntunnus"
+                        label="Ryhmätunnus"
                         type="text"
                         fullWidth
                         variant="standard"
