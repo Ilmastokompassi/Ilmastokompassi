@@ -8,9 +8,7 @@
   - backend/**/*
 
 "tests":
-  - frontend/src/tests/**/*
-  - frontend/cypress/**/*
-  - backend/src/tests/**/*
+  - "**/tests/**/*"
 
 "k8s":
   - kubernetes/**/*
