@@ -1,6 +1,5 @@
 "ci/cd":
   - .github/**/*
-  - kubernetes/**/*
 
 "frontend":
   - frontend/**/*
@@ -9,11 +8,11 @@
   - backend/**/*
 
 "tests":
-  - "**/tests/**/*"
+  - **/tests/**/*
 
 "k8s":
   - kubernetes/**/*
 
-"documentation":
+"docs":
   - documentation/**/*
   - README.md
