@@ -27,7 +27,13 @@ export default function FormDialog() {
 
     const handleSubmit = () => {
         if (token === '') {
-            alert('Syötä ryhmätunnus')
+            alert('Syötä ryhmätunnus.')
+            return
+        } else if (token.length > 10) {
+            alert('Ryhmätunnus ei voi olla yli 10 merkkiä pitkä.')
+            return
+        } else if (!/^[A-Z0-9]+$/.test(token)) {
+            alert('Ryhmätunnus voi sisältää vain isoja kirjaimia ja numeroita.')
             return
         }
         fetch(`/api/group/${token}`, {
@@ -47,19 +53,23 @@ export default function FormDialog() {
                     navigate('/question/1')
                     setOpen(false)
                 } else {
-                    alert('Ryhmätunnusta ei löytynyt')
+                    alert('Ryhmätunnusta ei löytynyt.')
                 }
             })
     }
 
     return (
         <div>
-            <Button variant="contained" onClick={handleClickOpen}>
+            <Button
+                id="btn-join-group-dialog"
+                variant="contained"
+                onClick={handleClickOpen}
+            >
                 <Typography className="survey-option">
                     Teen kyselyn ryhmässä
                 </Typography>
             </Button>
-            <Dialog open={open} onClose={handleClose}>
+            <Dialog id="dialog-join-group" open={open} onClose={handleClose}>
                 <DialogTitle>Teen kyselyn ryhmässä</DialogTitle>
                 <DialogContent>
                     <DialogContentText>
@@ -70,8 +80,8 @@ export default function FormDialog() {
                     <TextField
                         autoFocus
                         margin="dense"
-                        id="group_token"
-                        label="Ryhmän tunnus"
+                        id="input-join-group-token"
+                        label="Ryhmätunnus"
                         type="text"
                         fullWidth
                         variant="standard"
@@ -80,8 +90,12 @@ export default function FormDialog() {
                     />
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={handleClose}>EIKU</Button>
-                    <Button onClick={handleSubmit}>Kyselyyn</Button>
+                    <Button id="btn-cancel-group-joining" onClick={handleClose}>
+                        EIKU
+                    </Button>
+                    <Button id="btn-join-group-token" onClick={handleSubmit}>
+                        Kyselyyn
+                    </Button>
                 </DialogActions>
             </Dialog>
         </div>

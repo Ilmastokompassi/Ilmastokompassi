@@ -21,14 +21,14 @@ export default function GroupDialog() {
 
     const handleSubmit = () => {
         if (groupName === '') {
-            window.alert('Ryhmän tunnus ei voi olla tyhjä merkkijono.')
+            window.alert('Ryhmätunnus ei voi olla tyhjä merkkijono.')
             return
         } else if (groupName.length > 10) {
-            window.alert('Ryhmän tunnus ei voi olla yli 10 merkkiä pitkä.')
+            window.alert('Ryhmätunnus ei voi olla yli 10 merkkiä pitkä.')
             return
         } else if (!/^[A-Z0-9]+$/.test(groupName)) {
             window.alert(
-                'Ryhmän tunnus voi sisältää vain isoja kirjaimia ja numeroita.'
+                'Ryhmätunnus voi sisältää vain isoja kirjaimia ja numeroita.'
             )
             return
         }
@@ -66,15 +66,15 @@ export default function GroupDialog() {
                 <DialogTitle>Luo uusi ryhmä</DialogTitle>
                 <DialogContent>
                     <DialogContentText>
-                        Ryhmän tunnus voi sisältää vain isoja kirjaimia,
-                        numeroita tai niiden yhdistelmiä. Ryhmän tunnus saa olla
-                        enintään 10 merkkiä pitkä. Syötä haluamasi uuden ryhmän
-                        tunnus ja paina &quot;Luo&quot;.
+                        Ryhmätunnus voi sisältää vain isoja kirjaimia, numeroita
+                        tai niiden yhdistelmiä. Ryhmätunnus saa olla enintään 10
+                        merkkiä pitkä. Syötä haluamasi uusi ryhmätunnus ja paina
+                        &quot;Luo&quot;.
                     </DialogContentText>
                     <TextField
                         autoFocus
                         margin="dense"
-                        label="Ryhmän tunnus"
+                        label="Ryhmäntunnus"
                         type="text"
                         fullWidth
                         variant="standard"
@@ -88,7 +88,7 @@ export default function GroupDialog() {
                         id="btn-cancel-group-creation"
                         onClick={() => setOpen(false)}
                     >
-                        Peruuta
+                        EIKU
                     </Button>
                     <Button
                         id="btn-create-group-token"
