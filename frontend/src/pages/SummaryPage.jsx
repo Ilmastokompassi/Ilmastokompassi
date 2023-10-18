@@ -6,7 +6,6 @@ import { useParams } from 'react-router-dom'
 import SummaryPie from '../components/SummaryPie'
 
 export const SummaryPage = () => {
-
     const { userId: userParamId } = useParams()
     const userId = parseInt(userParamId)
 
@@ -16,29 +15,34 @@ export const SummaryPage = () => {
     // Fetch result summary from api
     const { data: summaryData, isLoading: isLoadingSummary } = useSWR(`/api/summary/${userId}`)
 
-    const answerCount = summaryData?.count
-    const totalQuestions = summaryData?.total_questions_count
-
-    // Turn the result key-value pairs into an array of objects
-    // e.g. {1: 50, 2: 50, ..} => [{id: 1, score: 50}, {id: 2, score: 50}, ..]
-    const results = Object.entries(summaryData?.summary || {})
-        .map((x) => ({
-            id: parseInt(x[0]),
-            score: x[1]
+    /* Turn the result key-value pairs into an array of objects with respective profile details
+       e.g. { 1: 50, 2: 50, ..} => 
+        [
+            { id: 1, score: 50, name: .., description: ..}, 
+            { id: 2, score: 50, name: .., description: ..}, 
+            ..
+        ]
+    */
+    const profileResults = Object.entries(summaryData?.summary || {})
+        .map((result) => ({
+            score: result[1],
+            // Include matching climate profile id, name and desc
+            ...profileData?.find(profile => profile.id == parseInt(result[0]))
         }))
 
     // Get the top profile result
-    const topResult = results?.reduce((max, result) => (max.score > result.score ? max : result), {})
-
-    // Find the profile data for the top result
-    const topProfile = profileData?.find(profile => profile.id == topResult.id)
+    const topProfileResult = profileResults?.reduce(
+        (max, result) => (max.score > result.score ? max : result), {})
 
     // Create pie chart data and fetch
-    const pieChartData = results?.map((result) => ({
+    const pieChartData = profileResults?.map((result) => ({
         id: result.id,
         value: result.score,
-        label: profileData.find(profile => profile.id == result.id).name,
+        label: result.name,
     }))
+
+    const answerCount = summaryData?.count
+    const totalQuestions = summaryData?.total_questions_count
 
     useEffect(() => {
         document.title = 'Oma ilmastoprofiili'
@@ -81,8 +85,8 @@ export const SummaryPage = () => {
                         </Typography>
 
                         <SummaryProfile
-                            title={topProfile.name}
-                            description={topProfile.description}
+                            title={topProfileResult.name}
+                            description={topProfileResult.description}
                         />
                         <Box width={{ xs: '100vw', sm: '100vw', md: '30vw' }}>
                             <SummaryPie data={pieChartData} />
