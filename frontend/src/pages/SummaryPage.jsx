@@ -10,10 +10,13 @@ export const SummaryPage = () => {
     const userId = parseInt(userParamId)
 
     // Fetch all profiles from api
-    const { data: profileData, isLoading: isLoadingProfiles } = useSWR('/api/profiles')
+    const { data: profileData, isLoading: isLoadingProfiles } =
+        useSWR('/api/profiles')
 
     // Fetch result summary from api
-    const { data: summaryData, isLoading: isLoadingSummary } = useSWR(`/api/summary/${userId}`)
+    const { data: summaryData, isLoading: isLoadingSummary } = useSWR(
+        `/api/summary/${userId}`
+    )
 
     /* Turn the result key-value pairs into an array of objects with respective profile details
        e.g. { 1: 50, 2: 50, ..} => 
@@ -23,16 +26,21 @@ export const SummaryPage = () => {
             ..
         ]
     */
-    const profileResults = Object.entries(summaryData?.summary || {})
-        .map((result) => ({
+    const profileResults = Object.entries(summaryData?.summary || {}).map(
+        (result) => ({
             score: result[1],
             // Include matching climate profile id, name and desc
-            ...profileData?.find(profile => profile.id == parseInt(result[0]))
-        }))
+            ...profileData?.find(
+                (profile) => profile.id == parseInt(result[0])
+            ),
+        })
+    )
 
     // Get the top profile result
     const topProfileResult = profileResults?.reduce(
-        (max, result) => (max.score > result.score ? max : result), {})
+        (max, result) => (max.score > result.score ? max : result),
+        {}
+    )
 
     // Create pie chart data and fetch
     const pieChartData = profileResults?.map((result) => ({
@@ -49,7 +57,12 @@ export const SummaryPage = () => {
     })
     return (
         <Container>
-            <Stack spacing={3} paddingBottom={'50px'} alignItems={'center'}>
+            <Stack
+                spacing={4}
+                paddingTop={'30px'}
+                paddingBottom={'50px'}
+                alignItems={'center'}
+            >
                 <Typography
                     variant="h1"
                     sx={{
