@@ -39,3 +39,20 @@ Cypress.Commands.add('createGroupWithToken', (groupToken, alertMsg) => {
 
     cy.waitUntil(() => stub.calledWith(alertMsg))
 })
+
+Cypress.Commands.add('joinGroupWithToken', (groupToken, alertMsg) => {
+    const stub = cy.stub()
+    cy.on('window:alert', stub)
+
+    cy.get('#btn-join-group-dialog').click()
+    cy.get('#dialog-join-group')
+    if (groupToken) {
+        cy.get('#input-join-group-token').type(groupToken)
+    }
+    cy.get('#input-join-group-token').should('have.value', groupToken)
+
+    cy.get('#btn-join-group-token').click()
+    if (alertMsg) {
+        cy.waitUntil(() => stub.calledWith(alertMsg))
+    }
+})
