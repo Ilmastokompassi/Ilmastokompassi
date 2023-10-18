@@ -88,7 +88,7 @@ export default function GroupDialog() {
                         id="btn-cancel-group-creation"
                         onClick={() => setOpen(false)}
                     >
-                        Peruuta
+                        EIKU
                     </Button>
                     <Button
                         id="btn-create-group-token"
