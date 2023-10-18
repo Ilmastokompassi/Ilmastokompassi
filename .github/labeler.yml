@@ -8,7 +8,7 @@
   - backend/**/*
 
 "tests":
-  - **/tests/**/*
+  - "**/tests/**/*"
 
 "k8s":
   - kubernetes/**/*
