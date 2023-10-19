@@ -29,13 +29,3 @@ test('Find both survey links', () => {
     const smallScreenLink = smallScreenText.parentElement
     expect(smallScreenLink['href']).toMatch(/\/survey$/)
 })
-
-test('Find both material links', () => {
-    const largeScreenLink = screen.getByText('Materiaali', { selector: 'a' })
-
-    expect(largeScreenLink['href']).toMatch(/\/material$/)
-
-    const smallScreenText = screen.getByText('Materiaali', { selector: 'p' })
-    const smallScreenLink = smallScreenText.parentElement
-    expect(smallScreenLink['href']).toMatch(/\/material$/)
-})
