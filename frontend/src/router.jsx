@@ -1,7 +1,6 @@
 import { createBrowserRouter } from 'react-router-dom'
 import { Layout } from './components/Layout'
 import { LandingPage } from './pages/LandingPage'
-import { MaterialPage } from './pages/MaterialPage'
 import { SurveyPage } from './pages/SurveyPage'
 import { QuestionPage } from './pages/QuestionPage'
 import { ClimateProfilePage } from './pages/ClimateProfilePage'
@@ -23,10 +22,6 @@ export const routes = [
             {
                 path: '/question/:questionId',
                 element: <QuestionPage />,
-            },
-            {
-                path: '/material',
-                element: <MaterialPage />,
             },
             {
                 path: '/profiles',

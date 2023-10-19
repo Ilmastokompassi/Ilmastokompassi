@@ -17,7 +17,6 @@ import GroupIcon from '@mui/icons-material/Group'
 
 const pages = [
     { name: 'Kysely', route: '/survey', id: 'survey' },
-    { name: 'Materiaali', route: '/material', id: 'material' },
     { name: 'Ilmastoprofiilit', route: '/profiles', id: 'profiles' },
 ]
 
