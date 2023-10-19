@@ -1,13 +1,14 @@
 import {
     Typography,
-    Skeleton,
     Box,
     Card,
     CardContent,
     CardHeader,
+    Stack,
 } from '@mui/material'
 
 import PropTypes from 'prop-types'
+import EarthFlowers from '../assets/flowers_earth.jpg';
 
 export const SummaryProfile = ({ title, description }) => {
     return (
@@ -22,7 +23,17 @@ export const SummaryProfile = ({ title, description }) => {
                 }}
             >
                 <Box paddingBottom={'20px'} padding={'10px'}>
-                    <Skeleton variant="rectangular" width={250} height={250} />
+                    <Stack>
+                        <img
+                            src={EarthFlowers}
+                            alt="Ilmastoprofiili"
+                            width={250}
+                            height={250}
+                        />
+                        <Typography variant="caption">
+                            Image by Freepik
+                        </Typography>
+                    </Stack>
                 </Box>
             </Box>
             <Card variant="outlined" sx={{ width: '100%' }}>
