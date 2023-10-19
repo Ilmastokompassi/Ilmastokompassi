@@ -1,27 +1,29 @@
-from flask import jsonify, abort, request, current_app as app
+from flask import Blueprint, jsonify, abort, request
 from src.services.profile_service import default_profile_service
 from src.services.survey_service import default_survey_service
 from src.services.group_service import default_group_service
 
-
-@app.route("/")
-def index():
-    return "Hello world!"
+api = Blueprint('api', __name__, url_prefix='/api')
 
 
-@app.route("/api/question")
+@api.route("/ping")
+def ping():
+    return "pong"
+
+
+@api.route("/question")
 def total_questions():
     questions_list = default_survey_service.get_questions()
     return questions_list
 
 
-@app.route("/api/profiles")
+@api.route("/profiles")
 def profiles():
     profile_list = default_profile_service.get_profiles()
     return jsonify(profile_list)
 
 
-@app.route("/api/question/<int:question_id>")
+@api.route("/question/<int:question_id>")
 def individual_question(question_id):
     questions_list = default_survey_service.get_questions()
     question = next(
@@ -32,7 +34,7 @@ def individual_question(question_id):
     return jsonify(question)
 
 
-@app.route("/api/submit", methods=['POST'])
+@api.route("/submit", methods=['POST'])
 def submit():
     data = request.get_json()
     responses = data.get('responses')
@@ -52,7 +54,7 @@ def submit():
                         "message": "Something went wrong"}), 418
 
 
-@app.route('/api/summary/<int:user_id>', methods=['GET'])
+@api.route('/summary/<int:user_id>', methods=['GET'])
 def get_summary(user_id):
     try:
         summary, count, total_questions_count = default_survey_service.get_summary(
@@ -63,7 +65,7 @@ def get_summary(user_id):
         return jsonify(error="Something went wrong!"), 500
 
 
-@app.route('/api/new-group', methods=['POST'])
+@api.route('/new-group', methods=['POST'])
 def new_group():
     data = request.get_json()
     token = data.get('token')
@@ -83,7 +85,7 @@ def new_group():
         return jsonify(error="Something went wrong!"), 500
 
 
-@app.route('/api/group/<string:group_token>', methods=['GET'])
+@api.route('/group/<string:group_token>', methods=['GET'])
 def get_group(group_token):
     try:
         group_token = default_group_service.check_if_group_exists(group_token)

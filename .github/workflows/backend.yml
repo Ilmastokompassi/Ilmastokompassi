@@ -15,9 +15,24 @@ on:
 jobs:
   build-and-test-backend:
     runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres
+        ports:
+          - 5432:5432
+        env:
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: ilmastokompassi-test
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
     defaults:
       run:
         working-directory: ./backend
+    env:
+      DATABASE_URI: postgresql://postgres:postgres@localhost:5432/ilmastokompassi-test
     steps:
       - uses: actions/checkout@v3
       - run: pipx install poetry==1.6.1
@@ -29,6 +44,14 @@ jobs:
           cache-dependency-path: ./backend/poetry.lock
       - run: poetry install
       - run: poetry run invoke lint
+      - run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends postgresql-client
+      - name: Run DB migrations
+        run: |
+          psql -d $DATABASE_URI < src/schema.sql
+          psql -d $DATABASE_URI < src/climateprofiles.sql
+          psql -d $DATABASE_URI < src/questions.sql
       - name: Run tests
         run: poetry run coverage run --branch -m pytest
   deploy-backend:
