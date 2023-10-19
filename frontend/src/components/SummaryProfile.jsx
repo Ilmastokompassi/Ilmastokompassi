@@ -8,9 +8,9 @@ import {
 } from '@mui/material'
 
 import PropTypes from 'prop-types'
+import EarthFlowers from '../assets/flowers_earth.jpg';
 
 export const SummaryProfile = ({ title, description }) => {
-    const img_src = '../src/assets/flowers_earth.jpg'
     return (
         <>
             <Box
@@ -25,7 +25,7 @@ export const SummaryProfile = ({ title, description }) => {
                 <Box paddingBottom={'20px'} padding={'10px'}>
                     <Stack>
                         <img
-                            src={img_src}
+                            src={EarthFlowers}
                             alt="Ilmastoprofiili"
                             width={250}
                             height={250}
