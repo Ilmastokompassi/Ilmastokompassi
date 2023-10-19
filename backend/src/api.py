@@ -14,7 +14,7 @@ def ping():
 @api.route("/question")
 def total_questions():
     questions_list = default_survey_service.get_questions()
-    return questions_list
+    return jsonify(questions_list)
 
 
 @api.route("/profiles")
