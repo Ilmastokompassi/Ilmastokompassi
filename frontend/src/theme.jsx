@@ -4,9 +4,14 @@ import { LinkBehavior } from './components/LinkBehavior'
 export const theme = createTheme({
     palette: {
         primary: {
-            main: '#006600' /* MUI default */,
+            main: '#27632a',
         },
+        secondary: {
+            main: '#3949ab',
+        },
+        contrastThreshold: 4.5,
     },
+
     typography: {
         h6: {
             fontWeight: 'normal',
