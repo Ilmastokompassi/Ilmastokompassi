@@ -1,11 +1,11 @@
 import PropTypes from 'prop-types'
 import { Chart as ChartJS, ArcElement, Tooltip, Legend, Colors } from 'chart.js'
-import { Pie } from 'react-chartjs-2'
+import { Doughnut } from 'react-chartjs-2'
 
 ChartJS.register(ArcElement, Tooltip, Legend, Colors)
 
 export const SummaryPie = ({ data }) => (
-    <Pie
+    <Doughnut
         data={{
             labels: data.map((x) => x.label),
             datasets: [
