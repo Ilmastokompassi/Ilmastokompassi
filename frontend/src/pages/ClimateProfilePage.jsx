@@ -1,8 +1,9 @@
-import { Typography, Container, Stack, Skeleton, Box } from '@mui/material'
+import { Typography, Container, Stack, Box } from '@mui/material'
 import { useEffect } from 'react'
 import { ClimateProfile } from '../components/ClimateProfile'
 import { theme } from '../theme'
 import useSWR from 'swr'
+import ProfileImage from '../components/ProfileImage'
 
 export const ClimateProfilePage = () => {
     useEffect(() => {
@@ -50,11 +51,7 @@ export const ClimateProfilePage = () => {
                             }}
                         >
                             <Box paddingBottom={'20px'} padding={'10px'}>
-                                <Skeleton
-                                    variant="rectangular"
-                                    width={250}
-                                    height={250}
-                                />
+                                <ProfileImage title={profile.name} />
                             </Box>
                             <Box padding={'10px'}>
                                 <ClimateProfile

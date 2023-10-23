@@ -6,9 +6,8 @@ import {
     CardHeader,
     Stack,
 } from '@mui/material'
-
 import PropTypes from 'prop-types'
-import EarthFlowers from '../assets/flowers_earth.jpg';
+import ProfileImage from './ProfileImage'
 
 export const SummaryProfile = ({ title, description }) => {
     return (
@@ -22,19 +21,9 @@ export const SummaryProfile = ({ title, description }) => {
                     paddingBottom: '40px',
                 }}
             >
-                <Box paddingBottom={'20px'} padding={'10px'}>
-                    <Stack>
-                        <img
-                            src={EarthFlowers}
-                            alt="Ilmastoprofiili"
-                            width={250}
-                            height={250}
-                        />
-                        <Typography variant="caption">
-                            Image by Freepik
-                        </Typography>
-                    </Stack>
-                </Box>
+                <Stack paddingBottom={'20px'} padding={'10px'}>
+                    <ProfileImage title={title} />
+                </Stack>
             </Box>
             <Card variant="outlined" sx={{ width: '100%' }}>
                 <Box
