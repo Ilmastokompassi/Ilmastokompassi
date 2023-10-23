@@ -50,9 +50,9 @@ export const ClimateProfilePage = () => {
                                 paddingBottom: '40px',
                             }}
                         >
-                            <Box paddingBottom={'20px'} padding={'10px'}>
+                            <Stack paddingBottom={'20px'} padding={'10px'}>
                                 <ProfileImage title={profile.name} />
-                            </Box>
+                            </Stack>
                             <Box padding={'10px'}>
                                 <ClimateProfile
                                     description={profile.description}
