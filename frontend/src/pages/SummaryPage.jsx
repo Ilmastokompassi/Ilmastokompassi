@@ -1,9 +1,10 @@
 import useSWR from 'swr'
 import { SummaryProfile } from '../components/SummaryProfile'
 import { Typography, Container, Stack, Button, Box } from '@mui/material'
-import { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
+import { useTitle } from '../hooks/useTitle'
 import SummaryDoughnut from '../components/SummaryDoughnut'
+
 
 export const SummaryPage = () => {
     const { userId: userParamId } = useParams()
@@ -52,9 +53,7 @@ export const SummaryPage = () => {
     const answerCount = summaryData?.count
     const totalQuestions = summaryData?.total_questions_count
 
-    useEffect(() => {
-        document.title = 'Oma ilmastoprofiili'
-    })
+    useTitle('Ilmastoprofiili - Tulokset')
     return (
         <Container>
             <Stack

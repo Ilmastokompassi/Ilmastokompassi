@@ -1,10 +1,8 @@
-import { useEffect } from 'react'
 import { Typography, Container, Button, Stack } from '@mui/material'
+import { useTitle } from '../hooks/useTitle'
 
 export const LandingPage = () => {
-    useEffect(() => {
-        document.title = 'Ilmastokompassi'
-    }, [])
+    useTitle('Ilmastokompassi')
     return (
         <Container
             style={{

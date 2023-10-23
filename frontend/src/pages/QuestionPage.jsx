@@ -5,6 +5,7 @@ import { Button, IconButton, Stack, Typography } from '@mui/material'
 import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight'
 import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft'
 import QuestionCard from '../components/QuestionCard'
+import { useTitle } from '../hooks/useTitle'
 
 export function QuestionPage() {
     const { questionId: questionParamId } = useParams()
@@ -19,16 +20,12 @@ export function QuestionPage() {
         Math.max(1, parseInt(questionParamId))
     )
 
-    useEffect(() => {
-        document.title = 'Kysymykset'
-    }, [])
-
-    const currentQuestion = allQuestions?.find(
-        (question) => question.id == questionId
-    )
+    const currentQuestion = allQuestions?.find((question) => question.id == questionId)
 
     const totalQuestions = allQuestions?.length
     const isLastQuestion = questionId == totalQuestions
+
+    useTitle(`Ilmastoprofiili - Kysymys ${questionId}.`)
 
     const handleSubmit = () => {
         const responses = JSON.parse(localStorage.getItem('surveyResponses'))
@@ -40,9 +37,6 @@ export function QuestionPage() {
         })
             .then((response) => response.json())
             .then((data) => {
-                // Handle response from server
-                // Possible redirect or show a thank-you message to user
-                // User should get a pop up message for succesful submission
                 alert(
                     'Vastaukset tallennettu onnistuneesti! Siirry katsomaan oma ilmastoprofiilisi.'
                 )

@@ -1,9 +1,9 @@
 import { Typography, Button, Stack, Box } from '@mui/material'
 import { NavLink } from 'react-router-dom'
 import styled from '@emotion/styled'
-import { useEffect } from 'react'
 import FormDialog from '../components/FormDialog'
 import GroupDialog from '../components/GroupDialog'
+import { useTitle } from '../hooks/useTitle'
 
 const SurveyOptionButton = styled(Button)`
     /* Add your styling here */
@@ -26,9 +26,7 @@ const Heading = styled(Typography)`
 `
 
 export function SurveyPage() {
-    useEffect(() => {
-        document.title = 'Kysely'
-    }, [])
+    useTitle('Kysely')
 
     const removeGroupToken = () => {
         localStorage.removeItem('groupToken')

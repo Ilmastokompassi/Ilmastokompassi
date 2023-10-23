@@ -1,14 +1,12 @@
-import { Typography, Container, Stack, Box } from '@mui/material'
-import { useEffect } from 'react'
+import { Typography, Container, Stack, Skeleton, Box } from '@mui/material'
 import { ClimateProfile } from '../components/ClimateProfile'
 import { theme } from '../theme'
 import useSWR from 'swr'
+import { useTitle } from '../hooks/useTitle'
 import ProfileImage from '../components/ProfileImage'
 
 export const ClimateProfilePage = () => {
-    useEffect(() => {
-        document.title = 'Ilmastoprofiilit'
-    }, [])
+    useTitle('Ilmastoprofiilit')
 
     const { data } = useSWR('/api/profiles')
     const profileList = data
