@@ -31,7 +31,7 @@ export const LandingPage = () => {
                 <Button
                     style={{ width: 250, height: 60, fontSize: '20px' }}
                     variant="contained"
-                    color="primary"
+                    color="secondary"
                     aria-label="move to survey"
                     href={`/survey`}
                 >

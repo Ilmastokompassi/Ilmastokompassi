@@ -10,10 +10,10 @@ import Container from '@mui/material/Container'
 import Avatar from '@mui/material/Avatar'
 import Button from '@mui/material/Button'
 import MenuItem from '@mui/material/MenuItem'
-import Public from '@mui/icons-material/Public'
 import { NavLink } from 'react-router-dom'
 import { theme } from '../theme'
 import GroupIcon from '@mui/icons-material/Group'
+import ClimComp from '../assets/climcomp.png'
 
 const pages = [
     { name: 'Kysely', route: '/survey', id: 'survey' },
@@ -52,13 +52,33 @@ function ResponsiveAppBar() {
         }
     }, [])
 
+    const Logo = () => {
+        return (
+            <img
+                src={ClimComp}
+                alt="logo"
+                style={{
+                    height: 'auto',
+                    maxWidth: '100%',
+                    maxHeight: '48px',
+                }}
+            />
+        )
+    }
+
     return (
         <AppBar position="static">
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
-                    <Public
-                        sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }}
-                    />
+                    <Box
+                        sx={{
+                            display: { xs: 'none', md: 'flex' },
+                            alignItems: 'center',
+                            mr: 1,
+                        }}
+                    >
+                        <Logo />
+                    </Box>
                     <Typography
                         variant="h6"
                         noWrap
@@ -125,12 +145,15 @@ function ResponsiveAppBar() {
                             ))}
                         </Menu>
                     </Box>
-                    <Public
+                    <Box
                         sx={{
                             display: { nav_sm: 'flex', xs: 'none', md: 'none' },
+                            alignItems: 'center',
                             mr: 1,
                         }}
-                    />
+                    >
+                        <Logo />
+                    </Box>
                     <Typography
                         variant="h6"
                         noWrap

@@ -1,8 +1,9 @@
-import { Typography, Container, Stack, Skeleton, Box } from '@mui/material'
+import { Typography, Container, Stack, Box } from '@mui/material'
 import { ClimateProfile } from '../components/ClimateProfile'
 import { theme } from '../theme'
 import useSWR from 'swr'
 import { useTitle } from '../hooks/useTitle'
+import ProfileImage from '../components/ProfileImage'
 
 export const ClimateProfilePage = () => {
     useTitle('Ilmastoprofiilit')
@@ -47,13 +48,9 @@ export const ClimateProfilePage = () => {
                                 paddingBottom: '40px',
                             }}
                         >
-                            <Box paddingBottom={'20px'} padding={'10px'}>
-                                <Skeleton
-                                    variant="rectangular"
-                                    width={250}
-                                    height={250}
-                                />
-                            </Box>
+                            <Stack paddingBottom={'20px'} padding={'10px'}>
+                                <ProfileImage title={profile.name} />
+                            </Stack>
                             <Box padding={'10px'}>
                                 <ClimateProfile
                                     description={profile.description}

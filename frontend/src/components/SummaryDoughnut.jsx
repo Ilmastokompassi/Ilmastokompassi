@@ -12,7 +12,7 @@ export const SummaryPie = ({ data }) => (
                 {
                     label: '%',
                     data: data.map((x) => x.value),
-                    borderWidth: 10,
+                    borderWidth: 1,
                 },
             ],
         }}
@@ -25,6 +25,7 @@ export const SummaryPie = ({ data }) => (
                         font: {
                             size: 20, // Adjust the font size as needed
                         },
+                        color: 'black',
                     },
                 },
             },

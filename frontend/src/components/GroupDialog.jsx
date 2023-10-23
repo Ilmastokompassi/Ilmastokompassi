@@ -53,7 +53,7 @@ export default function GroupDialog() {
             <Button
                 id="btn-create-group-dialog"
                 variant="outlined"
-                color="primary"
+                color="secondary"
                 onClick={() => setOpen(true)}
             >
                 Luo ryhmä

@@ -55,7 +55,8 @@
         "testEnvironment": "jsdom",
         "moduleNameMapper": {
             "^.+\\.svg$": "jest-svg-transformer",
-            "^.+\\.(css|less|scss|jpg)$": "identity-obj-proxy"
+            "^.+\\.(css|less|scss)$": "identity-obj-proxy",
+            "\\.(jpg|jpeg|png|webp|svg|ttf|woff|woff2|mp4)$": "<rootDir>/src/tests/__mocks__/fileMock.js"
         }
     }
 }
