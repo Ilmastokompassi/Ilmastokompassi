@@ -2,8 +2,9 @@ import useSWR from 'swr'
 import { SummaryProfile } from '../components/SummaryProfile'
 import { Typography, Container, Stack, Button, Box } from '@mui/material'
 import { useParams } from 'react-router-dom'
-import SummaryPie from '../components/SummaryPie'
 import { useTitle } from '../hooks/useTitle'
+import SummaryDoughnut from '../components/SummaryDoughnut'
+
 
 export const SummaryPage = () => {
     const { userId: userParamId } = useParams()
@@ -100,7 +101,7 @@ export const SummaryPage = () => {
                             description={topProfileResult.description}
                         />
                         <Box width={{ xs: '100vw', sm: '100vw', md: '30vw' }}>
-                            <SummaryPie data={pieChartData} />
+                            <SummaryDoughnut data={pieChartData} />
                         </Box>
                     </>
                 ) : (
