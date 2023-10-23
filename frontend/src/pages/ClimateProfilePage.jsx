@@ -1,4 +1,4 @@
-import { Typography, Container, Stack, Skeleton, Box } from '@mui/material'
+import { Typography, Container, Stack, Box } from '@mui/material'
 import { ClimateProfile } from '../components/ClimateProfile'
 import { theme } from '../theme'
 import useSWR from 'swr'
