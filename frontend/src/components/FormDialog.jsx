@@ -64,6 +64,7 @@ export default function FormDialog() {
                 id="btn-join-group-dialog"
                 variant="contained"
                 onClick={handleClickOpen}
+                color="secondary"
             >
                 <Typography className="survey-option">
                     Teen kyselyn ryhmässä

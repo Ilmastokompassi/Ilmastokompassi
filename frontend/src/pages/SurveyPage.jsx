@@ -53,6 +53,7 @@ export function SurveyPage() {
                         variant="contained"
                         data-testid="btn-start-survey"
                         id="btn-survey-alone"
+                        color="secondary"
                     >
                         <Typography className="survey-option">
                             Teen kyselyn yksin

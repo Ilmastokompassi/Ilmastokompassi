@@ -133,7 +133,7 @@ export function QuestionPage() {
                         {isLastQuestion ? (
                             <Button
                                 variant="contained"
-                                color="primary"
+                                color="secondary"
                                 onClick={handleSubmit}
                             >
                                 Submit
