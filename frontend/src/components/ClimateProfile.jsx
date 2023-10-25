@@ -8,7 +8,6 @@ export const ClimateProfile = ({ name, description }) => {
             variant="outlined"
             sx={{
                 width: '100%',
-                borderRadius: 2,
                 boxShadow: 1,
             }}
         >
