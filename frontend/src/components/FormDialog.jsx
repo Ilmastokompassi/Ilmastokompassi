@@ -59,7 +59,7 @@ export default function FormDialog() {
     }
 
     return (
-        <div>
+        <>
             <Button
                 id="btn-join-group-dialog"
                 variant="contained"
@@ -99,6 +99,6 @@ export default function FormDialog() {
                     </Button>
                 </DialogActions>
             </Dialog>
-        </div>
+        </>
     )
 }
