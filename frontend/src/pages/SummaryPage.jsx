@@ -59,7 +59,7 @@ export const SummaryPage = () => {
 
     useTitle('Ilmastoprofiili - Tulokset')
     return (
-        <Container>_
+        <Container>
             <Box paddingY={5}>
                 <Card>
                     <Stack
