@@ -108,7 +108,7 @@ export const SummaryPage = () => {
                             description={topProfileResult.description}
                         />
                         <Box width={{ xs: '100vw', sm: '100vw', md: '30vw' }}>
-                            <SummaryDoughnut data={DoughnutChartData} />
+                            <SummaryDoughnut data={doughnutChartData} />
                         </Box>
                     </>
                   ) : (
