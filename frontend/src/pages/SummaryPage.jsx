@@ -48,7 +48,7 @@ export const SummaryPage = () => {
     )
 
     // Create pie chart data and fetch
-    const DoughnutChartData = profileResults?.map((result) => ({
+    const doughnutChartData = profileResults?.map((result) => ({
         id: result.id,
         value: result.score,
         label: result.name,
