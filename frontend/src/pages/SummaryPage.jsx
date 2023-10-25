@@ -18,17 +18,22 @@ export const SummaryPage = () => {
         `/api/summary/${userId}`
     )
 
+    let totalScore = 0
+    Object.entries(summaryData?.summary || {}).forEach(([_, value]) => {
+        totalScore += value
+    })
+
     /* Turn the result key-value pairs into an array of objects with respective profile details
        e.g. { 1: 50, 2: 50, ..} => 
         [
-            { id: 1, score: 50, name: .., description: ..}, 
-            { id: 2, score: 50, name: .., description: ..}, 
+            { id: 1, score: 25%, name: .., description: ..}, 
+            { id: 2, score: 25%, name: .., description: ..}, 
             ..
         ]
     */
     const profileResults = Object.entries(summaryData?.summary || {}).map(
         (result) => ({
-            score: result[1],
+            score: (result[1] / totalScore) * 100,
             // Include matching climate profile id, name and desc
             ...profileData?.find(
                 (profile) => profile.id == parseInt(result[0])
@@ -43,7 +48,7 @@ export const SummaryPage = () => {
     )
 
     // Create pie chart data and fetch
-    const pieChartData = profileResults?.map((result) => ({
+    const doughnutChartData = profileResults?.map((result) => ({
         id: result.id,
         value: result.score,
         label: result.name,
@@ -98,38 +103,30 @@ export const SummaryPage = () => {
                                     oman ilmastoprofiilisi!
                                 </Typography>
 
-                                <SummaryProfile
-                                    title={topProfileResult.name}
-                                    description={topProfileResult.description}
-                                />
-                                <Box
-                                    width={{
-                                        xs: '100vw',
-                                        sm: '100vw',
-                                        md: '30vw',
-                                    }}
-                                >
-                                    <SummaryDoughnut data={pieChartData} />
-                                </Box>
-                            </>
-                        ) : (
-                            <>
-                                <Typography>
-                                    Et ole vielä vastannut kyselyyn
-                                </Typography>
-                                <Button
-                                    variant="contained"
-                                    color="primary"
-                                    aria-label="move to survey"
-                                    href={`/survey`}
-                                >
-                                    Siirry tästä kyselyyn!
-                                </Button>
-                            </>
-                        )}
+                        <SummaryProfile
+                            title={topProfileResult.name}
+                            description={topProfileResult.description}
+                        />
+                        <Box width={{ xs: '100vw', sm: '100vw', md: '30vw' }}>
+                            <SummaryDoughnut data={doughnutChartData} />
+                        </Box>
+                    </>
+                  ) : (
+                      <>
+                          <Typography>Et ole vielä vastannut kyselyyn</Typography>
+                          <Button
+                              variant="contained"
+                              color="primary"
+                              aria-label="move to survey"
+                              href={`/survey`}
+                          >
+                              Siirry tästä kyselyyn!
+                          </Button>
+                      </>
+                  )}
                     </Stack>
-                </Card>
-            </Box>
-        </Container>
-    )
-}
+                  </Card>
+              </Box>
+          </Container>
+      )
+  }

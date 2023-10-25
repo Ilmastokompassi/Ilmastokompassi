@@ -4,7 +4,7 @@ import { Doughnut } from 'react-chartjs-2'
 
 ChartJS.register(ArcElement, Tooltip, Legend, Colors)
 
-export const SummaryPie = ({ data }) => (
+export const SummaryDoughnut = ({ data }) => (
     <Doughnut
         data={{
             labels: data.map((x) => x.label),
@@ -34,7 +34,7 @@ export const SummaryPie = ({ data }) => (
 )
 
 // Validate the data prop
-SummaryPie.propTypes = {
+SummaryDoughnut.propTypes = {
     data: PropTypes.arrayOf(
         PropTypes.shape({
             value: PropTypes.number.isRequired,
@@ -43,4 +43,4 @@ SummaryPie.propTypes = {
     ).isRequired,
 }
 
-export default SummaryPie
+export default SummaryDoughnut
