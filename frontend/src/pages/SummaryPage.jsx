@@ -5,7 +5,6 @@ import { useParams } from 'react-router-dom'
 import { useTitle } from '../hooks/useTitle'
 import SummaryDoughnut from '../components/SummaryDoughnut'
 
-
 export const SummaryPage = () => {
     const { userId: userParamId } = useParams()
     const userId = parseInt(userParamId)
@@ -19,17 +18,22 @@ export const SummaryPage = () => {
         `/api/summary/${userId}`
     )
 
+    let totalScore = 0
+    Object.entries(summaryData?.summary || {}).forEach(([_, value]) => {
+        totalScore += value
+    })
+
     /* Turn the result key-value pairs into an array of objects with respective profile details
        e.g. { 1: 50, 2: 50, ..} => 
         [
-            { id: 1, score: 50, name: .., description: ..}, 
-            { id: 2, score: 50, name: .., description: ..}, 
+            { id: 1, score: 25%, name: .., description: ..}, 
+            { id: 2, score: 25%, name: .., description: ..}, 
             ..
         ]
     */
     const profileResults = Object.entries(summaryData?.summary || {}).map(
         (result) => ({
-            score: result[1],
+            score: (result[1] / totalScore) * 100,
             // Include matching climate profile id, name and desc
             ...profileData?.find(
                 (profile) => profile.id == parseInt(result[0])
@@ -44,7 +48,7 @@ export const SummaryPage = () => {
     )
 
     // Create pie chart data and fetch
-    const pieChartData = profileResults?.map((result) => ({
+    const DoughnutChartData = profileResults?.map((result) => ({
         id: result.id,
         value: result.score,
         label: result.name,
@@ -101,7 +105,7 @@ export const SummaryPage = () => {
                             description={topProfileResult.description}
                         />
                         <Box width={{ xs: '100vw', sm: '100vw', md: '30vw' }}>
-                            <SummaryDoughnut data={pieChartData} />
+                            <SummaryDoughnut data={DoughnutChartData} />
                         </Box>
                     </>
                 ) : (
