@@ -1,6 +1,6 @@
 import useSWR from 'swr'
 import { SummaryProfile } from '../components/SummaryProfile'
-import { Typography, Container, Stack, Button, Box } from '@mui/material'
+import { Typography, Container, Stack, Button, Box, Card } from '@mui/material'
 import { useParams } from 'react-router-dom'
 import { useTitle } from '../hooks/useTitle'
 import SummaryDoughnut from '../components/SummaryDoughnut'
@@ -59,46 +59,49 @@ export const SummaryPage = () => {
 
     useTitle('Ilmastoprofiili - Tulokset')
     return (
-        <Container>
-            <Stack
-                spacing={4}
-                paddingTop={'30px'}
-                paddingBottom={'50px'}
-                alignItems={'center'}
-            >
-                <Typography
-                    variant="h1"
-                    sx={{
-                        fontSize: {
-                            xs: '2em', // Smaller font size for extra small screens
-                            sm: '3em', // Slightly bigger for small screens
-                            md: '4em', // Original size for medium screens and up
-                        },
-                        textAlign: 'center',
-                        p: '20px',
-                    }}
-                >
-                    Oma ilmastoprofiilisi
-                </Typography>
-                {isLoadingProfiles || isLoadingSummary ? (
-                    <p>Loading...</p>
-                ) : answerCount > 0 ? (
-                    <>
+        <Container>_
+            <Box paddingY={5}>
+                <Card>
+                    <Stack
+                        spacing={4}
+                        paddingTop={'30px'}
+                        paddingBottom={'50px'}
+                        alignItems={'center'}
+                    >
                         <Typography
-                            variant="h2"
+                            variant="h1"
                             sx={{
                                 fontSize: {
-                                    xs: '1.5em',
-                                    sm: '1.75em',
-                                    md: '2em',
+                                    xs: '2em', // Smaller font size for extra small screens
+                                    sm: '3em', // Slightly bigger for small screens
+                                    md: '4em', // Original size for medium screens and up
                                 },
                                 textAlign: 'center',
-                                p: '10px',
+                                p: '20px',
                             }}
                         >
-                            Olet vastannut {answerCount}/{totalQuestions}{' '}
-                            kysymykseen ja alta löydät oman ilmastoprofiilisi!
+                            Oma ilmastoprofiilisi
                         </Typography>
+                        {isLoadingProfiles || isLoadingSummary ? (
+                            <p>Loading...</p>
+                        ) : answerCount > 0 ? (
+                            <>
+                                <Typography
+                                    variant="h2"
+                                    sx={{
+                                        fontSize: {
+                                            xs: '1.5em',
+                                            sm: '1.75em',
+                                            md: '2em',
+                                        },
+                                        textAlign: 'center',
+                                        p: '10px',
+                                    }}
+                                >
+                                    Olet vastannut {answerCount}/
+                                    {totalQuestions} kysymykseen ja alta löydät
+                                    oman ilmastoprofiilisi!
+                                </Typography>
 
                         <SummaryProfile
                             title={topProfileResult.name}
@@ -108,20 +111,22 @@ export const SummaryPage = () => {
                             <SummaryDoughnut data={DoughnutChartData} />
                         </Box>
                     </>
-                ) : (
-                    <>
-                        <Typography>Et ole vielä vastannut kyselyyn</Typography>
-                        <Button
-                            variant="contained"
-                            color="primary"
-                            aria-label="move to survey"
-                            href={`/survey`}
-                        >
-                            Siirry tästä kyselyyn!
-                        </Button>
-                    </>
-                )}
-            </Stack>
-        </Container>
-    )
-}
+                  ) : (
+                      <>
+                          <Typography>Et ole vielä vastannut kyselyyn</Typography>
+                          <Button
+                              variant="contained"
+                              color="primary"
+                              aria-label="move to survey"
+                              href={`/survey`}
+                          >
+                              Siirry tästä kyselyyn!
+                          </Button>
+                      </>
+                  )}
+                    </Stack>
+                  </Card>
+              </Box>
+          </Container>
+      )
+  }

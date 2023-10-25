@@ -1,4 +1,11 @@
-import { Typography, Button, Stack, Box } from '@mui/material'
+import {
+    Typography,
+    Button,
+    Stack,
+    Box,
+    Card,
+    CardContent,
+} from '@mui/material'
 import { NavLink } from 'react-router-dom'
 import styled from '@emotion/styled'
 import FormDialog from '../components/FormDialog'
@@ -16,8 +23,8 @@ const SurveyPageContainer = styled.div`
     display: flex; /* Use flexbox layout */
     flex-direction: column; /* Stack elements vertically */
     align-items: center; /* Center items horizontally */
-    height: 100vh; /* Make the container full viewport height */
-    margin-top: 100px;
+    justify-content: center;
+    height: 100vh;
 `
 
 const Heading = styled(Typography)`
@@ -35,33 +42,40 @@ export function SurveyPage() {
 
     return (
         <SurveyPageContainer>
-            <Heading
-                variant="h1"
-                sx={{ fontSize: { xs: '2em', sm: '3em', md: '4em' } }}
-            >
-                Miten haluat tehdä kyselyn?
-            </Heading>
-            <Stack spacing={7} margin={5}>
-                <Stack spacing={2}>
-                    <FormDialog />
-                    <SurveyOptionButton
-                        component={NavLink}
-                        onClick={() => removeGroupToken()}
-                        to="/question/1"
-                        variant="contained"
-                        data-testid="btn-start-survey"
-                        id="btn-survey-alone"
-                        color="secondary"
-                    >
-                        <Typography className="survey-option">
-                            Teen kyselyn yksin
-                        </Typography>
-                    </SurveyOptionButton>
-                </Stack>
-                <Box alignSelf="center">
-                    <GroupDialog />
-                </Box>
-            </Stack>
+            <Card>
+                <CardContent>
+                    <Box margin={2}>
+                        <Heading
+                            variant="h1"
+                            sx={{
+                                fontSize: { xs: '2em', sm: '3em', md: '4em' },
+                                marginBottom: 2,
+                            }}
+                        >
+                            Miten haluat tehdä kyselyn?
+                        </Heading>
+                        <Stack spacing={2}>
+                            <FormDialog />
+                            <SurveyOptionButton
+                                component={NavLink}
+                                onClick={() => removeGroupToken()}
+                                to="/question/1"
+                                variant="contained"
+                                data-testid="btn-start-survey"
+                                id="btn-survey-alone"
+                                color="secondary"
+                            >
+                                <Typography className="survey-option">
+                                    Teen kyselyn yksin
+                                </Typography>
+                            </SurveyOptionButton>
+                            <Box alignSelf="center">
+                                <GroupDialog />
+                            </Box>
+                        </Stack>
+                    </Box>
+                </CardContent>
+            </Card>
         </SurveyPageContainer>
     )
 }
