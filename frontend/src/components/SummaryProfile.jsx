@@ -1,11 +1,4 @@
-import {
-    Typography,
-    Box,
-    Card,
-    CardContent,
-    CardHeader,
-    Stack,
-} from '@mui/material'
+import { Typography, Box, CardContent, CardHeader, Stack } from '@mui/material'
 import PropTypes from 'prop-types'
 import ProfileImage from './ProfileImage'
 
@@ -25,43 +18,41 @@ export const SummaryProfile = ({ title, description }) => {
                     <ProfileImage title={title} />
                 </Stack>
             </Box>
-            <Card variant="outlined" sx={{ width: '100%' }}>
-                <Box
-                    sx={{
-                        display: 'flex',
-                        flexDirection: 'column',
-                        overflowWrap: 'break-word',
+            <Box
+                sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    overflowWrap: 'break-word',
+                }}
+            >
+                <CardHeader
+                    sx={{ textAlign: 'center' }}
+                    titleTypographyProps={{
+                        variant: 'h2',
+                        fontSize: {
+                            xs: '1.5em',
+                            sm: '1.75em',
+                            md: '2em',
+                        },
                     }}
-                >
-                    <CardHeader
-                        sx={{ textAlign: 'center' }}
-                        titleTypographyProps={{
-                            variant: 'h2',
+                    title={title}
+                ></CardHeader>
+                <CardContent sx={{ flex: '1 0 auto' }}>
+                    <Typography
+                        variant="h3"
+                        sx={{
                             fontSize: {
-                                xs: '1.5em',
-                                sm: '1.75em',
-                                md: '2em',
+                                xs: '0.9em',
+                                sm: '1em',
+                                md: '1.1em',
                             },
+                            p: '10px',
                         }}
-                        title={title}
-                    ></CardHeader>
-                    <CardContent sx={{ flex: '1 0 auto' }}>
-                        <Typography
-                            variant="h3"
-                            sx={{
-                                fontSize: {
-                                    xs: '0.9em',
-                                    sm: '1em',
-                                    md: '1.1em',
-                                },
-                                p: '10px',
-                            }}
-                        >
-                            {description}
-                        </Typography>
-                    </CardContent>
-                </Box>
-            </Card>
+                    >
+                        {description}
+                    </Typography>
+                </CardContent>
+            </Box>
         </>
     )
 }
