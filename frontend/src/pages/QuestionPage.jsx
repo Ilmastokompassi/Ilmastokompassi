@@ -20,7 +20,9 @@ export function QuestionPage() {
         Math.max(1, parseInt(questionParamId))
     )
 
-    const currentQuestion = allQuestions?.find((question) => question.id == questionId)
+    const currentQuestion = allQuestions?.find(
+        (question) => question.id == questionId
+    )
 
     const totalQuestions = allQuestions?.length
     const isLastQuestion = questionId == totalQuestions
@@ -37,9 +39,6 @@ export function QuestionPage() {
         })
             .then((response) => response.json())
             .then((data) => {
-                alert(
-                    'Vastaukset tallennettu onnistuneesti! Siirry katsomaan oma ilmastoprofiilisi.'
-                )
                 navigate('/summary/' + data.user_id)
             })
             .catch((error) => {
@@ -130,7 +129,7 @@ export function QuestionPage() {
                                 color="secondary"
                                 onClick={handleSubmit}
                             >
-                                Submit
+                                Lopeta kysely
                             </Button>
                         ) : (
                             <Typography>
