@@ -11,10 +11,10 @@ describe('From survey page large ', function () {
 
         for (let i = 0; i < 33; i++) {
             // eslint-disable-next-line
-            cy.wait(500) 
+            cy.wait(500)
             cy.contains('Täysin samaa mieltä').click()
         }
-        cy.contains('Submit').click()
+        cy.contains('Lopeta kysely').click()
 
         cy.title().should('eq', 'Ilmastoprofiili - Tulokset')
         cy.contains('33/33')

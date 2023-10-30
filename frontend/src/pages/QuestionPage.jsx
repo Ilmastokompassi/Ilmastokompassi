@@ -39,6 +39,7 @@ export function QuestionPage() {
         })
             .then((response) => response.json())
             .then((data) => {
+                localStorage.removeItem('surveyResponses')
                 navigate('/summary/' + data.user_id)
             })
             .catch((error) => {
