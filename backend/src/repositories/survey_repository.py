@@ -7,7 +7,7 @@ class SurveyRepository:
 
     def get_questions(self):
         result = db.session.execute(
-            text("SELECT * FROM profile_questions;")).mappings().all()
+            text("SELECT id, content FROM profile_questions;")).mappings().all()
         questions = [dict(row) for row in result]
         return questions
 

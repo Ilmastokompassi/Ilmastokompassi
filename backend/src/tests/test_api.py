@@ -17,7 +17,6 @@ def test_get_questions(client):
     assert len(result) == 33
     assert first_question['id'] == 1
     assert 'Haluan hankkia enemmän tieteellistä tietoa' in first_question['content']
-    assert first_question['climate_profile_id'] == 1
 
 
 def test_get_profiles(client):
@@ -38,7 +37,6 @@ def test_get_individual_question(client):
     assert response.status_code == 200
     assert result['id'] == 33
     assert 'teknologiseen kehitykseen ei ole panostettu tarpeeksi' in result['content']
-    assert result['climate_profile_id'] == 1
 
 
 def test_get_individual_question_not_found(client):

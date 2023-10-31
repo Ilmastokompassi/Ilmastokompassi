@@ -27,12 +27,12 @@ class TestGroupService(unittest.TestCase):
         self.assertFalse(
             self.group_service.is_group_name_valid("test123456789"))
 
-    def test_insert_group_token_to_users(self):
+    def test_insert_group_token_to_responses(self):
         token = "test_token"
-        user_id = 1
-        self.group_service.insert_group_token_to_users(token, user_id)
-        self.mock_group_repository.insert_group_token_to_users.assert_called_once_with(
-            token, user_id)
+        response_id = 1
+        self.group_service.insert_group_token_to_responses(token, response_id)
+        self.mock_group_repository.insert_group_token_to_responses.assert_called_once_with(
+            token, response_id)
 
     def test_save_group_exception(self):
         self.mock_group_repository.save_group.side_effect = Exception(
@@ -46,11 +46,12 @@ class TestGroupService(unittest.TestCase):
         with self.assertRaises(Exception):
             self.group_service.check_if_group_exists("test_token")
 
-    def test_insert_group_token_to_users(self):
-        self.mock_group_repository.insert_group_token_to_users.side_effect = Exception(
-            "Error inserting group token to users")
+    def test_insert_group_token_to_responses(self):
+        self.mock_group_repository.insert_group_token_to_responses.side_effect = Exception(
+            "Error inserting group token to responses")
         with self.assertRaises(Exception):
-            self.group_service.insert_group_token_to_users("test_token", 1)
+            self.group_service.insert_group_token_to_responses("test_token", 1)
+
 
 if __name__ == '__main__':
     unittest.main()

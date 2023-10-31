@@ -19,7 +19,7 @@ class TestGroupRepository(unittest.TestCase):
                 )
             '''))
             conn.execute(text('''
-                CREATE TABLE users (
+                CREATE TABLE responses (
                     id SERIAL PRIMARY KEY,
                     group_token TEXT REFERENCES groups(token)
                 )
@@ -44,12 +44,14 @@ class TestGroupRepository(unittest.TestCase):
         result = self.group_repository.check_if_group_exists("test_token")
         self.assertFalse(result)
 
-    def test_insert_group_token_to_users(self):
+    def test_insert_group_token_to_responses(self):
         token = "test_token"
-        user_id = 1
-        insert_sql = text("INSERT INTO users (id) VALUES (:user_id)")
-        db.session.execute(insert_sql, {"user_id": user_id})
-        self.group_repository.insert_group_token_to_users(token, user_id)
-        sql = text("SELECT * FROM users WHERE id = :user_id")
-        result = db.session.execute(sql, {"user_id": user_id}).fetchall()
-        self.assertEqual(result, [(user_id, token)])
+        response_id = 1
+        insert_sql = text("INSERT INTO responses (id) VALUES (:response_id)")
+        db.session.execute(insert_sql, {"response_id": response_id})
+        self.group_repository.insert_group_token_to_responses(
+            token, response_id)
+        sql = text("SELECT * FROM responses WHERE id = :response_id")
+        result = db.session.execute(
+            sql, {"response_id": response_id}).fetchall()
+        self.assertEqual(result, [(response_id, token)])
