@@ -31,10 +31,10 @@ class GroupService:
             return False
         return True
 
-    def insert_group_token_to_users(self, token, user_id):
+    def insert_group_token_to_responses(self, token, response_id):
         try:
-            self.group_repository.insert_group_token_to_users(
-                token, user_id)
+            self.group_repository.insert_group_token_to_responses(
+                token, response_id)
         except Exception as error:
             raise error
 
