@@ -1,6 +1,7 @@
 import { Typography, Box, CardContent, CardHeader, Stack } from '@mui/material'
 import PropTypes from 'prop-types'
 import ProfileImage from './ProfileImage'
+import { theme } from '../theme'
 
 export const SummaryProfile = ({ title, description }) => {
     return (
@@ -9,49 +10,46 @@ export const SummaryProfile = ({ title, description }) => {
                 sx={{
                     display: { xs: 'flex', md: 'flex' },
                     flexDirection: 'column',
-                    justifyContent: 'center',
-                    alignItems: 'center',
                     paddingBottom: '40px',
+                    overflowWrap: 'break-word',
+                    alignItems: 'center',
+                    [theme.breakpoints.up('md')]: {
+                        flexDirection: 'row',
+                    },
                 }}
             >
                 <Stack paddingBottom={'20px'} padding={'10px'}>
                     <ProfileImage title={title} />
                 </Stack>
-            </Box>
-            <Box
-                sx={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    overflowWrap: 'break-word',
-                }}
-            >
-                <CardHeader
-                    sx={{ textAlign: 'center' }}
-                    titleTypographyProps={{
-                        variant: 'h2',
-                        fontSize: {
-                            xs: '1.5em',
-                            sm: '1.75em',
-                            md: '2em',
-                        },
-                    }}
-                    title={title}
-                ></CardHeader>
-                <CardContent sx={{ flex: '1 0 auto' }}>
-                    <Typography
-                        variant="h3"
-                        sx={{
+                <Stack>
+                    <CardHeader
+                        sx={{ textAlign: 'left' }}
+                        titleTypographyProps={{
+                            variant: 'h2',
                             fontSize: {
-                                xs: '0.9em',
-                                sm: '1em',
-                                md: '1.1em',
+                                xs: '1.5em',
+                                sm: '1.75em',
+                                md: '2em',
                             },
-                            p: '10px',
                         }}
-                    >
-                        {description}
-                    </Typography>
-                </CardContent>
+                        title={title}
+                    ></CardHeader>
+                    <CardContent sx={{ flex: '1 0 auto' }}>
+                        <Typography
+                            variant="h3"
+                            sx={{
+                                fontSize: {
+                                    xs: '0.9em',
+                                    sm: '1em',
+                                    md: '1.1em',
+                                },
+                                p: '10px',
+                            }}
+                        >
+                            {description}
+                        </Typography>
+                    </CardContent>
+                </Stack>
             </Box>
         </>
     )
