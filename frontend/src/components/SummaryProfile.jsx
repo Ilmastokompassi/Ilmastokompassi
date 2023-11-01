@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import ProfileImage from './ProfileImage'
 import { theme } from '../theme'
 
-export const SummaryProfile = ({ title, description }) => {
+export const SummaryProfile = ({ index, title, description }) => {
     return (
         <>
             <Box
@@ -13,8 +13,14 @@ export const SummaryProfile = ({ title, description }) => {
                     paddingBottom: '40px',
                     overflowWrap: 'break-word',
                     alignItems: 'center',
+
                     [theme.breakpoints.up('md')]: {
-                        flexDirection: 'row',
+                        justifyContent: 'space-between',
+                        alignItems: 'stretch',
+                        flexDirection: 'row-reverse',
+                        ...(index % 2 === 0 && {
+                            flexDirection: 'row',
+                        }),
                     },
                 }}
             >
@@ -55,6 +61,7 @@ export const SummaryProfile = ({ title, description }) => {
     )
 }
 SummaryProfile.propTypes = {
+    index: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired, // You can adjust the PropTypes as needed
     description: PropTypes.string.isRequired,
 }
