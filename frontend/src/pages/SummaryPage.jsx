@@ -41,10 +41,14 @@ export const SummaryPage = () => {
         })
     )
 
-    // Get the top profile result
-    const topProfileResult = profileResults?.reduce(
+    // Get the top profile result(s)
+    const maxScore = profileResults.reduce(
         (max, result) => (max.score > result.score ? max : result),
         {}
+    ).score
+
+    const highestScoreProfiles = profileResults.filter(
+        (result) => result.score === maxScore
     )
 
     // Create pie chart data and fetch
@@ -102,31 +106,57 @@ export const SummaryPage = () => {
                                     {totalQuestions} kysymykseen ja alta löydät
                                     oman ilmastoprofiilisi!
                                 </Typography>
-
-                        <SummaryProfile
-                            title={topProfileResult.name}
-                            description={topProfileResult.description}
-                        />
-                        <Box width={{ xs: '100vw', sm: '100vw', md: '30vw' }}>
-                            <SummaryDoughnut data={doughnutChartData} />
-                        </Box>
-                    </>
-                  ) : (
-                      <>
-                          <Typography>Et ole vielä vastannut kyselyyn</Typography>
-                          <Button
-                              variant="contained"
-                              color="primary"
-                              aria-label="move to survey"
-                              href={`/survey`}
-                          >
-                              Siirry tästä kyselyyn!
-                          </Button>
-                      </>
-                  )}
+                                {highestScoreProfiles.length > 1 && (
+                                    <Typography
+                                        variant="h2"
+                                        sx={{
+                                            fontSize: {
+                                                xs: '1em',
+                                                sm: '1.25em',
+                                                md: '1.5em',
+                                            },
+                                        }}
+                                    >
+                                        Sinulla on useita profiileja, jotka
+                                        kuvastavat sinua!
+                                    </Typography>
+                                )}
+                                {highestScoreProfiles.map((profile, index) => (
+                                    <SummaryProfile
+                                        key={profile.id}
+                                        index={index}
+                                        title={profile.name}
+                                        description={profile.description}
+                                    />
+                                ))}
+                                <Box
+                                    width={{
+                                        xs: '100vw',
+                                        sm: '100vw',
+                                        md: '30vw',
+                                    }}
+                                >
+                                    <SummaryDoughnut data={doughnutChartData} />
+                                </Box>
+                            </>
+                        ) : (
+                            <>
+                                <Typography>
+                                    Et ole vielä vastannut kyselyyn
+                                </Typography>
+                                <Button
+                                    variant="contained"
+                                    color="primary"
+                                    aria-label="move to survey"
+                                    href={`/survey`}
+                                >
+                                    Siirry tästä kyselyyn!
+                                </Button>
+                            </>
+                        )}
                     </Stack>
-                  </Card>
-              </Box>
-          </Container>
-      )
-  }
+                </Card>
+            </Box>
+        </Container>
+    )
+}
