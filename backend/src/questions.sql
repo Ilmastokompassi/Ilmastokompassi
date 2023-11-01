@@ -1,4 +1,4 @@
-INSERT INTO questions(id, content, climate_profile_id) 
+INSERT INTO profile_questions(id, content, profile_id) 
 VALUES 
   (1, 'Haluan hankkia enemmän tieteellistä tietoa ilmastonmuutoksesta', 1),
   (2, 'Haluan puhua, kirjoittaa tai taiteen keinoin kertoa ilmastonmuutoksesta', 2),

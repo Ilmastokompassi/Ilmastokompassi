@@ -7,40 +7,40 @@ class SurveyRepository:
 
     def get_questions(self):
         result = db.session.execute(
-            text("SELECT * FROM questions;")).mappings().all()
+            text("SELECT id, content FROM profile_questions;")).mappings().all()
         questions = [dict(row) for row in result]
         return questions
 
     def save_answers(self, answers):
         try:
-            sql = text("INSERT INTO users VALUES (default) RETURNING id")
-            user_id = db.session.execute(sql).fetchone()[0]
+            sql = text("INSERT INTO responses VALUES (default) RETURNING id")
+            response_id = db.session.execute(sql).fetchone()[0]
             for question_id, answer in answers.items():
                 db.session.execute(text("""
-                    INSERT INTO answers (user_id, question_id, score)
-                        VALUES (:user_id, :question_id, :score)"""),
-                                   {"user_id": user_id, "question_id": question_id, "score": answer})  # pylint: disable=line-too-long
+                    INSERT INTO profile_answers (response_id, question_id, score)
+                        VALUES (:response_id, :question_id, :score)"""),
+                                   {"response_id": response_id, "question_id": question_id, "score": answer})  # pylint: disable=line-too-long
         except Exception as error:  # pylint: disable=broad-except
             db.session.rollback()
             raise error
 
         db.session.commit()
-        return user_id
+        return response_id
 
-    def get_user_answers(self, user_id):
-        sql = text("""SELECT score, Q.climate_profile_id FROM answers
-                        JOIN questions Q on question_id=Q.id
-                   WHERE user_id=:user_id;
+    def get_response_answers(self, response_id):
+        sql = text("""SELECT score, Q.profile_id FROM profile_answers
+                        JOIN profile_questions Q on question_id=Q.id
+                   WHERE response_id=:response_id;
                    """)
         try:
-            return db.session.execute(sql, {"user_id": user_id}).fetchall()
+            return db.session.execute(sql, {"response_id": response_id}).fetchall()
         except Exception as error:
             raise error
 
-    def get_answer_count(self, user_id):
+    def get_answer_count(self, response_id):
         result = db.session.execute(
-            text("SELECT COUNT(*) FROM answers WHERE user_id = :user_id"),
-            {"user_id": user_id}).fetchone()[0]
+            text("SELECT COUNT(*) FROM profile_answers WHERE response_id = :response_id"),
+            {"response_id": response_id}).fetchone()[0]
         return result
 
 

@@ -1,4 +1,4 @@
-INSERT INTO climate_profiles(id, name, description) 
+INSERT INTO profiles(id, name, description) 
 VALUES 
   (1, 'Ilmastoasiantuntija', 'Sinussa on potentiaalia ilmastoasiantuntijaksi. Ilmastoasiantuntijana olet kiinnostunut ilmastonmuutoksen tieteellisestä puolesta. Janoat saada tietää, kuinka ilmasto ja yhteiskunta toimivat yhdessä. Koet tieteeseen pohjautuvan päätöksenteon tärkeäksi ja näet uusien innovaatioiden välttämättömyyden matkallamme kohti planetaarisia rajoja kunnioittavaa elämää.'),
   (2, 'Mielipidevaikuttaja', 'Maailma muuttuu ja sinussa on ainesta johtamaan tätä muutosta. Ilmastovaikuttajuus paistaa sinusta ja valinnoistasi. Olet kiinnostunut vaikuttamaan ilmastonmuutokseen liittyvään päätöksentekoon, omalla tavallasi. Vaikuttaminen voi olla niin aiheesta puhumista, valintojen tekemistä, tapahtumiin osallistumista, kuin puhuttelevan taiteen luomistakin. Ilmasto ja yhteiskunta toimivat yhdessä, eikä sitä voi kiistää. Koet rohkean päätöksenteon kiireelliseksi ja tärkeäksi päästäksemme tielle kohti kestävämpää, ilmastoystävällistä yhteiskuntaa.'),

@@ -13,7 +13,7 @@ class TestProfileRepository(unittest.TestCase):
         db.session = self.session
         with engine.connect() as conn:
             conn.execute(text('''
-                CREATE TABLE climate_profiles (
+                CREATE TABLE profiles (
                     id INTEGER PRIMARY KEY,
                     name TEXT,
                     description TEXT
@@ -26,7 +26,7 @@ class TestProfileRepository(unittest.TestCase):
 
     def test_get_profiles(self):
         self.session.execute(
-            text("INSERT INTO climate_profiles (name, description) VALUES ('Test Profile', 'Test Description');"))
+            text("INSERT INTO profiles (name, description) VALUES ('Test Profile', 'Test Description');"))
         self.session.commit()
         profiles = self.profile_repository.get_profiles()
         self.assertEqual(len(profiles), 1)

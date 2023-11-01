@@ -13,26 +13,26 @@ class TestSurveyRepository(unittest.TestCase):
         db.session = self.session
         with engine.connect() as conn:
             conn.execute(text('''
-                CREATE TABLE users (
+                CREATE TABLE responses (
                     id SERIAL PRIMARY KEY
                 )'''))
             conn.execute(text('''
-                CREATE TABLE climate_profiles (
+                CREATE TABLE profiles (
                     id SERIAL PRIMARY KEY,
                     name TEXT,
                     description TEXT
                 )'''))
             conn.execute(text('''
-                CREATE TABLE questions (
+                CREATE TABLE profile_questions (
                     id SERIAL PRIMARY KEY,
                     content TEXT,
-                    climate_profile_id INTEGER REFERENCES climate_profiles(id)
+                    profile_id INTEGER REFERENCES profiles(id)
                 )'''))
             conn.execute(text('''
-                CREATE TABLE answers (
+                CREATE TABLE profile_answers (
                     id SERIAL PRIMARY KEY,
-                    user_id INTEGER REFERENCES users(id),
-                    question_id INTEGER REFERENCES questions(id),
+                    response_id INTEGER REFERENCES responses(id),
+                    question_id INTEGER REFERENCES profile_questions(id),
                     score INTEGER
                 )'''))
         self.repo = SurveyRepository()
@@ -42,7 +42,8 @@ class TestSurveyRepository(unittest.TestCase):
         self.assertEqual(len(surveys), 0)
 
     def test_answer_count(self):
-        self.session.execute(text("INSERT INTO users VALUES (1)"))
-        self.session.execute(text("INSERT INTO answers VALUES (1, 1, 1, 100)"))
+        self.session.execute(text("INSERT INTO responses VALUES (1)"))
+        self.session.execute(
+            text("INSERT INTO profile_answers VALUES (1, 1, 1, 100)"))
         answer_count = self.repo.get_answer_count(1)
         self.assertEqual(answer_count, 1)

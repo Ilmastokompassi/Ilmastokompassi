@@ -23,12 +23,12 @@ class GroupRepository:
         except Exception as error:
             raise error
 
-    def insert_group_token_to_users(self, token, user_id):
+    def insert_group_token_to_responses(self, token, response_id):
         try:
             sql = text(
-                "UPDATE users SET group_token = :token WHERE id = :user_id")
+                "UPDATE responses SET group_token = :token WHERE id = :response_id")
             db.session.execute(
-                sql, {"token": token, "user_id": user_id})
+                sql, {"token": token, "response_id": response_id})
 
         except Exception as error:
             db.session.rollback()

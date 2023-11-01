@@ -41,24 +41,24 @@ def submit():
     group_token = data.get('groupToken')
 
     try:
-        user_id = default_survey_service.save_answers(responses)
+        response_id = default_survey_service.save_answers(responses)
         if group_token:
-            default_group_service.insert_group_token_to_users(
-                group_token, user_id)
+            default_group_service.insert_group_token_to_responses(
+                group_token, response_id)
         return jsonify({"status": "success",
                         "message": "Answers submitted successfully",
-                        "user_id": user_id}), 200
+                        "user_id": response_id}), 200
     except Exception as error:  # pylint: disable=broad-except
         print("ROUTE submit", error)
         return jsonify({"status": "fail",
                         "message": "Something went wrong"}), 418
 
 
-@api.route('/summary/<int:user_id>', methods=['GET'])
-def get_summary(user_id):
+@api.route('/summary/<int:response_id>', methods=['GET'])
+def get_summary(response_id):
     try:
         summary, count, total_questions_count = default_survey_service.get_summary(
-            user_id)
+            response_id)
         return jsonify(count=count, summary=summary, total_questions_count=total_questions_count)
     except Exception as error:  # pylint: disable=broad-except
         print(error)
