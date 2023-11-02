@@ -5,10 +5,23 @@ import QuestionCard from '../../components/QuestionCard'
 beforeEach(async () => {
     const fakeQuestion = {
         id: 1,
-        content: 'How is the weather today?'
+        content: 'How is the weather today?',
+        options: [
+            { id: 1, name: 'Täysin eri mieltä' },
+            { id: 2, name: 'Jokseenkin eri mieltä' },
+            { id: 3, name: 'En samaa enkä eri mieltä' },
+            { id: 4, name: 'Jokseenkin samaa mieltä' },
+            { id: 5, name: 'Täysin samaa mieltä' },
+        ],
     }
 
-    render(<QuestionCard question={fakeQuestion} onOptionSelected={null} />)
+    render(
+        <QuestionCard
+            question={fakeQuestion}
+            selectedOptionsIds={new Set()}
+            onOptionSelected={null}
+        />
+    )
 })
 
 test('renders question heading', () => {

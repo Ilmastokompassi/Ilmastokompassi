@@ -9,8 +9,17 @@ import { useTitle } from '../hooks/useTitle'
 
 export function QuestionPage() {
     const { questionId: questionParamId } = useParams()
-    const [selectedOptionId, setSelectedOptionId] = useState(null)
+    // Needs to be type Set, because QuestionCard is used for quiz also.
+    const [selectedOptionId, setSelectedOptionId] = useState(new Set())
     const navigate = useNavigate()
+
+    const options = [
+        { id: 1, name: 'Täysin eri mieltä' },
+        { id: 2, name: 'Jokseenkin eri mieltä' },
+        { id: 3, name: 'En samaa enkä eri mieltä' },
+        { id: 4, name: 'Jokseenkin samaa mieltä' },
+        { id: 5, name: 'Täysin samaa mieltä' },
+    ]
 
     const { data: allQuestions, isLoading: isLoadingAllQuestions } =
         useSWR('/api/question')
@@ -52,13 +61,14 @@ export function QuestionPage() {
     useEffect(() => {
         const savedResponses =
             JSON.parse(localStorage.getItem('surveyResponses')) || {}
-        setSelectedOptionId(savedResponses[questionId])
+        const newValue = new Set([savedResponses[questionId]])
+        setSelectedOptionId(newValue)
     }, [questionId])
 
     // On option selected, save the selected option for the question
     // to the local storage and move to the next question.
     const onOptionSelected = (selectedOptionId) => {
-        setSelectedOptionId(selectedOptionId)
+        setSelectedOptionId(new Set([selectedOptionId]))
 
         const savedResponses =
             JSON.parse(localStorage.getItem('surveyResponses')) || {}
@@ -106,8 +116,8 @@ export function QuestionPage() {
                 <>
                     {/* Question options card */}
                     <QuestionCard
-                        question={currentQuestion}
-                        selectedOptionId={selectedOptionId}
+                        question={{ ...currentQuestion, options: options }}
+                        selectedOptionsIds={selectedOptionId}
                         onOptionSelected={onOptionSelected}
                     />
                     {/* Buttons */}

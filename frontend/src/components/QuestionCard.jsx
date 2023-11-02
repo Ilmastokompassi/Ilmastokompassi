@@ -8,7 +8,12 @@ import {
 } from '@mui/material'
 import PropTypes from 'prop-types'
 
-function QuestionCard({ question, selectedOptionId, onOptionSelected }) {
+function QuestionCard({
+    question,
+    selectedOptionsIds,
+    onOptionSelected,
+    alwaysCol,
+}) {
     const cardStyles = {
         width: '80%',
         maxWidth: '800px',
@@ -18,13 +23,7 @@ function QuestionCard({ question, selectedOptionId, onOptionSelected }) {
         overflowY: 'auto',
     }
 
-    const options = [
-        { id: 1, name: 'Täysin eri mieltä' },
-        { id: 2, name: 'Jokseenkin eri mieltä' },
-        { id: 3, name: 'En samaa enkä eri mieltä' },
-        { id: 4, name: 'Jokseenkin samaa mieltä' },
-        { id: 5, name: 'Täysin samaa mieltä' },
-    ]
+    const options = question.options
 
     return (
         <Card sx={cardStyles}>
@@ -50,13 +49,17 @@ function QuestionCard({ question, selectedOptionId, onOptionSelected }) {
                 <Stack
                     spacing={2}
                     marginTop={1}
-                    direction={{ xs: 'column', sm: 'column', md: 'row' }}
+                    direction={
+                        alwaysCol
+                            ? 'column'
+                            : { xs: 'column', sm: 'column', md: 'row' }
+                    }
                 >
                     {options.map((option) => (
                         <Button
                             key={option.id}
                             variant={
-                                option.id === selectedOptionId
+                                selectedOptionsIds.has(option.id)
                                     ? 'contained'
                                     : 'outlined'
                             }
@@ -74,12 +77,14 @@ function QuestionCard({ question, selectedOptionId, onOptionSelected }) {
 const questionProps = PropTypes.shape({
     id: PropTypes.number.isRequired,
     content: PropTypes.string.isRequired,
+    options: PropTypes.array,
 })
 
 QuestionCard.propTypes = {
     question: questionProps.isRequired,
-    selectedOptionId: PropTypes.number,
+    selectedOptionsIds: PropTypes.object,
     onOptionSelected: PropTypes.func,
+    alwaysCol: PropTypes.bool,
 }
 
 export default QuestionCard
