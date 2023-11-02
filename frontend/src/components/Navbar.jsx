@@ -16,8 +16,8 @@ import GroupIcon from '@mui/icons-material/Group'
 import ClimComp from '../assets/climcomp.png'
 
 const pages = [
-    { name: 'Kysely', route: '/survey', id: 'survey' },
-    { name: 'Ilmastoprofiilit', route: '/profiles', id: 'profiles' },
+    { name: 'Kyselyt', route: '/kyselyt', id: 'survey' },
+    { name: 'Ilmastoprofiilit', route: '/profiilit', id: 'profiles' },
 ]
 
 function ResponsiveAppBar() {
