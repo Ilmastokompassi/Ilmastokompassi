@@ -1,6 +1,6 @@
 describe('From summary page large', function () {
     beforeEach(function () {
-        cy.visit('/summary/1')
+        cy.visit('/yhteenveto/1')
         cy.viewport(900, 1000)
     })
 

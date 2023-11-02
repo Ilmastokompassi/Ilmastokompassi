@@ -1,12 +1,12 @@
 Cypress.env('screen_sizes').forEach((size) => {
-    describe(`Gropu creation ${size[2]}`, function () {
+    describe(`Group creation ${size[2]}`, function () {
         beforeEach(function () {
-            cy.visit('/survey')
+            cy.visit('/kyselyt')
             cy.viewport(size[0], size[1])
         })
 
-        it('title should be Kysely', function () {
-            cy.title().should('eq', 'Kysely')
+        it('title should be Kyselyt', function () {
+            cy.title().should('eq', 'Kyselyt')
         })
 
         it('Open create-group dialog and press cancel', function () {
