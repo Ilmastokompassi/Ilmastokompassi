@@ -36,5 +36,23 @@ class GroupRepository:
 
         db.session.commit()
 
+    def fetch_scores_by_group(self, token):
+        try:
+            sql = text(
+                """SELECT
+                        score, profile_id 
+                    FROM 
+                        responses, profile_answers, profile_questions 
+                    WHERE 
+                        responses.id = profile_answers.response_id AND 
+                        profile_answers.question_id=profile_questions.id AND 
+                        responses.group_token = :token
+                    """)
+            score = db.session.execute(
+                sql, {"token": token}).fetchall()
+            return score
+        except Exception as error:
+            raise error
+
 
 default_group_repository = GroupRepository()
