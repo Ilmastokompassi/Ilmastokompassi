@@ -27,7 +27,6 @@ export function QuestionPage() {
         onSwipedRight: () => navigate(`/kysymys/${questionId - 1}`),
     })
 
-
     const { data: allQuestions, isLoading: isLoadingAllQuestions } =
         useSWR('/api/question')
 
@@ -134,6 +133,7 @@ export function QuestionPage() {
                             justifyContent="space-evenly"
                             alignItems="center"
                             spacing={4}
+                            id="question-stack"
                         >
                             <IconButton
                                 aria-label="previous question"
@@ -159,7 +159,8 @@ export function QuestionPage() {
                                 aria-label="next question"
                                 href={`/kysymys/${questionId + 1}`}
                                 disabled={
-                                    !totalQuestions || questionId >= totalQuestions
+                                    !totalQuestions ||
+                                    questionId >= totalQuestions
                                 }
                             >
                                 <ArrowCircleRightIcon fontSize="large" />
