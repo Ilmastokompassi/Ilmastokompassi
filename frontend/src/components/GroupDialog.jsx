@@ -43,7 +43,7 @@ export default function GroupDialog() {
             .then(() => {
                 setOpen(false)
                 window.alert('Ryhmä luotu onnistuneesti!')
-                navigate('/survey/')
+                navigate('/kyselyt/')
             })
             .catch((error) => console.error(error))
     }

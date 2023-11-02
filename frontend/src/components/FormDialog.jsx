@@ -50,7 +50,7 @@ export default function FormDialog() {
                 if (data.group_token) {
                     localStorage.setItem('groupToken', token)
                     window.dispatchEvent(new Event('setGroupToken'))
-                    navigate('/question/1')
+                    navigate('/kysymys/1')
                     setOpen(false)
                 } else {
                     alert('Ryhmätunnusta ei löytynyt.')

@@ -1,11 +1,11 @@
 Cypress.env('screen_sizes').forEach((size) => {
     describe(`Group joining ${size[2]}`, function () {
         beforeEach(function () {
-            cy.visit('/survey')
+            cy.visit('/kyselyt')
             cy.viewport(size[0], size[1])
         })
-        it('title should be Kysely', function () {
-            cy.title().should('eq', 'Kysely')
+        it('title should be Kyselyt', function () {
+            cy.title().should('eq', 'Kyselyt')
         })
 
         it('Open join-group dialog and press cancel', function () {
@@ -61,7 +61,7 @@ Cypress.env('screen_sizes').forEach((size) => {
         it('Join group and start survey solo succeeds', function () {
             cy.createGroupWithToken('TOKEN', 'Ryhmä luotu onnistuneesti!')
             cy.joinGroupWithToken('TOKEN')
-            cy.visit('/survey')
+            cy.visit('/kyselyt')
             cy.get('#btn-show-group-info').click()
             cy.contains('TOKEN')
             cy.get('#group-token').click()

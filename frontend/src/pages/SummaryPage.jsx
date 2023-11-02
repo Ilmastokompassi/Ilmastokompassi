@@ -148,7 +148,7 @@ export const SummaryPage = () => {
                                     variant="contained"
                                     color="primary"
                                     aria-label="move to survey"
-                                    href={`/survey`}
+                                    href={`/kyselyt`}
                                 >
                                     Siirry tästä kyselyyn!
                                 </Button>

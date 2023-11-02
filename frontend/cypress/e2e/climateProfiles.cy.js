@@ -1,6 +1,6 @@
 describe('Climate profiles page', function () {
     beforeEach(function () {
-        cy.visit('/profiles')
+        cy.visit('/profiilit')
         cy.viewport(900, 1000)
     })
 

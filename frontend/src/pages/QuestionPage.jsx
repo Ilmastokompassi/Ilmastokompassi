@@ -49,7 +49,7 @@ export function QuestionPage() {
             .then((response) => response.json())
             .then((data) => {
                 localStorage.removeItem('surveyResponses')
-                navigate('/summary/' + data.user_id)
+                navigate('/yhteenveto/' + data.user_id)
             })
             .catch((error) => {
                 console.error('Error submitting data: ', error)
@@ -79,7 +79,7 @@ export function QuestionPage() {
         // Automatically move to the next question
         if (!isLastQuestion) {
             setTimeout(() => {
-                navigate(`/question/${questionId + 1}`)
+                navigate(`/kysymys/${questionId + 1}`)
             }, 500)
         }
     }
@@ -88,11 +88,11 @@ export function QuestionPage() {
         const handleKeyUp = (e) => {
             if (e.keyCode === 39) {
                 if (!isLastQuestion) {
-                    navigate(`/question/${questionId + 1}`)
+                    navigate(`/kysymys/${questionId + 1}`)
                 }
             } else if (e.keyCode === 37) {
                 if (questionId > 1) {
-                    navigate(`/question/${questionId - 1}`)
+                    navigate(`/kysymys/${questionId - 1}`)
                 }
             }
         }
@@ -129,7 +129,7 @@ export function QuestionPage() {
                     >
                         <IconButton
                             aria-label="previous question"
-                            href={`/question/${questionId - 1}`}
+                            href={`/kysymys/${questionId - 1}`}
                             disabled={questionId <= 1}
                         >
                             <ArrowCircleLeftIcon fontSize="large" />
@@ -149,7 +149,7 @@ export function QuestionPage() {
                         )}
                         <IconButton
                             aria-label="next question"
-                            href={`/question/${questionId + 1}`}
+                            href={`/kysymys/${questionId + 1}`}
                             disabled={
                                 !totalQuestions || questionId >= totalQuestions
                             }
