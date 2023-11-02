@@ -33,7 +33,7 @@ const Heading = styled(Typography)`
 `
 
 export function SurveyPage() {
-    useTitle('Kysely')
+    useTitle('Kyselyt')
 
     const removeGroupToken = () => {
         localStorage.removeItem('groupToken')
