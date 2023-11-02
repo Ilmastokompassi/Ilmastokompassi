@@ -8,6 +8,7 @@ import SummaryDoughnut from '../components/SummaryDoughnut'
 export const SummaryPage = () => {
     const { userId: userParamId } = useParams()
     const userId = parseInt(userParamId)
+    const groupToken = localStorage.getItem('groupToken')
 
     // Fetch all profiles from api
     const { data: profileData, isLoading: isLoadingProfiles } =
@@ -17,28 +18,34 @@ export const SummaryPage = () => {
     const { data: summaryData, isLoading: isLoadingSummary } = useSWR(
         `/api/summary/${userId}`
     )
-
-    let totalScore = 0
-    Object.entries(summaryData?.summary || {}).forEach(([_, value]) => {
-        totalScore += value
-    })
+    const { data: allProfileScores, isLoading: isLoadingAllProfileScores } =
+        useSWR(`/api/group/${groupToken}/score`)
 
     /* Turn the result key-value pairs into an array of objects with respective profile details
-       e.g. { 1: 50, 2: 50, ..} => 
+       e.g. { "1": 50, "2": 50, ..} => 
         [
             { id: 1, score: 25%, name: .., description: ..}, 
             { id: 2, score: 25%, name: .., description: ..}, 
             ..
         ]
     */
-    const profileResults = Object.entries(summaryData?.summary || {}).map(
-        (result) => ({
-            score: (result[1] / totalScore) * 100,
+
+    const createProfileResultsFromScores = (scores, profiles) => {
+        const totalScore = scores.reduce((acc, score) => acc + score[1], 0)
+
+        return scores.map((score) => ({
+            score: (score[1] / totalScore) * 100,
             // Include matching climate profile id, name and desc
-            ...profileData?.find(
-                (profile) => profile.id == parseInt(result[0])
-            ),
-        })
+            ...profiles?.find((profile) => profile.id == parseInt(score[0])),
+        }))
+    }
+
+    // {"1": 50, "2": 50} => [["1", 50], ["2", 50]]
+    const summaryScores = Object.entries(summaryData?.summary || {})
+
+    const profileResults = createProfileResultsFromScores(
+        summaryScores,
+        profileData
     )
 
     // Get the top profile result(s)
@@ -51,8 +58,22 @@ export const SummaryPage = () => {
         (result) => result.score === maxScore
     )
 
+    const groupSummaryScores = Object.entries(allProfileScores?.score || {})
+
+    const groupProfileResults = createProfileResultsFromScores(
+        groupSummaryScores,
+        profileData
+    )
+    console.log('groupProfileResults', groupProfileResults)
+
     // Create pie chart data and fetch
     const doughnutChartData = profileResults?.map((result) => ({
+        id: result.id,
+        value: result.score,
+        label: result.name,
+    }))
+
+    const groupProfileData = groupProfileResults?.map((result) => ({
         id: result.id,
         value: result.score,
         label: result.name,
@@ -86,7 +107,9 @@ export const SummaryPage = () => {
                         >
                             Oma ilmastoprofiilisi
                         </Typography>
-                        {isLoadingProfiles || isLoadingSummary ? (
+                        {isLoadingProfiles ||
+                        isLoadingSummary ||
+                        isLoadingAllProfileScores ? (
                             <p>Loading...</p>
                         ) : answerCount > 0 ? (
                             <>
@@ -137,6 +160,7 @@ export const SummaryPage = () => {
                                     }}
                                 >
                                     <SummaryDoughnut data={doughnutChartData} />
+                                    <SummaryDoughnut data={groupProfileData} />
                                 </Box>
                             </>
                         ) : (

@@ -93,3 +93,14 @@ def get_group(group_token):
     except Exception as error:  # pylint: disable=broad-except
         print(error)
         return jsonify(error="Something went wrong!"), 500
+
+
+@api.route('/group/<string:group_token>/score', methods=['GET'])
+def get_group_score(group_token):
+    try:
+        score = default_group_service.fetch_scores_by_group(
+            group_token)
+        return jsonify(score=score)
+    except Exception as error:  # pylint: disable=broad-except
+        print(error)
+        return jsonify(error="Something went wrong!"), 500
