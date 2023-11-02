@@ -26,7 +26,7 @@ export const routes = [
             },
             {
                 path: '/tietovisa/:questionId',
-                element: <QuestionPage />,
+                element: <FactQuizQuestionPage />,
             },
             {
                 path: '/profiilit',
@@ -35,10 +35,6 @@ export const routes = [
             {
                 path: '/yhteenveto/:userId',
                 element: <SummaryPage />,
-            },
-            {
-                path: '/quiztest/:questionId',
-                element: <FactQuizQuestionPage />,
             },
         ],
     },
