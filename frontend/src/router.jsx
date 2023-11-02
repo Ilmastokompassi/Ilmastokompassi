@@ -16,19 +16,23 @@ export const routes = [
                 element: <LandingPage />,
             },
             {
-                path: '/survey',
+                path: '/kyselyt',
                 element: <SurveyPage />,
             },
             {
-                path: '/question/:questionId',
+                path: '/kysymys/:questionId',
                 element: <QuestionPage />,
             },
             {
-                path: '/profiles',
+                path: '/tietovisa/:questionId',
+                element: <QuestionPage />,
+            },
+            {
+                path: '/profiilit',
                 element: <ClimateProfilePage />,
             },
             {
-                path: '/summary/:userId',
+                path: '/yhteenveto/:userId',
                 element: <SummaryPage />,
             },
         ],
