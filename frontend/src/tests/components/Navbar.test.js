@@ -23,9 +23,9 @@ test('Find both ilmastokompassi', () => {
 test('Find both survey links', () => {
     const largeScreenLink = screen.getByText('Kysely', { selector: 'a' })
 
-    expect(largeScreenLink['href']).toMatch(/\/survey$/)
+    expect(largeScreenLink['href']).toMatch(/\/kyselyt$/)
 
     const smallScreenText = screen.getByText('Kysely', { selector: 'p' })
     const smallScreenLink = smallScreenText.parentElement
-    expect(smallScreenLink['href']).toMatch(/\/survey$/)
+    expect(smallScreenLink['href']).toMatch(/\/kyselyt$/)
 })
