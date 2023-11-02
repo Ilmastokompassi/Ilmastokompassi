@@ -5,6 +5,7 @@ import { SurveyPage } from './pages/SurveyPage'
 import { QuestionPage } from './pages/QuestionPage'
 import { ClimateProfilePage } from './pages/ClimateProfilePage'
 import { SummaryPage } from './pages/SummaryPage'
+import { FactQuizQuestionPage } from './pages/FactQuizQuestionPage'
 
 // Defines the routes of the application
 export const routes = [
@@ -30,6 +31,10 @@ export const routes = [
             {
                 path: '/summary/:userId',
                 element: <SummaryPage />,
+            },
+            {
+                path: '/quiztest/:questionId',
+                element: <FactQuizQuestionPage />,
             },
         ],
     },
