@@ -12,24 +12,24 @@ describe('Question page', () => {
         const fakeQuestions = [
             {
                 id: 1,
-                content: 'How is the weather today?'
+                content: 'How is the weather today?',
             },
             {
                 id: 2,
-                content: 'Static typing is better than dynamic typing?'
-            }
-        ];
+                content: 'Static typing is better than dynamic typing?',
+            },
+        ]
 
         // GET /api/question
         fetchMock.mockResponse(JSON.stringify(fakeQuestions))
 
-        await act(async () =>
-            renderWithRoute('/question/1')
-        )
+        await act(async () => renderWithRoute('/kysymys/1'))
     })
 
     test('renders question heading', async () => {
-        expect(await screen.findByText('1. How is the weather today?')).toBeInTheDocument()
+        expect(
+            await screen.findByText('1. How is the weather today?')
+        ).toBeInTheDocument()
     })
 
     test('renders move next button on the first page', async () => {
