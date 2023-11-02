@@ -33,7 +33,7 @@ const Heading = styled(Typography)`
 `
 
 export function SurveyPage() {
-    useTitle('Kysely')
+    useTitle('Kyselyt')
 
     const removeGroupToken = () => {
         localStorage.removeItem('groupToken')
@@ -59,7 +59,7 @@ export function SurveyPage() {
                             <SurveyOptionButton
                                 component={NavLink}
                                 onClick={() => removeGroupToken()}
-                                to="/question/1"
+                                to="/kysymys/1"
                                 variant="contained"
                                 data-testid="btn-start-survey"
                                 id="btn-survey-alone"

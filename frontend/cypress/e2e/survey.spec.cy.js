@@ -1,11 +1,11 @@
 describe('From survey page large ', function () {
     beforeEach(function () {
-        cy.visit('/survey')
+        cy.visit('/kyselyt')
         cy.viewport(900, 1000)
     })
 
     it('Move from survey page through questions to summary page', function () {
-        cy.title().should('eq', 'Kysely')
+        cy.title().should('eq', 'Kyselyt')
         cy.get('#btn-survey-alone').click()
         cy.title().should('eq', 'Ilmastoprofiili - Kysymys 1.')
 

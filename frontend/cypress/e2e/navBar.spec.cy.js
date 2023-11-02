@@ -10,20 +10,20 @@ describe('From front page ', function () {
     it('navbar sends to survey page', function () {
         cy.viewport(900, 1000)
         cy.get('#survey').click()
-        cy.title().should('eq', 'Kysely')
+        cy.title().should('eq', 'Kyselyt')
     })
 
     it('small page navbar sends to survey page', function () {
         cy.viewport(899, 1000)
         cy.get('#hamburger').click()
         cy.get('#survey-hamburger').click()
-        cy.title().should('eq', 'Kysely')
+        cy.title().should('eq', 'Kyselyt')
     })
 })
 
 describe('From survey page ', function () {
     beforeEach(function () {
-        cy.visit('/survey')
+        cy.visit('/kyselyt')
     })
 
     it('navbar sends to landing page', function () {

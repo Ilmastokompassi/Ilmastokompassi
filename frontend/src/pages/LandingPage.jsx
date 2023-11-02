@@ -33,7 +33,7 @@ export const LandingPage = () => {
                     variant="contained"
                     color="secondary"
                     aria-label="move to survey"
-                    href={`/survey`}
+                    href={`/kyselyt`}
                 >
                     Kyselyyn!
                 </Button>

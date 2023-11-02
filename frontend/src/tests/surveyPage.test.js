@@ -26,6 +26,6 @@ describe('Survey page', () => {
 
     test('Survey start link', () => {
         const link = screen.queryByTestId('btn-start-survey')
-        expect(link.href).toMatch(/\/question\/1$/)
+        expect(link.href).toMatch(/\/kysymys\/1$/)
     })
 })
