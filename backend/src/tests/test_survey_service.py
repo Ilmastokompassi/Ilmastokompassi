@@ -84,13 +84,13 @@ class TestApp(unittest.TestCase):
             percentages
         )
 
-    def test_climate_percentage_100(self):
+    def test_climate_percentage_200(self):
         answers = {1: 5, 2: 5, 3: 5, 4: 5, 5: 5}
         response_id = self.survey_service.save_answers(answers)
         percentages = self.survey_service.get_climate_percentages(response_id)
 
         self.assertDictEqual(
-            {1: 100, 2: 100, 3: 100, 4: 100},
+            {1: 100, 2: 100, 3: 100, 4: 200},
             percentages
         )
 
@@ -100,7 +100,7 @@ class TestApp(unittest.TestCase):
         percentages = self.survey_service.get_climate_percentages(response_id)
 
         self.assertDictEqual(
-            {1: 0, 2: 25, 3: 50, 4: 88},
+            {1: 0, 2: 25, 3: 50, 4: 175},
             percentages
         )
 
