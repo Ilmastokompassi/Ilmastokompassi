@@ -13,7 +13,7 @@ function QuestionCard({
     selectedOptionsIds,
     onOptionSelected,
     alwaysCol,
-    canAnswer,
+    canAnswer = true,
 }) {
     const cardStyles = {
         width: '80%',
