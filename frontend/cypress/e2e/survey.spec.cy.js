@@ -18,6 +18,8 @@ describe('From survey page large ', function () {
 
         cy.title().should('eq', 'Ilmastoprofiili - Tulokset')
         cy.contains('33/33')
-        cy.contains('Sinä haet kompromisseja eettisen kuluttajan tiellä.')
+        cy.contains(
+            'Maailma muuttuu ja sinussa on ainesta johtamaan tätä muutosta.'
+        )
     })
 })

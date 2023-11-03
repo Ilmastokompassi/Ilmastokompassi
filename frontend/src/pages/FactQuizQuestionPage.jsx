@@ -1,13 +1,13 @@
 import { useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { Button, IconButton, Stack, Typography } from '@mui/material'
-import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight'
+import { Button, Stack, Typography } from '@mui/material'
 import QuestionCard from '../components/QuestionCard'
 import { useTitle } from '../hooks/useTitle'
 
 export const FactQuizQuestionPage = () => {
     const { questionId: questionParamId } = useParams()
     const [selectedOptionsIds, setSelectedOptionsIds] = useState(new Set())
+    const [hasAnswered, setHasAnswered] = useState(false)
 
     // const { data: allQuestions, isLoading: isLoadingAllQuestions } =
     // useSWR('/api/quiz')
@@ -55,8 +55,24 @@ export const FactQuizQuestionPage = () => {
     const totalQuestions = allQuestions?.length
     const isLastQuestion = questionId == totalQuestions
 
-    const handleSubmit = () => {
-        console.log(selectedOptionsIds)
+    const handleAnswer = async () => {
+        console.log(Array.from(selectedOptionsIds))
+        setHasAnswered(true)
+        // try {
+        //     const response = await fetch('/api/quiz', {
+        //         method: 'POST',
+        //         headers: {
+        //             'Content-Type': 'application/json',
+        //         },
+        //         body: JSON.stringify({
+        //             questionId,
+        //             selectedOptionsIds: Array.from(selectedOptionsIds),
+        //         }),
+        //     })
+        //     const data = await response.json()
+        // } catch (error) {
+        //     console.log(error)
+        // }
     }
 
     const onOptionSelected = (optionId) => {
@@ -90,19 +106,43 @@ export const FactQuizQuestionPage = () => {
                         selectedOptionsIds={selectedOptionsIds}
                         onOptionSelected={onOptionSelected}
                         alwaysCol={true}
+                        canAnswer={!hasAnswered}
                     />
                     {/* Buttons */}
                     <Stack
-                        direction="row"
+                        direction="column"
                         justifyContent="space-evenly"
                         alignItems="center"
                         spacing={4}
                     >
-                        {isLastQuestion ? (
+                        {!hasAnswered && (
                             <Button
                                 variant="contained"
-                                color="secondary"
-                                onClick={handleSubmit}
+                                color="primary"
+                                onClick={handleAnswer}
+                                disabled={selectedOptionsIds.size === 0}
+                            >
+                                Vastaa
+                            </Button>
+                        )}
+                        {hasAnswered && !isLastQuestion && (
+                            <Button
+                                variant="contained"
+                                color="primary"
+                                href={`/tietovisa/${questionId + 1}`}
+                                onClick={() => {
+                                    setHasAnswered(false)
+                                    setSelectedOptionsIds(new Set())
+                                }}
+                            >
+                                Seuraava kysymys
+                            </Button>
+                        )}
+                        {hasAnswered && isLastQuestion ? (
+                            <Button
+                                variant="contained"
+                                color="primary"
+                                onClick={handleAnswer}
                             >
                                 Lopeta kysely
                             </Button>
@@ -111,15 +151,6 @@ export const FactQuizQuestionPage = () => {
                                 {questionId}/{totalQuestions}
                             </Typography>
                         )}
-                        <IconButton
-                            aria-label="next question"
-                            href={`/tietovisa/${questionId + 1}`}
-                            disabled={
-                                !totalQuestions || questionId >= totalQuestions
-                            }
-                        >
-                            <ArrowCircleRightIcon fontSize="large" />
-                        </IconButton>
                     </Stack>
                 </>
             )}

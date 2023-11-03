@@ -13,6 +13,7 @@ function QuestionCard({
     selectedOptionsIds,
     onOptionSelected,
     alwaysCol,
+    canAnswer = true,
 }) {
     const cardStyles = {
         width: '80%',
@@ -64,6 +65,7 @@ function QuestionCard({
                                     : 'outlined'
                             }
                             onClick={() => onOptionSelected(option.id)}
+                            disabled={!canAnswer}
                         >
                             {option.name}
                         </Button>
@@ -85,6 +87,7 @@ QuestionCard.propTypes = {
     selectedOptionsIds: PropTypes.object,
     onOptionSelected: PropTypes.func,
     alwaysCol: PropTypes.bool,
+    canAnswer: PropTypes.bool,
 }
 
 export default QuestionCard
