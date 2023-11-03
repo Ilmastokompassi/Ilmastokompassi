@@ -51,7 +51,6 @@ class GroupService:
             response_ids = set()
             for score, profile_id, response_id in scores:
                 response_ids.add(response_id)
-                
                 if profile_id not in final_score:
                     final_score[profile_id] = score
                 else:
