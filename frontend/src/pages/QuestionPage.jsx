@@ -6,6 +6,7 @@ import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight'
 import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft'
 import QuestionCard from '../components/QuestionCard'
 import { useTitle } from '../hooks/useTitle'
+import { useSwipeable } from 'react-swipeable'
 
 export function QuestionPage() {
     const { questionId: questionParamId } = useParams()
@@ -20,6 +21,11 @@ export function QuestionPage() {
         { id: 4, name: 'Jokseenkin samaa mieltä' },
         { id: 5, name: 'Täysin samaa mieltä' },
     ]
+
+    const handlers = useSwipeable({
+        onSwipedLeft: () => navigate(`/kysymys/${questionId + 1}`),
+        onSwipedRight: () => navigate(`/kysymys/${questionId - 1}`),
+    })
 
     const { data: allQuestions, isLoading: isLoadingAllQuestions } =
         useSWR('/api/question')
@@ -102,63 +108,67 @@ export function QuestionPage() {
     }, [questionId, isLastQuestion, navigate])
 
     return (
-        <Stack
-            direction="column"
-            justifyContent="center"
-            alignItems="center"
-            spacing={2}
-            margin={2}
-            style={{ minHeight: '80vh' }}
-        >
-            {isLoadingAllQuestions ? (
-                <p>Loading...</p>
-            ) : (
-                <>
-                    {/* Question options card */}
-                    <QuestionCard
-                        question={{ ...currentQuestion, options: options }}
-                        selectedOptionsIds={selectedOptionId}
-                        onOptionSelected={onOptionSelected}
-                    />
-                    {/* Buttons */}
-                    <Stack
-                        direction="row"
-                        justifyContent="space-evenly"
-                        alignItems="center"
-                        spacing={4}
-                    >
-                        <IconButton
-                            aria-label="previous question"
-                            href={`/kysymys/${questionId - 1}`}
-                            disabled={questionId <= 1}
+        <div {...handlers}>
+            <Stack
+                direction="column"
+                justifyContent="center"
+                alignItems="center"
+                spacing={2}
+                margin={2}
+                style={{ minHeight: '80vh' }}
+            >
+                {isLoadingAllQuestions ? (
+                    <p>Loading...</p>
+                ) : (
+                    <>
+                        {/* Question options card */}
+                        <QuestionCard
+                            question={{ ...currentQuestion, options: options }}
+                            selectedOptionsIds={selectedOptionId}
+                            onOptionSelected={onOptionSelected}
+                        />
+                        {/* Buttons */}
+                        <Stack
+                            direction="row"
+                            justifyContent="space-evenly"
+                            alignItems="center"
+                            spacing={4}
+                            id="question-stack"
                         >
-                            <ArrowCircleLeftIcon fontSize="large" />
-                        </IconButton>
-                        {isLastQuestion ? (
-                            <Button
-                                variant="contained"
-                                color="secondary"
-                                onClick={handleSubmit}
+                            <IconButton
+                                aria-label="previous question"
+                                href={`/kysymys/${questionId - 1}`}
+                                disabled={questionId <= 1}
                             >
-                                Lopeta kysely
-                            </Button>
-                        ) : (
-                            <Typography>
-                                {questionId}/{totalQuestions}
-                            </Typography>
-                        )}
-                        <IconButton
-                            aria-label="next question"
-                            href={`/kysymys/${questionId + 1}`}
-                            disabled={
-                                !totalQuestions || questionId >= totalQuestions
-                            }
-                        >
-                            <ArrowCircleRightIcon fontSize="large" />
-                        </IconButton>
-                    </Stack>
-                </>
-            )}
-        </Stack>
+                                <ArrowCircleLeftIcon fontSize="large" />
+                            </IconButton>
+                            {isLastQuestion ? (
+                                <Button
+                                    variant="contained"
+                                    color="secondary"
+                                    onClick={handleSubmit}
+                                >
+                                    Lopeta kysely
+                                </Button>
+                            ) : (
+                                <Typography>
+                                    {questionId}/{totalQuestions}
+                                </Typography>
+                            )}
+                            <IconButton
+                                aria-label="next question"
+                                href={`/kysymys/${questionId + 1}`}
+                                disabled={
+                                    !totalQuestions ||
+                                    questionId >= totalQuestions
+                                }
+                            >
+                                <ArrowCircleRightIcon fontSize="large" />
+                            </IconButton>
+                        </Stack>
+                    </>
+                )}
+            </Stack>
+        </div>
     )
 }

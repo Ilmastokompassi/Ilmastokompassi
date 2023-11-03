@@ -38,5 +38,23 @@ class GroupService:
         except Exception as error:
             raise error
 
+    def fetch_scores_by_group(self, token):
+        try:
+            scores = self.group_repository.fetch_scores_by_group(token)
+
+            # Turn score from list of tuples into dict
+            # e.g. [(50, 1), (75, 2), ..] =>
+            # {1: 50, 2: 75, .. }
+            final_score = {}
+            for score, profile_id in scores:
+                if profile_id not in final_score:
+                    final_score[profile_id] = score
+                else:
+                    final_score[profile_id] += score
+
+            return final_score
+        except Exception as error:
+            raise error
+
 
 default_group_service = GroupService(default_group_repository)
