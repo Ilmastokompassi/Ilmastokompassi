@@ -45,14 +45,20 @@ class GroupService:
             # Turn score from list of tuples into dict
             # e.g. [(50, 1), (75, 2), ..] =>
             # {1: 50, 2: 75, .. }
+            # And get amount of how many responses per id there is
             final_score = {}
-            for score, profile_id in scores:
+            # Use set to count unique response_ids
+            response_ids = set()
+            for score, profile_id, response_id in scores:
+                response_ids.add(response_id)
                 if profile_id not in final_score:
                     final_score[profile_id] = score
                 else:
                     final_score[profile_id] += score
+            response_amount = len(response_ids)
 
-            return final_score
+            return final_score, response_amount
+
         except Exception as error:
             raise error
 
