@@ -42,6 +42,15 @@ class QuizRepository:
         except Exception as error:  # pylint: disable=broad-except
             db.session.rollback()
             raise error
+
+    def get_response_answers(self, response_id):
+        sql = text("""SELECT question_id, selected_option_id FROM quiz_answers
+                    WHERE response_id=:response_id;
+                    """)
+        try:
+            return db.session.execute(sql, {"response_id": response_id}).fetchall()
+        except Exception as error:
+            raise error
     
 
 default_quiz_repository = QuizRepository()
