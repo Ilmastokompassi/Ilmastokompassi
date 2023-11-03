@@ -64,7 +64,6 @@ export const SummaryPage = () => {
         groupSummaryScores,
         profileData
     )
-    console.log('groupProfileResults', groupProfileResults)
 
     // Create pie chart data and fetch
     const doughnutChartData = profileResults?.map((result) => ({
@@ -152,16 +151,55 @@ export const SummaryPage = () => {
                                         description={profile.description}
                                     />
                                 ))}
+                                <Typography
+                                    variant="h2"
+                                    sx={{
+                                        fontSize: {
+                                            xs: '1em',
+                                            sm: '1.25em',
+                                            md: '1.5em',
+                                        },
+                                    }}
+                                >
+                                    Eri profiilien välinen jakauma
+                                </Typography>
                                 <Box
                                     width={{
-                                        xs: '100vw',
-                                        sm: '100vw',
-                                        md: '30vw',
+                                        xs: '60vw',
+                                        sm: '50vw',
+                                        md: '40vw',
                                     }}
                                 >
                                     <SummaryDoughnut data={doughnutChartData} />
-                                    <SummaryDoughnut data={groupProfileData} />
                                 </Box>
+
+                                {groupToken !== null && (
+                                    <>
+                                        <Typography
+                                            variant="h2"
+                                            sx={{
+                                                fontSize: {
+                                                    xs: '1em',
+                                                    sm: '1.25em',
+                                                    md: '1.5em',
+                                                },
+                                            }}
+                                        >
+                                            Ryhmäsi jakauma
+                                        </Typography>
+                                        <Box
+                                            width={{
+                                                xs: '60vw',
+                                                sm: '50vw',
+                                                md: '40vw',
+                                            }}
+                                        >
+                                            <SummaryDoughnut
+                                                data={groupProfileData}
+                                            />
+                                        </Box>
+                                    </>
+                                )}
                             </>
                         ) : (
                             <>
