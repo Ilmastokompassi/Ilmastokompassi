@@ -42,21 +42,12 @@ class SurveyService:
 
         for score, profile_id in score_profile:
             if profile_id not in total_scores:
-                total_scores[profile_id] = {"count": 0, "score": 0}
+                total_scores[profile_id] = score
+            else:
+                total_scores[profile_id] += score
 
-            total_count = total_scores[profile_id]["count"] + 1
-            total_score = total_scores[profile_id]["score"] + score
-
-            total_scores[profile_id] = {
-                "count": total_count,
-                "score": total_score}
-
-        total_percentages = {}
-        for profile, values in total_scores.items():
-            total_percentages[profile] = round(
-                values["score"] / values["count"])
-
-        return total_percentages
+        print(total_scores)
+        return total_scores
 
     def get_summary(self, response_id):
         summary = self.get_climate_percentages(response_id)
