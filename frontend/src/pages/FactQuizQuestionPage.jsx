@@ -58,21 +58,21 @@ export const FactQuizQuestionPage = () => {
     const handleAnswer = async () => {
         console.log(Array.from(selectedOptionsIds))
         setHasAnswered(true)
-        try {
-            const response = await fetch('/api/quiz', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    questionId,
-                    selectedOptionsIds: Array.from(selectedOptionsIds),
-                }),
-            })
-            const data = await response.json()
-        } catch (error) {
-            console.log(error)
-        }
+        // try {
+        //     const response = await fetch('/api/quiz', {
+        //         method: 'POST',
+        //         headers: {
+        //             'Content-Type': 'application/json',
+        //         },
+        //         body: JSON.stringify({
+        //             questionId,
+        //             selectedOptionsIds: Array.from(selectedOptionsIds),
+        //         }),
+        //     })
+        //     const data = await response.json()
+        // } catch (error) {
+        //     console.log(error)
+        // }
     }
 
     const onOptionSelected = (optionId) => {
