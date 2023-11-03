@@ -15,4 +15,11 @@ class QuizService:
             raise error
 
         return response_id
+    
+    def get_response_answers(self, response_id):
+        try:
+            return self.quiz_repository.get_response_answers(response_id)
+        except Exception as error:
+            raise error
+
 default_quiz_service = QuizService(default_quiz_repository)
