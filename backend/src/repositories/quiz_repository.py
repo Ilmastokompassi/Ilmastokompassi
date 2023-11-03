@@ -10,7 +10,8 @@ class QuizRepository:
         questions = [dict(row) for row in result]
         return questions
 
-    # Response id should only be created once when the user starts the quiz, code below needs to be completely restructured
+    # Response id should only be created once when the user starts the quiz,
+    # code below needs to be completely restructured
 
     def save_answers(self, answers, group_token=None):
         try:
