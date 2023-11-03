@@ -113,7 +113,7 @@ export const FactQuizQuestionPage = () => {
                         )}
                         <IconButton
                             aria-label="next question"
-                            href={`/quiztest/${questionId + 1}`}
+                            href={`/tietovisa/${questionId + 1}`}
                             disabled={
                                 !totalQuestions || questionId >= totalQuestions
                             }
