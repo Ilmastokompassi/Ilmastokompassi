@@ -13,13 +13,12 @@ export const SummaryPage = () => {
     // Fetch all profiles from api
     const { data: profileData, isLoading: isLoadingProfiles } =
         useSWR('/api/profiles')
-
-    // Fetch result summary from api
+    // Fetch result summary from api. Refreshes group stats every 15 seconds
     const { data: summaryData, isLoading: isLoadingSummary } = useSWR(
         `/api/summary/${userId}`
     )
-    const { data: allProfileScores, isLoading: isLoadingAllProfileScores } =
-        useSWR(`/api/group/${groupToken}/score`)
+    const { data: allProfilesData, isLoading: isLoadingAllProfilesData } =
+        useSWR(`/api/group/${groupToken}/score`, { refreshInterval: 15000 })
 
     /* Turn the result key-value pairs into an array of objects with respective profile details
        e.g. { "1": 50, "2": 50, ..} => 
@@ -58,7 +57,7 @@ export const SummaryPage = () => {
         (result) => result.score === maxScore
     )
 
-    const groupSummaryScores = Object.entries(allProfileScores?.score || {})
+    const groupSummaryScores = Object.entries(allProfilesData?.score || {})
 
     const groupProfileResults = createProfileResultsFromScores(
         groupSummaryScores,
@@ -108,7 +107,7 @@ export const SummaryPage = () => {
                         </Typography>
                         {isLoadingProfiles ||
                         isLoadingSummary ||
-                        isLoadingAllProfileScores ? (
+                        isLoadingAllProfilesData ? (
                             <p>Loading...</p>
                         ) : answerCount > 0 ? (
                             <>
@@ -185,19 +184,30 @@ export const SummaryPage = () => {
                                                 },
                                             }}
                                         >
-                                            Ryhmäsi jakauma
+                                            Ryhmäsi {groupToken} jakauma
                                         </Typography>
-                                        <Box
-                                            width={{
-                                                xs: '60vw',
-                                                sm: '50vw',
-                                                md: '40vw',
-                                            }}
-                                        >
-                                            <SummaryDoughnut
-                                                data={groupProfileData}
-                                            />
-                                        </Box>
+
+                                        {allProfilesData.response_amount < 5 ? (
+                                            <Typography variant="body1">
+                                                Näet tässä ryhmäsi tulokset, kun
+                                                vähintään viisi henkilöä ovat
+                                                vastanneet kyselyyn.
+                                            </Typography>
+                                        ) : (
+                                            <>
+                                                <Box
+                                                    width={{
+                                                        xs: '60vw',
+                                                        sm: '50vw',
+                                                        md: '40vw',
+                                                    }}
+                                                >
+                                                    <SummaryDoughnut
+                                                        data={groupProfileData}
+                                                    />
+                                                </Box>
+                                            </>
+                                        )}
                                     </>
                                 )}
                             </>

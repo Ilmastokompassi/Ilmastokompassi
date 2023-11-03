@@ -40,7 +40,7 @@ class GroupRepository:
         try:
             sql = text(
                 """SELECT
-                        score, profile_id 
+                        score, profile_id, responses.id 
                     FROM 
                         responses, profile_answers, profile_questions 
                     WHERE 
