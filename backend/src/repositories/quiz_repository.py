@@ -1,8 +1,9 @@
 from sqlalchemy import text
 from src.extensions import db
 
+
 class QuizRepository:
-    
+
     def get_questions(self):
         result = db.session.execute(
             text("SELECT id, content, info_text FROM quiz_questions;")).mappings().all()
@@ -17,7 +18,8 @@ class QuizRepository:
                                     INSERT INTO responses (group_token)
                                     VALUES (:group_token) RETURNING id;
                                     """)
-                    result = db.session.execute(response, {"group_token": group_token})
+                    result = db.session.execute(
+                        response, {"group_token": group_token})
                 else:
                     response = text("""
                                     INSERT INTO responses DEFAULT VALUES RETURNING id;
@@ -51,6 +53,6 @@ class QuizRepository:
             return db.session.execute(sql, {"response_id": response_id}).fetchall()
         except Exception as error:
             raise error
-    
+
 
 default_quiz_repository = QuizRepository()
