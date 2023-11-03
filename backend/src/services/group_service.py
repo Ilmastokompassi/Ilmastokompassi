@@ -47,16 +47,15 @@ class GroupService:
             # {1: 50, 2: 75, .. }
             # And get amount of how many responses per id there is
             final_score = {}
-            response_ids = []
+            # Use set to count unique response_ids
+            response_ids = set()
             for score, profile_id, response_id in scores:
+                response_ids.add(response_id)
+                
                 if profile_id not in final_score:
                     final_score[profile_id] = score
-                    if response_id not in response_ids:
-                        response_ids.append(response_id)
                 else:
                     final_score[profile_id] += score
-                    if response_id not in response_ids:
-                        response_ids.append(response_id)
             response_amount = len(response_ids)
 
             return final_score, response_amount
