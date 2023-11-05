@@ -37,6 +37,7 @@ jobs:
   deploy-frontend:
     needs: build-and-test-frontend
     runs-on: ubuntu-latest
+    environment: staging
     if: github.event_name != 'pull_request'
     steps:
       - uses: actions/checkout@v3

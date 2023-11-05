@@ -62,6 +62,7 @@ jobs:
   deploy-backend:
     needs: build-and-test-backend
     runs-on: ubuntu-latest
+    environment: staging
     if: github.event_name != 'pull_request'
     steps:
       - uses: actions/checkout@v3
