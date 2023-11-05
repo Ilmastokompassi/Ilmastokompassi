@@ -12,6 +12,11 @@ on:
     paths:
       - "frontend/**"
 
+concurrency:
+  # New commits cancel previous builds only on pull requests. This is because `github.head_ref`` is only set on pull requests and `github.sha`` is unique for each commit.
+  group: frontend-${{ github.head_ref || github.sha }}
+  cancel-in-progress: true
+
 jobs:
   build-and-test-frontend:
     runs-on: ubuntu-latest
