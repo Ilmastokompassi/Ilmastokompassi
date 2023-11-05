@@ -18,7 +18,7 @@ patches:
     target:
       kind: Deployment
       name: frontend
-  # Enable Kubernetes deployments to lookup OpenShift specific ImageStreamTags
+  # Enable Kubernetes deployments to lookup OpenShift ImageStreamTags
   - path: enable-imagestream-lookup.yaml
     target:
       kind: Deployment

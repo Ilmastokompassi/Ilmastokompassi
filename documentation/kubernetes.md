@@ -38,7 +38,7 @@ This document describes how to deploy the application to a OpenShfit (Kubernetes
 
 ### Choosing the environment
 There is two OpenShift clusters available for the project. One for the staging environment and one for the production environment. 
-* The staging cluster gets updated automatically from the `main` branch. Every commit to the `main` branch will trigger a new image to be pushed to Docker Hub with `latest` tag. The staging environment has `ImageStream` with a trigger which will then pull the latest image from Docker Hub and deploy it. 
+* The staging cluster gets updated automatically from the `main` branch. Every commit to the `main` branch will trigger a new image to be pushed to GitHub Container Registry with `latest` tag. The staging environment has `ImageStream` with a trigger which will then pull the latest image from GitHub Container Registry and deploy it. 
 * The production cluster is updated manually by creating a new release tag. 
 
 ### Login to OpenShift cluster
@@ -65,13 +65,13 @@ oc project ohtuprojekti-staging
 
 The versions to the staging environment are deployed automatically from the `main` branch. However, the production environment is updated manually by creating a new release tag and triggering a rollout of the pods with the new version tag.
 
-To deploy a new version of the application to the production environment, a new release tag needs to be created first. This will trigger the GitHub Actions workflow which will build the application and push the image to Docker Hub. To apply this new image to the production environment, the `Deployment` object needs to be updated to use the new image. First, we need to update the production configuration. This is done with `kustomize edit set image` command in the `kubernetes/production` directory.
+To deploy a new version of the application to the production environment, a new release tag needs to be created first. This will trigger the GitHub Actions workflow which will build the application and push the image to GitHub Container Registry. To apply this new image to the production environment, the `Deployment` object needs to be updated to use the new image. First, we need to update the production configuration. This is done with `kustomize edit set image` command in the `kubernetes/production` directory.
 
-For example, to update the production environment to use the images tagged with `v1.0.0`, run the following command:
+For example, to update the production environment to use the images tagged with `0.0.1`, run the following command:
 
 ```bash
 cd kubernetes/production
-kustomize edit set image ilmastokompassi/frontend:v1.0.0 ilmastokompassi/backend:v1.0.0
+kustomize edit set image ghcr.io/ilmastokompassi/frontend:0.0.1 ghcr.io/ilmastokompassi/backend:0.0.1
 ```
 
 After that, the changes need to be applied to the cluster with 

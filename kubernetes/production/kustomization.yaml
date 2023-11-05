@@ -11,8 +11,8 @@ patches:
 # Override the production container image tags to point to specific version.
 images:
   - name: ilmastokompassi/backend
-    newName: docker.io/ilmastokompassi/backend
-    newTag: 0.0.1
+    newName: ghcr.io/ilmastokompassi/backend
+    newTag: 0.0.2
   - name: ilmastokompassi/frontend
-    newName: docker.io/ilmastokompassi/frontend
-    newTag: 0.0.1
+    newName: ghcr.io/ilmastokompassi/frontend
+    newTag: 0.0.2

@@ -11,7 +11,7 @@ spec:
   tags:
     - from:
         kind: DockerImage
-        name: docker.io/ilmastokompassi/backend:latest
+        name: ghcr.io/ilmastokompassi/backend:latest
       name: latest
       annotations:
         app: ilmastokompassi
@@ -32,7 +32,7 @@ spec:
   tags:
     - from:
         kind: DockerImage
-        name: docker.io/ilmastokompassi/frontend:latest
+        name: ghcr.io/ilmastokompassi/frontend:latest
       name: latest
       annotations:
         app: ilmastokompassi

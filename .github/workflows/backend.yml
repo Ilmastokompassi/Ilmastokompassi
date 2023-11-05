@@ -12,13 +12,17 @@ on:
     paths:
       - "backend/**"
 
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ilmastokompassi/backend
+
 concurrency:
   # New commits cancel previous builds only on pull requests. This is because `github.head_ref`` is only set on pull requests and `github.sha`` is unique for each commit.
   group: backend-${{ github.head_ref || github.sha }}
   cancel-in-progress: true
 
 jobs:
-  build-and-test-backend:
+  build-and-test:
     runs-on: ubuntu-latest
     services:
       postgres:
@@ -59,25 +63,26 @@ jobs:
           psql -d $DATABASE_URI < src/questions.sql
       - name: Run tests
         run: poetry run coverage run --branch -m pytest
-  deploy-backend:
-    needs: build-and-test-backend
+  deploy:
+    needs: build-and-test
     runs-on: ubuntu-latest
     environment: staging
     if: github.event_name != 'pull_request'
     steps:
       - uses: actions/checkout@v3
-      - name: Docker metadata
+      - name: Extract Docker metadata
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: ilmastokompassi/backend
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
           flavor: latest=true
-      - name: Login to Docker Hub
+      - name: Login to ${{ env.REGISTRY }}
         uses: docker/login-action@v3
         with:
-          username: ${{ secrets.USERNAME }}
-          password: ${{ secrets.PASSWORD }}
-      - name: Push backend to Docker Hub
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Push backend to ${{ env.REGISTRY }}
         uses: docker/build-push-action@v5
         with:
           push: true
