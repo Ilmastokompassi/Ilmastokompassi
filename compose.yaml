@@ -7,11 +7,8 @@ services:
     ports:
       - 5173:5173
     volumes:
-      - .:/src
+      - ./frontend:/app
       - /app/node_modules
-    networks:
-      - frontend
-      - backend
     depends_on:
       - backend
 
@@ -26,14 +23,10 @@ services:
       - dev-db
     env_file:
       - ./backend/.env.dev
-    networks:
-      - backend
-      - frontend
 
   dev-db:
-    image: postgres:14-alpine
+    image: bitnami/postgresql:14
     container_name: dev-db
-    user: postgres
     ports:
       - 5432:5432
     env_file:
@@ -46,12 +39,6 @@ services:
       interval: 4s
       timeout: 3s
       retries: 5
-    networks:
-      - backend
 
 volumes:
   postgres-data:
-
-networks:
-  backend:
-  frontend:
