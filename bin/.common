@@ -55,7 +55,7 @@ function ensure_supported_docker_compose_version() {
 
         DOCKER_CONFIG=${DOCKER_CONFIG:-$HOME/.docker}
         run_command mkdir -p $DOCKER_CONFIG/cli-plugins
-        run_command curl -Sl https://github.com/docker/compose/releases/latest/download/docker-compose-linux-x86_64 -o $DOCKER_CONFIG/cli-plugins/docker-compose
+        run_command curl -SLl https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m) -o $DOCKER_CONFIG/cli-plugins/docker-compose
         run_command chmod +x $DOCKER_CONFIG/cli-plugins/docker-compose
         echo -e "${GREEN}Done!${RESET_EVERYTHING}"
     fi
