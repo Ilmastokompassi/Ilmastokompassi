@@ -7,10 +7,16 @@ services:
     ports:
       - 5173:5173
     volumes:
-      - ./frontend:/app
       - /app/node_modules
     depends_on:
       - backend
+    develop:
+      watch:
+        - action: sync
+          path: frontend/
+          target: /app
+        - action: rebuild
+          path: ./frontend/package.json
 
   backend:
     container_name: backend
@@ -23,6 +29,13 @@ services:
       - dev-db
     env_file:
       - ./backend/.env.dev
+    develop:
+      watch:
+        - action: sync
+          path: backend/
+          target: /app
+        - action: rebuild
+          path: ./backend/pyproject.toml
 
   dev-db:
     image: bitnami/postgresql:14

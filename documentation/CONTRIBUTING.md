@@ -3,17 +3,16 @@
 * Check Discord messages
 * Check Sprint Backlog
 * Pull changes from GitHub: `git pull origin main`
-  
+
 ### Run
-* You can run the entire application locally with `docker compose up`
+* You can run the entire application locally with `bin/dev`
   * You can shutdown the application with `CTRL+C`
-* To reset the database run `docker compose down -v` which will remove the database volume.
-  * You can then run the application again with `docker compose up`
-  
+* To reset the database run `docker compose down -v`.
+
 ### Completing a task
 * Choose a task from the sprint backlog, assign yourself to the task and set task status to _In progress_
 * Create a new branch `git switch -c <new-branch-name>`
-* Run application locally with `docker compose up`
+* Run application locally with `bin/dev`
 * Write and debug the code
 * Write tests for the new logic
 * Run backend tests: `(cd backend && poetry run invoke test)`.

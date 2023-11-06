@@ -1,0 +1,62 @@
+#!/bin/bash
+
+set -euo pipefail
+
+export BLUE='\033[0;34m'
+export RED='\033[0;31m'
+export GREEN='\033[0;32m'
+export BOLD='\e[1m'
+export CURSIVE='\e[3m'
+export RESET_EVERYTHING='\e[0m'
+
+function run_command() {
+  command=$1
+  shift
+  args=("$@")
+  echo -e "${CURSIVE}> $command" "$(printf "%q " "${args[@]}" )${RESET_EVERYTHING}"
+  "$command" "${args[@]}"
+}
+
+function eval_command() {
+  command=$1
+  arguments=$2
+  echo -e "${CURSIVE}> $command" "$(printf "%s " "$arguments")${RESET_EVERYTHING}"
+  eval "$command $arguments"
+}
+
+function ensure_program_in_path() {
+  PROGRAM="$1"
+  if ! command -v "$PROGRAM" &> /dev/null; then
+      echo "$PROGRAM is not installed or it is not in your \$PATH. Aborting."
+      exit 1
+  fi
+}
+
+# Makes the command work no matter which directory it's called from. Converts a path that is relative to the bin folder to be relative to the current directory the script caller is in.
+function relativize_path() {
+  local basedir
+  local path_to_target
+  local relative_path
+  basedir="$(dirname "${BASH_SOURCE[0]}")"
+  path_to_target="$basedir/$1"
+  relative_path=$(realpath --relative-to="$(pwd)" "$path_to_target")
+  echo "$relative_path"
+}
+
+function ensure_supported_docker_compose_version() {
+    DOCKER_COMPOSE_VERSION=$(docker compose version --short)
+    DOCKER_COMPOSE_VERSION_MAJOR=$(echo "$DOCKER_COMPOSE_VERSION" | cut -d. -f1)
+    DOCKER_COMPOSE_VERSION_MINOR=$(echo "$DOCKER_COMPOSE_VERSION" | cut -d. -f2)
+
+    # If the version is less-than 2.22.0, install the latest version manually
+    if [ "$DOCKER_COMPOSE_VERSION_MAJOR" -eq 1 ] || \
+        ([ "$DOCKER_COMPOSE_VERSION_MAJOR" -eq 2 ] && [ "$DOCKER_COMPOSE_VERSION_MINOR" -lt 22 ]); then
+        echo "Docker Compose plugin version is too old. Installing the latest version.."
+
+        DOCKER_CONFIG=${DOCKER_CONFIG:-$HOME/.docker}
+        run_command mkdir -p $DOCKER_CONFIG/cli-plugins
+        run_command curl -Sl https://github.com/docker/compose/releases/latest/download/docker-compose-linux-x86_64 -o $DOCKER_CONFIG/cli-plugins/docker-compose
+        run_command chmod +x $DOCKER_CONFIG/cli-plugins/docker-compose
+        echo -e "${GREEN}Done!${RESET_EVERYTHING}"
+    fi
+}
