@@ -29,7 +29,7 @@ jobs:
       postgres:
         image: postgres
         ports:
-          - 54328:5432
+          - 5432:5432
         env:
           POSTGRES_PASSWORD: postgres
           POSTGRES_DB: ilmastokompassi-test
