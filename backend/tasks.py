@@ -3,12 +3,12 @@ from invoke import task
 
 @task
 def start(ctx, pty=True):
-    ctx.run("flask --app ./src/app.py run --host=0.0.0.0 ")
+    ctx.run("flask --app ./src/app.py run --host=0.0.0.0")
 
 
 @task
 def dev(ctx):
-    ctx.run("flask --app ./src/app.py run --debug", pty=True)
+    ctx.run("flask --app ./src/app.py run --debug --host=0.0.0.0", pty=True)
 
 
 @task

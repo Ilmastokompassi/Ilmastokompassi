@@ -1,0 +1,57 @@
+services:
+  frontend:
+    container_name: frontend
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.dev
+    ports:
+      - 5173:5173
+    volumes:
+      - .:/src
+      - /app/node_modules
+    networks:
+      - frontend
+      - backend
+    depends_on:
+      - backend
+
+  backend:
+    container_name: backend
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.dev
+    ports:
+      - 5000:5000
+    depends_on:
+      - dev-db
+    env_file:
+      - ./backend/.env.dev
+    networks:
+      - backend
+      - frontend
+
+  dev-db:
+    image: postgres:14-alpine
+    container_name: dev-db
+    user: postgres
+    ports:
+      - 5432:5432
+    env_file:
+      - ./backend/.env.dev
+    volumes:
+      - ./backend/migrations:/docker-entrypoint-initdb.d
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready"]
+      interval: 4s
+      timeout: 3s
+      retries: 5
+    networks:
+      - backend
+
+volumes:
+  postgres-data:
+
+networks:
+  backend:
+  frontend:
