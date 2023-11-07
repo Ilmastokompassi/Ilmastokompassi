@@ -133,7 +133,7 @@ export const GroupSummaryPage = () => {
                                             }}
                                         >
                                             Ryhmän {groupToken} jakauma.
-                                            Ryhmässä on vastannut{' '}
+                                            Ryhmässä kyselyyn on vastannut{' '}
                                             {allProfilesData.response_amount}{' '}
                                             henkilöä.
                                         </Typography>
