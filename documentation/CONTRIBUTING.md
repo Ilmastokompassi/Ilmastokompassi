@@ -13,6 +13,8 @@
   * You can shutdown the application with `CTRL+C`
 * You can reset the database by running:
   * ```backend/bin/db-migrate.sh```
+* To view logs, run ```docker compose logs -f```
+
 ### Completing a task
 * Check Discord
 * Check Sprint Backlog
