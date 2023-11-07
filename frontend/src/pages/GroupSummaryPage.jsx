@@ -87,7 +87,7 @@ export const GroupSummaryPage = () => {
                                 {allProfilesData.response_amount < 5 ? (
                                     <Typography variant="body1">
                                         Näet tässä ryhmäsi tulokset, kun
-                                        vähintään viisi henkilöä ovat vastanneet
+                                        vähintään viisi henkilöä on vastannut
                                         kyselyyn. Nyt kyselyyn on vastannut{' '}
                                         {allProfilesData.response_amount}{' '}
                                         henkilöä.
