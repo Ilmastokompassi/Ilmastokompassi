@@ -137,7 +137,7 @@ export function QuestionPage() {
                         <LinearProgress
                             variant="determinate"
                             value={(questionId * 100) / totalQuestions}
-                            style={{ width: '70%' }}
+                            style={{ width: '70%', maxWidth: '780px' }}
                         />
                         <Stack
                             direction="row"
