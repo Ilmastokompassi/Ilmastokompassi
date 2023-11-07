@@ -10,8 +10,24 @@ class QuizRepository:
         questions = [dict(row) for row in result]
         return questions
 
-    # Response id should only be created once when the user starts the quiz,
-    # code below needs to be completely restructured
+    def create_quiz_response(self, group_token=None):
+        try:
+            if group_token:
+                response = text("""
+                                INSERT INTO responses (group_token)
+                                VALUES (:group_token) RETURNING id;
+                                """)
+                result = db.session.execute(
+                    response, {"group_token": group_token})
+            else:
+                response = text("""
+                                    INSERT INTO responses DEFAULT VALUES RETURNING id;
+                                    """)
+                result = db.session.execute(response)
+            db.session.commit()
+            return result.fetchone()[0]
+        except Exception as error:
+            raise error
 
     def save_answers(self, answers, group_token=None):
         try:

@@ -9,6 +9,12 @@ class QuizService:
     def get_questions(self):
         return self.quiz_repository.get_questions()
 
+    def create_quiz_response(self, group_token=None):
+        try:
+            return self.quiz_repository.create_quiz_response(group_token)
+        except Exception as error:
+            raise error
+
     def save_answers(self, answers, group_token=None):
         try:
             response_id = self.quiz_repository.save_answers(

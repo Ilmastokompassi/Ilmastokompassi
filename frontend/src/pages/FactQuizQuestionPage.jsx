@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { Button, Stack, Typography } from '@mui/material'
 import QuestionCard from '../components/QuestionCard'
@@ -8,6 +8,23 @@ export const FactQuizQuestionPage = () => {
     const { questionId: questionParamId } = useParams()
     const [selectedOptionsIds, setSelectedOptionsIds] = useState(new Set())
     const [hasAnswered, setHasAnswered] = useState(false)
+
+    const responseId = localStorage.getItem('quizResponseId')
+    const groupToken = localStorage.getItem('groupToken')
+    if (!responseId) {
+        const getResponseID = async () => {
+            const response = await fetch('/api/new-quiz', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ groupToken: groupToken }),
+            })
+            const responseJSON = await response.json()
+            localStorage.setItem('quizResponseId', responseJSON['response_id'])
+        }
+        getResponseID()
+    }
 
     // const { data: allQuestions, isLoading: isLoadingAllQuestions } =
     // useSWR('/api/quiz')

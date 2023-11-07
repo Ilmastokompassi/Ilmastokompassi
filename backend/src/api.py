@@ -2,6 +2,7 @@ from flask import Blueprint, jsonify, abort, request
 from src.services.profile_service import default_profile_service
 from src.services.survey_service import default_survey_service
 from src.services.group_service import default_group_service
+from src.services.quiz_service import default_quiz_service
 
 api = Blueprint('api', __name__, url_prefix='/api')
 
@@ -104,3 +105,15 @@ def get_group_score(group_token):
     except Exception as error:  # pylint: disable=broad-except
         print(error)
         return jsonify(error="Something went wrong!"), 500
+
+
+@api.route('/new-quiz', methods=["POST"])
+def create_new_quiz_response():
+    data = request.get_json()
+    group_token = data.get("groupToken")
+    try:
+        response_id = default_quiz_service.create_quiz_response(group_token)
+        return jsonify(response_id=response_id)
+    except Exception as error:
+        print("Error creating quiz response_id:", error)
+        return jsonify(error="Could not create response_id"), 500
