@@ -134,7 +134,7 @@ export function QuestionPage() {
                             selectedOptionsIds={selectedOptionId}
                             onOptionSelected={onOptionSelected}
                         />
-                        {/* Buttons */}{' '}
+                        {/* Buttons */}
                         <LinearProgress
                             variant="determinate"
                             value={(questionId * 100) / totalQuestions}
