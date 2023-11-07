@@ -60,7 +60,7 @@ export default function GroupSummaryDialog() {
                 <DialogTitle>Siirry katsomaan ryhmän jakaumaa</DialogTitle>
                 <DialogContent>
                     <DialogContentText>
-                        Jos haluat siirtyä katsomaan ryhmäsi jakumaa, kirjoita
+                        Jos haluat siirtyä katsomaan ryhmäsi jakaumaa, kirjoita
                         ryhmätunnus:
                     </DialogContentText>
                     <TextField
