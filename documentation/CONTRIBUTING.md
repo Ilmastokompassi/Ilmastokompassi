@@ -1,15 +1,22 @@
-## Contibuting
-### First
-* Check Discord messages
-* Check Sprint Backlog
-* Pull changes from GitHub: `git pull origin main`
+# Contributing
+
+### Requirements
+* Docker
+  * Remember to follow post-install steps. https://docs.docker.com/engine/install/linux-postinstall/
+
+### Configure
+* Copy default configuration for local environment with:
+  * ```sed 's/dev-db/localhost/g' backend/.env.dev > backend/.env```
 
 ### Run
 * You can run the entire application locally with `bin/dev`
   * You can shutdown the application with `CTRL+C`
-* To reset the database run `docker compose down -v`.
+* To reset the database run ```docker compose down -v```.
 
 ### Completing a task
+* Check Discord
+* Check Sprint Backlog
+* Pull changes from GitHub: `git pull origin main`
 * Choose a task from the sprint backlog, assign yourself to the task and set task status to _In progress_
 * Create a new branch `git switch -c <new-branch-name>`
 * Run application locally with `bin/dev`

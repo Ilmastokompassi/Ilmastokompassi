@@ -45,10 +45,9 @@ services:
     env_file:
       - ./backend/.env.dev
     volumes:
-      - ./backend/migrations:/docker-entrypoint-initdb.d
       - postgres-data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready"]
+      test: ["CMD-SHELL", "pg_isready -U postgres -d $POSTGRES_DB"]
       interval: 4s
       timeout: 3s
       retries: 5
