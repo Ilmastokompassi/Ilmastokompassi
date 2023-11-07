@@ -15,5 +15,5 @@
   - kubernetes/**/*
 
 "docs":
-  - documentation/**/*
+  - docs/**/*
   - README.md
