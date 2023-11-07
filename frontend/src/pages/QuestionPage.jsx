@@ -1,7 +1,13 @@
 import { useEffect, useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import useSWR from 'swr'
-import { Button, IconButton, Stack, Typography } from '@mui/material'
+import {
+    Button,
+    IconButton,
+    Stack,
+    Typography,
+    LinearProgress,
+} from '@mui/material'
 import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight'
 import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft'
 import QuestionCard from '../components/QuestionCard'
@@ -12,6 +18,7 @@ export function QuestionPage() {
     const { questionId: questionParamId } = useParams()
     // Needs to be type Set, because QuestionCard is used for quiz also.
     const [selectedOptionId, setSelectedOptionId] = useState(new Set())
+
     const navigate = useNavigate()
 
     const options = [
@@ -127,7 +134,12 @@ export function QuestionPage() {
                             selectedOptionsIds={selectedOptionId}
                             onOptionSelected={onOptionSelected}
                         />
-                        {/* Buttons */}
+                        {/* Buttons */}{' '}
+                        <LinearProgress
+                            variant="determinate"
+                            value={(questionId * 100) / totalQuestions}
+                            style={{ width: '70%' }}
+                        />
                         <Stack
                             direction="row"
                             justifyContent="space-evenly"
