@@ -10,6 +10,7 @@ import { NavLink } from 'react-router-dom'
 import styled from '@emotion/styled'
 import FormDialog from '../components/FormDialog'
 import GroupDialog from '../components/GroupDialog'
+import GroupSummaryDialog from '../components/GroupSummaryDialog'
 import { useTitle } from '../hooks/useTitle'
 
 const SurveyOptionButton = styled(Button)`
@@ -69,8 +70,11 @@ export function SurveyPage() {
                                     Teen kyselyn yksin
                                 </Typography>
                             </SurveyOptionButton>
-                            <Box alignSelf="center">
+                            <Box alignSelf="center" paddingTop={2}>
                                 <GroupDialog />
+                            </Box>
+                            <Box alignSelf="center">
+                                <GroupSummaryDialog />
                             </Box>
                         </Stack>
                     </Box>

@@ -85,6 +85,19 @@ def new_group():
         return jsonify(error="Something went wrong!"), 500
 
 
+@api.route('/group/<string:group_token>/summary', methods=['GET'])
+def group_summary(group_token):
+    try:
+        if not default_group_service.check_if_group_exists(group_token):
+            return jsonify({"status": "fail",
+                            "message": "Group does not exist"}), 400
+        return jsonify({"status": "success",
+                        "message": "Group exists"}), 200
+    except Exception as error:  # pylint: disable=broad-except
+        print(error)
+        return jsonify(error="Something went wrong!"), 500
+
+
 @api.route('/group/<string:group_token>', methods=['GET'])
 def get_group(group_token):
     try:
