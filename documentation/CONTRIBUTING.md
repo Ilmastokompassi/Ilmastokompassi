@@ -9,10 +9,10 @@
   * ```sed 's/dev-db/localhost/g' backend/.env.dev > backend/.env```
 
 ### Run
-* You can run the entire application locally with `bin/dev`
+* You can run the entire application locally with `bin/dev` script
   * You can shutdown the application with `CTRL+C`
-* To reset the database run ```docker compose down -v```.
-
+* You can reset the database by running:
+  * ```backend/bin/db-migrate.sh```
 ### Completing a task
 * Check Discord
 * Check Sprint Backlog

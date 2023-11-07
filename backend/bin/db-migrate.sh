@@ -4,7 +4,11 @@ set -euo pipefail
 PARENT_PATH=$( cd "$(dirname "${BASH_SOURCE[0]}")" ; pwd -P )
 
 cd "$PARENT_PATH"
-source ../.env
+
+if [ -f ../.env ]
+then
+    source ../.env
+fi
 
 COMMAND="psql"
 ARGUMENTS=("$DATABASE_URI" \
