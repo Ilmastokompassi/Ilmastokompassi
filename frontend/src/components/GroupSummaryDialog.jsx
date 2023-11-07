@@ -11,7 +11,7 @@ import {
 } from '@mui/material'
 
 export default function GroupSummaryDialog() {
-    const [groupName, setGroupName] = React.useState('')
+    const [groupToken, setGroupName] = React.useState('')
     const [open, setOpen] = React.useState(false)
     const navigate = useNavigate()
 
@@ -20,27 +20,26 @@ export default function GroupSummaryDialog() {
     }
 
     const handleSubmit = () => {
-        if (groupName === '') {
-            window.alert('Ryhmätunnus ei voi olla tyhjä merkkijono.')
-            return
-        } else if (groupName.length > 10) {
-            window.alert('Ryhmätunnus ei voi olla yli 10 merkkiä pitkä.')
-            return
-        } else if (!/^[A-Z0-9]+$/.test(groupName)) {
-            window.alert(
-                'Ryhmätunnus voi sisältää vain isoja kirjaimia ja numeroita.'
-            )
-            return
-        }
-        fetch(`/api/group/${groupName}/summary`, {
+        fetch(`/api/group/${groupToken}`, {
             method: 'GET',
+            headers: { 'Content-Type': 'application/json' },
         })
-            .then((response) => response.json())
-            .then(() => {
-                navigate(`/group/${groupName}/summary`)
-                setOpen(false)
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error('Verkkoyhteysvirhe')
+                }
+                return response.json()
             })
-            .catch((error) => console.error(error))
+            .then((data) => {
+                if (data.group_token) {
+                    localStorage.setItem('groupToken', groupToken)
+                    window.dispatchEvent(new Event('setGroupToken'))
+                    navigate(`/yhteenveto/ryhma/${groupToken}`)
+                    setOpen(false)
+                } else {
+                    alert('Ryhmätunnusta ei löytynyt.')
+                }
+            })
     }
 
     return (
@@ -71,7 +70,7 @@ export default function GroupSummaryDialog() {
                         type="text"
                         fullWidth
                         variant="standard"
-                        value={groupName}
+                        value={groupToken}
                         onChange={handleGroupNameChange}
                         id="input-group-token"
                     />
