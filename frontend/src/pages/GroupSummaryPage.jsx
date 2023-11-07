@@ -88,7 +88,7 @@ export const GroupSummaryPage = () => {
                                     <Typography variant="body1">
                                         Näet tässä ryhmäsi tulokset, kun
                                         vähintään viisi henkilöä ovat vastanneet
-                                        kyselyyn. Nyt on vastannut{' '}
+                                        kyselyyn. Nyt kyselyyn on vastannut{' '}
                                         {allProfilesData.response_amount}{' '}
                                         henkilöä.
                                     </Typography>
