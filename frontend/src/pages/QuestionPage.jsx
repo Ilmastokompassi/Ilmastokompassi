@@ -18,7 +18,6 @@ export function QuestionPage() {
     const { questionId: questionParamId } = useParams()
     // Needs to be type Set, because QuestionCard is used for quiz also.
     const [selectedOptionId, setSelectedOptionId] = useState(new Set())
-
     const navigate = useNavigate()
 
     const options = [
