@@ -44,7 +44,6 @@ spec:
               echo Waiting for postgres to be available
               until pg_isready -d $DATABASE_URI; do sleep 1; done;
               echo Postgres is available, applying migrations..
-              chmod +x ./bin/db-migrate.sh
               ./bin/db-migrate.sh
               echo Migrations done!
           resources:
