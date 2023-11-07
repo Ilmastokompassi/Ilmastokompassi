@@ -10,6 +10,38 @@ class QuizRepository:
         questions = [dict(row) for row in result]
         return questions
 
+    def get_questions_hc(self):
+        return [
+            {
+                "id": 1,
+                "content": "Kysymys 1",
+                "options": [
+                    {"id": 1, "name": "vastaus 1"},
+                    {"id": 2, "name": "vastaus 2"},
+                    {"id": 3, "name": "vastaus 3"}
+                ]
+            },
+            {
+                "id": 2,
+                "content": "Kysymys 2",
+                "options": [
+                    {"id": 1, "name": "vastaus 1"},
+                    {"id": 2, "name": "vastaus 2"},
+                ]
+            },
+            {
+                "id": 3,
+                "content": "Kysymys 3",
+                "options": [
+                    {"id": 1, "name": "vastaus 1"},
+                    {"id": 2, "name": "vastaus 2"},
+                    {"id": 3, "name": "vastaus 3"},
+                    {"id": 4, "name": "vastaus 4"},
+                    {"id": 5, "name": "vastaus 5"}
+                ]
+            },
+        ]
+
     def create_quiz_response(self, group_token=None):
         try:
             if group_token:

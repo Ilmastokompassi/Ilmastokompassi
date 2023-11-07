@@ -7,7 +7,7 @@ class QuizService:
         self.quiz_repository = quiz_repository
 
     def get_questions(self):
-        return self.quiz_repository.get_questions()
+        return self.quiz_repository.get_questions_hc()
 
     def create_quiz_response(self, group_token=None):
         try:

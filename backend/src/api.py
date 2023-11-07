@@ -117,3 +117,13 @@ def create_new_quiz_response():
     except Exception as error:
         print("Error creating quiz response_id:", error)
         return jsonify(error="Could not create response_id"), 500
+
+
+@api.route("/quiz", methods=["GET"])
+def get_quiz_questions():
+    try:
+        quiz = default_quiz_service.get_questions()
+        return jsonify(quiz)
+    except Exception as error:
+        print(error)
+        return jsonify(error="Could not get questions"), 500

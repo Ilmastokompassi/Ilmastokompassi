@@ -1,8 +1,9 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { Button, Stack, Typography } from '@mui/material'
 import QuestionCard from '../components/QuestionCard'
 import { useTitle } from '../hooks/useTitle'
+import useSWR from 'swr'
 
 export const FactQuizQuestionPage = () => {
     const { questionId: questionParamId } = useParams()
@@ -11,6 +12,7 @@ export const FactQuizQuestionPage = () => {
 
     const responseId = localStorage.getItem('quizResponseId')
     const groupToken = localStorage.getItem('groupToken')
+
     if (!responseId) {
         const getResponseID = async () => {
             const response = await fetch('/api/new-quiz', {
@@ -26,39 +28,8 @@ export const FactQuizQuestionPage = () => {
         getResponseID()
     }
 
-    // const { data: allQuestions, isLoading: isLoadingAllQuestions } =
-    // useSWR('/api/quiz')
-    const isLoadingAllQuestions = false
-
-    const allQuestions = [
-        {
-            id: 1,
-            content: 'ksymys1',
-            options: [
-                { id: 1, name: 'vastaus11' },
-                { id: 2, name: 'vastas12' },
-            ],
-        },
-        {
-            id: 2,
-            content: 'ksymys1',
-            options: [
-                { id: 1, name: 'vastaus21' },
-                { id: 2, name: 'vastas22' },
-                { id: 3, name: 'vastas23' },
-            ],
-        },
-        {
-            id: 3,
-            content: 'ksymys1',
-            options: [
-                { id: 1, name: 'vastaus31' },
-                { id: 2, name: 'vastas32' },
-                { id: 3, name: 'vastas33' },
-                { id: 4, name: 'vastas34' },
-            ],
-        },
-    ]
+    const { data: allQuestions, isLoading: isLoadingAllQuestions } =
+        useSWR('/api/quiz')
 
     const questionId = Math.min(
         allQuestions?.length,
@@ -73,7 +44,7 @@ export const FactQuizQuestionPage = () => {
     const isLastQuestion = questionId == totalQuestions
 
     const handleAnswer = async () => {
-        console.log(Array.from(selectedOptionsIds))
+        console.log('Vastattu', Array.from(selectedOptionsIds))
         setHasAnswered(true)
         // try {
         //     const response = await fetch('/api/quiz', {
