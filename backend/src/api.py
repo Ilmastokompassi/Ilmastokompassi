@@ -2,6 +2,7 @@ from flask import Blueprint, jsonify, abort, request
 from src.services.profile_service import default_profile_service
 from src.services.survey_service import default_survey_service
 from src.services.group_service import default_group_service
+from src.services.quiz_service import default_quiz_service
 
 api = Blueprint('api', __name__, url_prefix='/api')
 
@@ -117,3 +118,40 @@ def get_group_score(group_token):
     except Exception as error:  # pylint: disable=broad-except
         print(error)
         return jsonify(error="Something went wrong!"), 500
+
+
+@api.route('/new-quiz', methods=["POST"])
+def create_new_quiz_response():
+    data = request.get_json()
+    group_token = data.get("groupToken")
+    try:
+        response_id = default_quiz_service.create_quiz_response(group_token)
+        return jsonify(response_id=response_id)
+    except Exception as error:  # pylint: disable=broad-except
+        print("Error creating quiz response_id:", error)
+        return jsonify(error="Could not create response_id"), 500
+
+
+@api.route("/quiz", methods=["GET"])
+def get_quiz_questions():
+    try:
+        quiz = default_quiz_service.get_questions()
+        return jsonify(quiz)
+    except Exception as error:  # pylint: disable=broad-except
+        print(error)
+        return jsonify(error="Could not get questions"), 500
+
+
+@api.route("/quiz", methods=["POST"])
+def save_quiz_answer():
+    data = request.get_json()
+    answer = data.get("answer")
+    response_id = data.get("responseId")
+    question_id = data.get("questionId")
+
+    try:
+        default_quiz_service.save_answers(question_id, answer, response_id)
+        return jsonify("Moi")
+    except Exception as error:  # pylint: disable=broad-except
+        print("error", error)
+        return jsonify("error"), 500

@@ -6,44 +6,46 @@ class QuizRepository:
 
     def get_questions(self):
         result = db.session.execute(
-            text("SELECT id, content, info_text FROM quiz_questions;")).mappings().all()
+            text("""
+            SELECT Q.id AS question_id, Q.content, O.id AS option_id, O.option
+            FROM quiz_questions AS Q
+            JOIN quiz_question_options AS O ON O.question_id = Q.id;""")).mappings().all()
         questions = [dict(row) for row in result]
         return questions
 
-    # Response id should only be created once when the user starts the quiz,
-    # code below needs to be completely restructured
-
-    def save_answers(self, answers, group_token=None):
+    def create_quiz_response(self, group_token=None):
         try:
-            with db.session.begin_nested():
-                if group_token:
-                    response = text("""
-                                    INSERT INTO responses (group_token)
-                                    VALUES (:group_token) RETURNING id;
-                                    """)
-                    result = db.session.execute(
-                        response, {"group_token": group_token})
-                else:
-                    response = text("""
+            if group_token:
+                response = text("""
+                                INSERT INTO responses (group_token)
+                                VALUES (:group_token) RETURNING id;
+                                """)
+                result = db.session.execute(
+                    response, {"group_token": group_token})
+            else:
+                response = text("""
                                     INSERT INTO responses DEFAULT VALUES RETURNING id;
                                     """)
-                    result = db.session.execute(response)
+                result = db.session.execute(response)
+            db.session.commit()
+            return result.fetchone()[0]
+        except Exception as error:
+            raise error
 
-                response_id = result.fetchone()[0]
+    def save_answer(self, question_id, answers, response_id):
+        try:
+            for option_id in answers:
+                sql = text("""
+                        INSERT INTO quiz_answers (response_id, question_id, selected_option_id)
+                        VALUES (:response_id, :question_id, :selected_option_id);
+                        """)
+                db.session.execute(sql, {
+                    'response_id': response_id,
+                    'question_id': question_id,
+                    'selected_option_id': option_id
+                })
 
-                for answer in answers:
-                    for selected_option_id in answer['selected_option_ids']:
-                        sql = text("""
-                                INSERT INTO quiz_answers (response_id, question_id, selected_option_id)
-                                VALUES (:response_id, :question_id, :selected_option_id);
-                                """)
-                        db.session.execute(sql, {
-                            'response_id': response_id,
-                            'question_id': answer['question_id'],
-                            'selected_option_id': selected_option_id
-                        })
-
-                db.session.commit()
+            db.session.commit()
         except Exception as error:  # pylint: disable=broad-except
             db.session.rollback()
             raise error
