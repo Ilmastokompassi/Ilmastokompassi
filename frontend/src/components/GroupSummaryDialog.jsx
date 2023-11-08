@@ -32,7 +32,6 @@ export default function GroupSummaryDialog() {
             })
             .then((data) => {
                 if (data.group_token) {
-                    localStorage.setItem('groupToken', groupToken)
                     window.dispatchEvent(new Event('setGroupToken'))
                     navigate(`/yhteenveto/ryhma/${groupToken}`)
                     setOpen(false)
