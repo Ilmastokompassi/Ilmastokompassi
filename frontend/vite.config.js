@@ -9,7 +9,7 @@ export default defineConfig({
         proxy: {
             '/api': {
                 /* https://github.com/nodejs/node/issues/40537 */
-                target: 'http://127.0.0.1:5000',
+                target: 'http://backend:5000',
                 changeOrigin: true,
             },
         },

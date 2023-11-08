@@ -1,0 +1,30 @@
+FROM python:3.10-slim-bookworm
+
+RUN pip install poetry==1.6.1
+
+ENV POETRY_NO_INTERACTION=1 \
+    POETRY_VIRTUALENVS_IN_PROJECT=1 \
+    POETRY_VIRTUALENVS_CREATE=1 \
+    POETRY_CACHE_DIR=/tmp/poetry_cache
+
+WORKDIR /app
+
+COPY pyproject.toml poetry.lock ./
+
+RUN apt-get update && \
+    apt-get install -y libpq-dev gcc postgresql-client
+
+RUN poetry install && rm -rf $POETRY_CACHE_DIR
+
+ENV VIRTUAL_ENV=/app/.venv \
+    PATH="/app/.venv/bin:$PATH"
+
+COPY . .
+
+ENV FLASK_DEBUG=1 \
+    FLASK_APP=src/app.py \
+    FLASK_RUN_HOST=0.0.0.0
+
+EXPOSE 5000
+
+CMD ["python", "-m", "flask", "run"]

@@ -1,0 +1,56 @@
+services:
+  frontend:
+    container_name: frontend
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.dev
+    ports:
+      - 5173:5173
+    volumes:
+      - /app/node_modules
+    depends_on:
+      - backend
+    develop:
+      watch:
+        - action: sync
+          path: frontend/
+          target: /app
+        - action: rebuild
+          path: ./frontend/package.json
+
+  backend:
+    container_name: backend
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.dev
+    ports:
+      - 5000:5000
+    depends_on:
+      - dev-db
+    env_file:
+      - ./backend/.env.dev
+    develop:
+      watch:
+        - action: sync
+          path: backend/
+          target: /app
+        - action: rebuild
+          path: ./backend/pyproject.toml
+
+  dev-db:
+    image: bitnami/postgresql:14
+    container_name: dev-db
+    ports:
+      - 5432:5432
+    env_file:
+      - ./backend/.env.dev
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready"]
+      interval: 4s
+      timeout: 3s
+      retries: 5
+
+volumes:
+  postgres-data:

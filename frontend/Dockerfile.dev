@@ -1,0 +1,11 @@
+FROM node:18-alpine as build
+
+WORKDIR /app
+
+COPY . .
+
+RUN npm ci
+
+EXPOSE 5173
+
+CMD ["npm", "run", "dev"]

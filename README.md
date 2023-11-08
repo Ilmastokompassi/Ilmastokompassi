@@ -13,12 +13,11 @@ This is a Software production project developed during University of Helsinki's 
 
 ## Documents
 
-- [Definition of done](documentation/definition_of_done.md)
-- [Workflow guide](documentation/workflow_guide.md)
-- [Environment setup workflow guide](documentation/environment_setup_workflow.md)
-- [Work hours](documentation/work_hours)
+- [Definition of done](docs/definition_of_done.md)
+- [How to contribute](docs/CONTRIBUTING.md)
+- [Work hours](docs/work_hours)
 - [Product and sprint backlogs](https://github.com/orgs/Ilmastokompassi/projects/1/views/3)
 
 ## Project documentation
 
-- [Kubernetes documentation](documentation/kubernetes.md)
+- [Kubernetes documentation](docs/kubernetes.md)
