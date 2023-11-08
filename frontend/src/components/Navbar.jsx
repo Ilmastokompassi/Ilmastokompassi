@@ -227,27 +227,64 @@ function ResponsiveAppBar() {
                                 key="groupToken"
                                 id="group-token"
                                 onClick={handleCloseUserMenu}
+                                disableRipple
+                                disableTouchRipple
+                                sx={{
+                                    cursor: 'default',
+                                    '&:hover': {
+                                        backgroundColor: 'inherit', // or set the background color to the one you want
+                                    },
+                                }}
                             >
-                                <Typography textAlign="center">
+                                <Typography
+                                    textAlign="center"
+                                    sx={{
+                                        fontWeight: 'bold',
+                                        cursor: 'default',
+                                    }}
+                                >
                                     {groupToken
                                         ? `Ryhmätunnus: ${groupToken}`
                                         : 'Et ole ryhmässä'}
                                 </Typography>
                             </MenuItem>
                             {groupToken ? (
-                                <MenuItem
-                                    key="leaveGroup"
-                                    id="btn-leave-group"
-                                    onClick={() => {
-                                        localStorage.removeItem('groupToken')
-                                        setGroupToken(null)
-                                        handleCloseUserMenu()
-                                    }}
-                                >
-                                    <Typography textAlign="center">
-                                        Poistu ryhmästä
-                                    </Typography>
-                                </MenuItem>
+                                <>
+                                    <MenuItem
+                                        key="GroupStats"
+                                        id="btn-group-stats"
+                                        onClick={() => {
+                                            handleCloseUserMenu()
+                                        }}
+                                    >
+                                        <Typography
+                                            textAlign="center"
+                                            component={NavLink}
+                                            to={`/yhteenveto/ryhma/${groupToken}`}
+                                            sx={{
+                                                color: 'inherit',
+                                                textDecoration: 'none',
+                                            }}
+                                        >
+                                            Ryhmän tiedot
+                                        </Typography>
+                                    </MenuItem>
+                                    <MenuItem
+                                        key="leaveGroup"
+                                        id="btn-leave-group"
+                                        onClick={() => {
+                                            localStorage.removeItem(
+                                                'groupToken'
+                                            )
+                                            setGroupToken(null)
+                                            handleCloseUserMenu()
+                                        }}
+                                    >
+                                        <Typography textAlign="center">
+                                            Poistu ryhmästä
+                                        </Typography>
+                                    </MenuItem>
+                                </>
                             ) : null}
                         </Menu>
                     </Box>
