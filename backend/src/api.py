@@ -114,7 +114,7 @@ def create_new_quiz_response():
     try:
         response_id = default_quiz_service.create_quiz_response(group_token)
         return jsonify(response_id=response_id)
-    except Exception as error:
+    except Exception as error:  # pylint: disable=broad-except
         print("Error creating quiz response_id:", error)
         return jsonify(error="Could not create response_id"), 500
 
@@ -123,7 +123,25 @@ def create_new_quiz_response():
 def get_quiz_questions():
     try:
         quiz = default_quiz_service.get_questions()
+        print("Questions", quiz)
+        for q in quiz:
+            print(q)
         return jsonify(quiz)
-    except Exception as error:
+    except Exception as error:  # pylint: disable=broad-except
         print(error)
         return jsonify(error="Could not get questions"), 500
+
+
+@api.route("/quiz", methods=["POST"])
+def save_quiz_answer():
+    data = request.get_json()
+    answer = data.get("answer")
+    response_id = data.get("responseId")
+    question_id = data.get("questionId")
+
+    try:
+        default_quiz_service.save_answers(question_id, answer, response_id)
+        return jsonify("Moi")
+    except Exception as error:  # pylint: disable=broad-except
+        print("error", error)
+        return jsonify("error"), 500

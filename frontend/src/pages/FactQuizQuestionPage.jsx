@@ -32,35 +32,34 @@ export const FactQuizQuestionPage = () => {
         useSWR('/api/quiz')
 
     const questionId = Math.min(
-        allQuestions?.length,
+        Object.keys(allQuestions || {}).length,
         Math.max(1, parseInt(questionParamId))
     )
 
-    const currentQuestion = allQuestions?.find(
-        (question) => question.id == questionId
-    )
+    const currentQuestion = allQuestions ? allQuestions[questionId] : null
 
-    const totalQuestions = allQuestions?.length
+    const totalQuestions = Object.keys(allQuestions || {})?.length
     const isLastQuestion = questionId == totalQuestions
 
     const handleAnswer = async () => {
-        console.log('Vastattu', Array.from(selectedOptionsIds))
-        setHasAnswered(true)
-        // try {
-        //     const response = await fetch('/api/quiz', {
-        //         method: 'POST',
-        //         headers: {
-        //             'Content-Type': 'application/json',
-        //         },
-        //         body: JSON.stringify({
-        //             questionId,
-        //             selectedOptionsIds: Array.from(selectedOptionsIds),
-        //         }),
-        //     })
-        //     const data = await response.json()
-        // } catch (error) {
-        //     console.log(error)
-        // }
+        try {
+            const response = await fetch('/api/quiz', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    questionId,
+                    answer: Array.from(selectedOptionsIds),
+                    responseId: responseId,
+                }),
+            })
+            const data = await response.json()
+            console.log(data)
+            setHasAnswered(true)
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     const onOptionSelected = (optionId) => {

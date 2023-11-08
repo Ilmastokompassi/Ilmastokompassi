@@ -7,7 +7,26 @@ class QuizService:
         self.quiz_repository = quiz_repository
 
     def get_questions(self):
-        return self.quiz_repository.get_questions_hc()
+        try:
+            questions_options_rows = self.quiz_repository.get_questions()
+            questions = {}
+            for question_options in questions_options_rows:
+                question_id = question_options["question_id"]
+                if question_id not in questions:
+                    questions[question_id] = {
+                        "id": question_id,
+                        "content": question_options["content"],
+                        "options": []}
+                questions[question_id]["options"].append(
+                    {
+                        "id": question_options["option_id"],
+                        "name": question_options["option"]
+                    }
+                )
+
+            return questions
+        except Exception as error:
+            raise error
 
     def create_quiz_response(self, group_token=None):
         try:
@@ -15,10 +34,10 @@ class QuizService:
         except Exception as error:
             raise error
 
-    def save_answers(self, answers, group_token=None):
+    def save_answers(self, question_id, answers, response_id):
         try:
-            response_id = self.quiz_repository.save_answers(
-                answers, group_token)
+            response_id = self.quiz_repository.save_answer(
+                question_id, answers, response_id)
         except Exception as error:
             raise error
 
