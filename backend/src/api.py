@@ -123,9 +123,6 @@ def create_new_quiz_response():
 def get_quiz_questions():
     try:
         quiz = default_quiz_service.get_questions()
-        print("Questions", quiz)
-        for q in quiz:
-            print(q)
         return jsonify(quiz)
     except Exception as error:  # pylint: disable=broad-except
         print(error)
