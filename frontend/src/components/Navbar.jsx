@@ -237,7 +237,6 @@ function ResponsiveAppBar() {
                                 }}
                             >
                                 <Typography
-                                    textAlign="center"
                                     sx={{
                                         fontWeight: 'bold',
                                         cursor: 'default',
@@ -251,14 +250,13 @@ function ResponsiveAppBar() {
                             {groupToken ? (
                                 <>
                                     <MenuItem
-                                        key="GroupStats"
-                                        id="btn-group-stats"
+                                        key="GroupSummary"
+                                        id="btn-group-summary"
                                         onClick={() => {
                                             handleCloseUserMenu()
                                         }}
                                     >
                                         <Typography
-                                            textAlign="center"
                                             component={NavLink}
                                             to={`/yhteenveto/ryhma/${groupToken}`}
                                             sx={{
@@ -280,9 +278,7 @@ function ResponsiveAppBar() {
                                             handleCloseUserMenu()
                                         }}
                                     >
-                                        <Typography textAlign="center">
-                                            Poistu ryhmästä
-                                        </Typography>
+                                        <Typography>Poistu ryhmästä</Typography>
                                     </MenuItem>
                                 </>
                             ) : null}
