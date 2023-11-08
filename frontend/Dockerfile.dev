@@ -1,10 +1,18 @@
-FROM node:18-alpine as build
+FROM node:18-alpine as deps
 
 WORKDIR /app
 
-COPY . .
+COPY package.json package-lock.json .
 
 RUN npm ci
+
+FROM deps as runtime
+
+WORKDIR /app
+
+COPY --from=deps /app .
+
+COPY . .
 
 EXPOSE 5173
 
