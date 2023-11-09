@@ -51,7 +51,7 @@ export const FactQuizQuestionPage = () => {
                 body: JSON.stringify({
                     questionId,
                     answer: Array.from(selectedOptionsIds),
-                    responseId: responseId,
+                    responseId: parseInt(responseId),
                 }),
             })
             const data = await response.json()
