@@ -44,6 +44,6 @@ describe('From survey page ', function () {
         cy.joinGroupWithToken('GROUPSUM')
         cy.get('#btn-show-group-info').click()
         cy.get('#btn-group-summary').click()
-        cy.title().should('eq', 'Ryhmä')
+        cy.title().should('eq', 'Ilmastoprofiili - Tulokset')
     })
 })
