@@ -86,7 +86,7 @@ export default function GroupDialog() {
                     <DialogTitle>Luo uusi ryhmä</DialogTitle>
                     <DialogContent>
                         <DialogContentText>
-                            Ryhmätunnus voi sisältää vain isoja kirjaimia,
+                            Ryhmätunnus voi sisältää vain isoja kirjaimia väliltä A-Z,
                             numeroita tai niiden yhdistelmiä. Ryhmätunnus saa
                             olla enintään 10 merkkiä pitkä. Syötä haluamasi uusi
                             ryhmätunnus ja paina &quot;Luo&quot;.
