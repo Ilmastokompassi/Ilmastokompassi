@@ -151,9 +151,10 @@ def save_quiz_answer():
     try:
         default_quiz_service.save_answers(
             question_id, answer, response_id)
-
         correct_answers = default_quiz_service.get_correct_answers(question_id)
-        return jsonify(correct_answers=correct_answers)
+        info_text = default_quiz_service.get_info_text(question_id)
+        print(info_text)
+        return jsonify(correct_answers=correct_answers, info_text=info_text)
     except Exception as error:  # pylint: disable=broad-except
         print("error", error)
         return jsonify("error"), 500

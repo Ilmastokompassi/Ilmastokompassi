@@ -55,5 +55,11 @@ class QuizService:
         except Exception as error:
             raise error
 
+    def get_info_text(self, question_id):
+        try:
+            return self.quiz_repository.get_info_text(question_id)
+        except Exception as error:
+            raise error
+
 
 default_quiz_service = QuizService(default_quiz_repository)
