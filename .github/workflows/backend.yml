@@ -64,7 +64,9 @@ jobs:
   deploy:
     needs: build-and-test
     runs-on: ubuntu-latest
-    environment: staging
+    environment:
+      name: staging
+      url: https://ilmastokompassi-staging.it.helsinki.fi
     if: github.event_name != 'pull_request'
     steps:
       - uses: actions/checkout@v3
