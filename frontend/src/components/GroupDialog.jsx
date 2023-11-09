@@ -42,9 +42,6 @@ export default function GroupDialog() {
         })
             .then((response) => response.json())
             .then(() => {
-                //setOpen(false)
-                //window.alert('Ryhmä luotu onnistuneesti!')
-                //navigate('/kyselyt/')
                 setGroupIsMade(true)
             })
             .catch((error) => console.error(error))
@@ -98,6 +95,7 @@ export default function GroupDialog() {
                             autoFocus
                             margin="dense"
                             label="Ryhmäntunnus"
+                            groupIsMade
                             type="text"
                             fullWidth
                             variant="standard"
@@ -136,7 +134,7 @@ export default function GroupDialog() {
                     </DialogContent>
                     <DialogActions>
                         <Button
-                            id="btn-cancel-group-creation"
+                            id="btn-group-created-ok"
                             onClick={() => setOpen(false)}
                         >
                             OK

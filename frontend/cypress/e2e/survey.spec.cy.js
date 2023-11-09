@@ -44,7 +44,7 @@ describe('From survey page large ', function () {
 
     it('Make survey 5 times in a group and check that the results are correct', function () {
         cy.title().should('eq', 'Kyselyt')
-        cy.createGroupWithToken('TOKEN', 'Ryhmä luotu onnistuneesti!')
+        cy.createGroupWithToken('TOKEN')
         cy.joinGroupWithToken('TOKEN')
         for (let i = 0; i < 4; i++) {
             cy.title().should('eq', 'Ilmastoprofiili - Kysymys 1.')
