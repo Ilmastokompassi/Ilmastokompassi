@@ -4,7 +4,7 @@ resources:
   - ../base
   - imagestreams.yaml
 patches:
-  # Patch the ingress to use the staging hostname
+  # Patch the ingress to use the staging hostname and the TLS secrets
   - path: patch-ingress.yaml
     target:
       kind: Ingress
