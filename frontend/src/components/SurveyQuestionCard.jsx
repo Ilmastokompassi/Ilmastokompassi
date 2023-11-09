@@ -8,12 +8,10 @@ import {
 } from '@mui/material'
 import PropTypes from 'prop-types'
 
-function QuestionCard({
+function SurveyQuestionCard({
     question,
     selectedOptionsIds,
     onOptionSelected,
-    alwaysCol,
-    canAnswer = true,
 }) {
     const cardStyles = {
         width: '80%',
@@ -50,22 +48,17 @@ function QuestionCard({
                 <Stack
                     spacing={2}
                     marginTop={1}
-                    direction={
-                        alwaysCol
-                            ? 'column'
-                            : { xs: 'column', sm: 'column', md: 'row' }
-                    }
+                    direction={{ xs: 'column', sm: 'column', md: 'row' }}
                 >
                     {options.map((option) => (
                         <Button
                             key={option.id}
                             variant={
-                                selectedOptionsIds.has(option.id)
+                                option.id === selectedOptionsIds
                                     ? 'contained'
                                     : 'outlined'
                             }
                             onClick={() => onOptionSelected(option.id)}
-                            disabled={!canAnswer}
                         >
                             {option.name}
                         </Button>
@@ -82,12 +75,12 @@ const questionProps = PropTypes.shape({
     options: PropTypes.array,
 })
 
-QuestionCard.propTypes = {
+SurveyQuestionCard.propTypes = {
     question: questionProps.isRequired,
-    selectedOptionsIds: PropTypes.object,
+    selectedOptionsIds: PropTypes.number,
     onOptionSelected: PropTypes.func,
     alwaysCol: PropTypes.bool,
     canAnswer: PropTypes.bool,
 }
 
-export default QuestionCard
+export default SurveyQuestionCard

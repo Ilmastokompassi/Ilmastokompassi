@@ -40,7 +40,7 @@ describe('From survey page ', function () {
 
     it('navbar sends to group summary page', function () {
         cy.viewport(900, 1000)
-        cy.createGroupWithToken('GROUPSUM', 'Ryhmä luotu onnistuneesti!')
+        cy.createGroupWithToken('GROUPSUM')
         cy.joinGroupWithToken('GROUPSUM')
         cy.get('#btn-show-group-info').click()
         cy.get('#btn-group-summary').click()

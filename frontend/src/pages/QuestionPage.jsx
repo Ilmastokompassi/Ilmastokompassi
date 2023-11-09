@@ -10,14 +10,14 @@ import {
 } from '@mui/material'
 import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight'
 import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft'
-import QuestionCard from '../components/QuestionCard'
+import SurveyQuestionCard from '../components/SurveyQuestionCard'
 import { useTitle } from '../hooks/useTitle'
 import { useSwipeable } from 'react-swipeable'
 
 export function QuestionPage() {
     const { questionId: questionParamId } = useParams()
     // Needs to be type Set, because QuestionCard is used for quiz also.
-    const [selectedOptionId, setSelectedOptionId] = useState(new Set())
+    const [selectedOptionId, setSelectedOptionId] = useState(null)
     const navigate = useNavigate()
 
     const options = [
@@ -73,14 +73,13 @@ export function QuestionPage() {
     useEffect(() => {
         const savedResponses =
             JSON.parse(localStorage.getItem('surveyResponses')) || {}
-        const newValue = new Set([savedResponses[questionId]])
-        setSelectedOptionId(newValue)
+        setSelectedOptionId(savedResponses[questionId])
     }, [questionId])
 
     // On option selected, save the selected option for the question
     // to the local storage and move to the next question.
     const onOptionSelected = (selectedOptionId) => {
-        setSelectedOptionId(new Set([selectedOptionId]))
+        setSelectedOptionId(selectedOptionId)
 
         const savedResponses =
             JSON.parse(localStorage.getItem('surveyResponses')) || {}
@@ -128,7 +127,7 @@ export function QuestionPage() {
                 ) : (
                     <>
                         {/* Question options card */}
-                        <QuestionCard
+                        <SurveyQuestionCard
                             question={{ ...currentQuestion, options: options }}
                             selectedOptionsIds={selectedOptionId}
                             onOptionSelected={onOptionSelected}
