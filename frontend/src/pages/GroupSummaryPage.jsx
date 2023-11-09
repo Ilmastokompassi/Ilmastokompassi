@@ -65,6 +65,7 @@ export const GroupSummaryPage = () => {
                         spacing={4}
                         paddingTop={'30px'}
                         paddingBottom={'50px'}
+                        padding={'20px'}
                         alignItems={'center'}
                     >
                         <Typography
