@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { Button, Stack, Typography } from '@mui/material'
-import QuestionCard from '../components/QuestionCard'
+import QuizQuestionCard from '../components/QuizQuestionCard'
 import { useTitle } from '../hooks/useTitle'
 import useSWR from 'swr'
 
@@ -88,7 +88,7 @@ export const FactQuizQuestionPage = () => {
             ) : (
                 <>
                     {/* Question options card */}
-                    <QuestionCard
+                    <QuizQuestionCard
                         question={currentQuestion}
                         selectedOptionsIds={selectedOptionsIds}
                         onOptionSelected={onOptionSelected}
