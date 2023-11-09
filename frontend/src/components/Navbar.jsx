@@ -248,7 +248,7 @@ function ResponsiveAppBar() {
                                 </Typography>
                             </MenuItem>
                             {groupToken ? (
-                                <>
+                                <Box>
                                     <MenuItem
                                         key="GroupSummary"
                                         id="btn-group-summary"
@@ -280,7 +280,7 @@ function ResponsiveAppBar() {
                                     >
                                         <Typography>Poistu ryhmästä</Typography>
                                     </MenuItem>
-                                </>
+                                </Box>
                             ) : null}
                         </Menu>
                     </Box>
