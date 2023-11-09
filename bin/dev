@@ -7,4 +7,5 @@ ensure_supported_docker_compose_version
 
 trap 'run_command docker compose down' EXIT
 
+run_command docker compose build
 run_command docker compose watch "$@"
