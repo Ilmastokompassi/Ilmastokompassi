@@ -232,7 +232,7 @@ function ResponsiveAppBar() {
                                 sx={{
                                     cursor: 'default',
                                     '&:hover': {
-                                        backgroundColor: 'inherit', // or set the background color to the one you want
+                                        backgroundColor: 'inherit',
                                     },
                                 }}
                             >
@@ -255,17 +255,10 @@ function ResponsiveAppBar() {
                                         onClick={() => {
                                             handleCloseUserMenu()
                                         }}
+                                        component={NavLink}
+                                        to={`/yhteenveto/ryhma/${groupToken}`}
                                     >
-                                        <Typography
-                                            component={NavLink}
-                                            to={`/yhteenveto/ryhma/${groupToken}`}
-                                            sx={{
-                                                color: 'inherit',
-                                                textDecoration: 'none',
-                                            }}
-                                        >
-                                            Ryhmän tiedot
-                                        </Typography>
+                                        Ryhmän tiedot
                                     </MenuItem>
                                     <MenuItem
                                         key="leaveGroup"
@@ -278,7 +271,7 @@ function ResponsiveAppBar() {
                                             handleCloseUserMenu()
                                         }}
                                     >
-                                        <Typography>Poistu ryhmästä</Typography>
+                                        Poistu ryhmästä
                                     </MenuItem>
                                 </Box>
                             ) : null}
