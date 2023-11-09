@@ -144,7 +144,6 @@ def get_quiz_questions():
 
 @api.route("/quiz", methods=["POST"])
 def save_quiz_answer():
-    print("TÄÄÄ")
     data = request.get_json()
     answer = data.get("answer")
     response_id = data.get("responseId")
