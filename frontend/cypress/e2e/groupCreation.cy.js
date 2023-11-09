@@ -24,7 +24,7 @@ Cypress.env('screen_sizes').forEach((size) => {
         })
 
         it('Open create-group dialog and create token', function () {
-            cy.createGroupWithToken('GROUP', 'Ryhmä luotu onnistuneesti!')
+            cy.createGroupWithToken('GROUP')
         })
 
         it('Creating group with empty inputfield fails', function () {

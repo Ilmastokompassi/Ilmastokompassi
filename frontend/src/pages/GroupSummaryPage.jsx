@@ -5,7 +5,8 @@ import { SummaryProfile } from '../components/SummaryProfile'
 import SummaryDoughnut from '../components/SummaryDoughnut'
 
 export const GroupSummaryPage = () => {
-    const groupToken = localStorage.getItem('groupToken')
+    // Fetch group token from url
+    const groupToken = window.location.pathname.split('/').pop()
 
     // Fetch all profiles from api
     const { data: profileData, isLoading: isLoadingProfiles } =
@@ -86,9 +87,10 @@ export const GroupSummaryPage = () => {
                             <>
                                 {allProfilesData.response_amount < 5 ? (
                                     <Typography variant="body1">
-                                        Näet tässä ryhmäsi tulokset, kun
-                                        vähintään viisi henkilöä on vastannut
-                                        kyselyyn. Nyt kyselyyn on vastannut{' '}
+                                        Näet tässä ryhmän {groupToken} tulokset,
+                                        kun vähintään viisi henkilöä on
+                                        vastannut kyselyyn. Nyt kyselyyn on
+                                        vastannut{' '}
                                         {allProfilesData.response_amount}{' '}
                                         henkilöä.
                                     </Typography>

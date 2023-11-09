@@ -44,13 +44,13 @@ Cypress.env('screen_sizes').forEach((size) => {
             )
         })
         it('Open join-group dialog and join with correct token succeeds', function () {
-            cy.createGroupWithToken('TOKEN', 'Ryhmä luotu onnistuneesti!')
+            cy.createGroupWithToken('TOKEN')
             cy.joinGroupWithToken('TOKEN')
             cy.get('#btn-show-group-info').click()
             cy.contains('TOKEN')
         })
         it('Open join-group dialog and join with correct token, exit group', function () {
-            cy.createGroupWithToken('TOKEN', 'Ryhmä luotu onnistuneesti!')
+            cy.createGroupWithToken('TOKEN')
             cy.joinGroupWithToken('TOKEN')
             cy.get('#btn-show-group-info').click()
             cy.contains('TOKEN')
@@ -59,7 +59,7 @@ Cypress.env('screen_sizes').forEach((size) => {
             cy.contains('Et ole ryhmässä')
         })
         it('Join group and start survey solo succeeds', function () {
-            cy.createGroupWithToken('TOKEN', 'Ryhmä luotu onnistuneesti!')
+            cy.createGroupWithToken('TOKEN')
             cy.joinGroupWithToken('TOKEN')
             cy.visit('/kyselyt')
             cy.get('#btn-show-group-info').click()
