@@ -35,10 +35,10 @@ Cypress.Commands.add('createGroupWithToken', (groupToken, alertMsg) => {
         cy.get('#input-create-group-token').type(groupToken)
     }
     cy.get('#input-create-group-token').should('have.value', groupToken)
-    cy.get('#btn-create-group-token').click()
     if (alertMsg) {
-        cy.waitUntil(() => stub.calledWith(alertMsg))
+        cy.contains(alertMsg)
     } else {
+        cy.get('#btn-create-group-token').click()
         cy.get('#group-created-dialog')
         cy.should('contain', 'Ryhmä luotu onnistuneesti!')
         cy.get('#btn-group-created-ok').click()

@@ -12,12 +12,15 @@ import {
 
 export default function GroupDialog() {
     const [groupName, setGroupName] = React.useState('')
+    const [isValid, setIsValid] = React.useState(true)
     const [open, setOpen] = React.useState(false)
     const navigate = useNavigate()
     const [groupIsMade, setGroupIsMade] = React.useState(false)
 
     const handleGroupNameChange = (event) => {
-        setGroupName(event.target.value.toUpperCase())
+        const newGroupName = event.target.value.toUpperCase()
+        setGroupName(newGroupName)
+        setIsValid(validateGroupName(newGroupName))
     }
 
     const handleSubmit = () => {
@@ -67,6 +70,11 @@ export default function GroupDialog() {
         setGroupName('')
     }
 
+    const validateGroupName = (groupName) => {
+        const regex = /^[A-Z0-9]{1,10}$/
+        return regex.test(groupName)
+    }
+
     return (
         <div>
             <Button
@@ -86,12 +94,15 @@ export default function GroupDialog() {
                     <DialogTitle>Luo uusi ryhmä</DialogTitle>
                     <DialogContent>
                         <DialogContentText>
-                            Ryhmätunnus voi sisältää vain isoja kirjaimia väliltä A-Z,
-                            numeroita tai niiden yhdistelmiä. Ryhmätunnus saa
-                            olla enintään 10 merkkiä pitkä. Syötä haluamasi uusi
-                            ryhmätunnus ja paina &quot;Luo&quot;.
+                            Ryhmätunnus voi sisältää vain isoja kirjaimia
+                            väliltä A-Z, numeroita tai niiden yhdistelmiä.
+                            Ryhmätunnus saa olla enintään 10 merkkiä pitkä.
+                            Syötä haluamasi uusi ryhmätunnus ja paina
+                            &quot;Luo&quot;.
                         </DialogContentText>
                         <TextField
+                            error={!isValid}
+                            helperText={isValid ? '' : 'Tarkista ryhmätunnus.'}
                             autoFocus
                             margin="dense"
                             label="Ryhmäntunnus"
@@ -114,6 +125,7 @@ export default function GroupDialog() {
                             id="btn-create-group-token"
                             onClick={handleSubmit}
                             color="primary"
+                            disabled={!isValid}
                         >
                             Luo
                         </Button>
