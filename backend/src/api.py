@@ -144,14 +144,17 @@ def get_quiz_questions():
 
 @api.route("/quiz", methods=["POST"])
 def save_quiz_answer():
+    print("TÄÄÄ")
     data = request.get_json()
     answer = data.get("answer")
     response_id = data.get("responseId")
     question_id = data.get("questionId")
-
     try:
-        default_quiz_service.save_answers(question_id, answer, response_id)
-        return jsonify("Moi")
+        default_quiz_service.save_answers(
+            question_id, answer, response_id)
+
+        correct_answers = default_quiz_service.get_correct_answers(question_id)
+        return jsonify(correct_answers=correct_answers)
     except Exception as error:  # pylint: disable=broad-except
         print("error", error)
         return jsonify("error"), 500
