@@ -5,7 +5,7 @@ source "$(dirname "$0")/.common"
 ensure_program_in_path "docker"
 ensure_supported_docker_compose_version
 
-trap 'run_command docker compose down' EXIT
+trap 'run_command docker compose stop' EXIT
 
 run_command docker compose build
 run_command docker compose watch "$@"
