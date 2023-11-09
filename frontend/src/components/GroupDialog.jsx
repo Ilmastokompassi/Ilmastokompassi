@@ -95,7 +95,6 @@ export default function GroupDialog() {
                             autoFocus
                             margin="dense"
                             label="Ryhmäntunnus"
-                            groupIsMade
                             type="text"
                             fullWidth
                             variant="standard"
