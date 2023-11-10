@@ -13,6 +13,7 @@ import {
 export default function GroupDialog() {
     const [groupName, setGroupName] = React.useState('')
     const [isValid, setIsValid] = React.useState(true)
+    const [alertMessage, setAlertMessage] = React.useState('')
     const [open, setOpen] = React.useState(false)
     const navigate = useNavigate()
     const [groupIsMade, setGroupIsMade] = React.useState(false)
@@ -25,15 +26,8 @@ export default function GroupDialog() {
 
     const handleSubmit = () => {
         if (groupName === '') {
-            window.alert('Ryhmätunnus ei voi olla tyhjä merkkijono.')
-            return
-        } else if (groupName.length > 10) {
-            window.alert('Ryhmätunnus ei voi olla yli 10 merkkiä pitkä.')
-            return
-        } else if (!/^[A-Z0-9]+$/.test(groupName)) {
-            window.alert(
-                'Ryhmätunnus voi sisältää vain isoja kirjaimia ja numeroita.'
-            )
+            setIsValid(false)
+            setAlertMessage('Ryhmätunnus ei voi olla tyhjä.')
             return
         }
         fetch('/api/new-group', {
@@ -44,7 +38,12 @@ export default function GroupDialog() {
             body: JSON.stringify({ token: groupName.toUpperCase() }),
         })
             .then((response) => response.json())
-            .then(() => {
+            .then((data) => {
+                if (data.message === 'Group already exists') {
+                    setIsValid(false)
+                    setAlertMessage('Ryhmätunnus on jo käytössä.')
+                    return
+                }
                 setGroupIsMade(true)
             })
             .catch((error) => console.error(error))
@@ -102,7 +101,7 @@ export default function GroupDialog() {
                         </DialogContentText>
                         <TextField
                             error={!isValid}
-                            helperText={isValid ? '' : 'Tarkista ryhmätunnus.'}
+                            helperText={isValid ? '' : alertMessage}
                             autoFocus
                             margin="dense"
                             label="Ryhmäntunnus"
