@@ -22,6 +22,7 @@ export default function GroupDialog() {
         const newGroupName = event.target.value.toUpperCase()
         setGroupName(newGroupName)
         setIsValid(validateGroupName(newGroupName))
+        setAlertMessage('Tarkasta ryhmätunnus.')
     }
 
     const handleSubmit = () => {
@@ -104,7 +105,7 @@ export default function GroupDialog() {
                             helperText={isValid ? '' : alertMessage}
                             autoFocus
                             margin="dense"
-                            label="Ryhmäntunnus"
+                            label="Ryhmätunnus"
                             type="text"
                             fullWidth
                             variant="standard"

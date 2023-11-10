@@ -65,7 +65,7 @@ export default function GroupSummaryDialog() {
                     <TextField
                         autoFocus
                         margin="dense"
-                        label="Ryhmäntunnus"
+                        label="Ryhmätunnus"
                         type="text"
                         fullWidth
                         variant="standard"
