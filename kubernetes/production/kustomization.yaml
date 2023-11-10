@@ -3,7 +3,7 @@ kind: Kustomization
 resources:
   - ../base
 patches:
-  # Patch the ingress to use the production hostname
+  # Patch the ingress to use the production hostname and the TLS secrets
   - path: patch-ingress.yaml
     target:
       kind: Ingress
@@ -12,7 +12,7 @@ patches:
 images:
   - name: ilmastokompassi/backend
     newName: ghcr.io/ilmastokompassi/backend
-    newTag: 0.0.2
+    newTag: 0.0.3
   - name: ilmastokompassi/frontend
     newName: ghcr.io/ilmastokompassi/frontend
-    newTag: 0.0.2
+    newTag: 0.0.3
