@@ -9,6 +9,7 @@ export const FactQuizQuestionPage = () => {
     const { questionId: questionParamId } = useParams()
     const [selectedOptionsIds, setSelectedOptionsIds] = useState(new Set())
     const [hasAnswered, setHasAnswered] = useState(false)
+    const [correctAnswers, setCorrectAnswers] = useState(null)
 
     const responseId = localStorage.getItem('quizResponseId')
     const groupToken = localStorage.getItem('groupToken')
@@ -56,6 +57,7 @@ export const FactQuizQuestionPage = () => {
             })
             const data = await response.json()
             console.log(data)
+            setCorrectAnswers(data.correct_answers)
             setHasAnswered(true)
         } catch (error) {
             console.log(error)
@@ -70,6 +72,12 @@ export const FactQuizQuestionPage = () => {
             updatedOptions.add(optionId)
         }
         setSelectedOptionsIds(updatedOptions)
+    }
+
+    const handleNextQuestion = () => {
+        setHasAnswered(false)
+        setCorrectAnswers(null)
+        setSelectedOptionsIds(new Set())
     }
 
     useTitle(`Tietovisa - Kysymys ${questionId}.`)
@@ -94,6 +102,7 @@ export const FactQuizQuestionPage = () => {
                         onOptionSelected={onOptionSelected}
                         alwaysCol={true}
                         canAnswer={!hasAnswered}
+                        correctAnswers={correctAnswers}
                     />
                     {/* Buttons */}
                     <Stack
@@ -117,10 +126,7 @@ export const FactQuizQuestionPage = () => {
                                 variant="contained"
                                 color="primary"
                                 href={`/tietovisa/${questionId + 1}`}
-                                onClick={() => {
-                                    setHasAnswered(false)
-                                    setSelectedOptionsIds(new Set())
-                                }}
+                                onClick={handleNextQuestion}
                             >
                                 Seuraava kysymys
                             </Button>

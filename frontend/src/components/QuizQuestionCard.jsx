@@ -5,8 +5,13 @@ import {
     CardContent,
     Stack,
     Typography,
+    Box,
+    Icon,
 } from '@mui/material'
+import CheckRoundedIcon from '@mui/icons-material/CheckRounded'
+import ClearRoundedIcon from '@mui/icons-material/ClearRounded'
 import PropTypes from 'prop-types'
+import styled from '@emotion/styled'
 
 function QuizQuestionCard({
     question,
@@ -14,6 +19,7 @@ function QuizQuestionCard({
     onOptionSelected,
     alwaysCol,
     canAnswer = true,
+    correctAnswers,
 }) {
     const cardStyles = {
         width: '80%',
@@ -24,7 +30,37 @@ function QuizQuestionCard({
         overflowY: 'auto',
     }
 
+    const QuestionBox = styled(Box)`
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+    `
+
+    const QuestionButton = styled(Button)`
+        width: 100%;
+        // Apply default border styles here if needed
+
+        // Override styles for correct and incorrect answers
+        border-color: ${({ isSelected, isCorrect }) => {
+            if (isSelected) {
+                return isCorrect ? 'green' : 'red'
+            }
+            return 'default' // default border color when unselected
+        }};
+
+        // Override styles for disabled buttons
+        &:disabled {
+            border-color: ${({ isCorrect }) =>
+                isCorrect ? 'green' : 'default'};
+            // Keep other disabled styles or override them as needed
+        }
+
+        // Add other styles for the button here
+    `
+
     const options = question.options
+
+    console.log('correct', correctAnswers)
 
     return (
         <Card sx={cardStyles}>
@@ -57,18 +93,55 @@ function QuizQuestionCard({
                     }
                 >
                     {options.map((option) => (
-                        <Button
-                            key={option.id}
-                            variant={
-                                selectedOptionsIds.has(option.id)
-                                    ? 'contained'
-                                    : 'outlined'
-                            }
-                            onClick={() => onOptionSelected(option.id)}
-                            disabled={!canAnswer}
-                        >
-                            {option.name}
-                        </Button>
+                        <QuestionBox key={option.id}>
+                            <QuestionButton
+                                variant={
+                                    selectedOptionsIds.has(option.id)
+                                        ? 'contained'
+                                        : 'outlined'
+                                }
+                                onClick={() => onOptionSelected(option.id)}
+                                disabled={!canAnswer}
+                            >
+                                <Typography
+                                    style={
+                                        correctAnswers &&
+                                        !correctAnswers.includes(option.id)
+                                            ? {
+                                                  textDecorationLine:
+                                                      'line-through',
+                                                  textDecorationStyle: 'solid',
+                                                  textDecorationColor: 'red',
+                                                  textDecorationThickness:
+                                                      '2px',
+                                              }
+                                            : {}
+                                    }
+                                >
+                                    {option.name}
+                                </Typography>
+                            </QuestionButton>
+                            {correctAnswers &&
+                                (correctAnswers.includes(option.id) ? (
+                                    selectedOptionsIds.has(option.id) ? (
+                                        <Icon>
+                                            <CheckRoundedIcon></CheckRoundedIcon>
+                                        </Icon>
+                                    ) : (
+                                        <Icon>
+                                            <ClearRoundedIcon></ClearRoundedIcon>
+                                        </Icon>
+                                    )
+                                ) : selectedOptionsIds.has(option.id) ? (
+                                    <Icon>
+                                        <ClearRoundedIcon></ClearRoundedIcon>
+                                    </Icon>
+                                ) : (
+                                    <Icon>
+                                        <CheckRoundedIcon></CheckRoundedIcon>
+                                    </Icon>
+                                ))}
+                        </QuestionBox>
                     ))}
                 </Stack>
             </CardContent>
@@ -88,6 +161,7 @@ QuizQuestionCard.propTypes = {
     onOptionSelected: PropTypes.func,
     alwaysCol: PropTypes.bool,
     canAnswer: PropTypes.bool,
+    correctAnswers: PropTypes.array,
 }
 
 export default QuizQuestionCard

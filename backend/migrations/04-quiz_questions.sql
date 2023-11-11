@@ -12,7 +12,7 @@ VALUES
     (4, 'Vastaus 4', 'false', 2),
     (5, 'Vastaus 5', 'true', 2),
     (6, 'Vastaus 6', 'true', 3),
-    (7, 'Vastaus 1', 'true', 3),
-    (8, 'Vastaus 1', 'true', 3),
-    (9, 'Vastaus 1', 'false', 3),
-    (10, 'Vastaus 1', 'true', 3);
+    (7, 'Vastaus 7', 'true', 3),
+    (8, 'Vastaus 8', 'true', 3),
+    (9, 'Vastaus 9', 'false', 3),
+    (10, 'Vastaus 10', 'true', 3);
