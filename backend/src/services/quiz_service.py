@@ -36,7 +36,7 @@ class QuizService:
 
     def save_answers(self, question_id, answers, response_id):
         try:
-            response_id = self.quiz_repository.save_answer(
+            self.quiz_repository.save_answer(
                 question_id, answers, response_id)
         except Exception as error:
             raise error
@@ -46,6 +46,18 @@ class QuizService:
     def get_response_answers(self, response_id):
         try:
             return self.quiz_repository.get_response_answers(response_id)
+        except Exception as error:
+            raise error
+
+    def get_correct_answers(self, question_id):
+        try:
+            return self.quiz_repository.get_correct_answers(question_id)
+        except Exception as error:
+            raise error
+
+    def get_info_text(self, question_id):
+        try:
+            return self.quiz_repository.get_info_text(question_id)
         except Exception as error:
             raise error
 

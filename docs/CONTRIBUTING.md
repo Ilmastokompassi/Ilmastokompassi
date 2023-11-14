@@ -29,7 +29,7 @@
   * Generate report: `(cd backend && poetry run invoke coverage-report)`
 * Run frontend tests: `(cd frontend && npm test)`
 * Run end-to-end (e2e) cypress tests:
-    1. Setup the application: `docker compose up`
+    1. Run the application: `bin/dev`
     2. Run Cypress in headless-mode, run: `(cd frontend && npm run cypress:headless)`
       -  `(cd frontend && npm run cypress:open)` to run Cypress in the browser
 * Run lint

@@ -48,4 +48,5 @@ describe('From survey page ', function () {
     //     cy.get('#btn-group-summary').click()
     //     cy.title().should('eq', 'Ilmastoprofiili - Tulokset')
     // })
+
 })

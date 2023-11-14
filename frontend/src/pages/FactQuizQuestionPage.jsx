@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { Button, Stack, Typography } from '@mui/material'
-import QuestionCard from '../components/QuestionCard'
+import QuizQuestionCard from '../components/QuizQuestionCard'
 import { useTitle } from '../hooks/useTitle'
 import useSWR from 'swr'
 
@@ -9,6 +9,7 @@ export const FactQuizQuestionPage = () => {
     const { questionId: questionParamId } = useParams()
     const [selectedOptionsIds, setSelectedOptionsIds] = useState(new Set())
     const [hasAnswered, setHasAnswered] = useState(false)
+    const [correctAnswers, setCorrectAnswers] = useState(null)
 
     const responseId = localStorage.getItem('quizResponseId')
     const groupToken = localStorage.getItem('groupToken')
@@ -51,11 +52,12 @@ export const FactQuizQuestionPage = () => {
                 body: JSON.stringify({
                     questionId,
                     answer: Array.from(selectedOptionsIds),
-                    responseId: responseId,
+                    responseId: parseInt(responseId),
                 }),
             })
             const data = await response.json()
             console.log(data)
+            setCorrectAnswers(data.correct_answers)
             setHasAnswered(true)
         } catch (error) {
             console.log(error)
@@ -70,6 +72,12 @@ export const FactQuizQuestionPage = () => {
             updatedOptions.add(optionId)
         }
         setSelectedOptionsIds(updatedOptions)
+    }
+
+    const handleNextQuestion = () => {
+        setHasAnswered(false)
+        setCorrectAnswers(null)
+        setSelectedOptionsIds(new Set())
     }
 
     useTitle(`Tietovisa - Kysymys ${questionId}.`)
@@ -88,12 +96,13 @@ export const FactQuizQuestionPage = () => {
             ) : (
                 <>
                     {/* Question options card */}
-                    <QuestionCard
+                    <QuizQuestionCard
                         question={currentQuestion}
                         selectedOptionsIds={selectedOptionsIds}
                         onOptionSelected={onOptionSelected}
                         alwaysCol={true}
                         canAnswer={!hasAnswered}
+                        correctAnswers={correctAnswers}
                     />
                     {/* Buttons */}
                     <Stack
@@ -117,10 +126,7 @@ export const FactQuizQuestionPage = () => {
                                 variant="contained"
                                 color="primary"
                                 href={`/tietovisa/${questionId + 1}`}
-                                onClick={() => {
-                                    setHasAnswered(false)
-                                    setSelectedOptionsIds(new Set())
-                                }}
+                                onClick={handleNextQuestion}
                             >
                                 Seuraava kysymys
                             </Button>

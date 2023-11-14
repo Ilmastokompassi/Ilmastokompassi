@@ -1,6 +1,6 @@
 import '@testing-library/jest-dom'
 import { render, screen } from '@testing-library/react'
-import QuestionCard from '../../components/QuestionCard'
+import SurveyQuestionCard from '../../components/SurveyQuestionCard'
 
 beforeEach(async () => {
     const fakeQuestion = {
@@ -16,11 +16,7 @@ beforeEach(async () => {
     }
 
     render(
-        <QuestionCard
-            question={fakeQuestion}
-            selectedOptionsIds={new Set()}
-            onOptionSelected={null}
-        />
+        <SurveyQuestionCard question={fakeQuestion} onOptionSelected={null} />
     )
 })
 
