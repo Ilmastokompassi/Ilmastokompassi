@@ -26,9 +26,6 @@
 import 'cypress-wait-until'
 
 Cypress.Commands.add('createGroupWithToken', (groupToken, alertMsg) => {
-    const stub = cy.stub()
-    cy.on('window:alert', stub)
-
     cy.get('#btn-create-group-dialog').click()
     cy.get('#dialog-create-group')
     if (groupToken) {
@@ -36,6 +33,10 @@ Cypress.Commands.add('createGroupWithToken', (groupToken, alertMsg) => {
     }
     cy.get('#input-create-group-token').should('have.value', groupToken)
     if (alertMsg) {
+        if (groupToken === '') {
+            cy.get('#btn-create-group-token').click()
+        }
+        cy.get('#dialog-create-group')
         cy.contains(alertMsg)
     } else {
         cy.get('#btn-create-group-token').click()

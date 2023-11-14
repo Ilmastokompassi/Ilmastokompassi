@@ -23,15 +23,14 @@ Cypress.env('screen_sizes').forEach((size) => {
             cy.get('#dialog-create-group').should('not.exist')
         })
 
-        it('Open create-group dialog and create token', function () {
-            cy.createGroupWithToken('GROUP')
-        })
+        // Tests are waiting for proper test setup, Paulus is working on it
+
+        // it('Open create-group dialog and create token', function () {
+        //     cy.createGroupWithToken('GROUP')
+        // })
 
         it('Creating group with empty inputfield fails', function () {
-            //THIS TEST DOES NOT WORK pls fix. change the "Luo" button 
-            // in groupCreation to disabled from the start. 
-            // Might require other changes to the tests aswell. 
-            cy.createGroupWithToken('', 'Luo uusi ryhmä')
+            cy.createGroupWithToken('', 'Ryhmätunnus ei voi olla tyhjä.')
         })
 
         it('Creating group with too long token fails', function () {

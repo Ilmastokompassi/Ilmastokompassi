@@ -15,14 +15,14 @@ export default function GroupDialog() {
     const [isValid, setIsValid] = React.useState(true)
     const [alertMessage, setAlertMessage] = React.useState('')
     const [open, setOpen] = React.useState(false)
-    const navigate = useNavigate()
     const [groupIsMade, setGroupIsMade] = React.useState(false)
+    const navigate = useNavigate()
 
     const handleGroupNameChange = (event) => {
         const newGroupName = event.target.value.toUpperCase()
         setGroupName(newGroupName)
         setIsValid(validateGroupName(newGroupName))
-        setAlertMessage('Tarkasta ryhmätunnus.')
+        setAlertMessage('Tarkista ryhmätunnus.')
     }
 
     const handleSubmit = () => {
