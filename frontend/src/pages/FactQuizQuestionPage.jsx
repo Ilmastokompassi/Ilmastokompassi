@@ -1,6 +1,14 @@
 import { useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { Button, Stack, Typography } from '@mui/material'
+import {
+    Accordion,
+    AccordionDetails,
+    AccordionSummary,
+    Button,
+    Stack,
+    Typography,
+} from '@mui/material'
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import QuizQuestionCard from '../components/QuizQuestionCard'
 import { useTitle } from '../hooks/useTitle'
 import useSWR from 'swr'
@@ -10,9 +18,15 @@ export const FactQuizQuestionPage = () => {
     const [selectedOptionsIds, setSelectedOptionsIds] = useState(new Set())
     const [hasAnswered, setHasAnswered] = useState(false)
     const [correctAnswers, setCorrectAnswers] = useState(null)
+    const [infoText, setInfoText] = useState(null)
 
     const responseId = localStorage.getItem('quizResponseId')
     const groupToken = localStorage.getItem('groupToken')
+
+    const consistentWidthStyle = {
+        width: '80%',
+        maxWidth: '800px',
+    }
 
     if (!responseId) {
         const getResponseID = async () => {
@@ -58,6 +72,7 @@ export const FactQuizQuestionPage = () => {
             const data = await response.json()
             console.log(data)
             setCorrectAnswers(data.correct_answers)
+            setInfoText(data.info_text)
             setHasAnswered(true)
         } catch (error) {
             console.log(error)
@@ -77,6 +92,7 @@ export const FactQuizQuestionPage = () => {
     const handleNextQuestion = () => {
         setHasAnswered(false)
         setCorrectAnswers(null)
+        setInfoText(null)
         setSelectedOptionsIds(new Set())
     }
 
@@ -122,23 +138,60 @@ export const FactQuizQuestionPage = () => {
                             </Button>
                         )}
                         {hasAnswered && !isLastQuestion && (
-                            <Button
-                                variant="contained"
-                                color="primary"
-                                href={`/tietovisa/${questionId + 1}`}
-                                onClick={handleNextQuestion}
-                            >
-                                Seuraava kysymys
-                            </Button>
+                            <>
+                                {infoText && (
+                                    <Accordion
+                                        style={consistentWidthStyle}
+                                        infotext={infoText}
+                                    >
+                                        <AccordionSummary
+                                            expandIcon={<ExpandMoreIcon />}
+                                            aria-controls="panel1a-content"
+                                            id="panel1a-header"
+                                        >
+                                            <Typography>Selitykset</Typography>
+                                        </AccordionSummary>
+                                        <AccordionDetails>
+                                            {infoText}
+                                        </AccordionDetails>
+                                    </Accordion>
+                                )}
+                                <Button
+                                    variant="contained"
+                                    color="primary"
+                                    href={`/tietovisa/${questionId + 1}`}
+                                    onClick={handleNextQuestion}
+                                >
+                                    Seuraava kysymys
+                                </Button>
+                            </>
                         )}
                         {hasAnswered && isLastQuestion ? (
-                            <Button
-                                variant="contained"
-                                color="primary"
-                                onClick={handleAnswer}
-                            >
-                                Lopeta kysely
-                            </Button>
+                            <>
+                                <Accordion
+                                    style={consistentWidthStyle}
+                                    infotext={infoText}
+                                >
+                                    <AccordionSummary
+                                        expandIcon={<ExpandMoreIcon />}
+                                        aria-controls="panel1a-content"
+                                        id="panel1a-header"
+                                    >
+                                        <Typography>Selitykset</Typography>
+                                    </AccordionSummary>
+                                    <AccordionDetails>
+                                        {infoText}
+                                    </AccordionDetails>
+                                </Accordion>
+
+                                <Button
+                                    variant="contained"
+                                    color="primary"
+                                    onClick={handleAnswer}
+                                >
+                                    Lopeta kysely
+                                </Button>
+                            </>
                         ) : (
                             <Typography>
                                 {questionId}/{totalQuestions}
