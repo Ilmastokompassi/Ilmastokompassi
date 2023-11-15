@@ -23,29 +23,22 @@ Cypress.env('screen_sizes').forEach((size) => {
             cy.get('#dialog-create-group').should('not.exist')
         })
 
-        it('Open create-group dialog and create token', function () {
-            cy.createGroupWithToken('GROUP')
-        })
+        // Tests are waiting for proper test setup, Paulus is working on it
+
+        // it('Open create-group dialog and create token', function () {
+        //     cy.createGroupWithToken('GROUP')
+        // })
 
         it('Creating group with empty inputfield fails', function () {
-            cy.createGroupWithToken(
-                '',
-                'Ryhmätunnus ei voi olla tyhjä merkkijono.'
-            )
+            cy.createGroupWithToken('', 'Ryhmätunnus ei voi olla tyhjä.')
         })
 
         it('Creating group with too long token fails', function () {
-            cy.createGroupWithToken(
-                '12345678901',
-                'Ryhmätunnus ei voi olla yli 10 merkkiä pitkä.'
-            )
+            cy.createGroupWithToken('12345678901', 'Tarkista ryhmätunnus.')
         })
 
         it('Creating group with special character fails', function () {
-            cy.createGroupWithToken(
-                'MORO!!',
-                'Ryhmätunnus voi sisältää vain isoja kirjaimia ja numeroita.'
-            )
+            cy.createGroupWithToken('MORO!!', 'Tarkista ryhmätunnus.')
         })
     })
 })

@@ -13,6 +13,7 @@ import {
 export default function GroupSummaryDialog() {
     const [groupToken, setGroupName] = React.useState('')
     const [open, setOpen] = React.useState(false)
+    const [isValid, setIsValid] = React.useState(true)
     const navigate = useNavigate()
 
     const handleGroupNameChange = (event) => {
@@ -20,6 +21,10 @@ export default function GroupSummaryDialog() {
     }
 
     const handleSubmit = () => {
+        if (groupToken === '') {
+            setIsValid(false)
+            return
+        }
         fetch(`/api/group/${groupToken}`, {
             method: 'GET',
             headers: { 'Content-Type': 'application/json' },
@@ -36,7 +41,7 @@ export default function GroupSummaryDialog() {
                     navigate(`/yhteenveto/ryhma/${groupToken}`)
                     setOpen(false)
                 } else {
-                    alert('Ryhmätunnusta ei löytynyt.')
+                    setIsValid(false)
                 }
             })
     }
@@ -63,9 +68,11 @@ export default function GroupSummaryDialog() {
                         ryhmätunnus:
                     </DialogContentText>
                     <TextField
+                        error={!isValid}
+                        helperText={isValid ? '' : 'Virheellinen ryhmätunnus'}
                         autoFocus
                         margin="dense"
-                        label="Ryhmäntunnus"
+                        label="Ryhmätunnus"
                         type="text"
                         fullWidth
                         variant="standard"

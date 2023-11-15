@@ -38,12 +38,15 @@ describe('From survey page ', function () {
         cy.title().should('eq', 'Ilmastokompassi')
     })
 
-    it('navbar sends to group summary page', function () {
-        cy.viewport(900, 1000)
-        cy.createGroupWithToken('GROUPSUM')
-        cy.joinGroupWithToken('GROUPSUM')
-        cy.get('#btn-show-group-info').click()
-        cy.get('#btn-group-summary').click()
-        cy.title().should('eq', 'Ilmastoprofiili - Tulokset')
-    })
+    // Tests are waiting for proper test setup, Paulus is working on it
+
+    // it('navbar sends to group summary page', function () {
+    //     cy.viewport(900, 1000)
+    //     cy.createGroupWithToken('GROUPSUM')
+    //     cy.joinGroupWithToken('GROUPSUM')
+    //     cy.get('#btn-show-group-info').click()
+    //     cy.get('#btn-group-summary').click()
+    //     cy.title().should('eq', 'Ilmastoprofiili - Tulokset')
+    // })
+
 })

@@ -26,19 +26,20 @@
 import 'cypress-wait-until'
 
 Cypress.Commands.add('createGroupWithToken', (groupToken, alertMsg) => {
-    const stub = cy.stub()
-    cy.on('window:alert', stub)
-
     cy.get('#btn-create-group-dialog').click()
     cy.get('#dialog-create-group')
     if (groupToken) {
         cy.get('#input-create-group-token').type(groupToken)
     }
     cy.get('#input-create-group-token').should('have.value', groupToken)
-    cy.get('#btn-create-group-token').click()
     if (alertMsg) {
-        cy.waitUntil(() => stub.calledWith(alertMsg))
+        if (groupToken === '') {
+            cy.get('#btn-create-group-token').click()
+        }
+        cy.get('#dialog-create-group')
+        cy.contains(alertMsg)
     } else {
+        cy.get('#btn-create-group-token').click()
         cy.get('#group-created-dialog')
         cy.should('contain', 'Ryhmä luotu onnistuneesti!')
         cy.get('#btn-group-created-ok').click()

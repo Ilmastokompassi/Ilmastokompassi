@@ -12,25 +12,23 @@ import {
 
 export default function GroupDialog() {
     const [groupName, setGroupName] = React.useState('')
+    const [isValid, setIsValid] = React.useState(true)
+    const [alertMessage, setAlertMessage] = React.useState('')
     const [open, setOpen] = React.useState(false)
-    const navigate = useNavigate()
     const [groupIsMade, setGroupIsMade] = React.useState(false)
+    const navigate = useNavigate()
 
     const handleGroupNameChange = (event) => {
-        setGroupName(event.target.value.toUpperCase())
+        const newGroupName = event.target.value.toUpperCase()
+        setGroupName(newGroupName)
+        setIsValid(validateGroupName(newGroupName))
+        setAlertMessage('Tarkista ryhmätunnus.')
     }
 
     const handleSubmit = () => {
         if (groupName === '') {
-            window.alert('Ryhmätunnus ei voi olla tyhjä merkkijono.')
-            return
-        } else if (groupName.length > 10) {
-            window.alert('Ryhmätunnus ei voi olla yli 10 merkkiä pitkä.')
-            return
-        } else if (!/^[A-Z0-9]+$/.test(groupName)) {
-            window.alert(
-                'Ryhmätunnus voi sisältää vain isoja kirjaimia ja numeroita.'
-            )
+            setIsValid(false)
+            setAlertMessage('Ryhmätunnus ei voi olla tyhjä.')
             return
         }
         fetch('/api/new-group', {
@@ -41,7 +39,12 @@ export default function GroupDialog() {
             body: JSON.stringify({ token: groupName.toUpperCase() }),
         })
             .then((response) => response.json())
-            .then(() => {
+            .then((data) => {
+                if (data.message === 'Group already exists') {
+                    setIsValid(false)
+                    setAlertMessage('Ryhmätunnus on jo käytössä.')
+                    return
+                }
                 setGroupIsMade(true)
             })
             .catch((error) => console.error(error))
@@ -67,6 +70,11 @@ export default function GroupDialog() {
         setGroupName('')
     }
 
+    const validateGroupName = (groupName) => {
+        const regex = /^[A-Z0-9]{1,10}$/
+        return regex.test(groupName)
+    }
+
     return (
         <div>
             <Button
@@ -86,15 +94,18 @@ export default function GroupDialog() {
                     <DialogTitle>Luo uusi ryhmä</DialogTitle>
                     <DialogContent>
                         <DialogContentText>
-                            Ryhmätunnus voi sisältää vain isoja kirjaimia väliltä A-Z,
-                            numeroita tai niiden yhdistelmiä. Ryhmätunnus saa
-                            olla enintään 10 merkkiä pitkä. Syötä haluamasi uusi
-                            ryhmätunnus ja paina &quot;Luo&quot;.
+                            Ryhmätunnus voi sisältää vain isoja kirjaimia
+                            väliltä A-Z, numeroita tai niiden yhdistelmiä.
+                            Ryhmätunnus saa olla enintään 10 merkkiä pitkä.
+                            Syötä haluamasi uusi ryhmätunnus ja paina
+                            &quot;Luo&quot;.
                         </DialogContentText>
                         <TextField
+                            error={!isValid}
+                            helperText={isValid ? '' : alertMessage}
                             autoFocus
                             margin="dense"
-                            label="Ryhmäntunnus"
+                            label="Ryhmätunnus"
                             type="text"
                             fullWidth
                             variant="standard"
@@ -114,6 +125,7 @@ export default function GroupDialog() {
                             id="btn-create-group-token"
                             onClick={handleSubmit}
                             color="primary"
+                            disabled={!isValid}
                         >
                             Luo
                         </Button>
