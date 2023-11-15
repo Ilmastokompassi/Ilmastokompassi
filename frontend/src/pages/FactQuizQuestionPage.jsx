@@ -1,14 +1,6 @@
 import { useState } from 'react'
 import { useParams } from 'react-router-dom'
-import {
-    Accordion,
-    AccordionDetails,
-    AccordionSummary,
-    Button,
-    Stack,
-    Typography,
-} from '@mui/material'
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
+import { Button, Stack, Typography } from '@mui/material'
 import QuizQuestionCard from '../components/QuizQuestionCard'
 import { useTitle } from '../hooks/useTitle'
 import useSWR from 'swr'
