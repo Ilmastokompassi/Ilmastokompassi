@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useParams, useNavigate } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import {
     Accordion,
     AccordionDetails,
@@ -12,7 +12,6 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import QuizQuestionCard from '../components/QuizQuestionCard'
 import { useTitle } from '../hooks/useTitle'
 import useSWR from 'swr'
-import { useSwipeable } from 'react-swipeable'
 
 export const FactQuizQuestionPage = () => {
     const { questionId: questionParamId } = useParams()
@@ -23,12 +22,6 @@ export const FactQuizQuestionPage = () => {
 
     const responseId = localStorage.getItem('quizResponseId')
     const groupToken = localStorage.getItem('groupToken')
-
-    const navigate = useNavigate()
-    const handlers = useSwipeable({
-        onSwipedLeft: () => navigate(`/kysymys/${questionId + 1}`),
-        onSwipedRight: () => navigate(`/kysymys/${questionId - 1}`),
-    })
 
     const consistentWidthStyle = {
         width: '80%',
@@ -106,78 +99,47 @@ export const FactQuizQuestionPage = () => {
     useTitle(`Tietovisa - Kysymys ${questionId}.`)
 
     return (
-        <div {...handlers}>
-            <Stack
-                direction="column"
-                justifyContent="center"
-                alignItems="center"
-                spacing={2}
-                margin={2}
-                style={{ minHeight: '80vh' }}
-            >
-                {isLoadingAllQuestions ? (
-                    <p>Loading...</p>
-                ) : (
-                    <>
-                        {/* Question options card */}
-                        <QuizQuestionCard
-                            question={currentQuestion}
-                            selectedOptionsIds={selectedOptionsIds}
-                            onOptionSelected={onOptionSelected}
-                            alwaysCol={true}
-                            canAnswer={!hasAnswered}
-                            correctAnswers={correctAnswers}
-                        />
-                        {/* Buttons */}
-                        <Stack
-                            direction="column"
-                            justifyContent="space-evenly"
-                            alignItems="center"
-                            spacing={4}
-                        >
-                            {!hasAnswered && (
-                                <Button
-                                    variant="contained"
-                                    color="primary"
-                                    onClick={handleAnswer}
-                                    disabled={selectedOptionsIds.size === 0}
-                                >
-                                    Vastaa
-                                </Button>
-                            )}
-                            {hasAnswered && !isLastQuestion && (
-                                <>
-                                    {infoText && (
-                                        <Accordion
-                                            style={consistentWidthStyle}
-                                            infotext={infoText}
-                                        >
-                                            <AccordionSummary
-                                                expandIcon={<ExpandMoreIcon />}
-                                                aria-controls="panel1a-content"
-                                                id="panel1a-header"
-                                            >
-                                                <Typography>
-                                                    Selitykset
-                                                </Typography>
-                                            </AccordionSummary>
-                                            <AccordionDetails>
-                                                {infoText}
-                                            </AccordionDetails>
-                                        </Accordion>
-                                    )}
-                                    <Button
-                                        variant="contained"
-                                        color="primary"
-                                        href={`/tietovisa/${questionId + 1}`}
-                                        onClick={handleNextQuestion}
-                                    >
-                                        Seuraava kysymys
-                                    </Button>
-                                </>
-                            )}
-                            {hasAnswered && isLastQuestion ? (
-                                <>
+        <Stack
+            direction="column"
+            justifyContent="center"
+            alignItems="center"
+            spacing={2}
+            margin={2}
+            style={{ minHeight: '80vh' }}
+        >
+            {isLoadingAllQuestions ? (
+                <p>Loading...</p>
+            ) : (
+                <>
+                    {/* Question options card */}
+                    <QuizQuestionCard
+                        question={currentQuestion}
+                        selectedOptionsIds={selectedOptionsIds}
+                        onOptionSelected={onOptionSelected}
+                        alwaysCol={true}
+                        canAnswer={!hasAnswered}
+                        correctAnswers={correctAnswers}
+                    />
+                    {/* Buttons */}
+                    <Stack
+                        direction="column"
+                        justifyContent="space-evenly"
+                        alignItems="center"
+                        spacing={4}
+                    >
+                        {!hasAnswered && (
+                            <Button
+                                variant="contained"
+                                color="primary"
+                                onClick={handleAnswer}
+                                disabled={selectedOptionsIds.size === 0}
+                            >
+                                Vastaa
+                            </Button>
+                        )}
+                        {hasAnswered && !isLastQuestion && (
+                            <>
+                                {infoText && (
                                     <Accordion
                                         style={consistentWidthStyle}
                                         infotext={infoText}
@@ -193,24 +155,51 @@ export const FactQuizQuestionPage = () => {
                                             {infoText}
                                         </AccordionDetails>
                                     </Accordion>
-
-                                    <Button
-                                        variant="contained"
-                                        color="primary"
-                                        onClick={handleAnswer}
+                                )}
+                                <Button
+                                    variant="contained"
+                                    color="primary"
+                                    href={`/tietovisa/${questionId + 1}`}
+                                    onClick={handleNextQuestion}
+                                >
+                                    Seuraava kysymys
+                                </Button>
+                            </>
+                        )}
+                        {hasAnswered && isLastQuestion ? (
+                            <>
+                                <Accordion
+                                    style={consistentWidthStyle}
+                                    infotext={infoText}
+                                >
+                                    <AccordionSummary
+                                        expandIcon={<ExpandMoreIcon />}
+                                        aria-controls="panel1a-content"
+                                        id="panel1a-header"
                                     >
-                                        Lopeta kysely
-                                    </Button>
-                                </>
-                            ) : (
-                                <Typography>
-                                    {questionId}/{totalQuestions}
-                                </Typography>
-                            )}
-                        </Stack>
-                    </>
-                )}
-            </Stack>
-        </div>
+                                        <Typography>Selitykset</Typography>
+                                    </AccordionSummary>
+                                    <AccordionDetails>
+                                        {infoText}
+                                    </AccordionDetails>
+                                </Accordion>
+
+                                <Button
+                                    variant="contained"
+                                    color="primary"
+                                    onClick={handleAnswer}
+                                >
+                                    Lopeta kysely
+                                </Button>
+                            </>
+                        ) : (
+                            <Typography>
+                                {questionId}/{totalQuestions}
+                            </Typography>
+                        )}
+                    </Stack>
+                </>
+            )}
+        </Stack>
     )
 }
