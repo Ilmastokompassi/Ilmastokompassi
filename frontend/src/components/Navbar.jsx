@@ -54,15 +54,17 @@ function ResponsiveAppBar() {
 
     const Logo = () => {
         return (
-            <img
-                src={ClimComp}
-                alt="logo"
-                style={{
-                    height: 'auto',
-                    maxWidth: '100%',
-                    maxHeight: '48px',
-                }}
-            />
+            <a href="/">
+                <img
+                    src={ClimComp}
+                    alt="logo"
+                    style={{
+                        height: 'auto',
+                        maxWidth: '100%',
+                        maxHeight: '48px',
+                    }}
+                />
+            </a>
         )
     }
 
