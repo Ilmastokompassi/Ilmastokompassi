@@ -23,8 +23,8 @@ export const FactQuizQuestionPage = () => {
 
     const navigate = useNavigate()
     const handlers = useSwipeable({
-        onSwipedLeft: () => navigate(`/kysymys/${questionId + 1}`),
-        onSwipedRight: () => navigate(`/kysymys/${questionId - 1}`),
+        onSwipedLeft: () => navigate(`/tietovisa/${questionId + 1}`),
+        onSwipedRight: () => navigate(`/tietovisa/${questionId - 1}`),
     })
 
     const responseId = localStorage.getItem('quizResponseId')
