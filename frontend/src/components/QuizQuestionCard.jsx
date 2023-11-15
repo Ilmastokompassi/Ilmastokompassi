@@ -103,44 +103,30 @@ function QuizQuestionCard({
                                 onClick={() => onOptionSelected(option.id)}
                                 disabled={!canAnswer}
                             >
-                                <Typography
-                                    style={
-                                        correctAnswers &&
-                                        !correctAnswers.includes(option.id)
-                                            ? {
-                                                  textDecorationLine:
-                                                      'line-through',
-                                                  textDecorationStyle: 'solid',
-                                                  textDecorationColor: 'red',
-                                                  textDecorationThickness:
-                                                      '2px',
-                                              }
-                                            : {}
-                                    }
-                                >
-                                    {option.name}
-                                </Typography>
+                                <Typography>{option.name}</Typography>
                             </QuestionButton>
                             {correctAnswers &&
-                                (correctAnswers.includes(option.id) ? (
-                                    selectedOptionsIds.has(option.id) ? (
-                                        <Icon>
-                                            <CheckRoundedIcon></CheckRoundedIcon>
-                                        </Icon>
-                                    ) : (
-                                        <Icon>
-                                            <ClearRoundedIcon></ClearRoundedIcon>
-                                        </Icon>
-                                    )
-                                ) : selectedOptionsIds.has(option.id) ? (
-                                    <Icon>
-                                        <ClearRoundedIcon></ClearRoundedIcon>
-                                    </Icon>
-                                ) : (
-                                    <Icon>
-                                        <CheckRoundedIcon></CheckRoundedIcon>
-                                    </Icon>
-                                ))}
+                            correctAnswers.includes(option.id) &&
+                            selectedOptionsIds.has(option.id) ? (
+                                <Icon
+                                    sx={{
+                                        color: 'green',
+                                        fontSize: '2rem',
+                                    }}
+                                >
+                                    <CheckRoundedIcon />
+                                </Icon>
+                            ) : correctAnswers &&
+                              selectedOptionsIds.has(option.id) ? (
+                                <Icon
+                                    sx={{
+                                        color: 'red',
+                                        fontSize: '2rem',
+                                    }}
+                                >
+                                    <ClearRoundedIcon />
+                                </Icon>
+                            ) : null}
                         </QuestionBox>
                     ))}
                 </Stack>
