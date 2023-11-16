@@ -1,6 +1,5 @@
 from src.repositories.group_repository import default_group_repository
 
-
 class GroupService:
     # pylint: disable=too-few-public-methods
 
@@ -42,25 +41,28 @@ class GroupService:
         try:
             scores = self.group_repository.fetch_scores_by_group(token)
 
-            # Turn score from list of tuples into dict
-            # e.g. [(50, 1), (75, 2), ..] =>
-            # {1: 50, 2: 75, .. }
-            # And get amount of how many responses per id there is
-            final_score = {}
-            # Use set to count unique response_ids
-            response_ids = set()
-            for score, profile_id, response_id in scores:
-                response_ids.add(response_id)
-                if profile_id not in final_score:
-                    final_score[profile_id] = score
-                else:
-                    final_score[profile_id] += score
-            response_amount = len(response_ids)
-
+            final_score, response_amount = self._list_to_dict_and_response_amount(
+                scores)
             return final_score, response_amount
 
         except Exception as error:
             raise error
+
+    def _list_to_dict_and_response_amount(self, scores):
+        # Turn score from list of tuples into dict
+        # e.g. [(50, 1), (75, 2), ..] =>
+        # {1: 50, 2: 75, .. }
+        # And get amount of how many responses per id there is
+        final_score = {}
+        response_ids = set()
+        for score, profile_id, response_id in scores:
+            response_ids.add(response_id)
+            if profile_id not in final_score:
+                final_score[profile_id] = score
+            else:
+                final_score[profile_id] += score
+        response_amount = len(response_ids)
+        return final_score, response_amount
 
 
 default_group_service = GroupService(default_group_repository)
