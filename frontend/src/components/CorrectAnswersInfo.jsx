@@ -13,9 +13,9 @@ const consistentWidthStyle = {
 }
 
 const CorrectAnswersInfo = ({ options, correctAnswers }) => {
-    const correctOptions = options
-        .filter((option) => correctAnswers.includes(option.id))
-        .map((option) => option.name)
+    const correctOptions = options.filter((option) =>
+        correctAnswers.includes(option.id)
+    )
 
     return (
         <Accordion style={consistentWidthStyle}>
@@ -29,7 +29,7 @@ const CorrectAnswersInfo = ({ options, correctAnswers }) => {
             <AccordionDetails>
                 <ul>
                     {correctOptions.map((option) => (
-                        <li key={option.id}>{option}</li>
+                        <li key={option.id}>{option.name}</li>
                     ))}
                 </ul>
             </AccordionDetails>
