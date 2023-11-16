@@ -43,7 +43,7 @@ There is two OpenShift clusters available for the project. One for the staging e
 
 ### Login to OpenShift cluster
 
-> **Note**
+> [!NOTE]
 > Accessing the OpenShift cluster requires that you are connected to the University of Helsinki's network. If you are not connected to the network, you can use the [OpenVPN](https://helpdesk.it.helsinki.fi/kirjautuminen-ja-yhteydet/verkkoyhteydet/yhteydet-yliopiston-ulkopuolelta) to connect to the network.
 
 | Environment | OpenShift API URL                              |
@@ -92,16 +92,15 @@ oc rollout restart deploy -l app=ilmastokompassi
 
 This process will create all the necessary objects to run the application on the OpenShift cluster automatically. 
 
-> **Important**
+> [!IMPORTANT]
 > This is not needed if the application is already deployed and you just want to deploy a new version of it. Refer to the [Deploying new version to the production](#deploying-new-version-to-the-production) section for that.
 
 ### Configuration
-
-> **Important**
+> [!IMPORTANT]
 > Use `--dry-run=server` flag to test the deployment without actually applying it. This will show what objects would be created from applying the configuration or any potential errors in it.
 
 #### Secrets
-> **Important**
+> [!CAUTION]
 > **Do not** commit the secret manifests to the version control!
 
 The backend deployment requires configuring secrets such as the database instance. These configuration values are pulled from the environment variables in the application. 
