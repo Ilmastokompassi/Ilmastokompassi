@@ -17,7 +17,7 @@ function QuizQuestionCard({
     question,
     selectedOptionsIds,
     onOptionSelected,
-    alwaysCol,
+    alwaysColumn,
     canAnswer = true,
     correctAnswers,
 }) {
@@ -60,8 +60,6 @@ function QuizQuestionCard({
 
     const options = question.options
 
-    console.log('correct', correctAnswers)
-
     return (
         <Card sx={cardStyles}>
             <CardContent>
@@ -87,7 +85,7 @@ function QuizQuestionCard({
                     spacing={2}
                     marginTop={1}
                     direction={
-                        alwaysCol
+                        alwaysColumn
                             ? 'column'
                             : { xs: 'column', sm: 'column', md: 'row' }
                     }
@@ -145,7 +143,7 @@ QuizQuestionCard.propTypes = {
     question: questionProps.isRequired,
     selectedOptionsIds: PropTypes.object,
     onOptionSelected: PropTypes.func,
-    alwaysCol: PropTypes.bool,
+    alwaysColumn: PropTypes.bool,
     canAnswer: PropTypes.bool,
     correctAnswers: PropTypes.array,
 }
