@@ -54,7 +54,7 @@ function ResponsiveAppBar() {
 
     const Logo = () => {
         return (
-            <a href="/">
+            <Typography component={NavLink} to="/">
                 <img
                     src={ClimComp}
                     alt="logo"
@@ -64,7 +64,7 @@ function ResponsiveAppBar() {
                         maxHeight: '48px',
                     }}
                 />
-            </a>
+            </Typography>
         )
     }
 
