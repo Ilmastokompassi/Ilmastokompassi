@@ -79,7 +79,7 @@ export default function GroupDialog() {
         <div>
             <Button
                 id="btn-create-group-dialog"
-                variant="outlined"
+                variant="contained"
                 color="secondary"
                 onClick={() => setOpen(true)}
             >
