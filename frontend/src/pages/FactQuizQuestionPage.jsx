@@ -1,17 +1,10 @@
 import { useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
-import {
-    Accordion,
-    AccordionDetails,
-    AccordionSummary,
-    Button,
-    Stack,
-    Typography,
-} from '@mui/material'
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
+import { Button, Stack, Typography } from '@mui/material'
 import QuizQuestionCard from '../components/QuizQuestionCard'
 import { useTitle } from '../hooks/useTitle'
 import useSWR from 'swr'
+import FactInfoBox from '../components/FactInfoBox'
 import { useSwipeable } from 'react-swipeable'
 
 export const FactQuizQuestionPage = () => {
@@ -29,11 +22,6 @@ export const FactQuizQuestionPage = () => {
 
     const responseId = localStorage.getItem('quizResponseId')
     const groupToken = localStorage.getItem('groupToken')
-
-    const consistentWidthStyle = {
-        width: '80%',
-        maxWidth: '800px',
-    }
 
     if (!responseId) {
         const getResponseID = async () => {
@@ -77,9 +65,10 @@ export const FactQuizQuestionPage = () => {
                 }),
             })
             const data = await response.json()
-            console.log(data)
             setCorrectAnswers(data.correct_answers)
-            setInfoText(data.info_text)
+            // Split infotext for newlines to work
+            const splitted_infoText = data.info_text.split('\n')
+            setInfoText(splitted_infoText)
             setHasAnswered(true)
         } catch (error) {
             console.log(error)
@@ -147,24 +136,8 @@ export const FactQuizQuestionPage = () => {
                             )}
                             {hasAnswered && !isLastQuestion && (
                                 <>
-                                    {infoText && (
-                                        <Accordion
-                                            style={consistentWidthStyle}
-                                            infotext={infoText}
-                                        >
-                                            <AccordionSummary
-                                                expandIcon={<ExpandMoreIcon />}
-                                                aria-controls="panel1a-content"
-                                                id="panel1a-header"
-                                            >
-                                                <Typography>
-                                                    Selitykset
-                                                </Typography>
-                                            </AccordionSummary>
-                                            <AccordionDetails>
-                                                {infoText}
-                                            </AccordionDetails>
-                                        </Accordion>
+                                    {infoText?.[0].length > 0 && (
+                                        <FactInfoBox content={infoText} />
                                     )}
                                     <Button
                                         variant="contained"
@@ -178,22 +151,9 @@ export const FactQuizQuestionPage = () => {
                             )}
                             {hasAnswered && isLastQuestion ? (
                                 <>
-                                    <Accordion
-                                        style={consistentWidthStyle}
-                                        infotext={infoText}
-                                    >
-                                        <AccordionSummary
-                                            expandIcon={<ExpandMoreIcon />}
-                                            aria-controls="panel1a-content"
-                                            id="panel1a-header"
-                                        >
-                                            <Typography>Selitykset</Typography>
-                                        </AccordionSummary>
-                                        <AccordionDetails>
-                                            {infoText}
-                                        </AccordionDetails>
-                                    </Accordion>
-
+                                    {infoText?.[0].length > 0 && (
+                                        <FactInfoBox content={infoText} />
+                                    )}
                                     <Button
                                         variant="contained"
                                         color="primary"
