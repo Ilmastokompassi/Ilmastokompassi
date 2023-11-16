@@ -28,7 +28,7 @@
   - frontend: `(cd frontend && npm run lint)`
 ### Testing
 > **Important**
-> Reset the database before and after each testing with 
+> Reset the database before and after each testing with `bin/db-reset`
 * Run backend tests: `(cd backend && poetry run invoke test)`.
   * Check coverage: `(cd backend && poetry run invoke coverage)`
   * Generate report: `(cd backend && poetry run invoke coverage-report)`
