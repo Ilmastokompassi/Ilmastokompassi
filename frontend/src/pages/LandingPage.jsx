@@ -19,9 +19,12 @@ import GroupDialog from '../components/GroupDialog'
 export const LandingPage = () => {
     const [groupToken, setGroupToken] = React.useState('')
     const [isValid, setIsValid] = React.useState(true)
+    const [joinedToGroup, setJoinedToGroup] = React.useState(false)
 
     const handleTextFieldChange = (event) => {
         setGroupToken(event.target.value.toUpperCase())
+        setIsValid(true)
+        setJoinedToGroup(false)
     }
     const cardStyles = {
         width: '80%',
@@ -53,6 +56,7 @@ export const LandingPage = () => {
                     localStorage.setItem('groupToken', groupToken)
                     window.dispatchEvent(new Event('setGroupToken'))
                     setGroupToken('')
+                    setJoinedToGroup(true)
                 } else {
                     setIsValid(false)
                 }
@@ -114,7 +118,7 @@ export const LandingPage = () => {
                                                 }}
                                             >
                                                 <InputBase
-                                                    id="outlined-basic"
+                                                    id="input-group-token"
                                                     label="Ryhmätunnus"
                                                     variant="outlined"
                                                     value={groupToken}
@@ -123,6 +127,7 @@ export const LandingPage = () => {
                                                     }
                                                 />
                                                 <IconButton
+                                                    id="btn-join-group"
                                                     type="button"
                                                     onClick={handleSubmit}
                                                 >
@@ -133,7 +138,14 @@ export const LandingPage = () => {
                                             </Paper>
                                             {!isValid && (
                                                 <FormHelperText>
-                                                    Yritä uudestaan
+                                                    Ryhmään liittyminen
+                                                    epäonnistui!
+                                                </FormHelperText>
+                                            )}
+                                            {joinedToGroup && (
+                                                <FormHelperText>
+                                                    Ryhmään liittyminen
+                                                    onnistui!
                                                 </FormHelperText>
                                             )}
                                         </FormControl>

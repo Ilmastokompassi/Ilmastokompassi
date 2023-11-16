@@ -1,12 +1,12 @@
 Cypress.env('screen_sizes').forEach((size) => {
     describe(`Group creation ${size[2]}`, function () {
         beforeEach(function () {
-            cy.visit('/kyselyt')
+            cy.visit('/')
             cy.viewport(size[0], size[1])
         })
 
-        it('title should be Kyselyt', function () {
-            cy.title().should('eq', 'Kyselyt')
+        it('title should be Ilmastokompassi', function () {
+            cy.title().should('eq', 'Ilmastokompassi')
         })
 
         it('Open create-group dialog and press cancel', function () {
@@ -34,11 +34,11 @@ Cypress.env('screen_sizes').forEach((size) => {
         })
 
         it('Creating group with too long token fails', function () {
-            cy.createGroupWithToken('12345678901', 'Tarkista ryhmätunnus.')
+            cy.createGroupWithToken('12345678901', 'Tarkista ryhmätunnus')
         })
 
         it('Creating group with special character fails', function () {
-            cy.createGroupWithToken('MORO!!', 'Tarkista ryhmätunnus.')
+            cy.createGroupWithToken('MORO!!', 'Tarkista ryhmätunnus')
         })
     })
 })

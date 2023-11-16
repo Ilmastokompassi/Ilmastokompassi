@@ -1,47 +1,30 @@
 Cypress.env('screen_sizes').forEach((size) => {
     describe(`Group joining ${size[2]}`, function () {
         beforeEach(function () {
-            cy.visit('/kyselyt')
+            cy.visit('/')
             cy.viewport(size[0], size[1])
         })
         it('title should be Kyselyt', function () {
-            cy.title().should('eq', 'Kyselyt')
-        })
-
-        it('Open join-group dialog and press cancel', function () {
-            cy.get('#btn-join-group-dialog').click()
-            cy.get('#dialog-join-group')
-            cy.get('#btn-cancel-group-joining').click()
-            cy.get('#dialog-join-group').should('not.exist')
-        })
-
-        it('Open join-group dialog and press esc-key', function () {
-            cy.get('#btn-join-group-dialog').click()
-            cy.get('#dialog-join-group')
-            cy.get('#dialog-join-group').type('{esc}')
-            cy.get('#dialog-join-group').should('not.exist')
+            cy.title().should('eq', 'Ilmastokompassi')
         })
 
         it('Open join-group dialog and joining with nonexistent group token fails', function () {
-            cy.joinGroupWithToken('TOKENI', 'Ryhmätunnusta ei löytynyt.')
+            cy.joinGroupWithToken('TOKENI', 'Ryhmään liittyminen epäonnistui!')
         })
 
         it('Open join-group dialog and joining with empty inputfield fails', function () {
-            cy.joinGroupWithToken('', 'Syötä ryhmätunnus.')
+            cy.joinGroupWithToken('', 'Ryhmään liittyminen epäonnistui!')
         })
 
         it('Open join-group dialog and joining with too long token fails', function () {
             cy.joinGroupWithToken(
                 'LIIANPITKATUNNUS',
-                'Ryhmätunnus ei voi olla yli 10 merkkiä pitkä.'
+                'Ryhmään liittyminen epäonnistui!'
             )
         })
 
         it('Open join-group dialog and joining with special character fails', function () {
-            cy.joinGroupWithToken(
-                'MOI!!!',
-                'Ryhmätunnus voi sisältää vain isoja kirjaimia ja numeroita.'
-            )
+            cy.joinGroupWithToken('MOI!!!', 'Ryhmään liittyminen epäonnistui!')
         })
         // Tests are waiting for proper test setup, Paulus is working on it
 

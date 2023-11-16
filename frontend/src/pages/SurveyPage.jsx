@@ -1,16 +1,6 @@
-import {
-    Typography,
-    Button,
-    Stack,
-    Box,
-    Card,
-    CardContent,
-} from '@mui/material'
+import { Typography, Button, Stack, Box } from '@mui/material'
 import { NavLink } from 'react-router-dom'
 import styled from '@emotion/styled'
-import FormDialog from '../components/FormDialog'
-import GroupDialog from '../components/GroupDialog'
-import GroupSummaryDialog from '../components/GroupSummaryDialog'
 import { useTitle } from '../hooks/useTitle'
 
 const SurveyOptionButton = styled(Button)`
@@ -36,50 +26,30 @@ const Heading = styled(Typography)`
 export function SurveyPage() {
     useTitle('Kyselyt')
 
-    const removeGroupToken = () => {
-        localStorage.removeItem('groupToken')
-        window.dispatchEvent(new Event('setGroupToken'))
-    }
-
     return (
         <SurveyPageContainer>
-            <Card>
-                <CardContent>
-                    <Box margin={2}>
-                        <Heading
-                            variant="h1"
-                            sx={{
-                                fontSize: { xs: '2em', sm: '3em', md: '4em' },
-                                marginBottom: 2,
-                            }}
-                        >
-                            Miten haluat tehdä kyselyn?
-                        </Heading>
-                        <Stack spacing={2}>
-                            <FormDialog />
-                            <SurveyOptionButton
-                                component={NavLink}
-                                onClick={() => removeGroupToken()}
-                                to="/kysymys/1"
-                                variant="contained"
-                                data-testid="btn-start-survey"
-                                id="btn-survey-alone"
-                                color="secondary"
-                            >
-                                <Typography className="survey-option">
-                                    Teen kyselyn yksin
-                                </Typography>
-                            </SurveyOptionButton>
-                            <Box alignSelf="center" paddingTop={2}>
-                                <GroupDialog />
-                            </Box>
-                            <Box alignSelf="center">
-                                <GroupSummaryDialog />
-                            </Box>
-                        </Stack>
-                    </Box>
-                </CardContent>
-            </Card>
+            <Stack
+                direction="column"
+                justifyContent="center"
+                alignItems="center"
+                spacing={2}
+                margin={2}
+            >
+                <Heading>Tänne tulee tekstiä</Heading>
+                <SurveyOptionButton
+                    id="btn-survey-alone"
+                    component={NavLink}
+                    to="/kysymys/1"
+                    variant="contained"
+                    data-testid="btn-start-survey"
+                    color="secondary"
+                >
+                    <Typography className="survey-option">
+                        Siirry kyselyyn
+                    </Typography>
+                </SurveyOptionButton>
+                <Box>Täältä löytyy jatkossa ilmastoprofiilit.</Box>
+            </Stack>
         </SurveyPageContainer>
     )
 }

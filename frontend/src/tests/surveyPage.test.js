@@ -13,15 +13,12 @@ describe('Survey page', () => {
     })
 
     test('renders heading', () => {
-        screen.getByText('Miten haluat tehdä kyselyn?')
+        screen.getByText('Tänne tulee tekstiä')
     })
 
-    test('renders buttons and links', () => {
+    test('renders buttons', () => {
         const links = screen.getAllByRole('link')
         expect(links.length).toBe(1)
-
-        const buttons = screen.getAllByRole('button')
-        expect(buttons.length).toBe(3)
     })
 
     test('Survey start link', () => {
