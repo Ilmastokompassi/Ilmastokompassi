@@ -28,7 +28,7 @@ const CorrectAnswersInfo = ({ options, correctAnswers }) => {
             </AccordionSummary>
             <AccordionDetails>
                 <ul>
-                    {apuapu.map((option) => (
+                    {correctOptions.map((option) => (
                         <li key={option.id}>{option}</li>
                     ))}
                 </ul>
