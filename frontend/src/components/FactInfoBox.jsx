@@ -7,14 +7,9 @@ import {
 import PropTypes from 'prop-types'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 
-const consistentWidthStyle = {
-    width: '80%',
-    maxWidth: '800px',
-}
-
 const FactInfoBox = ({ content }) => {
     return (
-        <Accordion style={consistentWidthStyle}>
+        <Accordion>
             <AccordionSummary
                 expandIcon={<ExpandMoreIcon />}
                 aria-controls="panel1a-content"

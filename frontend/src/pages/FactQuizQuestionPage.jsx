@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
-import { Button, Stack, Typography } from '@mui/material'
+import { Box, Button, Container, Stack, Typography } from '@mui/material'
 import QuizQuestionCard from '../components/QuizQuestionCard'
 import { useTitle } from '../hooks/useTitle'
 import useSWR from 'swr'
@@ -13,10 +13,10 @@ export const FactQuizQuestionPage = () => {
     const [selectedOptionsIds, setSelectedOptionsIds] = useState(new Set())
     const [hasAnswered, setHasAnswered] = useState(false)
     const [correctAnswers, setCorrectAnswers] = useState(null)
-    const [infoText, setInfoText] = useState(null)
+    const [infoText, setInfoText] = useState()
 
     const navigate = useNavigate()
-    const handlers = useSwipeable({
+    const swipeHandlers = useSwipeable({
         onSwipedLeft: () => navigate(`/tietovisa/${questionId + 1}`),
         onSwipedRight: () => navigate(`/tietovisa/${questionId - 1}`),
     })
@@ -68,8 +68,11 @@ export const FactQuizQuestionPage = () => {
             const data = await response.json()
             setCorrectAnswers(data.correct_answers)
             // Split infotext for newlines to work
-            const splitted_infoText = data.info_text.split('\n')
-            setInfoText(splitted_infoText)
+            const splittedInfoText = data.info_text
+                .split('\n')
+                .map((line) => line.trim())
+                .filter((line) => line?.length > 0)
+            setInfoText(splittedInfoText)
             setHasAnswered(true)
         } catch (error) {
             console.log(error)
@@ -96,86 +99,100 @@ export const FactQuizQuestionPage = () => {
     useTitle(`Tietovisa - Kysymys ${questionId}.`)
 
     return (
-        <div {...handlers}>
-            <Stack
-                direction="column"
-                justifyContent="center"
-                alignItems="center"
-                spacing={2}
-                margin={2}
-                style={{ minHeight: '80vh' }}
-            >
-                {isLoadingAllQuestions ? (
-                    <p>Loading...</p>
-                ) : (
-                    <>
-                        {/* Question options card */}
-                        <QuizQuestionCard
-                            question={currentQuestion}
-                            selectedOptionsIds={selectedOptionsIds}
-                            onOptionSelected={onOptionSelected}
-                            alwaysColumn={true}
-                            canAnswer={!hasAnswered}
-                            correctAnswers={correctAnswers}
-                        />
-                        {/* Buttons */}
-                        <Stack
-                            direction="column"
-                            justifyContent="space-evenly"
-                            alignItems="center"
-                            spacing={4}
-                        >
-                            {!hasAnswered && (
-                                <Button
-                                    variant="contained"
-                                    color="primary"
-                                    onClick={handleAnswer}
-                                    disabled={selectedOptionsIds.size === 0}
+        <div {...swipeHandlers}>
+            <Container>
+                <Box display="flex" justifyContent="center">
+                    <Stack
+                        maxWidth="800px"
+                        direction="column"
+                        justifyContent="center"
+                        alignItems="center"
+                        spacing={2}
+                        style={{ minHeight: '80vh' }}
+                    >
+                        {isLoadingAllQuestions ? (
+                            <p>Loading...</p>
+                        ) : (
+                            <>
+                                {/* Question options card */}
+                                <QuizQuestionCard
+                                    question={currentQuestion}
+                                    selectedOptionsIds={selectedOptionsIds}
+                                    onOptionSelected={onOptionSelected}
+                                    canAnswer={!hasAnswered}
+                                    correctAnswers={correctAnswers}
+                                />
+                                {/* Buttons */}
+                                <Stack
+                                    width="100%"
+                                    direction="column"
+                                    justifyContent="space-evenly"
+                                    alignItems="center"
+                                    spacing={4}
                                 >
-                                    Vastaa
-                                </Button>
-                            )}
-                            {hasAnswered && !isLastQuestion && (
-                                <>
-                                    <CorrectAnswersInfo
-                                        options={currentQuestion.options}
-                                        correctAnswers={correctAnswers}
-                                    />
-                                    {infoText?.[0].length > 0 && (
-                                        <FactInfoBox content={infoText} />
+                                    {!hasAnswered && (
+                                        <Button
+                                            variant="contained"
+                                            color="primary"
+                                            onClick={handleAnswer}
+                                            disabled={
+                                                selectedOptionsIds.size === 0
+                                            }
+                                        >
+                                            Vastaa
+                                        </Button>
                                     )}
-                                    <Button
-                                        variant="contained"
-                                        color="primary"
-                                        href={`/tietovisa/${questionId + 1}`}
-                                        onClick={handleNextQuestion}
-                                    >
-                                        Seuraava kysymys
-                                    </Button>
-                                </>
-                            )}
-                            {hasAnswered && isLastQuestion ? (
-                                <>
-                                    {infoText?.[0].length > 0 && (
-                                        <FactInfoBox content={infoText} />
+                                    {hasAnswered && (
+                                        <>
+                                            <Box width="100%">
+                                                <CorrectAnswersInfo
+                                                    options={
+                                                        currentQuestion.options
+                                                    }
+                                                    correctAnswers={
+                                                        correctAnswers
+                                                    }
+                                                    userAnswers={[
+                                                        ...selectedOptionsIds,
+                                                    ]}
+                                                />
+                                                {infoText?.length > 0 && (
+                                                    <FactInfoBox
+                                                        content={infoText}
+                                                    />
+                                                )}
+                                            </Box>
+                                            {isLastQuestion ? (
+                                                <Button
+                                                    variant="contained"
+                                                    color="primary"
+                                                    onClick={handleAnswer}
+                                                >
+                                                    Lopeta kysely
+                                                </Button>
+                                            ) : (
+                                                <Button
+                                                    variant="contained"
+                                                    color="primary"
+                                                    href={`/tietovisa/${
+                                                        questionId + 1
+                                                    }`}
+                                                    onClick={handleNextQuestion}
+                                                >
+                                                    Seuraava kysymys
+                                                </Button>
+                                            )}
+                                        </>
                                     )}
-                                    <Button
-                                        variant="contained"
-                                        color="primary"
-                                        onClick={handleAnswer}
-                                    >
-                                        Lopeta kysely
-                                    </Button>
-                                </>
-                            ) : (
-                                <Typography>
-                                    {questionId}/{totalQuestions}
-                                </Typography>
-                            )}
-                        </Stack>
-                    </>
-                )}
-            </Stack>
+                                    <Typography>
+                                        {questionId}/{totalQuestions}
+                                    </Typography>
+                                </Stack>
+                            </>
+                        )}
+                    </Stack>
+                </Box>
+            </Container>
         </div>
     )
 }
