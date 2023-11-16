@@ -5,6 +5,7 @@ import QuizQuestionCard from '../components/QuizQuestionCard'
 import { useTitle } from '../hooks/useTitle'
 import useSWR from 'swr'
 import FactInfoBox from '../components/FactInfoBox'
+import CorrectAnswersInfo from '../components/CorrectAnswersInfo'
 import { useSwipeable } from 'react-swipeable'
 
 export const FactQuizQuestionPage = () => {
@@ -113,7 +114,7 @@ export const FactQuizQuestionPage = () => {
                             question={currentQuestion}
                             selectedOptionsIds={selectedOptionsIds}
                             onOptionSelected={onOptionSelected}
-                            alwaysCol={true}
+                            alwaysColumn={true}
                             canAnswer={!hasAnswered}
                             correctAnswers={correctAnswers}
                         />
@@ -136,6 +137,10 @@ export const FactQuizQuestionPage = () => {
                             )}
                             {hasAnswered && !isLastQuestion && (
                                 <>
+                                    <CorrectAnswersInfo
+                                        options={currentQuestion.options}
+                                        correctAnswers={correctAnswers}
+                                    />
                                     {infoText?.[0].length > 0 && (
                                         <FactInfoBox content={infoText} />
                                     )}
