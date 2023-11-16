@@ -13,7 +13,7 @@ const consistentWidthStyle = {
 }
 
 const CorrectAnswersInfo = ({ options, correctAnswers }) => {
-    const apuapu = options
+    const correctOptions = options
         .filter((option) => correctAnswers.includes(option.id))
         .map((option) => option.name)
 
