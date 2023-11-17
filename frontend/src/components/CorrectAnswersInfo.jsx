@@ -7,18 +7,20 @@ import {
 import PropTypes from 'prop-types'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 
-const consistentWidthStyle = {
-    width: '80%',
-    maxWidth: '800px',
-}
-
-const CorrectAnswersInfo = ({ options, correctAnswers }) => {
+const CorrectAnswersInfo = ({ options, correctAnswers, userAnswers }) => {
     const correctOptions = options.filter((option) =>
         correctAnswers.includes(option.id)
     )
 
+    let correctUserAnswersCount = 0
+    userAnswers.forEach((optionId) => {
+        if (correctAnswers.includes(optionId)) {
+            correctUserAnswersCount += 1
+        }
+    })
+
     return (
-        <Accordion style={consistentWidthStyle}>
+        <Accordion>
             <AccordionSummary
                 expandIcon={<ExpandMoreIcon />}
                 aria-controls="panel2a-content"
@@ -27,6 +29,9 @@ const CorrectAnswersInfo = ({ options, correctAnswers }) => {
                 <Typography>Oikeat vastaukset</Typography>
             </AccordionSummary>
             <AccordionDetails>
+                <Typography>
+                    Olet valinnut oikein {correctUserAnswersCount}
+                </Typography>
                 <ul>
                     {correctOptions.map((option) => (
                         <li key={option.id}>{option.name}</li>
@@ -45,6 +50,7 @@ const optionProps = PropTypes.shape({
 CorrectAnswersInfo.propTypes = {
     options: PropTypes.arrayOf(optionProps).isRequired,
     correctAnswers: PropTypes.array,
+    userAnswers: PropTypes.array,
 }
 
 export default CorrectAnswersInfo
