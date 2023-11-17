@@ -13,7 +13,7 @@ describe('Survey page', () => {
     })
 
     test('renders heading', () => {
-        screen.getByText('Tänne tulee tekstiä')
+        screen.getByText('Ilmastoroolikysely')
     })
 
     test('renders buttons', () => {

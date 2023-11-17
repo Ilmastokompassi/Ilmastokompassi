@@ -21,11 +21,15 @@ test('Find both ilmastokompassi', () => {
 })
 
 test('Find both survey links', () => {
-    const largeScreenLink = screen.getByText('Kyselyt', { selector: 'a' })
+    const largeScreenLink = screen.getByText('Ilmastoroolikysely', {
+        selector: 'a',
+    })
 
-    expect(largeScreenLink['href']).toMatch(/\/kyselyt$/)
+    expect(largeScreenLink['href']).toMatch(/\/ilmastoroolikysely$/)
 
-    const smallScreenText = screen.getByText('Kyselyt', { selector: 'p' })
+    const smallScreenText = screen.getByText('Ilmastoroolikysely', {
+        selector: 'p',
+    })
     const smallScreenLink = smallScreenText.parentElement
-    expect(smallScreenLink['href']).toMatch(/\/kyselyt$/)
+    expect(smallScreenLink['href']).toMatch(/\/ilmastoroolikysely$/)
 })

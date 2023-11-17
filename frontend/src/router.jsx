@@ -17,7 +17,7 @@ export const routes = [
                 element: <LandingPage />,
             },
             {
-                path: '/kyselyt',
+                path: '/ilmastoroolikysely',
                 element: <SurveyPage />,
             },
             {
