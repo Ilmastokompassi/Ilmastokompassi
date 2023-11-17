@@ -9,9 +9,6 @@ export const theme = createTheme({
         secondary: {
             main: '#3949ab',
         },
-        disabled: {
-            main: '#77797a',
-        },
         contrastThreshold: 4.5,
     },
 
