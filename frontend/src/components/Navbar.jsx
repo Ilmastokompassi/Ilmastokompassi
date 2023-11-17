@@ -270,6 +270,9 @@ function ResponsiveAppBar() {
                                                 'groupToken'
                                             )
                                             setGroupToken(null)
+                                            window.dispatchEvent(
+                                                new Event('setGroupToken')
+                                            )
                                             handleCloseUserMenu()
                                         }}
                                     >

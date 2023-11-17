@@ -137,10 +137,15 @@ export default function GroupDialog() {
                     open={open}
                     onClose={() => setOpen(false)}
                 >
-                    <DialogTitle>Ryhmä luotu onnistuneesti!</DialogTitle>
+                    <DialogTitle>
+                        Ryhmä {groupName} luotu onnistuneesti!
+                    </DialogTitle>
                     <DialogContent>
                         <DialogContentText>
-                            Ryhmätunnus on {groupName}
+                            Muistathan kertoa ryhmään osallistuville
+                            ryhmätunnuksen liittymistä varten. Ryhmään liittyviä
+                            toiminnallisuuksia pääset tarkastelemaan oikean
+                            yläkulman painikkeesta.
                         </DialogContentText>
                     </DialogContent>
                     <DialogActions>
@@ -162,7 +167,7 @@ export default function GroupDialog() {
                             onClick={moveToGroupSummaryPage}
                             color="primary"
                         >
-                            SIIRRY KOONTIIN
+                            RYHMÄN TULOKSET
                         </Button>
                     </DialogActions>
                 </Dialog>
