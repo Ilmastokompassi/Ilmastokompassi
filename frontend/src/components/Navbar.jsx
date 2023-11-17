@@ -16,7 +16,7 @@ import GroupIcon from '@mui/icons-material/Group'
 import ClimComp from '../assets/climcomp.png'
 
 const pages = [
-    { name: 'Kyselyt', route: '/kyselyt', id: 'survey' },
+    { name: 'Ilmastoroolikysely', route: '/ilmastoroolikysely', id: 'survey' },
     { name: 'Ilmastoprofiilit', route: '/profiilit', id: 'profiles' },
 ]
 
@@ -260,7 +260,7 @@ function ResponsiveAppBar() {
                                         component={NavLink}
                                         to={`/yhteenveto/ryhma/${groupToken}`}
                                     >
-                                        Ryhmän tiedot
+                                        Ryhmän tulokset
                                     </MenuItem>
                                     <MenuItem
                                         key="leaveGroup"

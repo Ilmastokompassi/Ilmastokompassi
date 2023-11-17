@@ -1,11 +1,11 @@
 describe('From survey page large ', function () {
     beforeEach(function () {
-        cy.visit('/kyselyt')
+        cy.visit('/ilmastoroolikysely')
         cy.viewport(900, 1000)
     })
 
     it('Move from survey page through questions to summary page', function () {
-        cy.title().should('eq', 'Kyselyt')
+        cy.title().should('eq', 'Ilmastoroolikysely')
         cy.get('#btn-survey-alone').click()
         cy.title().should('eq', 'Ilmastoprofiili - Kysymys 1.')
 
@@ -24,7 +24,7 @@ describe('From survey page large ', function () {
     })
 
     it('Move from survey page, answer four questions "Täysin samaa mieltä" and then move to summary page', function () {
-        cy.title().should('eq', 'Kyselyt')
+        cy.title().should('eq', 'Ilmastoroolikysely')
         cy.get('#btn-survey-alone').click()
         cy.title().should('eq', 'Ilmastoprofiili - Kysymys 1.')
         for (let i = 0; i < 4; i++) {

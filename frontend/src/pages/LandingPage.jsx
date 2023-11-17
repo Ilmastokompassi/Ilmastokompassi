@@ -157,7 +157,7 @@ export const LandingPage = () => {
                         }}
                         variant="contained"
                         color="secondary"
-                        href={`/kyselyt`}
+                        href={`/ilmastoroolikysely`}
                     >
                         Ilmastoroolikysely
                     </Button>
