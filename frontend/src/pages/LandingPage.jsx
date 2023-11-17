@@ -3,14 +3,13 @@ import {
     Container,
     Button,
     Stack,
-    Card,
-    CardContent,
     Box,
     Paper,
     InputBase,
     IconButton,
     FormControl,
     FormHelperText,
+    Skeleton,
 } from '@mui/material'
 import * as React from 'react'
 import { useTitle } from '../hooks/useTitle'
@@ -25,15 +24,6 @@ export const LandingPage = () => {
         setGroupToken(event.target.value.toUpperCase())
         setIsValid(true)
         setJoinedToGroup(false)
-    }
-    const cardStyles = {
-        width: '80%',
-        maxWidth: '800px',
-        backgroundColor: 'transparent',
-        boxShadow: 'none',
-        borderRadius: '16px',
-        padding: '5px',
-        overflowY: 'auto',
     }
 
     const handleSubmit = () => {
@@ -64,131 +54,125 @@ export const LandingPage = () => {
     }
     useTitle('Ilmastokompassi')
     return (
-        <Container
-            style={{
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                height: '80vh',
-                overflow: 'hidden',
-            }}
-        >
-            <Stack direction="column" alignItems="center">
-                <Typography
-                    variant="h2"
-                    align="center"
-                    paddingBottom={'80px'}
-                    sx={{
-                        fontSize: {
-                            xs: '2em',
-                            sm: '3em',
-                            md: '4em',
-                        },
-                    }}
+        <Container>
+            <Stack
+                style={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    overflow: 'hidden',
+                }}
+                spacing={5}
+                paddingTop={10}
+            >
+                <Stack
+                    paddingTop={2}
+                    direction={{ xs: 'column', md: 'row' }}
+                    spacing={2}
+                    justifyContent={'space-evenly'}
+                    alignItems={'center'}
                 >
-                    Tervetuloa Ilmastokompassiin!
-                </Typography>
-                <Card sx={cardStyles}>
-                    <CardContent>
-                        <Stack>
-                            <Box alignSelf="center" paddingTop={2}>
-                                <Stack>
-                                    <Typography>
-                                        Liity tästä ryhmään syöttämällä
-                                        ryhmätunnus
-                                    </Typography>
-                                    <Stack
-                                        sx={{
-                                            display: 'flex',
-                                            alignItems: 'center',
-                                            flexDirection: 'row',
-                                        }}
-                                        direction={'row'}
-                                        spacing={4}
+                    <Box>
+                        <Typography variant="h4" align="left">
+                            Tervetuloa Ilmastokompassiin!
+                        </Typography>
+                        <Typography variant="h6" align="left">
+                            Ilmastokompassi on ilmastonmuutokseen liittyvä
+                            oppimisalusta, joka tarjoaa oppimateriaalia
+                            ilmastonmuutoksesta ja sen hillinnästä.
+                            Ilmastokompassi on suunnattu erityisesti
+                            yläkoululaisille ja lukiolaisille, mutta soveltuu
+                            myös muille ilmastonmuutoksesta kiinnostuneille.
+                        </Typography>
+                    </Box>
+                    <Box>
+                        <Skeleton variant="circular" width={250} height={250} />
+                    </Box>
+                </Stack>
+                <Box paddingTop={2}>
+                    <Stack>
+                        <Stack
+                            sx={{
+                                display: 'flex',
+                                flexDirection: 'row',
+                            }}
+                            direction={'row'}
+                            spacing={4}
+                        >
+                            <FormControl error={!isValid} variant="outlined">
+                                <Paper
+                                    sx={{
+                                        display: 'flex',
+                                        justifyContent: 'center',
+                                        alignItems: 'center',
+                                    }}
+                                >
+                                    <InputBase
+                                        id="input-group-token"
+                                        label="Ryhmätunnus"
+                                        variant="outlined"
+                                        placeholder="Syötä ryhmätunnus"
+                                        value={groupToken}
+                                        onChange={handleTextFieldChange}
+                                    />
+                                    <IconButton
+                                        id="btn-join-group"
+                                        type="button"
+                                        onClick={handleSubmit}
                                     >
-                                        <FormControl
-                                            error={!isValid}
-                                            variant="outlined"
-                                        >
-                                            <Paper
-                                                sx={{
-                                                    display: 'flex',
-                                                    justifyContent: 'center',
-                                                    alignItems: 'center',
-                                                }}
-                                            >
-                                                <InputBase
-                                                    id="input-group-token"
-                                                    label="Ryhmätunnus"
-                                                    variant="outlined"
-                                                    value={groupToken}
-                                                    onChange={
-                                                        handleTextFieldChange
-                                                    }
-                                                />
-                                                <IconButton
-                                                    id="btn-join-group"
-                                                    type="button"
-                                                    onClick={handleSubmit}
-                                                >
-                                                    <Typography>
-                                                        Liity
-                                                    </Typography>
-                                                </IconButton>
-                                            </Paper>
-                                            {!isValid && (
-                                                <FormHelperText>
-                                                    Ryhmään liittyminen
-                                                    epäonnistui!
-                                                </FormHelperText>
-                                            )}
-                                            {joinedToGroup && (
-                                                <FormHelperText>
-                                                    Ryhmään liittyminen
-                                                    onnistui!
-                                                </FormHelperText>
-                                            )}
-                                        </FormControl>
-                                        <GroupDialog />
-                                    </Stack>
-                                </Stack>
-                            </Box>
-                            <Box
-                                sx={{
-                                    display: 'flex',
-                                    justifyContent: 'space-evenly',
-                                    alignItems: 'center',
-                                    paddingBottom: '40px',
-                                    paddingTop: '40px',
-                                }}
-                            >
-                                <Button
-                                    style={{
-                                        width: 250,
-                                        height: 60,
-                                        fontSize: '20px',
-                                    }}
-                                    variant="contained"
-                                    color="secondary"
-                                    href={`/kyselyt`}
-                                >
-                                    Ilmastoprofiilikysely
-                                </Button>
-                                <Button
-                                    style={{
-                                        width: 250,
-                                        height: 60,
-                                        fontSize: '20px',
-                                    }}
-                                    variant="contained"
-                                    color="disabled"
-                                >
-                                    Oppimisvisa
-                                </Button>
-                            </Box>
+                                        <Typography>Liity</Typography>
+                                    </IconButton>
+                                </Paper>
+                                {!isValid && (
+                                    <FormHelperText>
+                                        Ryhmään liittyminen epäonnistui!
+                                    </FormHelperText>
+                                )}
+                                {joinedToGroup && (
+                                    <FormHelperText>
+                                        Ryhmään liittyminen onnistui!
+                                    </FormHelperText>
+                                )}
+                                {isValid && !joinedToGroup && (
+                                    <FormHelperText>
+                                        <br></br>
+                                    </FormHelperText>
+                                )}
+                            </FormControl>
+                            <GroupDialog />
                         </Stack>
-                    </CardContent>
-                </Card>
+                    </Stack>
+                </Box>
+                <Stack
+                    paddingTop={2}
+                    direction={{ xs: 'column', md: 'row' }}
+                    spacing={2}
+                    justifyContent={'space-evenly'}
+                >
+                    <Button
+                        style={{
+                            width: 300,
+                            height: 150,
+                            fontSize: '20px',
+                        }}
+                        variant="contained"
+                        color="secondary"
+                        href={`/kyselyt`}
+                    >
+                        Ilmastoroolikysely
+                    </Button>
+                    <Button
+                        style={{
+                            width: 300,
+                            height: 150,
+                            fontSize: '20px',
+                        }}
+                        variant="contained"
+                        disabled
+                    >
+                        Oppimisvisa
+                    </Button>
+                </Stack>
             </Stack>
         </Container>
     )
