@@ -9,8 +9,24 @@ import {
 } from '@mui/material'
 
 import { useTitle } from '../hooks/useTitle'
+import JoinGroup from '../components/JoinGroup'
+import { useState, useEffect } from 'react'
 
 export function SurveyPage() {
+    const [groupToken, setGroupToken] = useState(null)
+
+    useEffect(() => {
+        const refreshToken = () => {
+            setGroupToken(localStorage.getItem('groupToken'))
+        }
+
+        refreshToken()
+        window.addEventListener('setGroupToken', refreshToken)
+        return () => {
+            window.removeEventListener('setGroupToken', refreshToken)
+        }
+    }, [])
+
     useTitle('Ilmastoroolikysely')
 
     return (
@@ -50,17 +66,17 @@ export function SurveyPage() {
                                 Vastaaminen ryhmässä
                             </Typography>
                             <Typography>
-                                Jos teet kyselyn osana ryhmää, varmistathan,
-                                että olet liittynyt ryhmään. Voit liittyä
-                                ryhmään sekä tarvittaessa luoda ryhmän
-                                etusivulta. Ryhmäsi tulokset tulevat näkyviin,
-                                kun sinä ja tarpeeksi monta ryhmästäsi ovat
-                                vastanneet kyselyyn. Erikseen ryhmän tuloksia
-                                pääsee tarkastelemaan oikean yläkulman napista.
+                                Voitte vertailla kyselyistä saatuja tuloksia jos
+                                teette sivuston kyselyjä ryhmänä. Ryhmäsi
+                                tulokset tulevat näkyviin, kun viisi ryhmän
+                                jäsentä ovat vastanneet kyselyyn. Ryhmään
+                                liittyviä toiminnallisuuksia, kuten tuloksia,
+                                pääset tarkastelemaan oikean yläkulman
+                                painikkeesta.
                             </Typography>
+                            {!groupToken && <JoinGroup />}
                         </CardContent>
                     </Card>
-
                     <Button
                         style={{
                             width: 200,
