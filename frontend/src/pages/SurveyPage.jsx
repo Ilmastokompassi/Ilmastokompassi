@@ -40,32 +40,31 @@ export function SurveyPage() {
                     alignItems={'center'}
                 >
                     <Card>
-                        <CardContent padding={'20px'}>
+                        <CardContent>
                             <Typography
                                 variant="h1"
-                                margin={'20px'}
+                                margin={3}
                                 sx={{
                                     fontSize: {
                                         xs: '2em', // Smaller font size for extra small screens
                                         sm: '3em', // Slightly bigger for small screens
-                                        md: '4em', // Original size for medium screens and up
                                     },
                                     textAlign: 'center',
                                 }}
                             >
                                 Ilmastoroolikysely
                             </Typography>
-                            <Typography marginBottom={'20px'}>
+                            <Typography marginBottom={3} variant="body1">
                                 Kyselyn kysymykset liittyvät ilmastonmuutokseen
                                 liittyviin asenteisiisi. Voit vastata kyselyyn
-                                painamalla &quot;Kyselyyn&quot; painiketta. Kun
+                                painamalla &quot;Aloita&quot; painiketta. Kun
                                 olet vastannut kyselyyn saat selville, mikä
                                 neljästä ilmastoroolista kuvastaa sinua.
                             </Typography>
-                            <Typography marginBottom={'20px'} variant="h5">
+                            <Typography marginBottom={2} variant="h6">
                                 Vastaaminen ryhmässä
                             </Typography>
-                            <Typography>
+                            <Typography marginBottom={2} variant="body1">
                                 Voitte vertailla kyselyistä saatuja tuloksia jos
                                 teette sivuston kyselyjä ryhmänä. Ryhmäsi
                                 tulokset tulevat näkyviin, kun viisi ryhmän
@@ -75,22 +74,29 @@ export function SurveyPage() {
                                 painikkeesta.
                             </Typography>
                             {!groupToken && <JoinGroup />}
+                            <Stack
+                                alignItems={'center'}
+                                paddingTop={7}
+                                paddingBottom={4}
+                            >
+                                <Button
+                                    style={{
+                                        width: 200,
+                                        height: 100,
+                                        fontSize: '20px',
+                                    }}
+                                    id="btn-survey-alone"
+                                    data-testid="btn-start-survey"
+                                    variant="contained"
+                                    href="/kysymys/1"
+                                    color="secondary"
+                                >
+                                    Aloita
+                                </Button>
+                            </Stack>
                         </CardContent>
                     </Card>
-                    <Button
-                        style={{
-                            width: 200,
-                            height: 100,
-                            fontSize: '20px',
-                        }}
-                        id="btn-survey-alone"
-                        data-testid="btn-start-survey"
-                        variant="contained"
-                        href="/kysymys/1"
-                        color="secondary"
-                    >
-                        kyselyyn
-                    </Button>
+
                     <Card>
                         <CardContent>
                             <Typography>
