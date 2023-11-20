@@ -6,7 +6,6 @@ import DialogActions from '@mui/material/DialogActions'
 import DialogContent from '@mui/material/DialogContent'
 import DialogContentText from '@mui/material/DialogContentText'
 import DialogTitle from '@mui/material/DialogTitle'
-import Typography from '@mui/material/Typography'
 import { useNavigate } from 'react-router-dom'
 
 export default function FormDialog() {
@@ -61,16 +60,18 @@ export default function FormDialog() {
     return (
         <>
             <Button
-                id="btn-join-group-dialog"
+                data-testid="open-join-group-dialog"
                 variant="contained"
                 onClick={handleClickOpen}
                 color="secondary"
             >
-                <Typography className="survey-option">
-                    Teen kyselyn ryhmässä
-                </Typography>
+                Teen kyselyn ryhmässä
             </Button>
-            <Dialog id="dialog-join-group" open={open} onClose={handleClose}>
+            <Dialog
+                data-testid="join-group-dialog"
+                open={open}
+                onClose={handleClose}
+            >
                 <DialogTitle>Teen kyselyn ryhmässä</DialogTitle>
                 <DialogContent>
                     <DialogContentText>
@@ -81,7 +82,7 @@ export default function FormDialog() {
                     <TextField
                         autoFocus
                         margin="dense"
-                        id="input-join-group-token"
+                        data-testid="group-token"
                         label="Ryhmätunnus"
                         type="text"
                         fullWidth
@@ -91,10 +92,10 @@ export default function FormDialog() {
                     />
                 </DialogContent>
                 <DialogActions>
-                    <Button id="btn-cancel-group-joining" onClick={handleClose}>
+                    <Button data-testid="cancel" onClick={handleClose}>
                         EIKU
                     </Button>
-                    <Button id="btn-join-group-token" onClick={handleSubmit}>
+                    <Button data-testid="join-group" onClick={handleSubmit}>
                         Kyselyyn
                     </Button>
                 </DialogActions>

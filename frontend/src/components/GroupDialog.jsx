@@ -8,7 +8,6 @@ import {
     DialogActions,
     TextField,
     Button,
-    Typography,
 } from '@mui/material'
 
 export default function GroupDialog() {
@@ -77,108 +76,107 @@ export default function GroupDialog() {
     }
 
     return (
-        <div>
+        <>
             <Button
-                id="btn-create-group-dialog"
+                data-testid="open-create-group-dialog"
                 variant="contained"
                 color="secondary"
                 onClick={() => setOpen(true)}
             >
-                <Typography>Luo ryhmä</Typography>
+                Luo ryhmä
             </Button>
-            {!groupIsMade ? (
-                <Dialog
-                    id="dialog-create-group"
-                    open={open}
-                    onClose={() => setOpen(false)}
-                >
-                    <DialogTitle>Luo uusi ryhmä</DialogTitle>
-                    <DialogContent>
-                        <DialogContentText>
-                            Ryhmätunnus voi sisältää vain isoja kirjaimia
-                            väliltä A-Z, numeroita tai niiden yhdistelmiä.
-                            Ryhmätunnus saa olla enintään 10 merkkiä pitkä.
-                            Syötä haluamasi uusi ryhmätunnus ja paina
-                            &quot;Luo&quot;.
-                        </DialogContentText>
-                        <TextField
-                            error={!isValid}
-                            helperText={isValid ? '' : alertMessage}
-                            autoFocus
-                            margin="dense"
-                            label="Ryhmätunnus"
-                            type="text"
-                            fullWidth
-                            variant="standard"
-                            value={groupName}
-                            onChange={handleGroupNameChange}
-                            id="input-create-group-token"
-                        />
-                    </DialogContent>
-                    <DialogActions>
-                        <Button
-                            id="btn-cancel-group-creation"
-                            onClick={() => setOpen(false)}
-                        >
-                            EIKU
-                        </Button>
-                        <Button
-                            id="btn-create-group-token"
-                            onClick={handleSubmit}
-                            color="primary"
-                            disabled={!isValid}
-                        >
-                            Luo
-                        </Button>
-                    </DialogActions>
-                </Dialog>
-            ) : (
-                <Dialog
-                    id="group-created-dialog"
-                    open={open}
-                    onClose={() => setOpen(false)}
-                >
-                    <DialogTitle>
-                        Ryhmä {groupName} luotu onnistuneesti!
-                    </DialogTitle>
-                    <DialogContent>
-                        <DialogContentText>
-                            - Kerro ryhmään osallistuville ryhmätunnuksen
-                            liittymistä varten.
-                        </DialogContentText>
-                        <DialogContentText>
-                            - Ryhmän luojana et ole vielä osana ryhmää. Jos
-                            haluat tehdä kyselyjä ryhmässä, muistathan liittyä.
-                        </DialogContentText>
-                        <DialogContentText>
-                            - Ryhmään liittyviä toiminnallisuuksia pääset
-                            tarkastelemaan oikean yläkulman painikkeesta.
-                        </DialogContentText>
-                    </DialogContent>
-                    <DialogActions>
-                        <Button
-                            id="btn-group-created-ok"
-                            onClick={() => setOpen(false)}
-                        >
-                            OK
-                        </Button>
-                        <Button
-                            id="btn-create-group-token"
-                            onClick={handleNew}
-                            color="primary"
-                        >
-                            LUO UUSI RYHMÄ
-                        </Button>
-                        <Button
-                            id="btn-ok-group-token"
-                            onClick={moveToGroupSummaryPage}
-                            color="primary"
-                        >
-                            RYHMÄN TULOKSET
-                        </Button>
-                    </DialogActions>
-                </Dialog>
-            )}
-        </div>
+            <Dialog
+                data-testid="create-group-dialog"
+                open={open}
+                onClose={() => setOpen(false)}
+            >
+                {groupIsMade ? (
+                    <>
+                        <DialogTitle>
+                            Ryhmä {groupName} luotu onnistuneesti!
+                        </DialogTitle>
+                        <DialogContent>
+                            <DialogContentText>
+                                - Kerro ryhmään osallistuville ryhmätunnuksen
+                                liittymistä varten.
+                            </DialogContentText>
+                            <DialogContentText>
+                                - Ryhmän luojana et ole vielä osana ryhmää. Jos
+                                haluat tehdä kyselyjä ryhmässä, muistathan
+                                liittyä.
+                            </DialogContentText>
+                            <DialogContentText>
+                                - Ryhmään liittyviä toiminnallisuuksia pääset
+                                tarkastelemaan oikean yläkulman painikkeesta.
+                            </DialogContentText>
+                        </DialogContent>
+                        <DialogActions>
+                            <Button
+                                data-testid="ok"
+                                onClick={() => setOpen(false)}
+                            >
+                                Ok
+                            </Button>
+                            <Button
+                                data-testid="create-group"
+                                onClick={handleNew}
+                                color="primary"
+                            >
+                                Luo uusi ryhmä
+                            </Button>
+                            <Button
+                                data-testid="open-group-summary"
+                                onClick={moveToGroupSummaryPage}
+                                color="primary"
+                            >
+                                Ryhmän tulokset
+                            </Button>
+                        </DialogActions>
+                    </>
+                ) : (
+                    <>
+                        <DialogTitle>Luo uusi ryhmä</DialogTitle>
+                        <DialogContent>
+                            <DialogContentText>
+                                Ryhmätunnus voi sisältää vain isoja kirjaimia
+                                väliltä A-Z, numeroita tai niiden yhdistelmiä.
+                                Ryhmätunnus saa olla enintään 10 merkkiä pitkä.
+                                Syötä haluamasi uusi ryhmätunnus ja paina
+                                &quot;Luo&quot;.
+                            </DialogContentText>
+                            <TextField
+                                error={!isValid}
+                                helperText={isValid ? '' : alertMessage}
+                                autoFocus
+                                margin="dense"
+                                label="Ryhmätunnus"
+                                type="text"
+                                fullWidth
+                                variant="standard"
+                                value={groupName}
+                                onChange={handleGroupNameChange}
+                                data-testid="group-token"
+                            />
+                        </DialogContent>
+                        <DialogActions>
+                            <Button
+                                data-testid="cancel"
+                                onClick={() => setOpen(false)}
+                            >
+                                EIKU
+                            </Button>
+                            <Button
+                                data-testid="create-group"
+                                onClick={handleSubmit}
+                                color="primary"
+                                disabled={!isValid}
+                            >
+                                Luo
+                            </Button>
+                        </DialogActions>
+                    </>
+                )}
+            </Dialog>
+        </>
     )
 }

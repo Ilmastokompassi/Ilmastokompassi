@@ -1,4 +1,4 @@
-describe('From quiz page large ', function () {
+describe('From quiz page', function () {
     beforeEach(function () {
         cy.visit('/tietovisa/1')
         cy.viewport(900, 1000)

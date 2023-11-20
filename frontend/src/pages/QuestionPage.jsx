@@ -16,7 +16,6 @@ import { useSwipeable } from 'react-swipeable'
 
 export function QuestionPage() {
     const { questionId: questionParamId } = useParams()
-    // Needs to be type Set, because QuestionCard is used for quiz also.
     const [selectedOptionId, setSelectedOptionId] = useState(null)
     const navigate = useNavigate()
 
@@ -121,6 +120,7 @@ export function QuestionPage() {
                 spacing={2}
                 margin={2}
                 style={{ minHeight: '80vh' }}
+                data-testid="questions"
             >
                 {isLoadingAllQuestions ? (
                     <p>Loading...</p>
@@ -143,7 +143,6 @@ export function QuestionPage() {
                             justifyContent="space-evenly"
                             alignItems="center"
                             spacing={4}
-                            id="question-stack"
                         >
                             <IconButton
                                 aria-label="previous question"
