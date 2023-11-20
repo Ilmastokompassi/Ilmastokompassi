@@ -6,6 +6,7 @@ import {
     Card,
     Container,
     CardContent,
+    Link,
 } from '@mui/material'
 
 import { useTitle } from '../hooks/useTitle'
@@ -59,7 +60,9 @@ export function SurveyPage() {
                                 liittyviin asenteisiisi. Voit vastata kyselyyn
                                 painamalla &quot;Aloita&quot; painiketta. Kun
                                 olet vastannut kyselyyn saat selville, mikä
-                                neljästä ilmastoroolista kuvastaa sinua.
+                                neljästä ilmastoroolista kuvastaa sinua. Voit
+                                tutustua ilmastorooleihin{" "}
+                                <Link href={`/ilmastoroolit`}>täältä!</Link>
                             </Typography>
                             <Typography marginBottom={2} variant="h6">
                                 Vastaaminen ryhmässä
@@ -83,26 +86,21 @@ export function SurveyPage() {
                                     style={{
                                         width: 200,
                                         height: 100,
-                                        fontSize: '20px',
                                     }}
                                     id="btn-survey-alone"
                                     data-testid="btn-start-survey"
                                     variant="contained"
                                     href="/kysymys/1"
-                                    color="secondary"
+                                    color="primary"
                                 >
-                                    Aloita
+                                    <Typography
+                                        fontWeight={'medium'}
+                                        letterSpacing={2}
+                                    >
+                                        Aloita !
+                                    </Typography>
                                 </Button>
                             </Stack>
-                        </CardContent>
-                    </Card>
-
-                    <Card>
-                        <CardContent>
-                            <Typography>
-                                Tällä hetkellä pääset katsomaan ilmastorooleja
-                                yläpalkista. Jatkossa ne löytyvät täältä.
-                            </Typography>
                         </CardContent>
                     </Card>
                 </Stack>

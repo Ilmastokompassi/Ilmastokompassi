@@ -2,7 +2,7 @@ import {
     Box,
     FormControl,
     FormHelperText,
-    IconButton,
+    Button,
     InputBase,
     Paper,
     Stack,
@@ -53,11 +53,9 @@ const JoinGroup = () => {
         <Box paddingTop={2}>
             <Stack>
                 <Stack
-                    sx={{
-                        display: 'flex',
-                        flexDirection: 'row',
-                    }}
-                    direction={'row'}
+                    direction={{ xs: 'column', sm: 'row' }}
+                    justifyContent={'space-evenly'}
+                    alignItems={{xs: 'center', sm: 'flex-start'}}
                     spacing={4}
                 >
                     <FormControl error={!isValid} variant="outlined">
@@ -76,17 +74,19 @@ const JoinGroup = () => {
                                 value={groupToken}
                                 onChange={handleTextFieldChange}
                             />
-                            <IconButton
+                            <Button
                                 id="btn-join-group"
                                 type="button"
                                 onClick={handleSubmit}
+                                color="secondary"
+                                variant="contained"
                             >
                                 <Typography>Liity</Typography>
-                            </IconButton>
+                            </Button>
                         </Paper>
                         {!isValid && (
                             <FormHelperText>
-                                Ryhmään liittyminen epäonnistui!
+                                Ryhmään liittyminen epäonnistui.
                             </FormHelperText>
                         )}
                         {joinedToGroup && (
@@ -100,6 +100,7 @@ const JoinGroup = () => {
                             </FormHelperText>
                         )}
                     </FormControl>
+
                     <GroupDialog />
                 </Stack>
             </Stack>

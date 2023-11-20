@@ -16,9 +16,9 @@ describe('Survey page', () => {
         screen.getByText('Ilmastoroolikysely')
     })
 
-    test('renders buttons', () => {
+    test('renders button and link', () => {
         const links = screen.getAllByRole('link')
-        expect(links.length).toBe(1)
+        expect(links.length).toBe(2)
     })
 
     test('Survey start link', () => {
