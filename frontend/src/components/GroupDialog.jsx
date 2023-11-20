@@ -8,6 +8,7 @@ import {
     DialogActions,
     TextField,
     Button,
+    Typography,
 } from '@mui/material'
 
 export default function GroupDialog() {
@@ -83,7 +84,7 @@ export default function GroupDialog() {
                 color="secondary"
                 onClick={() => setOpen(true)}
             >
-                Luo ryhmä
+                <Typography>Luo ryhmä</Typography>
             </Button>
             {!groupIsMade ? (
                 <Dialog
@@ -142,10 +143,16 @@ export default function GroupDialog() {
                     </DialogTitle>
                     <DialogContent>
                         <DialogContentText>
-                            Muistathan kertoa ryhmään osallistuville
-                            ryhmätunnuksen liittymistä varten. Ryhmään liittyviä
-                            toiminnallisuuksia pääset tarkastelemaan oikean
-                            yläkulman painikkeesta.
+                            - Kerro ryhmään osallistuville ryhmätunnuksen
+                            liittymistä varten.
+                        </DialogContentText>
+                        <DialogContentText>
+                            - Ryhmän luojana et ole vielä osana ryhmää. Jos
+                            haluat tehdä kyselyjä ryhmässä, muistathan liittyä.
+                        </DialogContentText>
+                        <DialogContentText>
+                            - Ryhmään liittyviä toiminnallisuuksia pääset
+                            tarkastelemaan oikean yläkulman painikkeesta.
                         </DialogContentText>
                     </DialogContent>
                     <DialogActions>
