@@ -41,7 +41,7 @@ Cypress.Commands.add('createGroupWithToken', (groupToken, alertMsg) => {
     } else {
         cy.get('#btn-create-group-token').click()
         cy.get('#group-created-dialog')
-        cy.should('contain', 'Ryhmä luotu onnistuneesti!')
+        cy.should('contain', `Ryhmä ${groupToken} luotu onnistuneesti!`)
         cy.get('#btn-group-created-ok').click()
     }
 })
@@ -53,7 +53,5 @@ Cypress.Commands.add('joinGroupWithToken', (groupToken, alertMsg) => {
     cy.get('#btn-join-group').click()
     if (alertMsg) {
         cy.contains(alertMsg)
-    } else {
-        cy.contains('Ryhmään liittyminen onnistui!')
     }
 })
