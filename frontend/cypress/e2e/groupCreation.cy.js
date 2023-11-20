@@ -23,11 +23,15 @@ Cypress.env('screen_sizes').forEach((size) => {
             cy.get('#dialog-create-group').should('not.exist')
         })
 
-        // Tests are waiting for proper test setup, Paulus is working on it
+        // Remember to reste database before running this test
 
-        // it('Open create-group dialog and create token', function () {
-        //     cy.createGroupWithToken('GROUP')
-        // })
+        it('Open create-group dialog and create token', function () {
+            if (size[2] === 'Large') {
+                cy.createGroupWithToken('CREATETEST')
+            } else {
+                cy.createGroupWithToken('SMLSCRTEST')
+            }
+        })
 
         it('Creating group with empty inputfield fails', function () {
             cy.createGroupWithToken('', 'Ryhmätunnus ei voi olla tyhjä.')

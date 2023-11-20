@@ -42,29 +42,30 @@ describe('From survey page large ', function () {
         cy.contains('Eettinen kuluttaja')
     })
 
-    // Tests are waiting for proper test setup, Paulus is working on it
+    // Remember to reste database before running this test
 
-    // it('Make survey 5 times in a group and check that the results are correct', function () {
-    //     cy.title().should('eq', 'Kyselyt')
-    //     cy.createGroupWithToken('TOKEN')
-    //     cy.joinGroupWithToken('TOKEN')
-    //     for (let i = 0; i < 4; i++) {
-    //         cy.title().should('eq', 'Ilmastoprofiili - Kysymys 1.')
-    //         cy.contains('Täysin samaa mieltä').click()
-    //         // eslint-disable-next-line
-    //         cy.wait(500)
-    //         cy.visit('/kysymys/33')
-    //         cy.contains('Lopeta kysely').click()
-    //         cy.title().should('eq', 'Ilmastoprofiili - Tulokset')
-    //         cy.visit('/kyselyt')
-    //         cy.joinGroupWithToken('TOKEN')
-    //     }
-    //     cy.title().should('eq', 'Ilmastoprofiili - Kysymys 1.')
-    //     cy.contains('Jokseenkin samaa mieltä').click()
-    //     cy.visit('/kysymys/33')
-    //     cy.contains('Lopeta kysely').click()
-    //     cy.title().should('eq', 'Ilmastoprofiili - Tulokset')
-    //     cy.contains('1/33')
-    //     cy.contains('Ryhmäsi TOKEN jakauma')
-    // })
+    it('Make survey 5 times in a group and check that the results are correct', function () {
+        cy.title().should('eq', 'Ilmastoroolikysely')
+        cy.createGroupWithToken('SURVEYTEST')
+        cy.joinGroupWithToken('SURVEYTEST')
+        for (let i = 0; i < 4; i++) {
+            cy.get('#btn-survey-alone').click()
+            cy.title().should('eq', 'Ilmastoprofiili - Kysymys 1.')
+            cy.contains('Täysin samaa mieltä').click()
+            // eslint-disable-next-line
+            cy.wait(500)
+            cy.visit('/kysymys/33')
+            cy.contains('Lopeta kysely').click()
+            cy.title().should('eq', 'Ilmastoprofiili - Tulokset')
+            cy.visit('/ilmastoroolikysely')
+        }
+        cy.get('#btn-survey-alone').click()
+        cy.title().should('eq', 'Ilmastoprofiili - Kysymys 1.')
+        cy.contains('Jokseenkin samaa mieltä').click()
+        cy.visit('/kysymys/33')
+        cy.contains('Lopeta kysely').click()
+        cy.title().should('eq', 'Ilmastoprofiili - Tulokset')
+        cy.contains('1/33')
+        cy.contains('Ryhmäsi SURVEYTEST jakauma')
+    })
 })
