@@ -42,8 +42,13 @@ export const SummaryPage = () => {
 
     // {"1": 50, "2": 50} => [["1", 50], ["2", 50]]
     const summaryScores = Object.entries(summaryData?.summary || {})
+    // Filter out zero scores
+    const filteredSummaryScores = summaryScores.filter((score) => score[1] > 0)
 
-    const roleResults = createRoleResultsFromScores(summaryScores, roleData)
+    const roleResults = createRoleResultsFromScores(
+        filteredSummaryScores,
+        roleData
+    )
 
     // Get the top role result(s)
     const maxScore = roleResults.reduce(
@@ -56,9 +61,13 @@ export const SummaryPage = () => {
     )
 
     const groupSummaryScores = Object.entries(allRolesData?.score || {})
+    // Filter out zero scores
+    const filteredGroupSummaryScores = groupSummaryScores.filter(
+        (score) => score[1] > 0
+    )
 
     const groupRoleResults = createRoleResultsFromScores(
-        groupSummaryScores,
+        filteredGroupSummaryScores,
         roleData
     )
 
@@ -107,6 +116,29 @@ export const SummaryPage = () => {
                         isLoadingSummary ||
                         isLoadingAllRolesData ? (
                             <p>Loading...</p>
+                        ) : filteredSummaryScores.length === 0 ? (
+                            <>
+                                <Typography
+                                    variant="h2"
+                                    sx={{
+                                        fontSize: {
+                                            xs: '1em',
+                                            sm: '1.25em',
+                                            md: '1.5em',
+                                        },
+                                    }}
+                                >
+                                    Ei tarpeeksi dataa tulosten näyttämiseen
+                                </Typography>
+                                <Button
+                                    variant="contained"
+                                    color="primary"
+                                    aria-label="move to survey"
+                                    href={`/ilmastoroolikysely`}
+                                >
+                                    Siirry tästä kyselyyn!
+                                </Button>
+                            </>
                         ) : answerCount > 0 ? (
                             <>
                                 <Typography
@@ -218,7 +250,7 @@ export const SummaryPage = () => {
                                     variant="contained"
                                     color="primary"
                                     aria-label="move to survey"
-                                    href={`/kyselyt`}
+                                    href={`/ilmastoroolikysely`}
                                 >
                                     Siirry tästä kyselyyn!
                                 </Button>
