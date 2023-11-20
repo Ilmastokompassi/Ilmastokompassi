@@ -68,4 +68,19 @@ describe('From survey page large ', function () {
         cy.contains('1/33')
         cy.contains('Ryhmäsi SURVEYTEST jakauma')
     })
+
+    it('Make survey once, answer 2 questions "Täysin eri mieltä" and then move to summary page', function () {
+        cy.title().should('eq', 'Ilmastoroolikysely')
+        cy.get('#btn-survey-alone').click()
+        cy.title().should('eq', 'Ilmastoprofiili - Kysymys 1.')
+        for (let i = 0; i < 2; i++) {
+            // eslint-disable-next-line
+            cy.wait(500)
+            cy.contains('Täysin eri mieltä').click()
+        }
+        cy.visit('/kysymys/33')
+        cy.contains('Lopeta kysely').click()
+        cy.title().should('eq', 'Ilmastoprofiili - Tulokset')
+        cy.contains('Ei tarpeeksi dataa tulosten näyttämiseen')
+    })
 })
