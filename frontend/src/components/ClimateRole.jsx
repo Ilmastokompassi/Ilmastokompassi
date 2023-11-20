@@ -2,7 +2,7 @@ import { Card, CardContent, CardHeader, Box } from '@mui/material'
 import { Typography } from '@mui/material'
 import PropTypes from 'prop-types'
 
-export const ClimateProfile = ({ name, description }) => {
+export const ClimateRole = ({ name, description }) => {
     return (
         <Card
             variant="outlined"
@@ -36,7 +36,7 @@ export const ClimateProfile = ({ name, description }) => {
     )
 }
 
-ClimateProfile.propTypes = {
+ClimateRole.propTypes = {
     name: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
 }

@@ -1,5 +1,5 @@
 import useSWR from 'swr'
-import { SummaryProfile } from '../components/SummaryProfile'
+import { SummaryRole } from '../components/SummaryRole'
 import { Typography, Container, Stack, Button, Box, Card } from '@mui/material'
 import { useParams } from 'react-router-dom'
 import { useTitle } from '../hooks/useTitle'
@@ -10,17 +10,18 @@ export const SummaryPage = () => {
     const userId = parseInt(userParamId)
     const groupToken = localStorage.getItem('groupToken')
 
-    // Fetch all profiles from api
-    const { data: profileData, isLoading: isLoadingProfiles } =
-        useSWR('/api/profiles')
+    // Fetch all roles from api
+    const { data: roleData, isLoading: isLoadingRoles } = useSWR('/api/roles')
     // Fetch result summary from api. Refreshes group stats every 15 seconds
     const { data: summaryData, isLoading: isLoadingSummary } = useSWR(
         `/api/summary/${userId}`
     )
-    const { data: allProfilesData, isLoading: isLoadingAllProfilesData } =
-        useSWR(`/api/group/${groupToken}/score`, { refreshInterval: 15000 })
+    const { data: allRolesData, isLoading: isLoadingAllRolesData } = useSWR(
+        `/api/group/${groupToken}/score`,
+        { refreshInterval: 15000 }
+    )
 
-    /* Turn the result key-value pairs into an array of objects with respective profile details
+    /* Turn the result key-value pairs into an array of objects with respective role  details
        e.g. { "1": 50, "2": 50, ..} => 
         [
             { id: 1, score: 25%, name: .., description: ..}, 
@@ -29,49 +30,46 @@ export const SummaryPage = () => {
         ]
     */
 
-    const createProfileResultsFromScores = (scores, profiles) => {
+    const createRoleResultsFromScores = (scores, roles) => {
         const totalScore = scores.reduce((acc, score) => acc + score[1], 0)
 
         return scores.map((score) => ({
             score: (score[1] / totalScore) * 100,
-            // Include matching climate profile id, name and desc
-            ...profiles?.find((profile) => profile.id == parseInt(score[0])),
+            // Include matching climate role id, name and desc
+            ...roles?.find((role) => role.id == parseInt(score[0])),
         }))
     }
 
     // {"1": 50, "2": 50} => [["1", 50], ["2", 50]]
     const summaryScores = Object.entries(summaryData?.summary || {})
 
-    const profileResults = createProfileResultsFromScores(
-        summaryScores,
-        profileData
-    )
+    const roleResults = createRoleResultsFromScores(summaryScores, roleData)
 
-    // Get the top profile result(s)
-    const maxScore = profileResults.reduce(
+    // Get the top role result(s)
+    const maxScore = roleResults.reduce(
         (max, result) => (max.score > result.score ? max : result),
         {}
     ).score
 
-    const highestScoreProfiles = profileResults.filter(
+    const highestScoreRoles = roleResults.filter(
         (result) => result.score === maxScore
     )
 
-    const groupSummaryScores = Object.entries(allProfilesData?.score || {})
+    const groupSummaryScores = Object.entries(allRolesData?.score || {})
 
-    const groupProfileResults = createProfileResultsFromScores(
+    const groupRoleResults = createRoleResultsFromScores(
         groupSummaryScores,
-        profileData
+        roleData
     )
 
     // Create pie chart data and fetch
-    const doughnutChartData = profileResults?.map((result) => ({
+    const doughnutChartData = roleResults?.map((result) => ({
         id: result.id,
         value: result.score,
         label: result.name,
     }))
 
-    const groupProfileData = groupProfileResults?.map((result) => ({
+    const groupRoleData = groupRoleResults?.map((result) => ({
         id: result.id,
         value: result.score,
         label: result.name,
@@ -105,9 +103,9 @@ export const SummaryPage = () => {
                         >
                             Oma ilmastoprofiilisi
                         </Typography>
-                        {isLoadingProfiles ||
+                        {isLoadingRoles ||
                         isLoadingSummary ||
-                        isLoadingAllProfilesData ? (
+                        isLoadingAllRolesData ? (
                             <p>Loading...</p>
                         ) : answerCount > 0 ? (
                             <>
@@ -127,7 +125,7 @@ export const SummaryPage = () => {
                                     {totalQuestions} kysymykseen ja alta löydät
                                     oman ilmastoprofiilisi!
                                 </Typography>
-                                {highestScoreProfiles.length > 1 && (
+                                {highestScoreRoles.length > 1 && (
                                     <Typography
                                         variant="h2"
                                         sx={{
@@ -142,12 +140,12 @@ export const SummaryPage = () => {
                                         kuvastavat sinua!
                                     </Typography>
                                 )}
-                                {highestScoreProfiles.map((profile, index) => (
-                                    <SummaryProfile
-                                        key={profile.id}
+                                {highestScoreRoles.map((role, index) => (
+                                    <SummaryRole
+                                        key={role.id}
                                         index={index}
-                                        title={profile.name}
-                                        description={profile.description}
+                                        title={role.name}
+                                        description={role.description}
                                     />
                                 ))}
                                 <Typography
@@ -187,7 +185,7 @@ export const SummaryPage = () => {
                                             Ryhmäsi {groupToken} jakauma
                                         </Typography>
 
-                                        {allProfilesData.response_amount < 5 ? (
+                                        {allRolesData.response_amount < 5 ? (
                                             <Typography variant="body1">
                                                 Näet tässä ryhmäsi tulokset, kun
                                                 vähintään viisi henkilöä ovat
@@ -203,7 +201,7 @@ export const SummaryPage = () => {
                                                     }}
                                                 >
                                                     <SummaryDoughnut
-                                                        data={groupProfileData}
+                                                        data={groupRoleData}
                                                     />
                                                 </Box>
                                             </>

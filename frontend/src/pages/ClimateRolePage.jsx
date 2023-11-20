@@ -1,15 +1,15 @@
 import { Typography, Container, Stack, Box } from '@mui/material'
-import { ClimateProfile } from '../components/ClimateProfile'
+import { ClimateRole } from '../components/ClimateRole'
 import { theme } from '../theme'
 import useSWR from 'swr'
 import { useTitle } from '../hooks/useTitle'
-import ProfileImage from '../components/ProfileImage'
+import RoleImage from '../components/RoleImage'
 
-export const ClimateProfilePage = () => {
-    useTitle('Ilmastoprofiilit')
+export const ClimateRolePage = () => {
+    useTitle('Ilmastoroolit')
 
-    const { data } = useSWR('/api/profiles')
-    const profileList = data
+    const { data } = useSWR('/api/roles')
+    const roleList = data
 
     return (
         <Container>
@@ -26,12 +26,12 @@ export const ClimateProfilePage = () => {
                         },
                     }}
                 >
-                    Ilmastoprofiilit
+                    Ilmastoroolit
                 </Typography>
-                {profileList &&
-                    profileList.map((profile) => (
+                {roleList &&
+                    roleList.map((role) => (
                         <Box
-                            key={profile.id}
+                            key={role.id}
                             sx={{
                                 display: { xs: 'flex', md: 'flex' },
                                 flexDirection: 'column',
@@ -41,7 +41,7 @@ export const ClimateProfilePage = () => {
                                     justifyContent: 'space-between',
                                     alignItems: 'stretch',
                                     flexDirection: 'row',
-                                    ...(profile.id % 2 === 0 && {
+                                    ...(role.id % 2 === 0 && {
                                         flexDirection: 'row-reverse',
                                     }),
                                 },
@@ -49,12 +49,12 @@ export const ClimateProfilePage = () => {
                             }}
                         >
                             <Stack paddingBottom={'20px'} padding={'10px'}>
-                                <ProfileImage title={profile.name} />
+                                <RoleImage title={role.name} />
                             </Stack>
                             <Box padding={'10px'}>
-                                <ClimateProfile
-                                    description={profile.description}
-                                    name={profile.name}
+                                <ClimateRole
+                                    description={role.description}
+                                    name={role.name}
                                 />
                             </Box>
                         </Box>

@@ -1,21 +1,22 @@
 import useSWR from 'swr'
 import { Typography, Container, Stack, Box, Card } from '@mui/material'
 import { useTitle } from '../hooks/useTitle'
-import { SummaryProfile } from '../components/SummaryProfile'
+import { SummaryRole } from '../components/SummaryRole'
 import SummaryDoughnut from '../components/SummaryDoughnut'
 
 export const GroupSummaryPage = () => {
     // Fetch group token from url
     const groupToken = window.location.pathname.split('/').pop()
 
-    // Fetch all profiles from api
-    const { data: profileData, isLoading: isLoadingProfiles } =
-        useSWR('/api/profiles')
+    // Fetch all roles from api
+    const { data: roleData, isLoading: isLoadingroles } = useSWR('/api/roles')
 
-    const { data: allProfilesData, isLoading: isLoadingAllProfilesData } =
-        useSWR(`/api/group/${groupToken}/score`, { refreshInterval: 15000 })
+    const { data: allrolesData, isLoading: isLoadingAllrolesData } = useSWR(
+        `/api/group/${groupToken}/score`,
+        { refreshInterval: 15000 }
+    )
 
-    /* Turn the result key-value pairs into an array of objects with respective profile details
+    /* Turn the result key-value pairs into an array of objects with respective role details
        e.g. { "1": 50, "2": 50, ..} => 
         [
             { id: 1, score: 25%, name: .., description: ..}, 
@@ -24,35 +25,35 @@ export const GroupSummaryPage = () => {
         ]
     */
 
-    const createProfileResultsFromScores = (scores, profiles) => {
+    const createRoleResultsFromScores = (scores, roles) => {
         const totalScore = scores.reduce((acc, score) => acc + score[1], 0)
 
         return scores.map((score) => ({
             score: (score[1] / totalScore) * 100,
-            // Include matching climate profile id, name and desc
-            ...profiles?.find((profile) => profile.id == parseInt(score[0])),
+            // Include matching climate role id, name and desc
+            ...roles?.find((role) => role.id == parseInt(score[0])),
         }))
     }
 
-    const groupSummaryScores = Object.entries(allProfilesData?.score || {})
+    const groupSummaryScores = Object.entries(allrolesData?.score || {})
 
-    const groupProfileResults = createProfileResultsFromScores(
+    const groupRoleResults = createRoleResultsFromScores(
         groupSummaryScores,
-        profileData
+        roleData
     )
 
-    const groupProfileData = groupProfileResults?.map((result) => ({
+    const groupRoleData = groupRoleResults?.map((result) => ({
         id: result.id,
         value: result.score,
         label: result.name,
     }))
 
-    const maxScore = groupProfileResults.reduce(
+    const maxScore = groupRoleResults.reduce(
         (max, result) => (max.score > result.score ? max : result),
         {}
     ).score
 
-    const highestScoreProfiles = groupProfileResults.filter(
+    const highestScoreroles = groupRoleResults.filter(
         (result) => result.score === maxScore
     )
 
@@ -82,22 +83,21 @@ export const GroupSummaryPage = () => {
                         >
                             Ryhmän ilmastoprofiili
                         </Typography>
-                        {isLoadingProfiles || isLoadingAllProfilesData ? (
+                        {isLoadingroles || isLoadingAllrolesData ? (
                             <p>Loading...</p>
                         ) : (
                             <>
-                                {allProfilesData.response_amount < 5 ? (
+                                {allrolesData.response_amount < 5 ? (
                                     <Typography variant="body1">
                                         Näet tässä ryhmän {groupToken} tulokset,
                                         kun vähintään viisi henkilöä on
                                         vastannut kyselyyn. Nyt kyselyyn on
-                                        vastannut{' '}
-                                        {allProfilesData.response_amount}{' '}
+                                        vastannut {allrolesData.response_amount}{' '}
                                         henkilöä.
                                     </Typography>
                                 ) : (
                                     <>
-                                        {highestScoreProfiles.length > 1 && (
+                                        {highestScoreroles.length > 1 && (
                                             <Typography
                                                 variant="h2"
                                                 sx={{
@@ -112,14 +112,14 @@ export const GroupSummaryPage = () => {
                                                 jotka kuvastavat ryhmäänne!
                                             </Typography>
                                         )}
-                                        {highestScoreProfiles.map(
-                                            (profile, index) => (
-                                                <SummaryProfile
-                                                    key={profile.id}
+                                        {highestScoreroles.map(
+                                            (role, index) => (
+                                                <SummaryRole
+                                                    key={role.id}
                                                     index={index}
-                                                    title={profile.name}
+                                                    title={role.name}
                                                     description={
-                                                        profile.description
+                                                        role.description
                                                     }
                                                 />
                                             )
@@ -137,7 +137,7 @@ export const GroupSummaryPage = () => {
                                         >
                                             Ryhmän {groupToken} jakauma.
                                             Ryhmässä kyselyyn on vastannut{' '}
-                                            {allProfilesData.response_amount}{' '}
+                                            {allrolesData.response_amount}{' '}
                                             henkilöä.
                                         </Typography>
                                         <Box
@@ -148,7 +148,7 @@ export const GroupSummaryPage = () => {
                                             }}
                                         >
                                             <SummaryDoughnut
-                                                data={groupProfileData}
+                                                data={groupRoleData}
                                             />
                                         </Box>
                                     </>

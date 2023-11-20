@@ -20,7 +20,7 @@ def test_get_questions(client):
 
 
 def test_get_profiles(client):
-    response = client.get('/api/profiles')
+    response = client.get('/api/roles')
     result = json.loads(response.data)
     first_profile = result[0]
 

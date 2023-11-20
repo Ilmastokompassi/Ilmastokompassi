@@ -1,11 +1,11 @@
-describe('Climate profiles page', function () {
+describe('Climate roles page', function () {
     beforeEach(function () {
-        cy.visit('/profiilit')
+        cy.visit('/ilmastoroolit')
         cy.viewport(900, 1000)
     })
 
     it('title', function () {
-        cy.title().should('eq', 'Ilmastoprofiilit')
+        cy.title().should('eq', 'Ilmastoroolit')
     })
 
     it('ilmastoasiantuntija', function () {

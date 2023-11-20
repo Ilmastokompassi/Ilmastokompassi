@@ -18,10 +18,10 @@ def total_questions():
     return jsonify(questions_list)
 
 
-@api.route("/profiles")
-def profiles():
-    profile_list = default_profile_service.get_profiles()
-    return jsonify(profile_list)
+@api.route("/roles")
+def roles():
+    role_list = default_profile_service.get_profiles()
+    return jsonify(role_list)
 
 
 @api.route("/question/<int:question_id>")

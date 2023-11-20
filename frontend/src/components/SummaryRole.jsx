@@ -1,9 +1,9 @@
 import { Typography, Box, CardContent, CardHeader, Stack } from '@mui/material'
 import PropTypes from 'prop-types'
-import ProfileImage from './ProfileImage'
+import RoleImage from './RoleImage'
 import { theme } from '../theme'
 
-export const SummaryProfile = ({ index, title, description }) => {
+export const SummaryRole = ({ index, title, description }) => {
     return (
         <>
             <Box
@@ -25,7 +25,7 @@ export const SummaryProfile = ({ index, title, description }) => {
                 }}
             >
                 <Stack paddingBottom={'20px'} padding={'10px'}>
-                    <ProfileImage title={title} />
+                    <RoleImage title={title} />
                 </Stack>
                 <Stack>
                     <CardHeader
@@ -60,7 +60,7 @@ export const SummaryProfile = ({ index, title, description }) => {
         </>
     )
 }
-SummaryProfile.propTypes = {
+SummaryRole.propTypes = {
     index: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired, // You can adjust the PropTypes as needed
     description: PropTypes.string.isRequired,

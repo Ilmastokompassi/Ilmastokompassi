@@ -5,24 +5,24 @@ import EarthPlant from '../assets/plant_earth.jpg'
 import EarthRecycle from '../assets/recycle_earth.jpg'
 import PropTypes from 'prop-types'
 
-const ProfileImage = ({ title }) => {
-    const profiles = {
+const RoleImage = ({ title }) => {
+    const roles = {
         'Ilmastoasiantuntija': EarthPeace,
         'Mielipidevaikuttaja': EarthPlant,
         'Kestävän elämäntavan etsijä': EarthRecycle,
         'Eettinen kuluttaja': EarthFlowers,
     }
-    const profile = profiles[title]
+    const role = roles[title]
     return (
         <>
-            <img src={profile} alt={title} width={250} height={250} />
+            <img src={role} alt={title} width={250} height={250} />
             <Typography variant="caption">Image by Freepik</Typography>
         </>
     )
 }
 
-ProfileImage.propTypes = {
+RoleImage.propTypes = {
     title: PropTypes.string.isRequired
 }
 
-export default ProfileImage
+export default RoleImage
