@@ -7,6 +7,7 @@ import { ClimateRolePage } from './pages/ClimateRolePage'
 import { SummaryPage } from './pages/SummaryPage'
 import { FactQuizQuestionPage } from './pages/FactQuizQuestionPage'
 import { GroupSummaryPage } from './pages/GroupSummaryPage'
+import { FactQuizSummaryPage } from './pages/FactQuizSummaryPage'
 // Defines the routes of the application
 export const routes = [
     {
@@ -39,6 +40,10 @@ export const routes = [
             {
                 path: '/yhteenveto/ryhma/:groupToken',
                 element: <GroupSummaryPage />,
+            },
+            {
+                path: '/tietovisa/yhteenveto',
+                element: <FactQuizSummaryPage />,
             },
         ],
     },
