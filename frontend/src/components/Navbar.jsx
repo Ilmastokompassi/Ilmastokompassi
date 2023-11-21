@@ -26,20 +26,11 @@ function ResponsiveAppBar() {
     const [anchorElUser, setAnchorElUser] = React.useState(null)
     const [groupToken, setGroupToken] = React.useState(null)
 
-    const handleOpenNavMenu = (event) => {
-        setAnchorElNav(event.currentTarget)
-    }
-    const handleOpenUserMenu = (event) => {
-        setAnchorElUser(event.currentTarget)
-    }
+    const handleOpenNavMenu = (event) => setAnchorElNav(event.currentTarget)
+    const handleOpenUserMenu = (event) => setAnchorElUser(event.currentTarget)
 
-    const handleCloseNavMenu = () => {
-        setAnchorElNav(null)
-    }
-
-    const handleCloseUserMenu = () => {
-        setAnchorElUser(null)
-    }
+    const handleCloseNavMenu = () => setAnchorElNav(null)
+    const handleCloseUserMenu = () => setAnchorElUser(null)
 
     React.useEffect(() => {
         const refreshToken = () => {
@@ -191,9 +182,9 @@ function ResponsiveAppBar() {
                     >
                         {pages.map((page) => (
                             <Button
+                                key={page.name}
                                 component={NavLink}
                                 to={page.route}
-                                key={page.name}
                                 id={page.id}
                                 onClick={handleCloseNavMenu}
                                 sx={{ my: 2, color: 'white', display: 'block' }}
@@ -232,7 +223,7 @@ function ResponsiveAppBar() {
                             onClose={handleCloseUserMenu}
                         >
                             <MenuItem
-                                data-testid="group-token"
+                                data-testid="current-group-token"
                                 onClick={handleCloseUserMenu}
                                 disableRipple
                                 disableTouchRipple

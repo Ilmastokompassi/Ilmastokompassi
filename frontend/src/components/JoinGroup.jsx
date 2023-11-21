@@ -1,13 +1,4 @@
-import {
-    Box,
-    FormControl,
-    FormHelperText,
-    Button,
-    InputBase,
-    Paper,
-    Stack,
-    Typography,
-} from '@mui/material'
+import { Button, Stack, TextField } from '@mui/material'
 import GroupDialog from '../components/GroupDialog'
 import { useState } from 'react'
 
@@ -31,12 +22,7 @@ const JoinGroup = () => {
             method: 'GET',
             headers: { 'Content-Type': 'application/json' },
         })
-            .then((response) => {
-                if (!response.ok) {
-                    throw new Error('Verkkoyhteysvirhe')
-                }
-                return response.json()
-            })
+            .then((response) => response.json())
             .then((data) => {
                 if (data.group_token) {
                     localStorage.setItem('groupToken', groupToken)
@@ -50,47 +36,34 @@ const JoinGroup = () => {
     }
 
     return (
-        <Box paddingTop={2}>
+        <>
             <Stack
                 direction={{ xs: 'column', sm: 'row' }}
-                justifyContent={'space-evenly'}
-                alignItems={{ xs: 'center', sm: 'flex-start' }}
-                spacing={4}
+                justifyContent="space-evenly"
+                alignItems="center"
+                spacing={2}
             >
-                <FormControl error={!isValid}>
-                    <Paper
-                        sx={{
-                            display: 'flex',
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                        }}
-                    >
-                        <InputBase
-                            data-testid="group-token"
-                            label="Ryhmätunnus"
-                            variant="outlined"
-                            placeholder="Syötä ryhmätunnus"
-                            value={groupToken}
-                            onChange={handleTextFieldChange}
-                        />
-                        <Button
-                            data-testid="join-group"
-                            type="button"
-                            onClick={handleSubmit}
-                            color="secondary"
-                            variant="contained"
-                        >
-                            <Typography>Liity</Typography>
-                        </Button>
-                    </Paper>
-                    <FormHelperText>
-                        {!isValid && 'Ryhmään liittyminen epäonnistui.'}
-                        {joinedToGroup && 'Ryhmään liittyminen onnistui.'}
-                    </FormHelperText>
-                </FormControl>
-                <GroupDialog />
+                <TextField
+                    data-testid="group-token-input"
+                    label="Ryhmätunnus"
+                    placeholder="Syötä ryhmätunnus"
+                    error={!isValid}
+                    helperText={!isValid && 'Ryhmään liittyminen epäonnistui.'}
+                    value={groupToken}
+                    onChange={handleTextFieldChange}
+                    size="small"
+                />
+                <Button
+                    data-testid="join-group"
+                    onClick={handleSubmit}
+                    color="secondary"
+                    variant="contained"
+                >
+                    Liity ryhmään
+                </Button>
             </Stack>
-        </Box>
+            <GroupDialog />
+        </>
     )
 }
 
