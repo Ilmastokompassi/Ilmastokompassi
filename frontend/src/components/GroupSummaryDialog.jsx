@@ -49,7 +49,7 @@ export default function GroupSummaryDialog() {
     return (
         <div>
             <Button
-                id="btn-group-summary-dialog"
+                data-testid="open-group-summary-dialog"
                 variant="outlined"
                 color="secondary"
                 onClick={() => setOpen(true)}
@@ -57,7 +57,7 @@ export default function GroupSummaryDialog() {
                 Ryhmän jakauma
             </Button>
             <Dialog
-                id="group-summary-dialog"
+                data-testid="group-summary"
                 open={open}
                 onClose={() => setOpen(false)}
             >
@@ -78,20 +78,16 @@ export default function GroupSummaryDialog() {
                         variant="standard"
                         value={groupToken}
                         onChange={handleGroupNameChange}
-                        id="input-group-token"
+                        data-testid="group-token"
                     />
                 </DialogContent>
                 <DialogActions>
-                    <Button
-                        id="btn-cancel-group-summary"
-                        onClick={() => setOpen(false)}
-                    >
+                    <Button data-testid="cancel" onClick={() => setOpen(false)}>
                         EIKU
                     </Button>
                     <Button
-                        id="btn-move-to-group-summary"
+                        data-testid="open-group-summary"
                         onClick={handleSubmit}
-                        color="primary"
                     >
                         Siirry
                     </Button>

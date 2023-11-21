@@ -1,46 +1,31 @@
 describe('Climate roles page', function () {
     beforeEach(function () {
         cy.visit('/ilmastoroolit')
-        cy.viewport(900, 1000)
     })
 
-    it('title', function () {
+    it('has correct title', function () {
         cy.title().should('eq', 'Ilmastoroolit')
     })
 
-    it('ilmastoasiantuntija', function () {
-        cy.contains('Ilmastoasiantuntija')
+    context('on 1440p screen', () => {
+        beforeEach(() => cy.viewport(1366, 768))
+
+        it('contains all four roles', function () {
+            cy.contains('Ilmastoasiantuntija')
+            cy.contains('Mielipidevaikuttaja')
+            cy.contains('Kestävän elämäntavan etsijä')
+            cy.contains('Eettinen kuluttaja')
+        })
     })
 
-    it('Mielipidevaikuttaja', function () {
-        cy.contains('Mielipidevaikuttaja')
-    })
+    context('on iPhone SE 2', () => {
+        beforeEach(() => cy.viewport('iphone-se2'))
 
-    it('Kestävän elämäntavan etsijä', function () {
-        cy.contains('Kestävän elämäntavan etsijä')
-    })
-
-    it('Eettinen kuluttaja', function () {
-        cy.contains('Eettinen kuluttaja')
-    })
-
-    it('small screen ilmastoasiantuntija', function () {
-        cy.viewport(899, 1000)
-        cy.contains('Ilmastoasiantuntija')
-    })
-
-    it('small screen Mielipidevaikuttaja', function () {
-        cy.viewport(899, 1000)
-        cy.contains('Mielipidevaikuttaja')
-    })
-
-    it('small screen Kestävän elämäntavan etsijä', function () {
-        cy.viewport(899, 1000)
-        cy.contains('Kestävän elämäntavan etsijä')
-    })
-
-    it('small screen Eettinen kuluttaja', function () {
-        cy.viewport(899, 1000)
-        cy.contains('Eettinen kuluttaja')
+        it('contains all four roles', function () {
+            cy.contains('Ilmastoasiantuntija')
+            cy.contains('Mielipidevaikuttaja')
+            cy.contains('Kestävän elämäntavan etsijä')
+            cy.contains('Eettinen kuluttaja')
+        })
     })
 })

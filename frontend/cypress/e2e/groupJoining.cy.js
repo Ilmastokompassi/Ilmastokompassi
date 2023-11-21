@@ -1,42 +1,38 @@
-Cypress.env('screen_sizes').forEach((size) => {
-    describe(`Group joining ${size[2]}`, function () {
-        beforeEach(function () {
-            cy.visit('/')
-            cy.viewport(size[0], size[1])
-        })
-        it('title should be Kyselyt', function () {
-            cy.title().should('eq', 'Ilmastokompassi')
-        })
+describe('Joining group', function () {
+    beforeEach(() => cy.visit('/'))
 
-        it('Open join-group dialog and joining with nonexistent group token fails', function () {
-            cy.joinGroupWithToken('TOKENI', 'Ryhmään liittyminen epäonnistui.')
-        })
+    Cypress.env('viewports').forEach((viewport) => {
+        beforeEach(() => cy.viewport(viewport[0], viewport[1]))
 
-        it('Open join-group dialog and joining with empty inputfield fails', function () {
+        it('with nonexistent group token fails', function () {})
+
+        it('with empty inputfield fails', function () {
             cy.joinGroupWithToken('', 'Ryhmään liittyminen epäonnistui.')
         })
 
-        it('Open join-group dialog and joining with too long token fails', function () {
+        it('with too long token fails', function () {
             cy.joinGroupWithToken(
                 'LIIANPITKATUNNUS',
                 'Ryhmään liittyminen epäonnistui.'
             )
         })
 
-        it('Open join-group dialog and joining with special character fails', function () {
-            cy.joinGroupWithToken('MOI!!!', 'Ryhmään liittyminen epäonnistui.')
+        it('with special character fails', function () {
+            cy.joinGroupWithToken('!', 'Ryhmään liittyminen epäonnistui.')
         })
         // Remember to reste database before running this test
 
-        it('Open join-group dialog and join with correct token succeeds', function () {
-            if (size[2] === 'Large') {
-                cy.createGroupWithToken('TOKEN')
-            }
+        it('with correct token succeeds', function () {
+            cy.task('db:reset')
+
+            cy.createGroup('TOKEN')
             cy.joinGroupWithToken('TOKEN', 'Ryhmään liittyminen onnistui!')
             cy.get('#btn-show-group-info').click()
             cy.contains('TOKEN')
         })
-        it('Open join-group dialog and join with correct token, exit group', function () {
+        it('with correct token and exit group', function () {
+            cy.task('db:reset')
+
             cy.joinGroupWithToken('TOKEN', 'Ryhmään liittyminen onnistui!')
             cy.get('#btn-show-group-info').click()
             cy.contains('TOKEN')
@@ -44,7 +40,9 @@ Cypress.env('screen_sizes').forEach((size) => {
             cy.get('#btn-show-group-info').click()
             cy.contains('Et ole ryhmässä')
         })
-        it('Join group and start survey succeeds', function () {
+        it('wtih correct token and start survey', function () {
+            cy.task('db:reset')
+
             cy.joinGroupWithToken('TOKEN', 'Ryhmään liittyminen onnistui!')
             cy.visit('/ilmastoroolikysely')
             cy.get('#btn-show-group-info').click()

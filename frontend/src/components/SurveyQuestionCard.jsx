@@ -53,6 +53,7 @@ function SurveyQuestionCard({
                     {options.map((option) => (
                         <Button
                             key={option.id}
+                            data-testid=""
                             variant={
                                 option.id === selectedOptionsIds
                                     ? 'contained'

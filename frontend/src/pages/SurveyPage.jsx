@@ -61,7 +61,7 @@ export function SurveyPage() {
                                 painamalla &quot;Aloita&quot; painiketta. Kun
                                 olet vastannut kyselyyn saat selville, mikä
                                 neljästä ilmastoroolista kuvastaa sinua. Voit
-                                tutustua ilmastorooleihin{" "}
+                                tutustua ilmastorooleihin{' '}
                                 <Link href={`/ilmastoroolit`}>täältä!</Link>
                             </Typography>
                             <Typography marginBottom={2} variant="h6">
@@ -87,8 +87,7 @@ export function SurveyPage() {
                                         width: 200,
                                         height: 100,
                                     }}
-                                    id="btn-survey-alone"
-                                    data-testid="btn-start-survey"
+                                    data-testid="start-survey"
                                     variant="contained"
                                     href="/kysymys/1"
                                     color="primary"

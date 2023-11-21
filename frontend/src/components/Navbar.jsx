@@ -84,8 +84,9 @@ function ResponsiveAppBar() {
                     <Typography
                         variant="h6"
                         noWrap
-                        id="navbar-brand-large"
+                        data-testid="logo-text"
                         component={NavLink}
+                        to="/"
                         sx={{
                             mr: 2,
                             display: { xs: 'none', md: 'flex' },
@@ -106,16 +107,17 @@ function ResponsiveAppBar() {
                     >
                         <IconButton
                             size="large"
-                            aria-controls="menu-appbar"
+                            aria-controls="appbar-navigation-menu"
                             aria-haspopup="true"
                             onClick={handleOpenNavMenu}
                             color="inherit"
-                            id="hamburger"
+                            data-testid="hamburger"
                         >
                             <MenuIcon />
                         </IconButton>
                         <Menu
-                            id="menu-appbar"
+                            id="appbar-navigation-menu"
+                            data-testid="appbar-navigation-menu"
                             anchorEl={anchorElNav}
                             anchorOrigin={{
                                 vertical: 'bottom',
@@ -134,10 +136,10 @@ function ResponsiveAppBar() {
                         >
                             {pages.map((page) => (
                                 <MenuItem
+                                    key={page.name}
                                     component={NavLink}
                                     to={page.route}
-                                    key={page.name}
-                                    id={page.id + '-hamburger'}
+                                    data-testid={page.id + '-menu'}
                                     onClick={handleCloseNavMenu}
                                 >
                                     <Typography textAlign="center">
@@ -160,7 +162,7 @@ function ResponsiveAppBar() {
                         variant="h6"
                         noWrap
                         component={NavLink}
-                        id="navbar-brand-small"
+                        data-testid="logo-text"
                         sx={{
                             fontSize: '20px',
                             [theme.breakpoints.down('nav_sm')]: {
@@ -203,7 +205,9 @@ function ResponsiveAppBar() {
                         <IconButton
                             onClick={handleOpenUserMenu}
                             sx={{ p: 0 }}
-                            id="btn-show-group-info"
+                            data-testid="show-group-menu"
+                            aria-controls="appbar-group-menu"
+                            aria-haspopup="true"
                         >
                             <Avatar sx={{ bgcolor: 'primary.main' }}>
                                 <GroupIcon />
@@ -211,7 +215,8 @@ function ResponsiveAppBar() {
                         </IconButton>
                         <Menu
                             sx={{ mt: '45px' }}
-                            id="menu-appbar"
+                            id="appbar-group-menu"
+                            data-testid="appbar-group-menu"
                             anchorEl={anchorElUser}
                             anchorOrigin={{
                                 vertical: 'top',
@@ -226,8 +231,7 @@ function ResponsiveAppBar() {
                             onClose={handleCloseUserMenu}
                         >
                             <MenuItem
-                                key="groupToken"
-                                id="group-token"
+                                data-testid="group-token"
                                 onClick={handleCloseUserMenu}
                                 disableRipple
                                 disableTouchRipple
@@ -252,8 +256,7 @@ function ResponsiveAppBar() {
                             {groupToken ? (
                                 <Box>
                                     <MenuItem
-                                        key="GroupSummary"
-                                        id="btn-group-summary"
+                                        data-testid="open-group-summary"
                                         onClick={() => {
                                             handleCloseUserMenu()
                                         }}
@@ -263,8 +266,7 @@ function ResponsiveAppBar() {
                                         Ryhmän tulokset
                                     </MenuItem>
                                     <MenuItem
-                                        key="leaveGroup"
-                                        id="btn-leave-group"
+                                        data-testid="leave-group"
                                         onClick={() => {
                                             localStorage.removeItem(
                                                 'groupToken'

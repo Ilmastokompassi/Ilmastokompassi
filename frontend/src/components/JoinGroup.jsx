@@ -51,58 +51,44 @@ const JoinGroup = () => {
 
     return (
         <Box paddingTop={2}>
-            <Stack>
-                <Stack
-                    direction={{ xs: 'column', sm: 'row' }}
-                    justifyContent={'space-evenly'}
-                    alignItems={{xs: 'center', sm: 'flex-start'}}
-                    spacing={4}
-                >
-                    <FormControl error={!isValid} variant="outlined">
-                        <Paper
-                            sx={{
-                                display: 'flex',
-                                justifyContent: 'center',
-                                alignItems: 'center',
-                            }}
+            <Stack
+                direction={{ xs: 'column', sm: 'row' }}
+                justifyContent={'space-evenly'}
+                alignItems={{ xs: 'center', sm: 'flex-start' }}
+                spacing={4}
+            >
+                <FormControl error={!isValid}>
+                    <Paper
+                        sx={{
+                            display: 'flex',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                        }}
+                    >
+                        <InputBase
+                            data-testid="group-token"
+                            label="Ryhmätunnus"
+                            variant="outlined"
+                            placeholder="Syötä ryhmätunnus"
+                            value={groupToken}
+                            onChange={handleTextFieldChange}
+                        />
+                        <Button
+                            data-testid="join-group"
+                            type="button"
+                            onClick={handleSubmit}
+                            color="secondary"
+                            variant="contained"
                         >
-                            <InputBase
-                                id="input-group-token"
-                                label="Ryhmätunnus"
-                                variant="outlined"
-                                placeholder="Syötä ryhmätunnus"
-                                value={groupToken}
-                                onChange={handleTextFieldChange}
-                            />
-                            <Button
-                                id="btn-join-group"
-                                type="button"
-                                onClick={handleSubmit}
-                                color="secondary"
-                                variant="contained"
-                            >
-                                <Typography>Liity</Typography>
-                            </Button>
-                        </Paper>
-                        {!isValid && (
-                            <FormHelperText>
-                                Ryhmään liittyminen epäonnistui.
-                            </FormHelperText>
-                        )}
-                        {joinedToGroup && (
-                            <FormHelperText>
-                                Ryhmään liittyminen onnistui!
-                            </FormHelperText>
-                        )}
-                        {isValid && !joinedToGroup && (
-                            <FormHelperText>
-                                <br></br>
-                            </FormHelperText>
-                        )}
-                    </FormControl>
-
-                    <GroupDialog />
-                </Stack>
+                            <Typography>Liity</Typography>
+                        </Button>
+                    </Paper>
+                    <FormHelperText>
+                        {!isValid && 'Ryhmään liittyminen epäonnistui.'}
+                        {joinedToGroup && 'Ryhmään liittyminen onnistui.'}
+                    </FormHelperText>
+                </FormControl>
+                <GroupDialog />
             </Stack>
         </Box>
     )

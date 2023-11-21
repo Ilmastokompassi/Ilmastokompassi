@@ -1,48 +1,110 @@
-Cypress.env('screen_sizes').forEach((size) => {
-    describe(`Group creation ${size[2]}`, function () {
-        beforeEach(function () {
-            cy.visit('/')
-            cy.viewport(size[0], size[1])
-        })
+describe('Open group creation dialog', function () {
+    beforeEach(() => cy.visit('/'))
 
-        it('title should be Ilmastokompassi', function () {
-            cy.title().should('eq', 'Ilmastokompassi')
-        })
+    Cypress.env('viewports').forEach((size) => {
+        context(`on ${size[0]}x${size[1]} viewport`, () => {
+            beforeEach(() => {
+                cy.viewport(size[0], size[1])
 
-        it('Open create-group dialog and press cancel', function () {
-            cy.get('#btn-create-group-dialog').click()
-            cy.get('#dialog-create-group')
-            cy.get('#btn-cancel-group-creation').click()
-            cy.get('#dialog-create-group').should('not.exist')
-        })
+                cy.findByTestId('open-create-group-dialog').click()
+                cy.findByTestId('create-group-dialog')
+                    .as('groupDialog')
+                    .should('be.visible')
 
-        it('Open create-group dialog and press esc-key', function () {
-            cy.get('#btn-create-group-dialog').click()
-            cy.get('#dialog-create-group')
-            cy.get('#dialog-create-group').type('{esc}')
-            cy.get('#dialog-create-group').should('not.exist')
-        })
+                cy.get('@groupDialog')
+                    .findByTestId('group-token')
+                    .as('tokenInput')
+                cy.get('@groupDialog')
+                    .findByTestId('create-group')
+                    .as('createGroup')
+                    .should('be.visible')
+            })
 
-        // Remember to reste database before running this test
+            it('and press cancel button to exit', function () {
+                cy.get('@groupDialog')
+                    .findByTestId('cancel')
+                    .should('be.visible')
+                    .click()
 
-        it('Open create-group dialog and create token', function () {
-            if (size[2] === 'Large') {
-                cy.createGroupWithToken('CREATETEST')
-            } else {
-                cy.createGroupWithToken('SMLSCRTEST')
-            }
-        })
+                cy.get('@groupDialog').should('not.exist')
+            })
 
-        it('Creating group with empty inputfield fails', function () {
-            cy.createGroupWithToken('', 'Ryhmätunnus ei voi olla tyhjä.')
-        })
+            it('and press esc to exit', function () {
+                cy.get('@groupDialog').type('{esc}')
 
-        it('Creating group with too long token fails', function () {
-            cy.createGroupWithToken('12345678901', 'Tarkista ryhmätunnus')
-        })
+                cy.get('@groupDialog').should('not.exist')
+            })
 
-        it('Creating group with special character fails', function () {
-            cy.createGroupWithToken('MORO!!', 'Tarkista ryhmätunnus')
+            describe('and create group', function () {
+                it('with token FOOBAR', function () {
+                    cy.exec('../bin/db-reset')
+
+                    const validGroupToken = 'FOOBAR'
+
+                    cy.get('@groupDialog').within(() => {
+                        cy.get('@tokenInput').type(validGroupToken)
+                        cy.get('@tokenInput')
+                            .get('input')
+                            .should('have.value', validGroupToken)
+
+                        cy.findByTestId('create-group')
+                            .should('be.visible')
+                            .click()
+                    })
+
+                    cy.get('@groupDialog').should(
+                        'contain',
+                        `Ryhmä ${validGroupToken} luotu onnistuneesti!`
+                    )
+                })
+
+                it('with empty token fails', function () {
+                    cy.get('@groupDialog').within(() => {
+                        cy.get('@createGroup').click()
+                    })
+
+                    cy.get('@groupDialog').should(
+                        'contain',
+                        'Ryhmätunnus ei voi olla tyhjä.'
+                    )
+                })
+
+                it('with too long token fails', function () {
+                    const tooLongGroupToken = 'A'.repeat(20)
+
+                    cy.get('@groupDialog').within(() => {
+                        cy.get('@tokenInput').type(tooLongGroupToken)
+
+                        cy.get('@tokenInput')
+                            .get('input')
+                            .should('have.value', tooLongGroupToken)
+                        cy.get('@createGroup').should('be.disabled')
+                    })
+
+                    cy.get('@groupDialog').should(
+                        'contain',
+                        'Tarkista ryhmätunnus'
+                    )
+                })
+
+                it('with with special characters fails', function () {
+                    const specialChars = '!!!?&'
+
+                    cy.get('@groupDialog').within(() => {
+                        cy.get('@tokenInput').type(specialChars)
+
+                        cy.get('@tokenInput')
+                            .get('input')
+                            .should('have.value', specialChars)
+                        cy.get('@createGroup').should('be.disabled')
+                    })
+
+                    cy.get('@groupDialog').should(
+                        'contain',
+                        'Tarkista ryhmätunnus'
+                    )
+                })
+            })
         })
     })
 })
