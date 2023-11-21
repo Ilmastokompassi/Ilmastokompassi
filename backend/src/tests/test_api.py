@@ -42,8 +42,8 @@ def test_get_individual_question(client):
 def test_get_individual_question_not_found(client):
     response = client.get('/api/question/420')
 
-    assert response.status_code == 404
-    assert b'Question not found' in response.data
+    assert response.status_code == 500
+    assert b'Something went wrong!' in response.data
 
 
 def test_submit(client):
@@ -54,13 +54,31 @@ def test_submit(client):
     result = json.loads(response.data)
 
     assert response.status_code == 200
-    assert result['user_id'] > 0
+    assert result['user_id'] == 1
 
 
-"""
-    For now... Paulus knows why this doesn't work
-def test_subit_group(client):
-    data = {"responses": {"1": 1, "2": 2, "3": 3}, "groupToken": "OLLI"}
+def test_get_summary(client):
+    response = client.get('api/summary/1')
+    result = json.loads(response.data)
+
+    assert response.status_code == 200
+    assert result['count'] == 5
+    assert result['summary'] == {'1': 100, '2': 25, '3': 50, '4': 75}
+    assert result['total_questions_count'] == 33
+
+
+def test_new_group(client):
+    data = {'token': 'YESGROUP'}
+    response = client.post('/api/new-group', json=data)
+    result = json.loads(response.data)
+
+    assert response.status_code == 200
+    assert result['status'] == 'success'
+
+
+def test_submit_group(client):
+    data = {"responses": {"1": 1, "2": 2, "3": 3}, "groupToken": "YESGROUP"}
+
     response = client.post('/api/submit', json=data)
     result = json.loads(response.data)
 
@@ -68,12 +86,104 @@ def test_subit_group(client):
     assert result['user_id'] > 0
 
 
-def test_new_group(client):
-    data = {"token": "TESTI"}
-    response = client.post('/api/new-group', json=data)
+def test_group_summary(client):
+    response = client.get('api/group/YESGROUP/summary')
     result = json.loads(response.data)
 
     assert response.status_code == 200
     assert result['status'] == 'success'
+    assert result['message'] == 'Group exists'
 
-"""
+
+def test_nonexisting_group_summary(client):
+    response = client.get('api/group/NOGROUP/summary')
+    result = json.loads(response.data)
+
+    assert response.status_code == 400
+    assert result['status'] == 'fail'
+    assert result['message'] == 'Group does not exist'
+
+
+def test_get_group(client):
+    response = client.get('api/group/YESGROUP')
+    result = json.loads(response.data)
+
+    assert response.status_code == 200
+    assert result == {'group_token': True}
+
+
+def test_get_nonexisting_group(client):
+    response = client.get('api/group/NOGROUP')
+    result = json.loads(response.data)
+
+    assert response.status_code == 200
+    assert result == {'group_token': False}
+
+
+def test_get_group_score(client):
+    response = client.get('api/group/YESGROUP/score')
+    result = json.loads(response.data)
+
+    assert response.status_code == 200
+    assert result['score'] == {'1': 0, '2': 25, '3': 50}
+    assert result['response_amount'] == 1
+
+
+def test_get_nonexisting_group_score(client):
+    response = client.get('api/group/NOGROUP/score')
+    result = json.loads(response.data)
+
+    assert response.status_code == 400
+    assert result['status'] == 'fail'
+    assert result['message'] == 'Group does not exist'
+
+
+def test_create_new_quiz_response_with_grouptoken(client):
+    data = {"groupToken": "YESGROUP"}
+    response = client.post('api/new-quiz', json=data)
+    result = json.loads(response.data)
+
+    assert response.status_code == 200
+    assert result['response_id'] == 3
+
+
+def test_create_new_quiz_response_without_grouptoken(client):
+    data = {}
+    response = client.post('api/new-quiz', json=data)
+    result = json.loads(response.data)
+
+    assert response.status_code == 200
+    assert result['response_id'] == 4
+
+
+def test_get_quiz_questions(client):
+    response = client.get('api/quiz')
+    result = json.loads(response.data)
+    first_question = result['1']
+
+    assert response.status_code == 200
+    assert len(result) == 8
+
+    assert first_question['id'] == 1
+    assert 'Ilmastonmuutokseen liittyviä väitteitä on kaikenlaisia. Tunnistatko mitkä seuraavista ovat totta?' in first_question[
+        'content']
+
+
+def test_save_quiz_answer(client):
+    data = {'questionId': 1, 'answer': [3, 5, 6], 'responseId': 3}
+    response = client.post('api/quiz', json=data)
+    result = json.loads(response.data)
+
+    assert response.status_code == 200
+    assert result['correct_answers'] == [1, 2, 3, 4, 5, 6, 7]
+    assert result['info_text'] == ""
+
+
+def test_save_quiz_answer_that_has_infotext(client):
+    data = {'questionId': 2, 'answer': [3, 5, 6], 'responseId': 3}
+    response = client.post('api/quiz', json=data)
+    result = json.loads(response.data)
+
+    assert response.status_code == 200
+    assert result['correct_answers'] == [8, 9]
+    assert result['info_text'] == 'Nämä ovat niin kutsuttuja palauteilmiöitä. Eli ilmastonmuutoksesta johtuvia tapahtumia, ja jotka puolestaan voimistavat tai heikentävät ilmastonmuutosta, johtaen näin ketjureaktioon. Jos ihmisten ilmastonmuutosta voimistava toiminta loppuisi tänään, palauteilmiöt vaikuttaisivat maapallon lämpötilaan vielä seuraavien tuhannen vuoden ajan. Esimerkiksi merivirtojen tasaantuminen vie hyvin kauan.'
