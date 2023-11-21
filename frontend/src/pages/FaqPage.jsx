@@ -78,7 +78,7 @@ export function FaqPage() {
                             </Typography>
                             <Typography marginBottom={2}>
                                 Ryhmään liittyminen onnistuu sivuston
-                                etusivulta. Syöttämällä ryhmätunnus
+                                etusivulta. Syötä ryhmätunnus
                                 tekstikenttään ja paina &quot;LIITY&quot;
                                 painiketta. Ryhmätunnuksen saat ryhmän
                                 ylläpitäjältä.
@@ -95,22 +95,22 @@ export function FaqPage() {
                             </Typography>
                             <Typography marginBottom={2}>
                                 Ryhmään liittymisen jälkeen ryhmätunnus näkyy
-                                sivuston oikeassa yläkulmassa painamalla kuvaa.
+                                painamalla sivuston oikeassa yläkulmassa olevaa kuvaa.
                             </Typography>
                             <Typography variant="h6">
                                 Miten voin tarkastella ryhmän tuloksia?
                             </Typography>
                             <Typography marginBottom={2}>
-                                Ryhmän tulokset näkyvät sivuston oikeassa
-                                yläkulmassa painamalla kuvaa ja &quot;Ryhmän
+                                Ryhmän tulokset näkyvät omalla sivullaan, jonne pääset painamalla sivuston oikeassa
+                                yläkulmassa olevaa kuvaa ja &quot;Ryhmän
                                 tulokset&quot; painiketta.
                             </Typography>
                             <Typography variant="h6">
                                 Miten voin poistua ryhmästä?
                             </Typography>
                             <Typography marginBottom={2}>
-                                Ryhmästä poistuminen onnistuu sivuston oikeasta
-                                yläkulmasta painamalla kuvaa ja &quot;Poistu
+                                Ryhmästä poistuminen onnistuu painamalla sivuston oikeassa
+                                yläkulmassa olevaa kuvaa ja &quot;Poistu
                                 ryhmästä&quot; painiketta.
                             </Typography>
                         </Box>
