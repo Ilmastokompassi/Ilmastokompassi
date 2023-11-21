@@ -75,7 +75,7 @@ def get_summary(response_id):
         return jsonify(error="Something went wrong!"), 500
 
 
-@api.route('/new-group', methods=['POST'])
+@api.route('/group/new', methods=['POST'])
 def new_group():
     data = request.get_json()
     token = data.get('token')

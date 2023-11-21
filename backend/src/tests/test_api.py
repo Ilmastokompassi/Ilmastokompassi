@@ -69,7 +69,7 @@ def test_get_summary(client):
 
 def test_new_group(client):
     data = {'token': 'YESGROUP'}
-    response = client.post('/api/new-group', json=data)
+    response = client.post('/api/group/new', json=data)
     result = json.loads(response.data)
 
     assert response.status_code == 200

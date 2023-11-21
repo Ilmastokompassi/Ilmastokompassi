@@ -1,5 +1,4 @@
 import * as React from 'react'
-import { useNavigate } from 'react-router-dom'
 import {
     Dialog,
     DialogTitle,
@@ -10,17 +9,19 @@ import {
     Button,
 } from '@mui/material'
 
-export default function GroupDialog() {
+export default function CreateGroupDialog() {
     const [groupName, setGroupName] = React.useState('')
     const [isValid, setIsValid] = React.useState(true)
     const [alertMessage, setAlertMessage] = React.useState('')
     const [open, setOpen] = React.useState(false)
     const [groupIsMade, setGroupIsMade] = React.useState(false)
-    const navigate = useNavigate()
+
+    const validateGroupName = (groupName) => /^[A-Z0-9]{1,10}$/.test(groupName)
 
     const handleGroupNameChange = (event) => {
         const newGroupName = event.target.value.toUpperCase()
         setGroupName(newGroupName)
+
         setIsValid(validateGroupName(newGroupName))
         setAlertMessage('Tarkista ryhmätunnus.')
     }
@@ -31,7 +32,7 @@ export default function GroupDialog() {
             setAlertMessage('Ryhmätunnus ei voi olla tyhjä.')
             return
         }
-        fetch('/api/new-group', {
+        fetch('/api/group/new', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -47,32 +48,11 @@ export default function GroupDialog() {
                 }
                 setGroupIsMade(true)
             })
-            .catch((error) => console.error(error))
     }
 
-    const moveToGroupSummaryPage = () => {
-        fetch(`/api/group/${groupName}`, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        })
-            .then((response) => response.json())
-            .then(() => {
-                setOpen(false)
-                navigate(`/yhteenveto/ryhma/${groupName}`)
-            })
-            .catch((error) => console.error(error))
-    }
-
-    const handleNew = () => {
+    const resetDialog = () => {
         setGroupIsMade(false)
         setGroupName('')
-    }
-
-    const validateGroupName = (groupName) => {
-        const regex = /^[A-Z0-9]{1,10}$/
-        return regex.test(groupName)
     }
 
     return (
@@ -118,16 +98,14 @@ export default function GroupDialog() {
                                 Ok
                             </Button>
                             <Button
-                                data-testid="create-group"
-                                onClick={handleNew}
-                                color="primary"
+                                data-testid="reset-dialog"
+                                onClick={resetDialog}
                             >
                                 Luo uusi ryhmä
                             </Button>
                             <Button
                                 data-testid="open-group-summary"
-                                onClick={moveToGroupSummaryPage}
-                                color="primary"
+                                href={'/yhteenveto/ryhma/' + groupName}
                             >
                                 Ryhmän tulokset
                             </Button>
@@ -146,7 +124,7 @@ export default function GroupDialog() {
                             </DialogContentText>
                             <TextField
                                 error={!isValid}
-                                helperText={isValid ? '' : alertMessage}
+                                helperText={!isValid && alertMessage}
                                 autoFocus
                                 margin="dense"
                                 label="Ryhmätunnus"
