@@ -36,7 +36,7 @@ class QuizService:
 
     def save_answers(self, question_id, answers, response_id):
         try:
-            self.quiz_repository.save_answer(
+            self.quiz_repository.save_answers(
                 question_id, answers, response_id)
         except Exception as error:
             raise error

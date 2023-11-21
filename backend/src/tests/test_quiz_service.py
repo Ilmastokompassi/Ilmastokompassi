@@ -2,7 +2,7 @@ import unittest
 from src.services.quiz_service import QuizService
 
 
-class mock_quiz_repository:
+class QuizRepositoryMock:
     def __init__(self) -> None:
         self.answers = []
 
@@ -35,11 +35,20 @@ class mock_quiz_repository:
 
         return selected_options
 
+    def create_quiz_response(self, group_token=None):
+        return 1
+
+    def get_correct_answers(self, question_id):
+        return [1, 2, 3]
+
+    def get_info_text(self, question_id):
+        return "info text"
+
 
 class TestQuizService(unittest.TestCase):
     def setUp(self):
-        self.mock_quiz_repository = mock_quiz_repository()
-        self.quiz_service = QuizService(self.mock_quiz_repository)
+        self.quiz_repository_mock = QuizRepositoryMock()
+        self.quiz_service = QuizService(self.quiz_repository_mock)
 
     def test_get_questions(self):
         result = self.quiz_service.get_questions()
@@ -48,8 +57,15 @@ class TestQuizService(unittest.TestCase):
         self.assertEqual(result[1]["content"], "kysymys 1")
         self.assertEqual(len(result[1]["options"]), 3)
 
+    def test_get_questions_exception(self):
+        self.quiz_repository_mock.get_questions = Exception(
+            "Test exception"
+        )
+        with self.assertRaises(Exception):
+            self.quiz_service.get_questions()
+
     def test_get_response_answers(self):
-        self.mock_quiz_repository.answers = [
+        self.quiz_repository_mock.answers = [
             {"id": 1, "response_id": 1, "question_id": 1, "selected_option_id": 1},
             {"id": 2, "response_id": 1, "question_id": 2, "selected_option_id": 2},
             {"id": 3, "response_id": 1, "question_id": 3, "selected_option_id": 3},
@@ -61,23 +77,53 @@ class TestQuizService(unittest.TestCase):
         self.assertEqual(result[0][0], 1)
         self.assertEqual(result[0][1], 1)
 
-    def test_save_answers_exception(self):
-        self.mock_quiz_repository.save_answers = Exception(
-            "Test exception"
-        )
-        answers = [
-            {"question_id": 1, "selected_option_ids": [1]},
-            {"question_id": 2, "selected_option_ids": [2]},
-            {"question_id": 3, "selected_option_ids": [3]},
-            {"question_id": 4, "selected_option_ids": [4]},
-            {"question_id": 5, "selected_option_ids": [5]}
-        ]
-        with self.assertRaises(Exception):
-            self.quiz_service.save_answers(answers)
-
     def test_get_response_answers_exception(self):
-        self.mock_quiz_repository.get_response_answers = Exception(
+        self.quiz_repository_mock.get_response_answers = Exception(
             "Test exception"
         )
         with self.assertRaises(Exception):
             self.quiz_service.get_response_answers(1)
+
+    def test_create_quiz_response(self):
+        result = self.quiz_service.create_quiz_response()
+        self.assertEqual(result, 1)
+
+    def test_create_quiz_response(self):
+        self.quiz_repository_mock.create_quiz_response = Exception(
+            "Test exception"
+        )
+        with self.assertRaises(Exception):
+            self.quiz_service.create_quiz_response()
+
+    def test_save_answers(self):
+        result = self.quiz_service.save_answers(1, [1, 2, 3], 1)
+        self.assertEqual(result, 1)
+
+    def test_save_answers_exception(self):
+        self.quiz_repository_mock.save_answers = Exception(
+            "Test exception"
+        )
+        with self.assertRaises(Exception):
+            self.quiz_service.save_answers(1, [1, 2, 3], 1)
+
+    def test_get_correct_answers(self):
+        result = self.quiz_service.get_correct_answers(1)
+        self.assertEqual(result, [1, 2, 3])
+
+    def test_get_correct_answers_exception(self):
+        self.quiz_repository_mock.get_correct_answers = Exception(
+            "Test exception"
+        )
+        with self.assertRaises(Exception):
+            self.quiz_service.get_correct_answers(-1)
+
+    def test_get_info_text(self):
+        result = self.quiz_service.get_info_text(1)
+        self.assertEqual(result, "info text")
+
+    def test_get_info_text_exception(self):
+        self.quiz_repository_mock.get_info_text = Exception(
+            "Test exception"
+        )
+        with self.assertRaises(Exception):
+            self.quiz_service.get_info_text(-1)

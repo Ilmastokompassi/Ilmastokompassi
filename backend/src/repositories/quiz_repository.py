@@ -32,7 +32,7 @@ class QuizRepository:
         except Exception as error:
             raise error
 
-    def save_answer(self, question_id, answers, response_id):
+    def save_answers(self, question_id, answers, response_id):
         try:
             for option_id in answers:
                 sql = text("""
