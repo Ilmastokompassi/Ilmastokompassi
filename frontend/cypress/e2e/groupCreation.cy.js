@@ -37,7 +37,7 @@ describe('Open group creation dialog', function () {
 
             describe('and create group', function () {
                 it('with token FOOBAR', function () {
-                    cy.task('db:reset')
+                    cy.exec('../bin/db-reset')
 
                     const validGroupToken = 'FOOBAR'
 
@@ -50,50 +50,59 @@ describe('Open group creation dialog', function () {
                         cy.findByTestId('create-group')
                             .should('be.visible')
                             .click()
-
-                        cy.should(
-                            'contain',
-                            `Ryhmä ${validGroupToken} luotu onnistuneesti!`
-                        )
                     })
+
+                    cy.get('@groupDialog').should(
+                        'contain',
+                        `Ryhmä ${validGroupToken} luotu onnistuneesti!`
+                    )
                 })
 
                 it('with empty token fails', function () {
-                    cy.get('@groupDialog')
-                        .within(() => {
-                            cy.get('@createGroup').click()
-                        })
-                        .should('contain', 'Ryhmätunnus ei voi olla tyhjä.')
+                    cy.get('@groupDialog').within(() => {
+                        cy.get('@createGroup').click()
+                    })
+
+                    cy.get('@groupDialog').should(
+                        'contain',
+                        'Ryhmätunnus ei voi olla tyhjä.'
+                    )
                 })
 
                 it('with too long token fails', function () {
                     const tooLongGroupToken = 'A'.repeat(20)
 
-                    cy.get('@groupDialog')
-                        .within(() => {
-                            cy.get('@tokenInput').type(tooLongGroupToken)
+                    cy.get('@groupDialog').within(() => {
+                        cy.get('@tokenInput').type(tooLongGroupToken)
 
-                            cy.get('@tokenInput')
-                                .get('input')
-                                .should('have.value', tooLongGroupToken)
-                            cy.get('@createGroup').should('be.disabled')
-                        })
-                        .should('contain', 'Tarkista ryhmätunnus')
+                        cy.get('@tokenInput')
+                            .get('input')
+                            .should('have.value', tooLongGroupToken)
+                        cy.get('@createGroup').should('be.disabled')
+                    })
+
+                    cy.get('@groupDialog').should(
+                        'contain',
+                        'Tarkista ryhmätunnus'
+                    )
                 })
 
                 it('with with special characters fails', function () {
                     const specialChars = '!!!?&'
 
-                    cy.get('@groupDialog')
-                        .within(() => {
-                            cy.get('@tokenInput').type(specialChars)
+                    cy.get('@groupDialog').within(() => {
+                        cy.get('@tokenInput').type(specialChars)
 
-                            cy.get('@tokenInput')
-                                .get('input')
-                                .should('have.value', specialChars)
-                            cy.get('@createGroup').should('be.disabled')
-                        })
-                        .should('contain', 'Tarkista ryhmätunnus')
+                        cy.get('@tokenInput')
+                            .get('input')
+                            .should('have.value', specialChars)
+                        cy.get('@createGroup').should('be.disabled')
+                    })
+
+                    cy.get('@groupDialog').should(
+                        'contain',
+                        'Tarkista ryhmätunnus'
+                    )
                 })
             })
         })

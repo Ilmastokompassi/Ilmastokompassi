@@ -3,13 +3,7 @@ import { defineConfig } from 'cypress'
 /* eslint-disable */
 export default defineConfig({
     e2e: {
-        setupNodeEvents(on, config) {
-            on('task', {
-                'db:reset': () => {
-                    return Cypress.exec('./bin/db-reset')
-                },
-            })
-        },
+        setupNodeEvents(on, config) {},
         baseUrl: 'http://localhost:5173',
         supportFile: './cypress/support/e2e.js',
     },
