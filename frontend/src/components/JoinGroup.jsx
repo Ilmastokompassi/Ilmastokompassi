@@ -5,12 +5,10 @@ import { useState } from 'react'
 const JoinGroup = () => {
     const [groupToken, setGroupToken] = useState('')
     const [isValid, setIsValid] = useState(true)
-    const [joinedToGroup, setJoinedToGroup] = useState(false)
 
     const handleTextFieldChange = (event) => {
         setGroupToken(event.target.value.toUpperCase())
         setIsValid(true)
-        setJoinedToGroup(false)
     }
 
     const handleSubmit = () => {
@@ -28,7 +26,6 @@ const JoinGroup = () => {
                     localStorage.setItem('groupToken', groupToken)
                     window.dispatchEvent(new Event('setGroupToken'))
                     setGroupToken('')
-                    setJoinedToGroup(true)
                 } else {
                     setIsValid(false)
                 }
