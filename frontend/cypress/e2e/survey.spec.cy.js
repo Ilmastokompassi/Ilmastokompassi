@@ -44,8 +44,6 @@ describe('From survey page large ', function () {
 
     // Remember to reste database before running this test
 
-    // eslint-disable-next-line
-    cy.wait(500)
     it('Make survey 5 times in a group and check that the results are correct', function () {
         cy.title().should('eq', 'Ilmastoroolikysely')
         cy.createGroupWithToken('SURVEYTEST')
