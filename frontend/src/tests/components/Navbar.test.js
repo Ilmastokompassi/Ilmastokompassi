@@ -33,3 +33,17 @@ test('Find both survey links', () => {
     const smallScreenLink = smallScreenText.parentElement
     expect(smallScreenLink['href']).toMatch(/\/ilmastoroolikysely$/)
 })
+
+test('Find both faq links', () => {
+    const largeScreenLink = screen.getByText('FAQ', {
+        selector: 'a',
+    })
+
+    expect(largeScreenLink['href']).toMatch(/\/faq$/)
+
+    const smallScreenText = screen.getByText('FAQ', {
+        selector: 'p',
+    })
+    const smallScreenLink = smallScreenText.parentElement
+    expect(smallScreenLink['href']).toMatch(/\/faq$/)
+})
