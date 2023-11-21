@@ -24,7 +24,6 @@ describe('Question page', () => {
         fetchMock.mockResponse(JSON.stringify(fakeQuestions))
 
         await act(async () => renderWithRoute('/kysymys/1'))
-
     })
 
     test('renders question heading', async () => {
