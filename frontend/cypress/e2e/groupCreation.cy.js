@@ -52,8 +52,7 @@ describe('Open group creation dialog', function () {
                             .click()
                     })
 
-                    cy.get('@groupDialog').should(
-                        'contain',
+                    cy.get('@groupDialog').contains(
                         `Ryhmä ${validGroupToken} luotu onnistuneesti!`
                     )
                 })
@@ -63,8 +62,7 @@ describe('Open group creation dialog', function () {
                         cy.get('@createGroup').click()
                     })
 
-                    cy.get('@groupDialog').should(
-                        'contain',
+                    cy.get('@groupDialog').contains(
                         'Ryhmätunnus ei voi olla tyhjä.'
                     )
                 })
@@ -81,13 +79,10 @@ describe('Open group creation dialog', function () {
                         cy.get('@createGroup').should('be.disabled')
                     })
 
-                    cy.get('@groupDialog').should(
-                        'contain',
-                        'Tarkista ryhmätunnus'
-                    )
+                    cy.get('@groupDialog').contains('Tarkista ryhmätunnus')
                 })
 
-                it('with with special characters fails', function () {
+                it('with special characters in token fails', function () {
                     const specialChars = '!!!?&'
 
                     cy.get('@groupDialog').within(() => {
@@ -99,10 +94,7 @@ describe('Open group creation dialog', function () {
                         cy.get('@createGroup').should('be.disabled')
                     })
 
-                    cy.get('@groupDialog').should(
-                        'contain',
-                        'Tarkista ryhmätunnus'
-                    )
+                    cy.get('@groupDialog').contains('Tarkista ryhmätunnus')
                 })
             })
         })
