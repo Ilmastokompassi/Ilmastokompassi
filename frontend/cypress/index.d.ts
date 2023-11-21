@@ -12,11 +12,5 @@ declare namespace Cypress {
        * cy.createGroupWithApi('HELLU2')
        */
       createGroupWithApi(groupToken: string): Chainable<any>
-      /**
-       * Creates one group using the UI
-       * @example
-       * cy.createGroupWithDialog('HELLU2')
-       */
-      createGroupWithDialog(groupToken: string): Chainable<any>
     }
   }
