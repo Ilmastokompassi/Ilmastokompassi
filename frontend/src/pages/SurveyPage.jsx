@@ -33,29 +33,13 @@ export function SurveyPage() {
     return (
         <Container>
             <Box paddingY={5}>
-                <Stack
-                    spacing={4}
-                    paddingTop={'30px'}
-                    paddingBottom={'50px'}
-                    padding={'20px'}
-                    alignItems={'center'}
-                >
-                    <Card>
-                        <CardContent>
-                            <Typography
-                                variant="h1"
-                                margin={3}
-                                sx={{
-                                    fontSize: {
-                                        xs: '2em', // Smaller font size for extra small screens
-                                        sm: '3em', // Slightly bigger for small screens
-                                    },
-                                    textAlign: 'center',
-                                }}
-                            >
+                <Card>
+                    <CardContent>
+                        <Box marginLeft={1} paddingY={2}>
+                            <Typography variant="h4">
                                 Ilmastoroolikysely
                             </Typography>
-                            <Typography marginBottom={3} variant="body1">
+                            <Typography marginBottom={3}>
                                 Kyselyn kysymykset liittyvät ilmastonmuutokseen
                                 liittyviin asenteisiisi. Voit vastata kyselyyn
                                 painamalla &quot;Aloita&quot; painiketta. Kun
@@ -64,10 +48,10 @@ export function SurveyPage() {
                                 tutustua ilmastorooleihin{' '}
                                 <Link href={`/ilmastoroolit`}>täältä!</Link>
                             </Typography>
-                            <Typography marginBottom={2} variant="h6">
+                            <Typography variant="h6">
                                 Vastaaminen ryhmässä
                             </Typography>
-                            <Typography marginBottom={2} variant="body1">
+                            <Typography marginBottom={2}>
                                 Voitte vertailla kyselyistä saatuja tuloksia jos
                                 teette sivuston kyselyjä ryhmänä. Ryhmäsi
                                 tulokset tulevat näkyviin, kun viisi ryhmän
@@ -76,33 +60,29 @@ export function SurveyPage() {
                                 pääset tarkastelemaan oikean yläkulman
                                 painikkeesta.
                             </Typography>
-                            {!groupToken && <JoinGroup />}
-                            <Stack
-                                alignItems={'center'}
-                                paddingTop={7}
-                                paddingBottom={4}
-                            >
+                            <Stack alignItems={'center'} spacing={2}>
+                                {!groupToken && <JoinGroup />}
                                 <Button
                                     style={{
                                         width: 200,
-                                        height: 100,
+                                        height: 60,
                                     }}
                                     data-testid="start-survey"
                                     variant="contained"
                                     href="/kysymys/1"
-                                    color="primary"
+                                    color="secondary"
                                 >
                                     <Typography
-                                        fontWeight={'medium'}
+                                        variant={'h5'}
                                         letterSpacing={2}
                                     >
-                                        Aloita !
+                                        Aloita
                                     </Typography>
                                 </Button>
                             </Stack>
-                        </CardContent>
-                    </Card>
-                </Stack>
+                        </Box>
+                    </CardContent>
+                </Card>
             </Box>
         </Container>
     )
