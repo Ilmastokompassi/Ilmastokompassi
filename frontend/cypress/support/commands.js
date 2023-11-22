@@ -13,7 +13,7 @@ Cypress.Commands.add(
 )
 
 Cypress.Commands.add('createGroupWithApi', (groupToken) => {
-    cy.request('POST', '/api/new-group', { token: groupToken }).then(
+    cy.request('POST', '/api/group/new', { token: groupToken }).then(
         (response) => {
             expect(response.body).to.have.property('group_token', groupToken)
             expect(response.body).to.have.property('status', 'success')

@@ -14,25 +14,36 @@ def ping():
 
 @api.route("/question")
 def total_questions():
-    questions_list = default_survey_service.get_questions()
-    return jsonify(questions_list)
+    try:
+        questions_list = default_survey_service.get_questions()
+        return jsonify(questions_list)
+
+    except Exception:  # pylint: disable=broad-except
+        return jsonify(error="Something went wrong!"), 500
 
 
 @api.route("/roles")
 def roles():
-    role_list = default_profile_service.get_profiles()
-    return jsonify(role_list)
+    try:
+        role_list = default_profile_service.get_profiles()
+        return jsonify(role_list)
+
+    except Exception:  # pylint: disable=broad-except
+        return jsonify(error="Something went wrong!"), 500
 
 
 @api.route("/question/<int:question_id>")
 def individual_question(question_id):
-    questions_list = default_survey_service.get_questions()
-    question = next(
-        (q for q in questions_list if q['id'] == question_id), None)
-    if question is None:
-        abort(404, description="Question not found")
+    try:
+        questions_list = default_survey_service.get_questions()
+        question = next(
+            (q for q in questions_list if q['id'] == question_id), None)
+        if question is None:
+            abort(404, description="Question not found")
+        return jsonify(question)
 
-    return jsonify(question)
+    except Exception:  # pylint: disable=broad-except
+        return jsonify(error="Something went wrong!"), 500
 
 
 @api.route("/submit", methods=['POST'])
@@ -48,11 +59,10 @@ def submit():
                 group_token, response_id)
         return jsonify({"status": "success",
                         "message": "Answers submitted successfully",
-                        "user_id": response_id}), 200
-    except Exception as error:  # pylint: disable=broad-except
-        print("ROUTE submit", error)
+                        "user_id": response_id})
+    except Exception:  # pylint: disable=broad-except
         return jsonify({"status": "fail",
-                        "message": "Something went wrong"}), 418
+                        "message": "Something went wrong"}), 500
 
 
 @api.route('/summary/<int:response_id>', methods=['GET'])
@@ -61,12 +71,11 @@ def get_summary(response_id):
         summary, count, total_questions_count = default_survey_service.get_summary(
             response_id)
         return jsonify(count=count, summary=summary, total_questions_count=total_questions_count)
-    except Exception as error:  # pylint: disable=broad-except
-        print(error)
+    except Exception:  # pylint: disable=broad-except
         return jsonify(error="Something went wrong!"), 500
 
 
-@api.route('/new-group', methods=['POST'])
+@api.route('/group/new', methods=['POST'])
 def new_group():
     data = request.get_json()
     token = data.get('token')
@@ -76,13 +85,12 @@ def new_group():
                 group_token = default_group_service.save_group(token)
                 return jsonify({"status": "success",
                                 "message": "Group created successfully",
-                                "group_token": group_token}), 200
+                                "group_token": group_token})
             return jsonify({"status": "fail",
                             "message": "Group already exists"}), 400
         return jsonify({"status": "fail",
                         "message": "Invalid group name"}), 400
-    except Exception as error:  # pylint: disable=broad-except
-        print(error)
+    except Exception:  # pylint: disable=broad-except
         return jsonify(error="Something went wrong!"), 500
 
 
@@ -93,9 +101,8 @@ def group_summary(group_token):
             return jsonify({"status": "fail",
                             "message": "Group does not exist"}), 400
         return jsonify({"status": "success",
-                        "message": "Group exists"}), 200
-    except Exception as error:  # pylint: disable=broad-except
-        print(error)
+                        "message": "Group exists"})
+    except Exception:  # pylint: disable=broad-except
         return jsonify(error="Something went wrong!"), 500
 
 
@@ -104,19 +111,20 @@ def get_group(group_token):
     try:
         group_token = default_group_service.check_if_group_exists(group_token)
         return jsonify(group_token=group_token)
-    except Exception as error:  # pylint: disable=broad-except
-        print(error)
+    except Exception:  # pylint: disable=broad-except
         return jsonify(error="Something went wrong!"), 500
 
 
 @api.route('/group/<string:group_token>/score', methods=['GET'])
 def get_group_score(group_token):
     try:
+        if not default_group_service.check_if_group_exists(group_token):
+            return jsonify({"status": "fail",
+                            "message": "Group does not exist"}), 400
         score, response_amount = default_group_service.fetch_scores_by_group(
             group_token)
         return jsonify(score=score, response_amount=response_amount)
-    except Exception as error:  # pylint: disable=broad-except
-        print(error)
+    except Exception:  # pylint: disable=broad-except
         return jsonify(error="Something went wrong!"), 500
 
 
@@ -127,8 +135,7 @@ def create_new_quiz_response():
     try:
         response_id = default_quiz_service.create_quiz_response(group_token)
         return jsonify(response_id=response_id)
-    except Exception as error:  # pylint: disable=broad-except
-        print("Error creating quiz response_id:", error)
+    except Exception:  # pylint: disable=broad-except
         return jsonify(error="Could not create response_id"), 500
 
 
@@ -137,8 +144,7 @@ def get_quiz_questions():
     try:
         quiz = default_quiz_service.get_questions()
         return jsonify(quiz)
-    except Exception as error:  # pylint: disable=broad-except
-        print(error)
+    except Exception:  # pylint: disable=broad-except
         return jsonify(error="Could not get questions"), 500
 
 
@@ -154,8 +160,7 @@ def save_quiz_answer():
         correct_answers = default_quiz_service.get_correct_answers(question_id)
         info_text = default_quiz_service.get_info_text(question_id)
         return jsonify(correct_answers=correct_answers, info_text=info_text)
-    except Exception as error:  # pylint: disable=broad-except
-        print("error", error)
+    except Exception:  # pylint: disable=broad-except
         return jsonify("error"), 500
 
 
