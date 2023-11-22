@@ -157,3 +157,14 @@ def save_quiz_answer():
     except Exception as error:  # pylint: disable=broad-except
         print("error", error)
         return jsonify("error"), 500
+
+
+@api.route("/quiz/summary", methods=["GET"])
+def get_quiz_summary():
+    try:
+        summary = default_quiz_service.get_all_questions_and_answers()
+        print(summary)
+        return jsonify(summary)
+    except Exception as error:  # pylint: disable=broad-except
+        print(error)
+        return jsonify(error="Could not get summary"), 500
