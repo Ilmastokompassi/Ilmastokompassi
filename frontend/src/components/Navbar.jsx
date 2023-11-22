@@ -13,7 +13,7 @@ import MenuItem from '@mui/material/MenuItem'
 import { NavLink } from 'react-router-dom'
 import GroupIcon from '@mui/icons-material/Group'
 import ClimComp from '../assets/climcomp.png'
-import { Stack, useMediaQuery, useTheme } from '@mui/material'
+import { ListItem, Stack, useMediaQuery, useTheme } from '@mui/material'
 
 const pages = [
     { name: 'Ilmastoroolikysely', route: '/ilmastoroolikysely', id: 'survey' },
@@ -23,7 +23,7 @@ const pages = [
 
 const Logo = () => (
     <Typography
-        variant={{ xs: 'h6', md: 'h5' }}
+        variant="h6"
         component={NavLink}
         to="/"
         fontFamily="monospace"
@@ -40,35 +40,29 @@ const Logo = () => (
 )
 
 const NavigationMenu = () => {
-    const [anchorElNav, setAnchorElNav] = React.useState(null)
-    const handleCloseNavMenu = () => setAnchorElNav(null)
-    const handleOpenNavMenu = (event) => setAnchorElNav(event.currentTarget)
+    const [anchorElement, setAnchorElement] = React.useState(null)
+
     return (
         <>
             <IconButton
-                aria-controls="appbar-navigation-menu"
+                aria-controls="navigation-menu"
                 aria-haspopup="true"
-                onClick={handleOpenNavMenu}
+                onClick={(event) => setAnchorElement(event.currentTarget)}
                 color="inherit"
                 data-testid="navigation-hamburger"
             >
                 <MenuIcon />
             </IconButton>
             <Menu
-                id="appbar-navigation-menu"
-                data-testid="appbar-navigation-menu"
-                anchorEl={anchorElNav}
+                id="navigation-menu"
+                data-testid="navigation-menu"
+                anchorEl={anchorElement}
                 anchorOrigin={{
                     vertical: 'bottom',
                     horizontal: 'left',
                 }}
-                keepMounted
-                transformOrigin={{
-                    vertical: 'top',
-                    horizontal: 'left',
-                }}
-                open={Boolean(anchorElNav)}
-                onClose={handleCloseNavMenu}
+                open={Boolean(anchorElement)}
+                onClose={() => setAnchorElement(null)}
             >
                 {pages.map((page) => (
                     <MenuItem
@@ -76,7 +70,7 @@ const NavigationMenu = () => {
                         component={NavLink}
                         to={page.route}
                         data-testid={page.id + '-navigation-menu-item'}
-                        onClick={handleCloseNavMenu}
+                        onClick={() => setAnchorElement(null)}
                     >
                         {page.name}
                     </MenuItem>
@@ -87,83 +81,55 @@ const NavigationMenu = () => {
 }
 
 const GroupMenu = () => {
-    const [anchorElUser, setAnchorElUser] = React.useState(null)
+    const [anchorElement, setAnchorElement] = React.useState(null)
     const [groupToken, setGroupToken] = React.useState(null)
 
-    const handleOpenUserMenu = (event) => setAnchorElUser(event.currentTarget)
-    const handleCloseUserMenu = () => setAnchorElUser(null)
+    const refreshToken = () => setGroupToken(localStorage.getItem('groupToken'))
 
     React.useEffect(() => {
-        const refreshToken = () =>
-            setGroupToken(localStorage.getItem('groupToken'))
-
         refreshToken()
         window.addEventListener('setGroupToken', refreshToken)
-        return () => {
-            window.removeEventListener('setGroupToken', refreshToken)
-        }
+
+        return () => window.removeEventListener('setGroupToken', refreshToken)
     }, [])
 
     return (
         <>
             <IconButton
-                onClick={handleOpenUserMenu}
-                sx={{ p: 0 }}
+                onClick={(event) => setAnchorElement(event.currentTarget)}
                 data-testid="show-group-menu"
-                aria-controls="appbar-group-menu"
+                aria-controls="group-menu"
                 aria-haspopup="true"
+                color="inherit"
             >
-                <Avatar sx={{ bgcolor: 'primary.main' }}>
-                    <GroupIcon />
-                </Avatar>
+                <GroupIcon />
             </IconButton>
             <Menu
                 sx={{ mt: '45px' }}
-                id="appbar-group-menu"
-                data-testid="appbar-group-menu"
-                anchorEl={anchorElUser}
+                id="group-menu"
+                data-testid="group-menu"
+                anchorEl={anchorElement}
                 anchorOrigin={{
                     vertical: 'top',
                     horizontal: 'right',
                 }}
-                keepMounted
-                transformOrigin={{
-                    vertical: 'top',
-                    horizontal: 'right',
-                }}
-                open={Boolean(anchorElUser)}
-                onClose={handleCloseUserMenu}
+                open={Boolean(anchorElement)}
+                onClose={() => setAnchorElement(null)}
             >
-                <MenuItem
+                <ListItem
                     data-testid="current-group-token"
-                    onClick={handleCloseUserMenu}
-                    disableRipple
-                    disableTouchRipple
-                    sx={{
-                        cursor: 'default',
-                        '&:hover': {
-                            backgroundColor: 'inherit',
-                        },
-                    }}
+                    role="menuitem"
+                    sx={{ fontWeight: 'bold' }}
                 >
-                    <Typography
-                        sx={{
-                            fontWeight: 'bold',
-                            cursor: 'default',
-                        }}
-                    >
-                        {groupToken
-                            ? `Ryhmätunnus: ${groupToken}`
-                            : 'Et ole ryhmässä'}
-                    </Typography>
-                </MenuItem>
-                {groupToken ? (
-                    <Box>
+                    {groupToken
+                        ? `Ryhmätunnus: ${groupToken}`
+                        : 'Et ole ryhmässä'}
+                </ListItem>
+                {groupToken && (
+                    <>
                         <MenuItem
                             data-testid="open-group-summary"
-                            onClick={() => {
-                                handleCloseUserMenu()
-                            }}
+                            onClick={() => setAnchorElement(null)}
                             component={NavLink}
                             to={`/yhteenveto/ryhma/${groupToken}`}
                         >
@@ -175,13 +141,13 @@ const GroupMenu = () => {
                                 localStorage.removeItem('groupToken')
                                 setGroupToken(null)
                                 window.dispatchEvent(new Event('setGroupToken'))
-                                handleCloseUserMenu()
+                                setAnchorElement(null)
                             }}
                         >
                             Poistu ryhmästä
                         </MenuItem>
-                    </Box>
-                ) : null}
+                    </>
+                )}
             </Menu>
         </>
     )
@@ -195,11 +161,11 @@ function ResponsiveAppBar() {
         <AppBar position="static">
             <Container>
                 <Toolbar disableGutters>
-                    {/* Mobile */}
                     <Stack
                         direction="row"
                         alignItems="center"
                         flexGrow={1}
+                        spacing={1}
                         justifyContent="space-between"
                     >
                         {isDesktop ? (
