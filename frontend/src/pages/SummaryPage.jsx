@@ -101,11 +101,6 @@ export const SummaryPage = () => {
                         <Typography
                             variant="h1"
                             sx={{
-                                fontSize: {
-                                    xs: '2em', // Smaller font size for extra small screens
-                                    sm: '3em', // Slightly bigger for small screens
-                                    md: '4em', // Original size for medium screens and up
-                                },
                                 textAlign: 'center',
                                 p: '20px',
                             }}
@@ -118,16 +113,7 @@ export const SummaryPage = () => {
                             <p>Loading...</p>
                         ) : filteredSummaryScores.length === 0 ? (
                             <>
-                                <Typography
-                                    variant="h2"
-                                    sx={{
-                                        fontSize: {
-                                            xs: '1em',
-                                            sm: '1.25em',
-                                            md: '1.5em',
-                                        },
-                                    }}
-                                >
+                                <Typography variant="h3">
                                     Ei tarpeeksi dataa tulosten näyttämiseen
                                 </Typography>
                                 <Button
@@ -141,32 +127,13 @@ export const SummaryPage = () => {
                             </>
                         ) : answerCount > 0 ? (
                             <>
-                                <Typography
-                                    variant="h2"
-                                    sx={{
-                                        fontSize: {
-                                            xs: '1em',
-                                            sm: '1.5em',
-                                            md: '1.75em',
-                                        },
-                                        textAlign: 'center',
-                                    }}
-                                >
+                                <Typography variant="h2" textAlign={'center'}>
                                     Olet vastannut {answerCount}/
                                     {totalQuestions} kysymykseen ja niiden
                                     perusteella sinun ilmastoroolisi on...
                                 </Typography>
                                 {highestScoreRoles.length > 1 && (
-                                    <Typography
-                                        variant="h2"
-                                        sx={{
-                                            fontSize: {
-                                                xs: '1em',
-                                                sm: '1.25em',
-                                                md: '1.5em',
-                                            },
-                                        }}
-                                    >
+                                    <Typography variant="h3">
                                         Sinulla on useita rooleja, jotka
                                         kuvastavat sinua!
                                     </Typography>
@@ -179,31 +146,13 @@ export const SummaryPage = () => {
                                         description={role.description}
                                     />
                                 ))}
-                                <Typography
-                                    variant="h2"
-                                    sx={{
-                                        fontSize: {
-                                            xs: '1em',
-                                            sm: '1.25em',
-                                            md: '1.5em',
-                                        },
-                                    }}
-                                >
+                                <Typography variant="h2">
                                     Eri roolien välinen jakauma
                                 </Typography>
                                 <SummaryDoughnut data={doughnutChartData} />
                                 {groupToken !== null && (
                                     <>
-                                        <Typography
-                                            variant="h3"
-                                            sx={{
-                                                fontSize: {
-                                                    xs: '1em',
-                                                    sm: '1.25em',
-                                                    md: '1.5em',
-                                                },
-                                            }}
-                                        >
+                                        <Typography variant="h3">
                                             Ryhmän {groupToken} jakauma.
                                             Kyselyyn on vastannut{' '}
                                             {allRolesData.response_amount}{' '}
