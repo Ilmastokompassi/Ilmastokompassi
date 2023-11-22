@@ -12,5 +12,11 @@ declare namespace Cypress {
        * cy.createGroupWithApi('HELLU2')
        */
       createGroupWithApi(groupToken: string): Chainable<any>
+      /**
+       * Navigates to a page using the navigation bar
+       * @example
+       * cy.navigateToPageWithNavBar('survey')
+       */
+      navigateToPageWithNavBar(pageId: string): Chainable<any>
     }
   }

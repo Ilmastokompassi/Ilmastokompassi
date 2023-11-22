@@ -60,7 +60,7 @@ describe('Joining group from frontpage', function () {
                 cy.get('@joinGroup').click()
 
                 cy.findByTestId('show-group-menu').click()
-                cy.findByTestId('appbar-group-menu')
+                cy.findByTestId('group-menu')
                     .should('be.visible')
                     .within(() => {
                         cy.findByTestId('current-group-token').contains(
@@ -70,7 +70,7 @@ describe('Joining group from frontpage', function () {
                     })
 
                 cy.findByTestId('show-group-menu').click()
-                cy.findByTestId('appbar-group-menu')
+                cy.findByTestId('group-menu')
                     .should('be.visible')
                     .within(() => {
                         cy.findByTestId('current-group-token').contains(
