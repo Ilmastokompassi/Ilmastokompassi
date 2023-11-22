@@ -166,7 +166,7 @@ export const FactQuizQuestionPage = () => {
                                                 <Button
                                                     variant="contained"
                                                     color="primary"
-                                                    onClick={handleAnswer}
+                                                    href="/tietovisa/yhteenveto"
                                                 >
                                                     Lopeta kysely
                                                 </Button>
