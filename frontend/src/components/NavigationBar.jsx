@@ -5,15 +5,18 @@ import Toolbar from '@mui/material/Toolbar'
 import IconButton from '@mui/material/IconButton'
 import Typography from '@mui/material/Typography'
 import Menu from '@mui/material/Menu'
-import MenuIcon from '@mui/icons-material/Menu'
 import Container from '@mui/material/Container'
-import Avatar from '@mui/material/Avatar'
 import Button from '@mui/material/Button'
 import MenuItem from '@mui/material/MenuItem'
-import { NavLink } from 'react-router-dom'
+import ListItem from '@mui/material/MenuItem'
+import Stack from '@mui/material/Stack'
+import useMediaQuery from '@mui/material/useMediaQuery'
+import { useTheme } from '@mui/material'
+import MenuIcon from '@mui/icons-material/Menu'
 import GroupIcon from '@mui/icons-material/Group'
+import PersonIcon from '@mui/icons-material/Person'
+import { NavLink } from 'react-router-dom'
 import ClimComp from '../assets/climcomp.png'
-import { ListItem, Stack, useMediaQuery, useTheme } from '@mui/material'
 
 const pages = [
     { name: 'Ilmastoroolikysely', route: '/ilmastoroolikysely', id: 'survey' },
@@ -102,7 +105,7 @@ const GroupMenu = () => {
                 aria-haspopup="true"
                 color="inherit"
             >
-                <GroupIcon />
+                {groupToken ? <GroupIcon /> : <PersonIcon />}
             </IconButton>
             <Menu
                 sx={{ mt: '45px' }}
@@ -131,7 +134,7 @@ const GroupMenu = () => {
                             data-testid="open-group-summary"
                             onClick={() => setAnchorElement(null)}
                             component={NavLink}
-                            to={`/yhteenveto/ryhma/${groupToken}`}
+                            to={'/yhteenveto/ryhma/' + groupToken}
                         >
                             Ryhmän tulokset
                         </MenuItem>
@@ -153,7 +156,7 @@ const GroupMenu = () => {
     )
 }
 
-function ResponsiveAppBar() {
+const NavigationBar = () => {
     const theme = useTheme()
     const isDesktop = useMediaQuery(theme.breakpoints.up('md'))
 
@@ -202,4 +205,4 @@ function ResponsiveAppBar() {
         </AppBar>
     )
 }
-export default ResponsiveAppBar
+export default NavigationBar
