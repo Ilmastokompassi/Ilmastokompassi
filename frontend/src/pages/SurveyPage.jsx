@@ -12,6 +12,7 @@ import {
 import { useTitle } from '../hooks/useTitle'
 import JoinGroup from '../components/JoinGroup'
 import { useState, useEffect } from 'react'
+import RolesAccordion from '../components/RolesAccordion'
 
 export function SurveyPage() {
     const [groupToken, setGroupToken] = useState(null)
@@ -81,6 +82,7 @@ export function SurveyPage() {
                                 </Button>
                             </Stack>
                         </Box>
+                        <RolesAccordion />
                     </CardContent>
                 </Card>
             </Box>
