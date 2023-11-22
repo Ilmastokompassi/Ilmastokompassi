@@ -14,7 +14,7 @@ export const FactQuizSummaryPage = () => {
                 justifyContent="center"
                 style={{ minHeight: '80vh' }}
             >
-                <Typography variant="h1" justifyContent={'center'}>
+                <Typography variant="h1" justifyContent="center">
                     Kertaus
                 </Typography>
                 <Typography variant="h3" paddingBottom={2}>
@@ -33,7 +33,7 @@ export const FactQuizSummaryPage = () => {
                     ))
                 )}
                 <Stack paddingTop={2}>
-                    <Button variant="contained" paddingTop="2px" href="/">
+                    <Button variant="contained" href="/">
                         Palaa etusivulle
                     </Button>
                 </Stack>
