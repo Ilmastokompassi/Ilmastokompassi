@@ -11,7 +11,7 @@ export const GroupSummaryPage = () => {
     // Fetch all roles from api
     const { data: roleData, isLoading: isLoadingroles } = useSWR('/api/roles')
 
-    const { data: allrolesData, isLoading: isLoadingAllrolesData } = useSWR(
+    const { data: allRolesData, isLoading: isLoadingAllrolesData } = useSWR(
         `/api/group/${groupToken}/score`,
         { refreshInterval: 15000 }
     )
@@ -35,7 +35,7 @@ export const GroupSummaryPage = () => {
         }))
     }
 
-    const groupSummaryScores = Object.entries(allrolesData?.score || {})
+    const groupSummaryScores = Object.entries(allRolesData?.score || {})
 
     const groupRoleResults = createRoleResultsFromScores(
         groupSummaryScores,
@@ -57,7 +57,7 @@ export const GroupSummaryPage = () => {
         (result) => result.score === maxScore
     )
 
-    useTitle('Ilmastoprofiili - Tulokset')
+    useTitle('Ilmastorooli - Tulokset')
     return (
         <Container>
             <Box paddingY={5}>
@@ -81,18 +81,18 @@ export const GroupSummaryPage = () => {
                                 p: '20px',
                             }}
                         >
-                            Ryhmän ilmastoprofiili
+                            Ryhmän {groupToken} ilmastorooli
                         </Typography>
                         {isLoadingroles || isLoadingAllrolesData ? (
                             <p>Loading...</p>
                         ) : (
                             <>
-                                {allrolesData.response_amount < 5 ? (
+                                {allRolesData.response_amount < 5 ? (
                                     <Typography variant="body1">
                                         Näet tässä ryhmän {groupToken} tulokset,
                                         kun vähintään viisi henkilöä on
                                         vastannut kyselyyn. Nyt kyselyyn on
-                                        vastannut {allrolesData.response_amount}{' '}
+                                        vastannut {allRolesData.response_amount}{' '}
                                         henkilöä.
                                     </Typography>
                                 ) : (
@@ -108,8 +108,8 @@ export const GroupSummaryPage = () => {
                                                     },
                                                 }}
                                             >
-                                                Teillä on useita profiileja,
-                                                jotka kuvastavat ryhmäänne!
+                                                Teillä on useita rooleja, jotka
+                                                kuvastavat ryhmäänne!
                                             </Typography>
                                         )}
                                         {highestScoreroles.map(
@@ -126,7 +126,7 @@ export const GroupSummaryPage = () => {
                                         )}
 
                                         <Typography
-                                            variant="h2"
+                                            variant="h3"
                                             sx={{
                                                 fontSize: {
                                                     xs: '1em',
@@ -136,8 +136,8 @@ export const GroupSummaryPage = () => {
                                             }}
                                         >
                                             Ryhmän {groupToken} jakauma.
-                                            Ryhmässä kyselyyn on vastannut{' '}
-                                            {allrolesData.response_amount}{' '}
+                                            Kyselyyn on vastannut{' '}
+                                            {allRolesData.response_amount}{' '}
                                             henkilöä.
                                         </Typography>
                                         <Box
