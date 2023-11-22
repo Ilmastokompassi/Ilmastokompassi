@@ -3,5 +3,5 @@
         "allowJs": true,
         "types": ["cypress", "./index.d.ts"]
     },
-    "include": ["../node_modules/cypress", "./**/*.js"]
+    "include": ["../node_modules/cypress", "**/*.js"]
 }
