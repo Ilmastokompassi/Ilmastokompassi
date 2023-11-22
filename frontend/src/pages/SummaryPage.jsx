@@ -192,16 +192,7 @@ export const SummaryPage = () => {
                                 >
                                     Eri profiilien välinen jakauma
                                 </Typography>
-                                <Box
-                                    width={{
-                                        xs: '60vw',
-                                        sm: '50vw',
-                                        md: '40vw',
-                                    }}
-                                >
-                                    <SummaryDoughnut data={doughnutChartData} />
-                                </Box>
-
+                                <SummaryDoughnut data={doughnutChartData} />
                                 {groupToken !== null && (
                                     <>
                                         <Typography
@@ -224,19 +215,9 @@ export const SummaryPage = () => {
                                                 vastanneet kyselyyn.
                                             </Typography>
                                         ) : (
-                                            <>
-                                                <Box
-                                                    width={{
-                                                        xs: '60vw',
-                                                        sm: '50vw',
-                                                        md: '40vw',
-                                                    }}
-                                                >
-                                                    <SummaryDoughnut
-                                                        data={groupRoleData}
-                                                    />
-                                                </Box>
-                                            </>
+                                            <SummaryDoughnut
+                                                data={groupRoleData}
+                                            />
                                         )}
                                     </>
                                 )}
