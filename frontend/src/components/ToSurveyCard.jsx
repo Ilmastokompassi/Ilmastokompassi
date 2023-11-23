@@ -1,97 +1,66 @@
-import { Card, CardContent, Box, Button, Skeleton } from '@mui/material'
-import { Typography } from '@mui/material'
+import {
+    Card,
+    CardContent,
+    CardMedia,
+    CardActionArea,
+    Typography,
+    Stack,
+} from '@mui/material'
 import PropTypes from 'prop-types'
-import { useEffect, useRef, useState } from 'react'
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
 
-export const ToSurveyCard = ({ name, description, image, destination }) => {
-    const componentRef = useRef(null)
-    const [width, setWidth] = useState(0)
-
-    useEffect(() => {
-        const handleResize = () => {
-            if (componentRef.current) {
-                setWidth(componentRef.current.clientWidth)
-            }
-        }
-
-        window.addEventListener('resize', handleResize)
-        handleResize()
-
-        return () => {
-            window.removeEventListener('resize', handleResize)
-        }
-    }, [])
-
-    return (
-        <Button href={destination} ref={componentRef} sx={{ flex: '1' }}>
-            <Card
-                variant="outlined"
-                sx={{
-                    boxShadow: 1,
-                    width: '100%',
-                    minHeight: '150px',
-                    display: 'flex',
-                }}
-            >
-                {width > 400 &&
-                    (image ? (
-                        <Box>
-                            <img src={image} width={150} height={150} />
-                        </Box>
-                    ) : (
-                        <Box>
-                            <Skeleton
-                                variant="rectangular"
-                                width={150}
-                                height={150}
-                            />
-                        </Box>
-                    ))}
-
-                <Box
-                    display={'flex'}
-                    sx={{ flexDirection: 'column', overflowWrap: 'break-word' }}
+export const ToSurveyCard = ({
+    name,
+    description,
+    to,
+    icon,
+    iconBackgroundColor,
+}) => (
+    <Card
+        elevation={1}
+        sx={{
+            width: '100%',
+            height: '100%',
+        }}
+    >
+        <CardActionArea href={to}>
+            <Stack direction="row">
+                <CardMedia
+                    sx={{
+                        height: 128,
+                        minWidth: 128,
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        backgroundColor: iconBackgroundColor,
+                        color: iconBackgroundColor && 'rgba(0, 0, 0, 0.66)',
+                    }}
                 >
-                    <CardContent
-                        sx={{
-                            flex: '1 0 auto',
-                            flexDirection: 'column',
-                        }}
+                    {icon}
+                </CardMedia>
+                <CardContent sx={{ flexGrow: 1 }}>
+                    <Stack
+                        height="100%"
+                        direction="row"
+                        justifyContent="space-between"
+                        alignItems="center"
                     >
-                        <Typography
-                            variant="h2"
-                            sx={{
-                                fontSize: {
-                                    xs: '1.25em',
-                                    sm: '1.5em',
-                                    md: '1.75em',
-                                },
-                            }}
-                        >
-                            {name}
-                        </Typography>
-                        <Typography
-                            variant="h4"
-                            sx={{
-                                fontSize: {
-                                    xs: '1em',
-                                    sm: '1.25em',
-                                    md: '1.5em',
-                                },
-                            }}
-                        >
+                        <Stack>
+                            <Typography variant="h5">{name}</Typography>
                             {description}
-                        </Typography>
-                    </CardContent>
-                </Box>
-            </Card>
-        </Button>
-    )
-}
+                        </Stack>
+                        <ArrowForwardIcon />
+                    </Stack>
+                </CardContent>
+            </Stack>
+        </CardActionArea>
+    </Card>
+)
 
 ToSurveyCard.propTypes = {
     name: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
-    destination: PropTypes.string,
-    image: PropTypes.string,
+    to: PropTypes.string,
+    icon: PropTypes.element.isRequired,
+    iconBackgroundColor: PropTypes.string,
 }

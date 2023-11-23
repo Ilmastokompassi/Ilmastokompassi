@@ -1,5 +1,4 @@
 import { Button, Stack, TextField } from '@mui/material'
-import CreateGroupDialog from '../components/CreateGroupDialog'
 import { useState } from 'react'
 
 const JoinGroup = () => {
@@ -59,7 +58,6 @@ const JoinGroup = () => {
                     Liity ryhmään
                 </Button>
             </Stack>
-            <CreateGroupDialog />
         </>
     )
 }
