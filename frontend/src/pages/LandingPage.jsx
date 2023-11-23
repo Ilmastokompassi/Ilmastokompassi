@@ -48,6 +48,7 @@ export const LandingPage = () => {
                     spacing={2}
                     justifyContent={'space-between'}
                     width={'100%'}
+                    maxWidth={{ xs: '650px', md: '100%' }}
                     direction={{ xs: 'column', md: 'row' }}
                     alignItems="stretch"
                 >
