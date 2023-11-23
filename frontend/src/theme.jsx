@@ -19,6 +19,9 @@ export const theme = createTheme({
             defaultProps: { LinkComponent: LinkBehavior },
         },
     },
+    typography: {
+        fontFamily: 'inter',
+    },
 })
 
 theme.typography.h1 = {
