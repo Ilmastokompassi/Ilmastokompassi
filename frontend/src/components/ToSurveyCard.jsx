@@ -1,45 +1,56 @@
 import {
     Card,
     CardContent,
-    Box,
     CardMedia,
     CardActionArea,
     Typography,
     Stack,
-    CardActions,
-    Button,
 } from '@mui/material'
 import PropTypes from 'prop-types'
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
 
-export const ToSurveyCard = ({ name, description, cardMedia, to }) => (
+export const ToSurveyCard = ({
+    name,
+    description,
+    to,
+    icon,
+    iconBackgroundColor,
+}) => (
     <Card
+        elevation={1}
         sx={{
             width: '100%',
             height: '100%',
         }}
     >
         <CardActionArea href={to}>
-            <Stack direction="row" justifyContent="flex-end">
-                <CardMedia>
-                    <Box
-                        width={150}
-                        height={150}
-                        display="flex"
-                        alignItems="center"
-                        justifyContent="center"
-                    >
-                        {cardMedia}
-                    </Box>
-                </CardMedia>
-                <CardContent
+            <Stack direction="row">
+                <CardMedia
                     sx={{
+                        height: 128,
+                        minWidth: 128,
                         display: 'flex',
-                        flexGrow: 1,
-                        flexDirection: 'column',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        backgroundColor: iconBackgroundColor,
+                        color: iconBackgroundColor && 'rgba(0, 0, 0, 0.66)',
                     }}
                 >
-                    <Typography variant="h5">{name}</Typography>
-                    <Typography variant="body2">{description}</Typography>
+                    {icon}
+                </CardMedia>
+                <CardContent sx={{ flexGrow: 1 }}>
+                    <Stack
+                        height="100%"
+                        direction="row"
+                        justifyContent="space-between"
+                        alignItems="center"
+                    >
+                        <Stack>
+                            <Typography variant="h5">{name}</Typography>
+                            {description}
+                        </Stack>
+                        <ArrowForwardIcon />
+                    </Stack>
                 </CardContent>
             </Stack>
         </CardActionArea>
@@ -50,5 +61,6 @@ ToSurveyCard.propTypes = {
     name: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
     to: PropTypes.string,
-    cardMedia: PropTypes.element.isRequired,
+    icon: PropTypes.element.isRequired,
+    iconBackgroundColor: PropTypes.string,
 }

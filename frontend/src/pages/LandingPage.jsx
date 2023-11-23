@@ -3,7 +3,6 @@ import {
     Container,
     Stack,
     Box,
-    Skeleton,
     Card,
     CardContent,
 } from '@mui/material'
@@ -11,9 +10,9 @@ import { useTitle } from '../hooks/useTitle'
 
 import JoinGroup from '../components/JoinGroup'
 import { ToSurveyCard } from '../components/ToSurveyCard'
-import TravelExploreIcon from '@mui/icons-material/TravelExplore'
-import FaceIcon from '@mui/icons-material/Face'
 import CreateGroupDialog from '../components/CreateGroupDialog'
+import FaceIcon from '@mui/icons-material/Face'
+import TravelExploreIcon from '@mui/icons-material/TravelExplore'
 
 export const LandingPage = () => {
     useTitle('Ilmastokompassi')
@@ -23,18 +22,17 @@ export const LandingPage = () => {
                 display="flex"
                 justifyContent="center"
                 alignItems="center"
-                overflow="hidden"
                 spacing={4}
-                paddingTop={10}
+                py={2}
             >
                 <Card>
                     <CardContent>
                         <Stack spacing={2} alignItems="center">
                             <Box>
-                                <Typography variant="h4" align="left">
+                                <Typography variant="h5" align="left">
                                     Tervetuloa Ilmastokompassiin!
                                 </Typography>
-                                <Typography variant="h6" align="left">
+                                <Typography variant="body1" align="left">
                                     Ilmastokompassi on ilmastonmuutokseen
                                     liittyvä oppimisalusta, joka tarjoaa
                                     oppimateriaalia ilmastonmuutoksesta ja sen
@@ -57,15 +55,17 @@ export const LandingPage = () => {
                 >
                     <ToSurveyCard
                         name="Ilmastoroolikysely"
-                        description="Siirry ilmastoroolikyselyn aloitussivulle"
-                        cardMedia={<FaceIcon fontSize="large" />}
+                        description="Selvitä mikä ilmastorooli kuvastaa sinua parhaiten!"
+                        icon={<FaceIcon sx={{ fontSize: '72px' }} />}
+                        iconBackgroundColor="#429446"
                         to="/ilmastoroolikysely"
                     />
                     <ToSurveyCard
                         name="Oppimisvisa"
-                        description="Siirry oppimisvisan aloitussivulle"
-                        cardMedia={<TravelExploreIcon fontSize="large" />}
-                        to="/#factquiz"
+                        description="Kokeile ilmastotietämystäsi oppimisvisan avulla!"
+                        to="/tietovisa/1"
+                        icon={<TravelExploreIcon sx={{ fontSize: '72px' }} />}
+                        iconBackgroundColor="#944290"
                     />
                 </Stack>
             </Stack>
