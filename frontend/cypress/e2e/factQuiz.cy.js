@@ -48,6 +48,38 @@ describe('Quiz page', function () {
                     cy.contains('Olet valinnut oikein 1')
                 })
 
+                it('Select one wrong answer, press "Vastaa" and press "Oikeat vastaukset"', function () {
+                    cy.visit('/tietovisa/2')
+                    cy.title().should('eq', 'Tietovisa - Kysymys 2.')
+
+                    cy.contains(
+                        'Kasvien hiilensidonnan (photosynteesin) lisääntyminen'
+                    ).click()
+                    cy.contains('Vastaa').click()
+
+                    cy.contains('Oikeat vastaukset').click()
+
+                    cy.contains('Olet valinnut oikein 0')
+                })
+
+                it('Select multiple answers, both wrong and right press "Vastaa" and press "Oikeat vastaukset"', function () {
+                    cy.visit('/tietovisa/2')
+                    cy.title().should('eq', 'Tietovisa - Kysymys 2.')
+
+                    cy.contains(
+                        'Vesihöyryn lisääntyminen ilmakehässä ilmaston lämmetessä'
+                    ).click()
+                    cy.contains('Ikiroudan (ja jäätiköiden) sulaminen').click()
+                    cy.contains(
+                        'Kasvien hiilensidonnan (photosynteesin) lisääntyminen'
+                    ).click()
+                    cy.contains('Vastaa').click()
+
+                    cy.contains('Oikeat vastaukset').click()
+
+                    cy.contains('Olet valinnut oikein 2')
+                })
+
                 it('Select one answer, press "Vastaa" and move to next question"', function () {
                     cy.title().should('eq', 'Tietovisa - Kysymys 1.')
                     cy.contains(
@@ -110,6 +142,70 @@ describe('Quiz page', function () {
                     ).click()
                     cy.contains('Vastaa').click()
                     cy.get('.MuiSvgIcon-root.MuiSvgIcon-colorError')
+                })
+
+                it('From start to finish', function () {
+                    cy.contains(
+                        'Käynnissä oleva kasvihuoneilmiön voimistuminen on seurausta ihmisen toimista'
+                    ).click()
+                    cy.nextQuizQuestion()
+
+                    cy.contains(
+                        'Vesihöyryn lisääntyminen ilmakehässä ilmaston lämmetessä'
+                    ).click()
+                    cy.nextQuizQuestion()
+
+                    cy.contains(
+                        'Arktinen alue on lämmennyt enemmän kuin päiväntasaaja'
+                    ).click()
+                    cy.nextQuizQuestion()
+
+                    cy.contains(
+                        'Suomen suurimmat hiilipäästöt tulevat energiateollisuudesta ja liikenteestä'
+                    ).click()
+                    cy.nextQuizQuestion()
+
+                    cy.contains(
+                        'Tekemällä parempia ja yksityiskohtaisempia mittauksia'
+                    ).click()
+                    cy.nextQuizQuestion()
+
+                    cy.contains('Merenpinta').click()
+                    cy.nextQuizQuestion()
+
+                    cy.contains(
+                        'Ilmastossa tapahtuneisiin muutoksiin mukautuminen'
+                    ).click()
+                    cy.nextQuizQuestion()
+
+                    cy.contains(
+                        'Kaikki eliölajit eivät pysty sopeutumaan nopeasti muuttuviin elinolosuhteisiin'
+                    ).click()
+                    cy.findByTestId('quiz-answer-button').click()
+                    cy.findByTestId('quiz-end-button').click()
+
+                    cy.contains('Kertaus')
+                })
+
+                it('Summary page accordions work, return to landing page', function () {
+                    cy.visit('/tietovisa/yhteenveto')
+
+                    cy.contains(
+                        'Ilmastonmuutokseen liittyviä väitteitä on kaikenlaisia. Tunnistatko mitkä seuraavista ovat totta?'
+                    ).click()
+                    cy.contains(
+                        'Kaasut eivät vaikuta lämpösäteilyn kulkuun ilmakehässä'
+                    )
+
+                    cy.contains(
+                        'Ilmastonmuutos vaatii kaikilta maapallolla kykyä sopeutua. Vaan mitä se tarkoittaa! Osaatko sanoa, mitkä seuraavista ovat esimerkkejä sopeutumista?'
+                    ).click()
+                    cy.contains(
+                        'Ilmastossa tapahtuneisiin muutoksiin mukautuminen'
+                    )
+
+                    cy.contains('Palaa etusivulle').click()
+                    cy.title('Ilmastokompassi')
                 })
             }
         )
