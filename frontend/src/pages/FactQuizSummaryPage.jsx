@@ -1,4 +1,4 @@
-import { Box, Button, Stack, Typography } from '@mui/material'
+import { Box, Button, Card, Container, Stack, Typography } from '@mui/material'
 import useSWR from 'swr'
 import QuizSummaryAccordion from '../components/QuizSummaryAccordion' // Import the new component
 
@@ -7,37 +7,51 @@ export const FactQuizSummaryPage = () => {
         useSWR('/api/quiz/summary')
 
     return (
-        <Box display="flex" justifyContent="center" alignItems="center">
-            <Stack
-                maxWidth="800px"
-                direction="column"
-                justifyContent="center"
-                style={{ minHeight: '80vh' }}
-            >
-                <Typography variant="h1" justifyContent="center">
-                    Kertaus
-                </Typography>
-                <Typography variant="h3" paddingBottom={2}>
-                    Alta löydät muistin virkistämiseksi kysymyskohtaiset oikeat
-                    vastaukset
-                </Typography>
-                {isLoadingAllSummaryInfo ? (
-                    <Typography>Ladataan...</Typography>
-                ) : (
-                    allSummaryInfo.map((item, index) => (
-                        <QuizSummaryAccordion
-                            key={index}
-                            questionText={item.question_text}
-                            correctAnswers={item.correct_answers}
-                        />
-                    ))
-                )}
-                <Stack paddingTop={2}>
-                    <Button variant="contained" href="/">
-                        Palaa etusivulle
-                    </Button>
-                </Stack>
-            </Stack>
-        </Box>
+        <Container maxWidth="md">
+            <Box paddingY={5}>
+                <Card>
+                    <Box
+                        display="flex"
+                        justifyContent="center"
+                        alignItems="center"
+                        padding={2}
+                    >
+                        <Stack
+                            maxWidth="800px"
+                            direction="column"
+                            justifyContent="center"
+                        >
+                            <Typography variant="h1" textAlign={'center'}>
+                                Kertaus
+                            </Typography>
+                            <Typography
+                                variant="h3"
+                                paddingTop={2}
+                                paddingBottom={2}
+                            >
+                                Alta löydät muistin virkistämiseksi
+                                kysymyskohtaiset oikeat vastaukset
+                            </Typography>
+                            {isLoadingAllSummaryInfo ? (
+                                <Typography>Ladataan...</Typography>
+                            ) : (
+                                allSummaryInfo.map((item, index) => (
+                                    <QuizSummaryAccordion
+                                        key={index}
+                                        questionText={item.question_text}
+                                        correctAnswers={item.correct_answers}
+                                    />
+                                ))
+                            )}
+                            <Stack paddingTop={2}>
+                                <Button variant="contained" href="/">
+                                    Palaa etusivulle
+                                </Button>
+                            </Stack>
+                        </Stack>
+                    </Box>
+                </Card>
+            </Box>
+        </Container>
     )
 }

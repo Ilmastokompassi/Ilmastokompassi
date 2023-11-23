@@ -14,18 +14,7 @@ export const ClimateRolePage = () => {
     return (
         <Container>
             <Stack spacing={3} paddingBottom={'50px'}>
-                <Typography
-                    variant="h1"
-                    align="center"
-                    paddingTop={'40px'}
-                    sx={{
-                        fontSize: {
-                            xs: '2em',
-                            sm: '3em',
-                            md: '4em',
-                        },
-                    }}
-                >
+                <Typography variant="h1" align="center" paddingTop={'40px'}>
                     Ilmastoroolit
                 </Typography>
                 {roleList &&
