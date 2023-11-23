@@ -21,8 +21,8 @@ declare namespace Cypress {
       /**
        * Navigates to a page using the navigation bar
        * @example
-       * cy.navigateToPageWithNavBar(viewport, 'survey')
+       * cy.navigateToPageWithNavBar('survey')
        */
-      navigateToPageWithNavBar(viewport, pageId: string): Chainable<any>
+      navigateToPageWithNavBar(pageId: string): Chainable<any>
     }
   }
