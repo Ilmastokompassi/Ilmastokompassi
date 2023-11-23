@@ -186,6 +186,27 @@ describe('Quiz page', function () {
 
                     cy.contains('Kertaus')
                 })
+
+                it('Summary page accordions work, return to landing page', function () {
+                    cy.visit('/tietovisa/yhteenveto')
+
+                    cy.contains(
+                        'Ilmastonmuutokseen liittyviä väitteitä on kaikenlaisia. Tunnistatko mitkä seuraavista ovat totta?'
+                    ).click()
+                    cy.contains(
+                        'Kaasut eivät vaikuta lämpösäteilyn kulkuun ilmakehässä'
+                    )
+
+                    cy.contains(
+                        'Ilmastonmuutos vaatii kaikilta maapallolla kykyä sopeutua. Vaan mitä se tarkoittaa! Osaatko sanoa, mitkä seuraavista ovat esimerkkejä sopeutumista?'
+                    ).click()
+                    cy.contains(
+                        'Ilmastossa tapahtuneisiin muutoksiin mukautuminen'
+                    )
+
+                    cy.contains('Palaa etusivulle').click()
+                    cy.title('Ilmastokompassi')
+                })
             }
         )
     })
