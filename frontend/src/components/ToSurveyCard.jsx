@@ -29,7 +29,7 @@ export const ToSurveyCard = ({ name, description, image, destination }) => {
                 sx={{
                     boxShadow: 1,
                     width: '100%',
-                    height: '150px',
+                    minHeight: '150px',
                     display: 'flex',
                 }}
             >
