@@ -3,18 +3,18 @@ import { useTitle } from '../hooks/useTitle'
 
 import JoinGroup from '../components/JoinGroup'
 import { ToSurveyCard } from '../components/ToSurveyCard'
+import TravelExploreIcon from '@mui/icons-material/TravelExplore'
+import FaceIcon from '@mui/icons-material/Face'
 
 export const LandingPage = () => {
     useTitle('Ilmastokompassi')
     return (
         <Container>
             <Stack
-                style={{
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    overflow: 'hidden',
-                }}
+                display="flex"
+                justifyContent="center"
+                alignItems="center"
+                overflow="hidden"
                 spacing={5}
                 paddingTop={10}
             >
@@ -22,8 +22,8 @@ export const LandingPage = () => {
                     paddingTop={2}
                     direction={{ xs: 'column', md: 'row' }}
                     spacing={2}
-                    justifyContent={'space-evenly'}
-                    alignItems={'center'}
+                    justifyContent="space-evenly"
+                    alignItems="center"
                 >
                     <Box>
                         <Typography variant="h4" align="left">
@@ -46,8 +46,8 @@ export const LandingPage = () => {
                 <Stack
                     paddingTop={2}
                     spacing={2}
-                    justifyContent={'space-between'}
-                    width={'100%'}
+                    justifyContent="space-between"
+                    width="100%"
                     maxWidth={{ xs: '650px', md: '100%' }}
                     direction={{ xs: 'column', md: 'row' }}
                     alignItems="stretch"
@@ -55,14 +55,14 @@ export const LandingPage = () => {
                     <ToSurveyCard
                         name="Ilmastoroolikysely"
                         description="Siirry ilmastoroolikyselyn aloitussivulle"
-                        image={null}
-                        destination={'/ilmastoroolikysely'}
+                        cardMedia={<FaceIcon fontSize="large" />}
+                        to="/ilmastoroolikysely"
                     />
                     <ToSurveyCard
                         name="Oppimisvisa"
                         description="Siirry oppimisvisan aloitussivulle"
-                        image={null}
-                        destination={'/'}
+                        cardMedia={<TravelExploreIcon fontSize="large" />}
+                        to="/#factquiz"
                     />
                 </Stack>
             </Stack>
