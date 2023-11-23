@@ -92,4 +92,6 @@ export const ToSurveyCard = ({ name, description, image, destination }) => {
 ToSurveyCard.propTypes = {
     name: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
+    destination: PropTypes.string,
+    image: PropTypes.string,
 }
