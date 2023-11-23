@@ -1,14 +1,8 @@
-import {
-    Typography,
-    Container,
-    Button,
-    Stack,
-    Box,
-    Skeleton,
-} from '@mui/material'
+import { Typography, Container, Stack, Box, Skeleton } from '@mui/material'
 import { useTitle } from '../hooks/useTitle'
 
 import JoinGroup from '../components/JoinGroup'
+import { ToSurveyCard } from '../components/ToSurveyCard'
 
 export const LandingPage = () => {
     useTitle('Ilmastokompassi')
@@ -51,33 +45,25 @@ export const LandingPage = () => {
                 <JoinGroup />
                 <Stack
                     paddingTop={2}
-                    direction={{ xs: 'column', md: 'row' }}
                     spacing={2}
-                    justifyContent={'space-evenly'}
+                    justifyContent={'space-between'}
+                    width={'100%'}
+                    maxWidth={{ xs: '650px', md: '100%' }}
+                    direction={{ xs: 'column', md: 'row' }}
+                    alignItems="stretch"
                 >
-                    <Button
-                        style={{
-                            width: 300,
-                            height: 150,
-                            fontSize: '20px',
-                        }}
-                        variant="contained"
-                        color="secondary"
-                        href={`/ilmastoroolikysely`}
-                    >
-                        Ilmastoroolikysely
-                    </Button>
-                    <Button
-                        style={{
-                            width: 300,
-                            height: 150,
-                            fontSize: '20px',
-                        }}
-                        variant="contained"
-                        disabled
-                    >
-                        Oppimisvisa
-                    </Button>
+                    <ToSurveyCard
+                        name="Ilmastoroolikysely"
+                        description="Siirry ilmastoroolikyselyn aloitussivulle"
+                        image={null}
+                        destination={'/ilmastoroolikysely'}
+                    />
+                    <ToSurveyCard
+                        name="Oppimisvisa"
+                        description="Siirry oppimisvisan aloitussivulle"
+                        image={null}
+                        destination={'/'}
+                    />
                 </Stack>
             </Stack>
         </Container>
