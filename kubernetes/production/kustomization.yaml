@@ -12,7 +12,7 @@ patches:
 images:
   - name: ilmastokompassi/backend
     newName: ghcr.io/ilmastokompassi/backend
-    newTag: 0.0.3
+    newTag: 0.0.4
   - name: ilmastokompassi/frontend
     newName: ghcr.io/ilmastokompassi/frontend
-    newTag: 0.0.3
+    newTag: 0.0.4
