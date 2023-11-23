@@ -22,6 +22,14 @@ Cypress.Commands.add('createGroupWithApi', (groupToken) => {
     )
 })
 
+Cypress.Commands.add('joinGroup', (groupToken) => {
+    cy.request('/api/group/' + groupToken).then((response) => {
+        expect(response.body).to.have.property('group_token', true)
+
+        window.localStorage.setItem('groupToken', groupToken)
+    })
+})
+
 Cypress.Commands.add('navigateToPageWithNavBar', (pageId) => {
     if (isMobile()) {
         cy.findByTestId('navigation-hamburger').should('be.visible').click()
