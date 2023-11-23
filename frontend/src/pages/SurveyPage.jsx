@@ -9,9 +9,10 @@ import {
     Link,
 } from '@mui/material'
 
+import { useState, useEffect } from 'react'
 import { useTitle } from '../hooks/useTitle'
 import JoinGroup from '../components/JoinGroup'
-import { useState, useEffect } from 'react'
+import CreateGroupDialog from '../components/CreateGroupDialog'
 
 export function SurveyPage() {
     const [groupToken, setGroupToken] = useState(null)
@@ -46,7 +47,7 @@ export function SurveyPage() {
                                 olet vastannut kyselyyn saat selville, mikä
                                 neljästä ilmastoroolista kuvastaa sinua. Voit
                                 tutustua ilmastorooleihin{' '}
-                                <Link href={`/ilmastoroolit`}>täältä!</Link>
+                                <Link href="/ilmastoroolit">täältä!</Link>
                             </Typography>
                             <Typography variant="h6">
                                 Vastaaminen ryhmässä
@@ -60,8 +61,13 @@ export function SurveyPage() {
                                 pääset tarkastelemaan oikean yläkulman
                                 painikkeesta.
                             </Typography>
-                            <Stack alignItems={'center'} spacing={2}>
-                                {!groupToken && <JoinGroup />}
+                            <Stack alignItems="center" spacing={2}>
+                                {!groupToken && (
+                                    <>
+                                        <JoinGroup />
+                                        <CreateGroupDialog />
+                                    </>
+                                )}
                                 <Button
                                     style={{
                                         width: 200,
@@ -72,10 +78,7 @@ export function SurveyPage() {
                                     href="/kysymys/1"
                                     color="secondary"
                                 >
-                                    <Typography
-                                        variant={'h5'}
-                                        letterSpacing={2}
-                                    >
+                                    <Typography variant="h5" letterSpacing={2}>
                                         Aloita
                                     </Typography>
                                 </Button>

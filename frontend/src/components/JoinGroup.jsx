@@ -59,7 +59,6 @@ const JoinGroup = () => {
                     Liity ryhmään
                 </Button>
             </Stack>
-            <CreateGroupDialog />
         </>
     )
 }
