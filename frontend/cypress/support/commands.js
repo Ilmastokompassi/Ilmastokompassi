@@ -44,3 +44,8 @@ Cypress.Commands.add('navigateToPageWithNavBar', (pageId) => {
             .click()
     }
 })
+
+Cypress.Commands.add('nextQuizQuestion', () => {
+    cy.findByTestId('quiz-answer-button').click()
+    cy.findByTestId('quiz-next-button').click()
+})
