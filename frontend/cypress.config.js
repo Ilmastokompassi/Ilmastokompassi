@@ -11,7 +11,6 @@ export default defineConfig({
         mobileViewportWidthBreakpoint: 414,
         viewports: [
             [375, 667, 'iPhone SE 2'],
-            [1366, 768, '1366x768'],
             [1920, 1080, '1920x1080'],
         ],
     },

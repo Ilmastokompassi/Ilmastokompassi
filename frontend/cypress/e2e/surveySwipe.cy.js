@@ -7,14 +7,14 @@ describe('Survey page on mobile', function () {
     })
 
     it('move forward using swipe', function () {
-        cy.title().should('eq', 'Ilmastoprofiili - Kysymys 2.')
+        cy.title().should('eq', 'Ilmastorooli - Kysymys 2.')
         cy.findByTestId('questions').swipe('right', 'left')
-        cy.title().should('eq', 'Ilmastoprofiili - Kysymys 3.')
+        cy.title().should('eq', 'Ilmastorooli - Kysymys 3.')
     })
 
     it('move back using swipe', function () {
-        cy.title().should('eq', 'Ilmastoprofiili - Kysymys 2.')
+        cy.title().should('eq', 'Ilmastorooli - Kysymys 2.')
         cy.findByTestId('questions').swipe('left', 'right')
-        cy.title().should('eq', 'Ilmastoprofiili - Kysymys 1.')
+        cy.title().should('eq', 'Ilmastorooli - Kysymys 1.')
     })
 })

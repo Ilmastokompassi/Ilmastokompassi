@@ -1,14 +1,22 @@
-describe('From summary page large', function () {
-    beforeEach(function () {
-        cy.visit('/yhteenveto/1')
-        cy.viewport(1920, 1080)
-    })
+describe('Summary page', function () {
+    beforeEach(() => cy.visit('/yhteenveto/1'))
 
     it('title is correct', function () {
-        cy.title().should('eq', 'Ilmastoprofiili - Tulokset')
+        cy.title().should('eq', 'Ilmastorooli - Tulokset')
     })
 
-    it('contains "Oma ilmastoprofiilisi"', function () {
-        cy.contains('Oma ilmastoprofiilisi')
+    Cypress.env('viewports').forEach((viewport) => {
+        describe(
+            `on ${viewport[0]}x${viewport[1]} viewport`,
+            {
+                viewportWidth: viewport[0],
+                viewportHeight: viewport[1],
+            },
+            () => {
+                it('contains heading', function () {
+                    cy.contains('Ilmastoroolisi')
+                })
+            }
+        )
     })
 })

@@ -1,83 +1,90 @@
-describe('Joining group from frontpage', function () {
+describe('Joining group', function () {
     beforeEach(() => cy.visit('/'))
 
-    Cypress.env('viewports').forEach((size) => {
-        context(`on ${size[0]}x${size[1]} viewport`, () => {
-            beforeEach(() => {
-                cy.viewport(size[0], size[1])
+    Cypress.env('viewports').forEach((viewport) => {
+        describe(
+            `on ${viewport[0]}x${viewport[1]} viewport`,
+            {
+                viewportWidth: viewport[0],
+                viewportHeight: viewport[1],
+            },
+            () => {
+                beforeEach(() => {
+                    cy.findByTestId('group-token-input').as('groupTokenInput')
+                    cy.findByTestId('join-group').as('joinGroup')
 
-                cy.findByTestId('group-token-input').as('groupTokenInput')
-                cy.findByTestId('join-group').as('joinGroup')
+                    cy.exec('../bin/db-reset')
+                })
 
-                cy.exec('../bin/db-reset')
-            })
+                it('with empty token fails', function () {
+                    cy.get('@joinGroup').click()
 
-            it('with empty token fails', function () {
-                cy.get('@joinGroup').click()
+                    cy.get('@groupTokenInput').contains(
+                        'Ryhmään liittyminen epäonnistui.'
+                    )
+                })
 
-                cy.get('@groupTokenInput').contains(
-                    'Ryhmään liittyminen epäonnistui.'
-                )
-            })
+                it('with nonexistent token fails', function () {
+                    cy.get('@groupTokenInput').get('input').type('DOESNOTEXIST')
+                    cy.get('@joinGroup').click()
 
-            it('with nonexistent token fails', function () {
-                cy.get('@groupTokenInput').get('input').type('DOESNOTEXIST')
-                cy.get('@joinGroup').click()
+                    cy.get('@groupTokenInput').contains(
+                        'Ryhmään liittyminen epäonnistui.'
+                    )
+                })
 
-                cy.get('@groupTokenInput').contains(
-                    'Ryhmään liittyminen epäonnistui.'
-                )
-            })
+                it('with too long group token fails', function () {
+                    const tooLongGroupToken = 'A'.repeat(20)
 
-            it('with too long group token fails', function () {
-                const tooLongGroupToken = 'A'.repeat(20)
+                    cy.get('@groupTokenInput')
+                        .get('input')
+                        .type(tooLongGroupToken)
+                    cy.get('@joinGroup').click()
 
-                cy.get('@groupTokenInput').get('input').type(tooLongGroupToken)
-                cy.get('@joinGroup').click()
+                    cy.get('@groupTokenInput').contains(
+                        'Ryhmään liittyminen epäonnistui.'
+                    )
+                })
 
-                cy.get('@groupTokenInput').contains(
-                    'Ryhmään liittyminen epäonnistui.'
-                )
-            })
+                it('with special character in token fails', function () {
+                    const specialChars = '!!!?&'
 
-            it('with special character in token fails', function () {
-                const specialChars = '!!!?&'
+                    cy.get('@groupTokenInput').get('input').type(specialChars)
+                    cy.get('@joinGroup').click()
 
-                cy.get('@groupTokenInput').get('input').type(specialChars)
-                cy.get('@joinGroup').click()
+                    cy.get('@groupTokenInput').contains(
+                        'Ryhmään liittyminen epäonnistui.'
+                    )
+                })
 
-                cy.get('@groupTokenInput').contains(
-                    'Ryhmään liittyminen epäonnistui.'
-                )
-            })
+                it('with existing token and exit group', function () {
+                    const groupToken = 'FOOBAR'
 
-            it('with existing token and exit group', function () {
-                const groupToken = 'FOOBAR'
+                    cy.createGroupWithApi(groupToken)
 
-                cy.createGroupWithApi(groupToken)
+                    cy.get('@groupTokenInput').get('input').type(groupToken)
+                    cy.get('@joinGroup').click()
 
-                cy.get('@groupTokenInput').get('input').type(groupToken)
-                cy.get('@joinGroup').click()
+                    cy.findByTestId('show-group-menu').click()
+                    cy.findByTestId('group-menu')
+                        .should('be.visible')
+                        .within(() => {
+                            cy.findByTestId('current-group-token').contains(
+                                groupToken
+                            )
+                            cy.findByTestId('leave-group').click()
+                        })
 
-                cy.findByTestId('show-group-menu').click()
-                cy.findByTestId('group-menu')
-                    .should('be.visible')
-                    .within(() => {
-                        cy.findByTestId('current-group-token').contains(
-                            groupToken
-                        )
-                        cy.findByTestId('leave-group').click()
-                    })
-
-                cy.findByTestId('show-group-menu').click()
-                cy.findByTestId('group-menu')
-                    .should('be.visible')
-                    .within(() => {
-                        cy.findByTestId('current-group-token').contains(
-                            'Et ole ryhmässä'
-                        )
-                    })
-            })
-        })
+                    cy.findByTestId('show-group-menu').click()
+                    cy.findByTestId('group-menu')
+                        .should('be.visible')
+                        .within(() => {
+                            cy.findByTestId('current-group-token').contains(
+                                'Et ole ryhmässä'
+                            )
+                        })
+                })
+            }
+        )
     })
 })
