@@ -55,6 +55,12 @@ export default function CreateGroupDialog() {
         setGroupName('')
     }
 
+    const handleKeyDown = (event) => {
+        if (event.keyCode === 13) {
+            handleSubmit()
+        }
+    }
+
     return (
         <>
             <Button
@@ -134,6 +140,7 @@ export default function CreateGroupDialog() {
                                 value={groupName}
                                 onChange={handleGroupNameChange}
                                 data-testid="group-token"
+                                onKeyDown={(event) => handleKeyDown(event)}
                             />
                         </DialogContent>
                         <DialogActions>

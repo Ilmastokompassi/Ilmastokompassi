@@ -31,6 +31,12 @@ const JoinGroup = () => {
             })
     }
 
+    const handleKeyDown = (event) => {
+        if (event.keyCode === 13) {
+            handleSubmit()
+        }
+    }
+
     return (
         <>
             <Stack
@@ -48,6 +54,9 @@ const JoinGroup = () => {
                     value={groupToken}
                     onChange={handleTextFieldChange}
                     size="small"
+                    onKeyDown={(event) => {
+                        handleKeyDown(event)
+                    }}
                 />
                 <Button
                     data-testid="join-group"
