@@ -12,7 +12,6 @@ import {
 import { useState, useEffect } from 'react'
 import { useTitle } from '../hooks/useTitle'
 import JoinGroup from '../components/JoinGroup'
-import { useState, useEffect } from 'react'
 import RolesAccordion from '../components/RolesAccordion'
 import CreateGroupDialog from '../components/CreateGroupDialog'
 
