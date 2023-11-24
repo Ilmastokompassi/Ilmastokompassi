@@ -12,6 +12,7 @@ import {
 import { useState, useEffect } from 'react'
 import { useTitle } from '../hooks/useTitle'
 import JoinGroup from '../components/JoinGroup'
+import RolesAccordion from '../components/RolesAccordion'
 import CreateGroupDialog from '../components/CreateGroupDialog'
 
 export function SurveyPage() {
@@ -87,6 +88,7 @@ export function SurveyPage() {
                     </CardContent>
                 </Card>
             </Box>
+            <RolesAccordion />
         </Container>
     )
 }
