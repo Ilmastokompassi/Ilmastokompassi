@@ -4,9 +4,12 @@
 * Docker
   * Remember to follow post-install steps. https://docs.docker.com/engine/install/linux-postinstall/
 
-## Configure
+## Setup
 * Copy default configuration for local environment with:
   * ```sed 's/dev-db/localhost/g' backend/.env.dev > backend/.env```
+* Install local dependencies
+  * `(cd frontend && npm install)`
+  * `(cd backend && poetry install --no-root)`
 
 ## Run
 * You can run the entire application locally with `bin/dev` script
