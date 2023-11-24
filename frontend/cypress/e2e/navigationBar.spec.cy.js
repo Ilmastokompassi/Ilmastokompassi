@@ -15,13 +15,6 @@ Cypress.env('viewports').forEach((viewport) => {
                 cy.title().should('eq', 'Ilmastoroolikysely')
             })
 
-            it('navigate to roles page', function () {
-                cy.navigateToPageWithNavBar('roles')
-
-                cy.location('pathname').should('eq', '/ilmastoroolit')
-                cy.title().should('eq', 'Ilmastoroolit')
-            })
-
             it('navigate to faq page', function () {
                 cy.navigateToPageWithNavBar('faq')
 

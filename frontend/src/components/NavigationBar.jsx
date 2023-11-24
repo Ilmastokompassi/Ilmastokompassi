@@ -20,7 +20,6 @@ import ClimComp from '../assets/climcomp.png'
 
 const pages = [
     { name: 'Ilmastoroolikysely', route: '/ilmastoroolikysely', id: 'survey' },
-    { name: 'Ilmastoroolit', route: '/ilmastoroolit', id: 'roles' },
     { name: 'FAQ', route: '/faq', id: 'faq' },
 ]
 

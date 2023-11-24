@@ -6,7 +6,6 @@ import {
     Card,
     Container,
     CardContent,
-    Link,
 } from '@mui/material'
 
 import { useState, useEffect } from 'react'
@@ -47,8 +46,7 @@ export function SurveyPage() {
                                 painamalla &quot;Aloita&quot; painiketta. Kun
                                 olet vastannut kyselyyn saat selville, mikä
                                 neljästä ilmastoroolista kuvastaa sinua. Voit
-                                tutustua ilmastorooleihin{' '}
-                                <Link href="/ilmastoroolit">täältä!</Link>
+                                tutustua ilmastorooleihin sivuston alalaidasta.
                             </Typography>
                             <Typography variant="h6">
                                 Vastaaminen ryhmässä
