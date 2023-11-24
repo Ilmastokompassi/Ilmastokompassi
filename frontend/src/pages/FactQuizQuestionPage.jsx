@@ -108,6 +108,7 @@ export const FactQuizQuestionPage = () => {
                         justifyContent="center"
                         alignItems="center"
                         spacing={2}
+                        paddingTop={2}
                         style={{ minHeight: '80vh' }}
                     >
                         {isLoadingAllQuestions ? (
