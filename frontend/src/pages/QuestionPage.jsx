@@ -137,6 +137,7 @@ export function QuestionPage() {
                             variant="determinate"
                             value={(questionId * 100) / totalQuestions}
                             style={{ width: '70%', maxWidth: '780px' }}
+                            aria-label="progressbar"
                         />
                         <Stack
                             direction="row"

@@ -103,6 +103,7 @@ const GroupMenu = () => {
                 data-testid="show-group-menu"
                 aria-controls="group-menu"
                 aria-haspopup="true"
+                aria-label="Ryhmätiedot"
                 color="inherit"
             >
                 {groupToken ? <GroupIcon /> : <PersonIcon />}
