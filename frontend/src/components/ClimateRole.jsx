@@ -21,10 +21,7 @@ export const ClimateRole = ({ name, description }) => {
                 <CardHeader
                     sx={{ textAlign: 'center' }}
                     titleTypographyProps={{
-                        variant: 'h2',
-                        sx: {
-                            fontSize: { xs: '1.5em', sm: '1.75em', md: '2em' },
-                        },
+                        variant: 'h5',
                     }}
                     title={name}
                 />
