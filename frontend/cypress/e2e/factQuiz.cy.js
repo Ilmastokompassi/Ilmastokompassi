@@ -1,5 +1,8 @@
 describe('Quiz page', function () {
-    beforeEach(() => cy.visit('/tietovisa/1'))
+    beforeEach(() => {
+        cy.visit('/')
+        cy.contains('Oppimisvisa').click()
+    })
 
     Cypress.env('viewports').forEach((viewport) => {
         describe(
@@ -145,9 +148,6 @@ describe('Quiz page', function () {
                 })
 
                 it('From start to finish', function () {
-                    cy.visit('/')
-                    cy.contains('Oppimisvisa').click()
-
                     cy.contains(
                         'Käynnissä oleva kasvihuoneilmiön voimistuminen on seurausta ihmisen toimista'
                     ).click()
