@@ -82,10 +82,10 @@ export function SurveyPage() {
                                 </Button>
                             </Stack>
                         </Box>
-                        <RolesAccordion />
                     </CardContent>
                 </Card>
             </Box>
+            <RolesAccordion />
         </Container>
     )
 }
