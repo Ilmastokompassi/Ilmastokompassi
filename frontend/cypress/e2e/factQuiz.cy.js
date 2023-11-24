@@ -145,6 +145,9 @@ describe('Quiz page', function () {
                 })
 
                 it('From start to finish', function () {
+                    cy.visit('/')
+                    cy.contains('Oppimisvisa').click()
+
                     cy.contains(
                         'Käynnissä oleva kasvihuoneilmiön voimistuminen on seurausta ihmisen toimista'
                     ).click()
