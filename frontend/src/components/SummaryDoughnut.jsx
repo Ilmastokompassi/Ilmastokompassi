@@ -44,6 +44,7 @@ export const SummaryDoughnut = ({ data }) => (
                     },
                 },
             }}
+            aria-label="Rooliosuudet"
         />
     </Box>
 )
