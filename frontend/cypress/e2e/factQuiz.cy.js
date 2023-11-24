@@ -1,5 +1,8 @@
 describe('Quiz page', function () {
-    beforeEach(() => cy.visit('/tietovisa/1'))
+    beforeEach(() => {
+        cy.visit('/')
+        cy.contains('Oppimisvisa').click()
+    })
 
     Cypress.env('viewports').forEach((viewport) => {
         describe(
