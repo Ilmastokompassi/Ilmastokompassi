@@ -37,10 +37,7 @@ function SurveyQuestionCard({
                         textAlign: 'center',
                     }}
                 >
-                    <Typography
-                        sx={{ typography: { xs: 'h6', sm: 'h6', md: 'h5' } }}
-                        textAlign="center"
-                    >
+                    <Typography variant="h6" textAlign="center">
                         {question.id + '. ' + question.content}
                     </Typography>
                 </Container>
