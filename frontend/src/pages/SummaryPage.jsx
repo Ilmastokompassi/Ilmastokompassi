@@ -98,36 +98,14 @@ export const SummaryPage = () => {
                         paddingBottom={'50px'}
                         alignItems={'center'}
                     >
-                        <Typography
-                            variant="h1"
-                            sx={{
-                                fontSize: {
-                                    xs: '2em', // Smaller font size for extra small screens
-                                    sm: '3em', // Slightly bigger for small screens
-                                    md: '4em', // Original size for medium screens and up
-                                },
-                                textAlign: 'center',
-                                p: '20px',
-                            }}
-                        >
-                            Ilmastoroolisi
-                        </Typography>
+                        <Typography variant="h4">Ilmastoroolisi</Typography>
                         {isLoadingRoles ||
                         isLoadingSummary ||
                         isLoadingAllRolesData ? (
                             <p>Loading...</p>
                         ) : filteredSummaryScores.length === 0 ? (
                             <>
-                                <Typography
-                                    variant="h2"
-                                    sx={{
-                                        fontSize: {
-                                            xs: '1em',
-                                            sm: '1.25em',
-                                            md: '1.5em',
-                                        },
-                                    }}
-                                >
+                                <Typography variant="h5">
                                     Ei tarpeeksi dataa tulosten näyttämiseen
                                 </Typography>
                                 <Button
@@ -141,36 +119,17 @@ export const SummaryPage = () => {
                             </>
                         ) : answerCount > 0 ? (
                             <>
-                                <Typography
-                                    variant="h2"
-                                    sx={{
-                                        fontSize: {
-                                            xs: '1em',
-                                            sm: '1.5em',
-                                            md: '1.75em',
-                                        },
-                                        textAlign: 'center',
-                                    }}
-                                >
+                                <Typography variant="h5">
                                     Olet vastannut {answerCount}/
                                     {totalQuestions} kysymykseen ja niiden
-                                    perusteella sinun ilmastoroolisi on...
+                                    perusteella sinun ilmastoroolisi
+                                    {highestScoreRoles.length > 1 ? (
+                                        <span> ovat</span>
+                                    ) : (
+                                        <span> on</span>
+                                    )}
+                                    ...
                                 </Typography>
-                                {highestScoreRoles.length > 1 && (
-                                    <Typography
-                                        variant="h2"
-                                        sx={{
-                                            fontSize: {
-                                                xs: '1em',
-                                                sm: '1.25em',
-                                                md: '1.5em',
-                                            },
-                                        }}
-                                    >
-                                        Sinulla on useita rooleja, jotka
-                                        kuvastavat sinua!
-                                    </Typography>
-                                )}
                                 {highestScoreRoles.map((role, index) => (
                                     <SummaryRole
                                         key={role.id}
@@ -179,31 +138,13 @@ export const SummaryPage = () => {
                                         description={role.description}
                                     />
                                 ))}
-                                <Typography
-                                    variant="h2"
-                                    sx={{
-                                        fontSize: {
-                                            xs: '1em',
-                                            sm: '1.25em',
-                                            md: '1.5em',
-                                        },
-                                    }}
-                                >
+                                <Typography variant="h5">
                                     Eri roolien välinen jakauma
                                 </Typography>
                                 <SummaryDoughnut data={doughnutChartData} />
                                 {groupToken !== null && (
                                     <>
-                                        <Typography
-                                            variant="h3"
-                                            sx={{
-                                                fontSize: {
-                                                    xs: '1em',
-                                                    sm: '1.25em',
-                                                    md: '1.5em',
-                                                },
-                                            }}
-                                        >
+                                        <Typography variant="h5">
                                             Ryhmän {groupToken} jakauma.
                                             Kyselyyn on vastannut{' '}
                                             {allRolesData.response_amount}{' '}

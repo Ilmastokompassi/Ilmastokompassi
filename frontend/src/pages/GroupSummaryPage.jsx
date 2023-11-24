@@ -70,13 +70,8 @@ export const GroupSummaryPage = () => {
                         alignItems={'center'}
                     >
                         <Typography
-                            variant="h1"
+                            variant="h4"
                             sx={{
-                                fontSize: {
-                                    xs: '2em', // Smaller font size for extra small screens
-                                    sm: '3em', // Slightly bigger for small screens
-                                    md: '4em', // Original size for medium screens and up
-                                },
                                 textAlign: 'center',
                                 p: '20px',
                             }}
@@ -98,16 +93,7 @@ export const GroupSummaryPage = () => {
                                 ) : (
                                     <>
                                         {highestScoreroles.length > 1 && (
-                                            <Typography
-                                                variant="h2"
-                                                sx={{
-                                                    fontSize: {
-                                                        xs: '1em',
-                                                        sm: '1.25em',
-                                                        md: '1.5em',
-                                                    },
-                                                }}
-                                            >
+                                            <Typography variant="h5">
                                                 Teillä on useita rooleja, jotka
                                                 kuvastavat ryhmäänne!
                                             </Typography>
@@ -125,16 +111,7 @@ export const GroupSummaryPage = () => {
                                             )
                                         )}
 
-                                        <Typography
-                                            variant="h3"
-                                            sx={{
-                                                fontSize: {
-                                                    xs: '1em',
-                                                    sm: '1.25em',
-                                                    md: '1.5em',
-                                                },
-                                            }}
-                                        >
+                                        <Typography variant="h5">
                                             Ryhmän {groupToken} jakauma.
                                             Kyselyyn on vastannut{' '}
                                             {allRolesData.response_amount}{' '}
