@@ -132,6 +132,7 @@ export const FactQuizQuestionPage = () => {
                                 >
                                     {!hasAnswered && (
                                         <Button
+                                            data-testid="quiz-answer-button"
                                             variant="contained"
                                             color="primary"
                                             onClick={handleAnswer}
@@ -164,14 +165,16 @@ export const FactQuizQuestionPage = () => {
                                             </Box>
                                             {isLastQuestion ? (
                                                 <Button
+                                                    data-testid="quiz-end-button"
                                                     variant="contained"
                                                     color="primary"
-                                                    onClick={handleAnswer}
+                                                    href="/tietovisa/yhteenveto"
                                                 >
                                                     Lopeta kysely
                                                 </Button>
                                             ) : (
                                                 <Button
+                                                    data-testid="quiz-next-button"
                                                     variant="contained"
                                                     color="primary"
                                                     href={`/tietovisa/${

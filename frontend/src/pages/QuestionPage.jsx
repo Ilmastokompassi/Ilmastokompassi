@@ -47,7 +47,7 @@ export function QuestionPage() {
     const totalQuestions = allQuestions?.length
     const isLastQuestion = questionId == totalQuestions
 
-    useTitle(`Ilmastoprofiili - Kysymys ${questionId}.`)
+    useTitle(`Ilmastorooli - Kysymys ${questionId}.`)
 
     const handleSubmit = () => {
         const responses = JSON.parse(localStorage.getItem('surveyResponses'))
@@ -90,7 +90,7 @@ export function QuestionPage() {
         if (!isLastQuestion) {
             setTimeout(() => {
                 navigate(`/kysymys/${questionId + 1}`)
-            }, 500)
+            }, 200)
         }
     }
 
@@ -145,6 +145,7 @@ export function QuestionPage() {
                             spacing={4}
                         >
                             <IconButton
+                                data-testid="previous-question"
                                 aria-label="previous question"
                                 href={`/kysymys/${questionId - 1}`}
                                 disabled={questionId <= 1}
@@ -160,11 +161,12 @@ export function QuestionPage() {
                                     Lopeta kysely
                                 </Button>
                             ) : (
-                                <Typography>
+                                <Typography data-testid="current-progress">
                                     {questionId}/{totalQuestions}
                                 </Typography>
                             )}
                             <IconButton
+                                data-testid="next-question"
                                 aria-label="next question"
                                 href={`/kysymys/${questionId + 1}`}
                                 disabled={

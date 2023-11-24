@@ -87,7 +87,7 @@ export const SummaryPage = () => {
     const answerCount = summaryData?.count
     const totalQuestions = summaryData?.total_questions_count
 
-    useTitle('Ilmastoprofiili - Tulokset')
+    useTitle('Ilmastorooli - Tulokset')
     return (
         <Container>
             <Box paddingY={5}>
@@ -110,7 +110,7 @@ export const SummaryPage = () => {
                                 p: '20px',
                             }}
                         >
-                            Oma ilmastoprofiilisi
+                            Ilmastoroolisi
                         </Typography>
                         {isLoadingRoles ||
                         isLoadingSummary ||
@@ -145,17 +145,16 @@ export const SummaryPage = () => {
                                     variant="h2"
                                     sx={{
                                         fontSize: {
-                                            xs: '1.5em',
-                                            sm: '1.75em',
-                                            md: '2em',
+                                            xs: '1em',
+                                            sm: '1.5em',
+                                            md: '1.75em',
                                         },
                                         textAlign: 'center',
-                                        p: '10px',
                                     }}
                                 >
                                     Olet vastannut {answerCount}/
-                                    {totalQuestions} kysymykseen ja alta löydät
-                                    oman ilmastoprofiilisi!
+                                    {totalQuestions} kysymykseen ja niiden
+                                    perusteella sinun ilmastoroolisi on...
                                 </Typography>
                                 {highestScoreRoles.length > 1 && (
                                     <Typography
@@ -168,7 +167,7 @@ export const SummaryPage = () => {
                                             },
                                         }}
                                     >
-                                        Sinulla on useita profiileja, jotka
+                                        Sinulla on useita rooleja, jotka
                                         kuvastavat sinua!
                                     </Typography>
                                 )}
@@ -190,13 +189,13 @@ export const SummaryPage = () => {
                                         },
                                     }}
                                 >
-                                    Eri profiilien välinen jakauma
+                                    Eri roolien välinen jakauma
                                 </Typography>
                                 <SummaryDoughnut data={doughnutChartData} />
                                 {groupToken !== null && (
                                     <>
                                         <Typography
-                                            variant="h2"
+                                            variant="h3"
                                             sx={{
                                                 fontSize: {
                                                     xs: '1em',
@@ -205,14 +204,20 @@ export const SummaryPage = () => {
                                                 },
                                             }}
                                         >
-                                            Ryhmäsi {groupToken} jakauma
+                                            Ryhmän {groupToken} jakauma.
+                                            Kyselyyn on vastannut{' '}
+                                            {allRolesData.response_amount}{' '}
+                                            henkilöä.
                                         </Typography>
 
                                         {allRolesData.response_amount < 5 ? (
                                             <Typography variant="body1">
                                                 Näet tässä ryhmäsi tulokset, kun
                                                 vähintään viisi henkilöä ovat
-                                                vastanneet kyselyyn.
+                                                vastanneet kyselyyn. Nyt
+                                                kyselyyn on vastannut{' '}
+                                                {allRolesData.response_amount}{' '}
+                                                henkilöä.
                                             </Typography>
                                         ) : (
                                             <SummaryDoughnut

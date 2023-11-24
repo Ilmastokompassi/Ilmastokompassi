@@ -61,5 +61,22 @@ class QuizService:
         except Exception as error:
             raise error
 
+    def get_all_questions_and_answers(self):
+        try:
+            results = self.quiz_repository.get_all_questions_and_answers()
+
+            summary = {}
+            for question_text, correct_answer in results:
+                if question_text not in summary:
+                    summary[question_text] = []
+                summary[question_text].append(correct_answer)
+
+            summary_list = [{'question_text': k, 'correct_answers': v}
+                            for k, v in summary.items()]
+
+            return summary_list
+        except Exception as error:
+            raise error
+
 
 default_quiz_service = QuizService(default_quiz_repository)
