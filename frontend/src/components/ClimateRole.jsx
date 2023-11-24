@@ -1,16 +1,10 @@
-import { Card, CardContent, CardHeader, Box } from '@mui/material'
+import { Card, CardContent, Box } from '@mui/material'
 import { Typography } from '@mui/material'
 import PropTypes from 'prop-types'
 
-export const ClimateRole = ({ name, description }) => {
+export const ClimateRole = ({ description }) => {
     return (
-        <Card
-            variant="outlined"
-            sx={{
-                width: '100%',
-                boxShadow: 1,
-            }}
-        >
+        <Card variant="inline">
             <Box
                 sx={{
                     display: 'flex',
@@ -18,17 +12,7 @@ export const ClimateRole = ({ name, description }) => {
                     overflowWrap: 'break-word',
                 }}
             >
-                <CardHeader
-                    sx={{ textAlign: 'center' }}
-                    titleTypographyProps={{
-                        variant: 'h2',
-                        sx: {
-                            fontSize: { xs: '1.5em', sm: '1.75em', md: '2em' },
-                        },
-                    }}
-                    title={name}
-                />
-                <CardContent sx={{ flex: '1 0 auto' }}>
+                <CardContent>
                     <Typography>{description}</Typography>
                 </CardContent>
             </Box>
@@ -37,6 +21,5 @@ export const ClimateRole = ({ name, description }) => {
 }
 
 ClimateRole.propTypes = {
-    name: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
 }

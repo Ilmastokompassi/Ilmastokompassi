@@ -4,10 +4,12 @@ import {
     AccordionSummary,
     Box,
     Typography,
+    Stack,
 } from '@mui/material'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
-import { SummaryRole } from './SummaryRole'
+import { ClimateRole } from './ClimateRole'
 import { theme } from '../theme'
+import RoleImage from '../components/RoleImage'
 import useSWR from 'swr'
 
 const RolesAccordion = () => {
@@ -19,14 +21,14 @@ const RolesAccordion = () => {
             {roleList &&
                 roleList.map((role) => (
                     <Accordion key={role.id}>
-                        <AccordionSummary // This is the header
+                        <AccordionSummary
                             expandIcon={<ExpandMoreIcon />}
                             aria-controls={`panel-${role.id}-content`}
                             id={`panel-${role.id}-header`}
                         >
-                            <Typography>{role.name}</Typography>
+                            <Typography variant="h6">{role.name}</Typography>
                         </AccordionSummary>
-                        <AccordionDetails // This is the body
+                        <AccordionDetails
                             sx={{
                                 display: { xs: 'flex', md: 'flex' },
                                 flexDirection: 'column',
@@ -42,11 +44,10 @@ const RolesAccordion = () => {
                                 },
                             }}
                         >
-                            <SummaryRole
-                                index={role.id}
-                                title={role.name}
-                                description={role.description}
-                            />
+                            <ClimateRole description={role.description} />
+                            <Stack>
+                                <RoleImage title={role.name} />
+                            </Stack>
                         </AccordionDetails>
                     </Accordion>
                 ))}
