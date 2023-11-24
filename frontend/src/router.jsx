@@ -3,7 +3,6 @@ import { Layout } from './components/Layout'
 import { LandingPage } from './pages/LandingPage'
 import { SurveyPage } from './pages/SurveyPage'
 import { QuestionPage } from './pages/QuestionPage'
-import { ClimateRolePage } from './pages/ClimateRolePage'
 import { SummaryPage } from './pages/SummaryPage'
 import { FactQuizQuestionPage } from './pages/FactQuizQuestionPage'
 import { GroupSummaryPage } from './pages/GroupSummaryPage'
@@ -30,10 +29,6 @@ export const routes = [
             {
                 path: '/tietovisa/:questionId',
                 element: <FactQuizQuestionPage />,
-            },
-            {
-                path: '/ilmastoroolit',
-                element: <ClimateRolePage />,
             },
             {
                 path: '/yhteenveto/:userId',
