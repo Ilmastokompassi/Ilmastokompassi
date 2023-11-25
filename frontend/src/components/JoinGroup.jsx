@@ -29,7 +29,7 @@ const JoinGroup = () => {
         setOpen(false)
     }
 
-    const isMobile = useMediaQuery('(max-width:600px)') // Adjust the breakpoint as needed
+    const isMobile = useMediaQuery('(max-width:600px)')
 
     const handleSubmit = () => {
         if (groupToken === '') {
@@ -91,7 +91,7 @@ const JoinGroup = () => {
                 >
                     <Alert
                         onClose={handleClose}
-                        severity="success"
+                        color={'primary'}
                         sx={{ width: '100%' }}
                     >
                         Ryhmään liittyminen onnistui! Löydät ryhmään liittyvät
