@@ -5,10 +5,8 @@ import {
     Snackbar,
     useMediaQuery,
 } from '@mui/material'
-import CreateGroupDialog from '../components/CreateGroupDialog'
 import { useState, forwardRef } from 'react'
 import MuiAlert from '@mui/material/Alert'
-
 
 const JoinGroup = () => {
     const [groupToken, setGroupToken] = useState('')

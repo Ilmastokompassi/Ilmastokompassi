@@ -7,12 +7,10 @@ import {
     Card,
     Container,
     CardContent,
-    Link,
     Snackbar,
     useMediaQuery,
 } from '@mui/material'
 
-import { useState, useEffect } from 'react'
 import { useTitle } from '../hooks/useTitle'
 import JoinGroup from '../components/JoinGroup'
 import { forwardRef } from 'react'
