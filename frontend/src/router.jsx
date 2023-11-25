@@ -3,11 +3,12 @@ import { Layout } from './components/Layout'
 import { LandingPage } from './pages/LandingPage'
 import { SurveyPage } from './pages/SurveyPage'
 import { QuestionPage } from './pages/QuestionPage'
-import { ClimateRolePage } from './pages/ClimateRolePage'
 import { SummaryPage } from './pages/SummaryPage'
 import { FactQuizQuestionPage } from './pages/FactQuizQuestionPage'
 import { GroupSummaryPage } from './pages/GroupSummaryPage'
+import { FactQuizSummaryPage } from './pages/FactQuizSummaryPage'
 import { FaqPage } from './pages/FaqPage'
+
 // Defines the routes of the application
 export const routes = [
     {
@@ -30,16 +31,16 @@ export const routes = [
                 element: <FactQuizQuestionPage />,
             },
             {
-                path: '/ilmastoroolit',
-                element: <ClimateRolePage />,
-            },
-            {
                 path: '/yhteenveto/:userId',
                 element: <SummaryPage />,
             },
             {
                 path: '/yhteenveto/ryhma/:groupToken',
                 element: <GroupSummaryPage />,
+            },
+            {
+                path: '/tietovisa/yhteenveto',
+                element: <FactQuizSummaryPage />,
             },
             {
                 path: '/faq',

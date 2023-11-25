@@ -82,5 +82,19 @@ class QuizRepository:
         except Exception as error:
             raise error
 
+    def get_all_questions_and_answers(self):
+        sql = text("""
+                   SELECT q.content AS question_text,
+                   o.option AS correct_answer
+                   FROM quiz_questions AS q
+                   JOIN quiz_question_options AS o ON q.id = o.question_id
+                   WHERE o.is_correct = TRUE
+                   ORDER BY q.id, o.id
+                   """)
+        try:
+            return db.session.execute(sql).fetchall()
+        except Exception as error:
+            raise error
+
 
 default_quiz_repository = QuizRepository()

@@ -1,31 +1,28 @@
-describe('Climate roles page', function () {
-    beforeEach(function () {
-        cy.visit('/ilmastoroolit')
-    })
+Cypress.env('viewports').forEach((viewport) => {
+    describe(
+        `Climateprofiles in SurveyPage on ${viewport[2]} viewport`,
+        {
+            viewportWidth: viewport[0],
+            viewportHeight: viewport[1],
+        },
+        () => {
+            beforeEach(() => cy.visit('/ilmastoroolikysely'))
 
-    it('has correct title', function () {
-        cy.title().should('eq', 'Ilmastoroolit')
-    })
+            it('has correct title', function () {
+                cy.title().should('eq', 'Ilmastoroolikysely')
+            })
 
-    context('on 1440p screen', () => {
-        beforeEach(() => cy.viewport(1366, 768))
+            it('contains all four roles', function () {
+                cy.contains('Ilmastoasiantuntija')
+                cy.contains('Mielipidevaikuttaja')
+                cy.contains('Kestävän elämäntavan etsijä')
+                cy.contains('Eettinen kuluttaja')
+            })
 
-        it('contains all four roles', function () {
-            cy.contains('Ilmastoasiantuntija')
-            cy.contains('Mielipidevaikuttaja')
-            cy.contains('Kestävän elämäntavan etsijä')
-            cy.contains('Eettinen kuluttaja')
-        })
-    })
-
-    context('on iPhone SE 2', () => {
-        beforeEach(() => cy.viewport('iphone-se2'))
-
-        it('contains all four roles', function () {
-            cy.contains('Ilmastoasiantuntija')
-            cy.contains('Mielipidevaikuttaja')
-            cy.contains('Kestävän elämäntavan etsijä')
-            cy.contains('Eettinen kuluttaja')
-        })
-    })
+            it('Ilmastoasiantuntija accordion has correct content', function () {
+                cy.contains('Ilmastoasiantuntija').click()
+                cy.contains('Sinussa on potentiaalia ilmastoasiantuntijaksi.')
+            })
+        }
+    )
 })

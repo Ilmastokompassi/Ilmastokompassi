@@ -44,6 +44,9 @@ class QuizRepositoryMock:
     def get_info_text(self, question_id):
         return "info text"
 
+    def get_all_questions_and_answers(self):
+        return [('kysymys 1', 'vastaus 1'), ('kysymys 1', 'vastaus 2'), ('kysymys 1', 'vastaus 3'), ('kysymys 2', 'vastaus 1')]
+
 
 class TestQuizService(unittest.TestCase):
     def setUp(self):
@@ -127,3 +130,21 @@ class TestQuizService(unittest.TestCase):
         )
         with self.assertRaises(Exception):
             self.quiz_service.get_info_text(-1)
+
+    def test_get_all_questions_and_answers(self):
+        result = self.quiz_service.get_all_questions_and_answers()
+
+        # Check the number of unique questions
+        self.assertEqual(len(result), 2)
+
+        # Check details for the first question
+        self.assertEqual(result[0]['question_text'], 'kysymys 1')
+        self.assertListEqual(result[0]['correct_answers'], [
+                             'vastaus 1', 'vastaus 2', 'vastaus 3'])
+
+    def test_get_all_questions_and_answers_exception(self):
+        self.quiz_repository_mock.get_all_questions_and_answers = Exception(
+            "Test exception"
+        )
+        with self.assertRaises(Exception):
+            self.quiz_service.get_all_questions_and_answers()

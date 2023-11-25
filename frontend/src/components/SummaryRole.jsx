@@ -31,29 +31,12 @@ export const SummaryRole = ({ index, title, description }) => {
                     <CardHeader
                         sx={{ textAlign: 'left' }}
                         titleTypographyProps={{
-                            variant: 'h2',
-                            fontSize: {
-                                xs: '1.5em',
-                                sm: '1.75em',
-                                md: '2em',
-                            },
+                            variant: 'h5',
                         }}
-                        title={title}
+                        title={title + '!'}
                     ></CardHeader>
                     <CardContent sx={{ flex: '1 0 auto' }}>
-                        <Typography
-                            variant="h3"
-                            sx={{
-                                fontSize: {
-                                    xs: '0.9em',
-                                    sm: '1em',
-                                    md: '1.1em',
-                                },
-                                p: '10px',
-                            }}
-                        >
-                            {description}
-                        </Typography>
+                        <Typography>{description}</Typography>
                     </CardContent>
                 </Stack>
             </Box>

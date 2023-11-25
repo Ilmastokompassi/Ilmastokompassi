@@ -87,7 +87,7 @@ export const SummaryPage = () => {
     const answerCount = summaryData?.count
     const totalQuestions = summaryData?.total_questions_count
 
-    useTitle('Ilmastoprofiili - Tulokset')
+    useTitle('Ilmastorooli - Tulokset')
     return (
         <Container>
             <Box paddingY={5}>
@@ -98,36 +98,14 @@ export const SummaryPage = () => {
                         paddingBottom={'50px'}
                         alignItems={'center'}
                     >
-                        <Typography
-                            variant="h1"
-                            sx={{
-                                fontSize: {
-                                    xs: '2em', // Smaller font size for extra small screens
-                                    sm: '3em', // Slightly bigger for small screens
-                                    md: '4em', // Original size for medium screens and up
-                                },
-                                textAlign: 'center',
-                                p: '20px',
-                            }}
-                        >
-                            Oma ilmastoprofiilisi
-                        </Typography>
+                        <Typography variant="h4">Ilmastoroolisi</Typography>
                         {isLoadingRoles ||
                         isLoadingSummary ||
                         isLoadingAllRolesData ? (
                             <p>Loading...</p>
                         ) : filteredSummaryScores.length === 0 ? (
                             <>
-                                <Typography
-                                    variant="h2"
-                                    sx={{
-                                        fontSize: {
-                                            xs: '1em',
-                                            sm: '1.25em',
-                                            md: '1.5em',
-                                        },
-                                    }}
-                                >
+                                <Typography variant="h5">
                                     Ei tarpeeksi dataa tulosten näyttämiseen
                                 </Typography>
                                 <Button
@@ -141,37 +119,17 @@ export const SummaryPage = () => {
                             </>
                         ) : answerCount > 0 ? (
                             <>
-                                <Typography
-                                    variant="h2"
-                                    sx={{
-                                        fontSize: {
-                                            xs: '1.5em',
-                                            sm: '1.75em',
-                                            md: '2em',
-                                        },
-                                        textAlign: 'center',
-                                        p: '10px',
-                                    }}
-                                >
+                                <Typography variant="h5">
                                     Olet vastannut {answerCount}/
-                                    {totalQuestions} kysymykseen ja alta löydät
-                                    oman ilmastoprofiilisi!
+                                    {totalQuestions} kysymykseen ja niiden
+                                    perusteella sinun ilmastoroolisi
+                                    {highestScoreRoles.length > 1 ? (
+                                        <span> ovat</span>
+                                    ) : (
+                                        <span> on</span>
+                                    )}
+                                    ...
                                 </Typography>
-                                {highestScoreRoles.length > 1 && (
-                                    <Typography
-                                        variant="h2"
-                                        sx={{
-                                            fontSize: {
-                                                xs: '1em',
-                                                sm: '1.25em',
-                                                md: '1.5em',
-                                            },
-                                        }}
-                                    >
-                                        Sinulla on useita profiileja, jotka
-                                        kuvastavat sinua!
-                                    </Typography>
-                                )}
                                 {highestScoreRoles.map((role, index) => (
                                     <SummaryRole
                                         key={role.id}
@@ -180,39 +138,27 @@ export const SummaryPage = () => {
                                         description={role.description}
                                     />
                                 ))}
-                                <Typography
-                                    variant="h2"
-                                    sx={{
-                                        fontSize: {
-                                            xs: '1em',
-                                            sm: '1.25em',
-                                            md: '1.5em',
-                                        },
-                                    }}
-                                >
-                                    Eri profiilien välinen jakauma
+                                <Typography variant="h5">
+                                    Eri roolien välinen jakauma
                                 </Typography>
                                 <SummaryDoughnut data={doughnutChartData} />
                                 {groupToken !== null && (
                                     <>
-                                        <Typography
-                                            variant="h2"
-                                            sx={{
-                                                fontSize: {
-                                                    xs: '1em',
-                                                    sm: '1.25em',
-                                                    md: '1.5em',
-                                                },
-                                            }}
-                                        >
-                                            Ryhmäsi {groupToken} jakauma
+                                        <Typography variant="h5">
+                                            Ryhmän {groupToken} jakauma.
+                                            Kyselyyn on vastannut{' '}
+                                            {allRolesData.response_amount}{' '}
+                                            henkilöä.
                                         </Typography>
 
                                         {allRolesData.response_amount < 5 ? (
                                             <Typography variant="body1">
                                                 Näet tässä ryhmäsi tulokset, kun
                                                 vähintään viisi henkilöä ovat
-                                                vastanneet kyselyyn.
+                                                vastanneet kyselyyn. Nyt
+                                                kyselyyn on vastannut{' '}
+                                                {allRolesData.response_amount}{' '}
+                                                henkilöä.
                                             </Typography>
                                         ) : (
                                             <SummaryDoughnut

@@ -9,6 +9,7 @@ import CreateGroupDialog from '../components/CreateGroupDialog'
 import { useState, forwardRef } from 'react'
 import MuiAlert from '@mui/material/Alert'
 
+
 const JoinGroup = () => {
     const [groupToken, setGroupToken] = useState('')
     const [isValid, setIsValid] = useState(true)
@@ -53,6 +54,12 @@ const JoinGroup = () => {
             })
     }
 
+    const handleKeyDown = (event) => {
+        if (event.keyCode === 13) {
+            handleSubmit()
+        }
+    }
+
     return (
         <>
             <Stack
@@ -70,6 +77,9 @@ const JoinGroup = () => {
                     value={groupToken}
                     onChange={handleTextFieldChange}
                     size="small"
+                    onKeyDown={(event) => {
+                        handleKeyDown(event)
+                    }}
                 />
                 <Button
                     data-testid="join-group"
@@ -99,7 +109,6 @@ const JoinGroup = () => {
                     </Alert>
                 </Snackbar>
             </Stack>
-            <CreateGroupDialog />
         </>
     )
 }

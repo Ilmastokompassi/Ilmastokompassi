@@ -21,10 +21,7 @@ function QuizQuestionCard({
         <Card sx={{ width: '100%', borderRadius: 2 }}>
             <CardContent>
                 <Container sx={{ padding: 2 }}>
-                    <Typography
-                        sx={{ typography: { xs: 'h6', sm: 'h6', md: 'h5' } }}
-                        textAlign="center"
-                    >
+                    <Typography variant="h6" textAlign="center">
                         {question.id + '. ' + question.content}
                     </Typography>
                 </Container>
