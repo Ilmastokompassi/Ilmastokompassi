@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react'
 import {
     Typography,
     Button,
@@ -6,30 +7,56 @@ import {
     Card,
     Container,
     CardContent,
+    Snackbar,
+    useMediaQuery,
 } from '@mui/material'
 
-import { useState, useEffect } from 'react'
 import { useTitle } from '../hooks/useTitle'
 import JoinGroup from '../components/JoinGroup'
+import { forwardRef } from 'react'
+import MuiAlert from '@mui/material/Alert'
 import RolesAccordion from '../components/RolesAccordion'
 import CreateGroupDialog from '../components/CreateGroupDialog'
 
 export function SurveyPage() {
     const [groupToken, setGroupToken] = useState(null)
+    const [snackbarOpen, setSnackbarOpen] = useState(false)
+    const [componentMounted, setComponentMounted] = useState(false)
+
+    const isMobile = useMediaQuery('(max-width:600px)')
+
+    const Alert = forwardRef(function Alert(props, ref) {
+        return <MuiAlert ref={ref} variant="filled" {...props} />
+    })
 
     useEffect(() => {
         const refreshToken = () => {
-            setGroupToken(localStorage.getItem('groupToken'))
+            const newGroupToken = localStorage.getItem('groupToken')
+            if (componentMounted && newGroupToken && !groupToken) {
+                setSnackbarOpen(true)
+            }
+            setGroupToken(newGroupToken)
         }
 
         refreshToken()
         window.addEventListener('setGroupToken', refreshToken)
+
+        setComponentMounted(true)
+
         return () => {
             window.removeEventListener('setGroupToken', refreshToken)
         }
-    }, [])
+    }, [groupToken, componentMounted])
 
     useTitle('Ilmastoroolikysely')
+
+    const handleClose = (reason) => {
+        if (reason === 'clickaway') {
+            return
+        }
+
+        setSnackbarOpen(false)
+    }
 
     return (
         <Container>
@@ -86,6 +113,25 @@ export function SurveyPage() {
                     </CardContent>
                 </Card>
             </Box>
+            <Snackbar
+                open={snackbarOpen}
+                autoHideDuration={4500}
+                onClose={handleClose}
+                anchorOrigin={{
+                    vertical: 'top',
+                    horizontal: 'right',
+                }}
+                style={{ top: isMobile ? 0 : 80 }}
+            >
+                <Alert
+                    onClose={handleClose}
+                    color={'primary'}
+                    sx={{ width: '100%' }}
+                >
+                    Ryhmään liittyminen onnistui! Löydät ryhmään liittyvät
+                    toiminnot oikeasta yläkulmasta.
+                </Alert>
+            </Snackbar>
             <RolesAccordion />
         </Container>
     )

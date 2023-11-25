@@ -1,14 +1,34 @@
-import { Button, Stack, TextField } from '@mui/material'
-import { useState } from 'react'
+import {
+    Button,
+    Stack,
+    TextField,
+    Snackbar,
+    useMediaQuery,
+} from '@mui/material'
+import { useState, forwardRef } from 'react'
+import MuiAlert from '@mui/material/Alert'
 
 const JoinGroup = () => {
     const [groupToken, setGroupToken] = useState('')
     const [isValid, setIsValid] = useState(true)
+    const [open, setOpen] = useState(false)
 
     const handleTextFieldChange = (event) => {
         setGroupToken(event.target.value.toUpperCase())
         setIsValid(true)
     }
+    const Alert = forwardRef(function Alert(props, ref) {
+        return <MuiAlert ref={ref} variant="filled" {...props} />
+    })
+    const handleClose = (reason) => {
+        if (reason === 'clickaway') {
+            return
+        }
+
+        setOpen(false)
+    }
+
+    const isMobile = useMediaQuery('(max-width:600px)')
 
     const handleSubmit = () => {
         if (groupToken === '') {
@@ -25,6 +45,7 @@ const JoinGroup = () => {
                     localStorage.setItem('groupToken', groupToken)
                     window.dispatchEvent(new Event('setGroupToken'))
                     setGroupToken('')
+                    setOpen(true)
                 } else {
                     setIsValid(false)
                 }
@@ -66,6 +87,25 @@ const JoinGroup = () => {
                 >
                     Liity ryhmään
                 </Button>
+                <Snackbar
+                    open={open}
+                    autoHideDuration={4500}
+                    onClose={handleClose}
+                    anchorOrigin={{
+                        vertical: 'top',
+                        horizontal: 'right',
+                    }}
+                    style={{ top: isMobile ? 0 : 80 }}
+                >
+                    <Alert
+                        onClose={handleClose}
+                        color={'primary'}
+                        sx={{ width: '100%' }}
+                    >
+                        Ryhmään liittyminen onnistui! Löydät ryhmään liittyvät
+                        toiminnot oikean yläkulman kuvakkeesta.
+                    </Alert>
+                </Snackbar>
             </Stack>
         </>
     )
