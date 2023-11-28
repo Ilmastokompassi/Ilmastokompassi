@@ -8,7 +8,6 @@ import Menu from '@mui/material/Menu'
 import Container from '@mui/material/Container'
 import Button from '@mui/material/Button'
 import MenuItem from '@mui/material/MenuItem'
-import ListItem from '@mui/material/MenuItem'
 import Stack from '@mui/material/Stack'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import { useTheme } from '@mui/material'
@@ -119,38 +118,39 @@ const GroupMenu = () => {
                 open={Boolean(anchorElement)}
                 onClose={() => setAnchorElement(null)}
             >
-                <ListItem
+                <Box
+                    paddingX={2}
+                    paddingY={1}
+                    fontWeight="bold"
                     data-testid="current-group-token"
-                    role="menuitem"
-                    sx={{ fontWeight: 'bold' }}
                 >
                     {groupToken
                         ? `Ryhmätunnus: ${groupToken}`
                         : 'Et ole ryhmässä'}
-                </ListItem>
-                {groupToken && (
-                    <>
-                        <MenuItem
-                            data-testid="open-group-summary"
-                            onClick={() => setAnchorElement(null)}
-                            component={NavLink}
-                            to={'/yhteenveto/ryhma/' + groupToken}
-                        >
-                            Ryhmän tulokset
-                        </MenuItem>
-                        <MenuItem
-                            data-testid="leave-group"
-                            onClick={() => {
-                                localStorage.removeItem('groupToken')
-                                setGroupToken(null)
-                                window.dispatchEvent(new Event('setGroupToken'))
-                                setAnchorElement(null)
-                            }}
-                        >
-                            Poistu ryhmästä
-                        </MenuItem>
-                    </>
-                )}
+                </Box>
+                {groupToken && [
+                    <MenuItem
+                        key="open-group-summary"
+                        data-testid="open-group-summary"
+                        onClick={() => setAnchorElement(null)}
+                        component={NavLink}
+                        to={'/yhteenveto/ryhma/' + groupToken}
+                    >
+                        Ryhmän tulokset
+                    </MenuItem>,
+                    <MenuItem
+                        key="leave-group"
+                        data-testid="leave-group"
+                        onClick={() => {
+                            localStorage.removeItem('groupToken')
+                            setGroupToken(null)
+                            window.dispatchEvent(new Event('setGroupToken'))
+                            setAnchorElement(null)
+                        }}
+                    >
+                        Poistu ryhmästä
+                    </MenuItem>,
+                ]}
             </Menu>
         </>
     )
