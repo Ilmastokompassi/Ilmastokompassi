@@ -27,7 +27,7 @@ export const routes = [
                 element: <QuestionPage />,
             },
             {
-                path: '/tietovisa/:questionId',
+                path: '/oppimisvisa/:questionId',
                 element: <FactQuizQuestionPage />,
             },
             {
@@ -39,7 +39,7 @@ export const routes = [
                 element: <GroupSummaryPage />,
             },
             {
-                path: '/tietovisa/yhteenveto',
+                path: '/oppimisvisa/yhteenveto',
                 element: <FactQuizSummaryPage />,
             },
             {

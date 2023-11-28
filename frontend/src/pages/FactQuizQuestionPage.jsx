@@ -17,8 +17,8 @@ export const FactQuizQuestionPage = () => {
 
     const navigate = useNavigate()
     const swipeHandlers = useSwipeable({
-        onSwipedLeft: () => navigate(`/tietovisa/${questionId + 1}`),
-        onSwipedRight: () => navigate(`/tietovisa/${questionId - 1}`),
+        onSwipedLeft: () => navigate(`/oppimisvisa/${questionId + 1}`),
+        onSwipedRight: () => navigate(`/oppimisvisa/${questionId - 1}`),
     })
 
     const responseId = localStorage.getItem('quizResponseId')
@@ -96,7 +96,7 @@ export const FactQuizQuestionPage = () => {
         setSelectedOptionsIds(new Set())
     }
 
-    useTitle(`Tietovisa - Kysymys ${questionId}.`)
+    useTitle(`Oppimisvisa - Kysymys ${questionId}.`)
 
     return (
         <div {...swipeHandlers}>
@@ -169,7 +169,7 @@ export const FactQuizQuestionPage = () => {
                                                     data-testid="quiz-end-button"
                                                     variant="contained"
                                                     color="primary"
-                                                    href="/tietovisa/yhteenveto"
+                                                    href="/oppimisvisa/yhteenveto"
                                                 >
                                                     Lopeta kysely
                                                 </Button>
@@ -178,7 +178,7 @@ export const FactQuizQuestionPage = () => {
                                                     data-testid="quiz-next-button"
                                                     variant="contained"
                                                     color="primary"
-                                                    href={`/tietovisa/${
+                                                    href={`/oppimisvisa/${
                                                         questionId + 1
                                                     }`}
                                                     onClick={handleNextQuestion}
