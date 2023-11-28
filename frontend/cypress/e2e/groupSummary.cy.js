@@ -49,6 +49,26 @@ describe('Group summary page', function () {
                         'Näet tässä ryhmän FOOBAR tulokset, kun vähintään viisi henkilöä on vastannut kyselyyn. Nyt kyselyyn on vastannut 0 henkilöä.'
                     )
                 })
+
+                it('Show summary for group with 5 answers', function () {
+                    cy.createGroupWithApi(groupToken)
+                    cy.joinGroup(groupToken)
+
+                    for (var i = 0; i < 5; i++) {
+                        cy.answerRoleSurveyWithApi(groupToken, {
+                            1: 1,
+                            2: 1,
+                            3: 1,
+                            4: 1,
+                            5: 1,
+                        })
+                    }
+                    cy.visit('/yhteenveto/ryhma/' + groupToken)
+                    cy.contains('Ryhmän FOOBAR ilmastorooli')
+                    cy.contains(
+                        'Ryhmän FOOBAR jakauma. Kyselyyn on vastannut 5 henkilöä.'
+                    )
+                })
             }
         )
     })
