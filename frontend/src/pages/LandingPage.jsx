@@ -8,9 +8,7 @@ import {
 } from '@mui/material'
 import { useTitle } from '../hooks/useTitle'
 
-import JoinGroup from '../components/JoinGroup'
 import { ToSurveyCard } from '../components/ToSurveyCard'
-import CreateGroupDialog from '../components/CreateGroupDialog'
 import FaceIcon from '@mui/icons-material/Face'
 import TravelExploreIcon from '@mui/icons-material/TravelExplore'
 
@@ -42,8 +40,6 @@ export const LandingPage = () => {
                                     ilmastonmuutoksesta kiinnostuneille.
                                 </Typography>
                             </Box>
-                            <JoinGroup />
-                            <CreateGroupDialog />
                         </Stack>
                     </CardContent>
                 </Card>

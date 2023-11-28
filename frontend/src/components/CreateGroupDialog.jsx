@@ -148,7 +148,7 @@ export default function CreateGroupDialog() {
                                 data-testid="cancel"
                                 onClick={() => setOpen(false)}
                             >
-                                EIKU
+                                Takaisin
                             </Button>
                             <Button
                                 data-testid="create-group"

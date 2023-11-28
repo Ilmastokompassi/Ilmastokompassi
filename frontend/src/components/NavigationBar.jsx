@@ -124,9 +124,19 @@ const GroupMenu = () => {
                     fontWeight="bold"
                     data-testid="current-group-token"
                 >
-                    {groupToken
-                        ? `Ryhmätunnus: ${groupToken}`
-                        : 'Et ole ryhmässä'}
+                    {groupToken ? (
+                        `Ryhmätunnus: ${groupToken}`
+                    ) : (
+                        <MenuItem
+                            key="create-group"
+                            data-testid="create-group"
+                            onClick={() => setAnchorElement(null)}
+                            component={NavLink}
+                            to="/ilmastoroolikysely"
+                        >
+                            Liity ryhmään
+                        </MenuItem>
+                    )}
                 </Box>
                 {groupToken && [
                     <MenuItem
