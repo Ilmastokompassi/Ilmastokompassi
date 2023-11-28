@@ -1,5 +1,5 @@
 describe('Open group creation dialog', function () {
-    beforeEach(() => cy.visit('/'))
+    beforeEach(() => cy.visit('/ilmastoroolikysely'))
 
     Cypress.env('viewports').forEach((viewport) => {
         describe(

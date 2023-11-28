@@ -74,44 +74,48 @@ export function FaqPage() {
                                 keskenänne.
                             </Typography>
                             <Typography variant="h6">
+                                Mistä tiedän olenko liittynyt ryhmään?
+                            </Typography>
+                            <Typography marginBottom={2}>
+                                Oikeassa yläkulmassa näkyy ryhmäikoni. Jos et
+                                ole osa ryhmää, ikonia painamalla pääset
+                                liittymään ryhmään.
+                            </Typography>
+                            <Typography variant="h6">
                                 Miten voin liittyä ryhmään?
                             </Typography>
                             <Typography marginBottom={2}>
-                                Ryhmään liittyminen onnistuu sivuston
-                                etusivulta. Syötä ryhmätunnus
-                                tekstikenttään ja paina &quot;LIITY&quot;
-                                painiketta. Ryhmätunnuksen saat ryhmän
-                                ylläpitäjältä.
+                                Ryhmään liittyminen onnistuu
+                                Ilmastoroolikyselyt- sivulta. Pääset sinne
+                                painamalla navikointipalkissa olevaa
+                                &quot;Ilmastoroolikysely&quot; tekstiä. Syötä
+                                ryhmätunnus tekstikenttään ja paina
+                                &quot;LIITY&quot; painiketta. Ryhmätunnuksen
+                                saat ryhmän ylläpitäjältä.
                             </Typography>
                             <Typography variant="h6">
                                 Miten voin luoda ryhmän?
                             </Typography>
                             <Typography marginBottom={2}>
-                                Ryhmän luominen onnistuu sivuston etusivulta.
-                                Paina &quot;LUO RYHMÄ&quot; painiketta.
-                            </Typography>
-                            <Typography variant="h6">
-                                Mistä tiedän olenko liittynyt ryhmään?
-                            </Typography>
-                            <Typography marginBottom={2}>
-                                Ryhmään liittymisen jälkeen ryhmätunnus näkyy
-                                painamalla sivuston oikeassa yläkulmassa olevaa kuvaa.
+                                Ryhmän luominen onnistuu Ilmastoroolikyselyt-
+                                sivulta. Paina &quot;LUO RYHMÄ&quot; painiketta.
                             </Typography>
                             <Typography variant="h6">
                                 Miten voin tarkastella ryhmän tuloksia?
                             </Typography>
                             <Typography marginBottom={2}>
-                                Ryhmän tulokset näkyvät omalla sivullaan, jonne pääset painamalla sivuston oikeassa
-                                yläkulmassa olevaa kuvaa ja &quot;Ryhmän
-                                tulokset&quot; painiketta.
+                                Ryhmän tulokset näkyvät omalla sivullaan, jonne
+                                pääset painamalla sivuston oikeassa yläkulmassa
+                                olevaa kuvaa ja &quot;Ryhmän tulokset&quot;
+                                painiketta.
                             </Typography>
                             <Typography variant="h6">
                                 Miten voin poistua ryhmästä?
                             </Typography>
                             <Typography marginBottom={2}>
-                                Ryhmästä poistuminen onnistuu painamalla sivuston oikeassa
-                                yläkulmassa olevaa kuvaa ja &quot;Poistu
-                                ryhmästä&quot; painiketta.
+                                Ryhmästä poistuminen onnistuu painamalla
+                                sivuston oikeassa yläkulmassa olevaa kuvaa ja
+                                &quot;Poistu ryhmästä&quot; painiketta.
                             </Typography>
                         </Box>
                     </CardContent>

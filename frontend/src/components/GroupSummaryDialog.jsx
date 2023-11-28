@@ -83,7 +83,7 @@ export default function GroupSummaryDialog() {
                 </DialogContent>
                 <DialogActions>
                     <Button data-testid="cancel" onClick={() => setOpen(false)}>
-                        EIKU
+                        Takaisin
                     </Button>
                     <Button
                         data-testid="open-group-summary"
