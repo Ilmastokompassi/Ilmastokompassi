@@ -1,28 +1,26 @@
-import { Typography } from '@mui/material'
-import EarthFlowers from '../assets/flowers_earth.jpg'
-import EarthPeace from '../assets/peace_earth.jpg'
-import EarthPlant from '../assets/plant_earth.jpg'
-import EarthRecycle from '../assets/recycle_earth.jpg'
+import ClimateExpert from '../assets/ilmastoasiantuntija.png'
+import SustainableSearcher from '../assets/kestavanelamantavanetsija.png'
+import EthicalConsumer from '../assets/eettinenkuluttaja.png'
+import OpinionInfluencer from '../assets/mielipidevaikuttaja.png'
 import PropTypes from 'prop-types'
 
 const RoleImage = ({ title }) => {
     const roles = {
-        'Ilmastoasiantuntija': EarthPeace,
-        'Mielipidevaikuttaja': EarthPlant,
-        'Kestävän elämäntavan etsijä': EarthRecycle,
-        'Eettinen kuluttaja': EarthFlowers,
+        Ilmastoasiantuntija: ClimateExpert,
+        Mielipidevaikuttaja: OpinionInfluencer,
+        'Kestävän elämäntavan etsijä': SustainableSearcher,
+        'Eettinen kuluttaja': EthicalConsumer,
     }
     const role = roles[title]
     return (
         <>
             <img src={role} alt={title} width={250} height={250} />
-            <Typography variant="caption">Image by Freepik</Typography>
         </>
     )
 }
 
 RoleImage.propTypes = {
-    title: PropTypes.string.isRequired
+    title: PropTypes.string.isRequired,
 }
 
 export default RoleImage
