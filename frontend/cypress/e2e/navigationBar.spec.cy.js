@@ -21,6 +21,24 @@ Cypress.env('viewports').forEach((viewport) => {
                 cy.location('pathname').should('eq', '/faq')
                 cy.title().should('eq', 'Usein kysytyt kysymykset')
             })
+
+            it('navigate to role survey page and back to front page', function () {
+                cy.navigateToPageWithNavBar('survey')
+
+                cy.location('pathname').should('eq', '/ilmastoroolikysely')
+                cy.title().should('eq', 'Ilmastoroolikysely')
+                if (viewport[0] === 1920) {
+                    cy.get('[data-testid=logo]').click()
+                } else {
+                    cy.get('[data-testid=navigation-hamburger]').click()
+                    cy.get(
+                        '[data-testid=etusivulle-navigation-menu-item]'
+                    ).click()
+                }
+
+                cy.location('pathname').should('eq', '/')
+                cy.title().should('eq', 'Ilmastokompassi')
+            })
         }
     )
 })

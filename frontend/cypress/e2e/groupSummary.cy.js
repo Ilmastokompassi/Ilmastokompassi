@@ -1,7 +1,7 @@
 describe('Group summary page', function () {
     const groupToken = 'FOOBAR'
 
-    beforeEach(() => cy.visit('/'))
+    beforeEach(() => cy.visit('/ilmastoroolikysely'))
 
     Cypress.env('viewports').forEach((viewport) => {
         describe(
