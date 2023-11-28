@@ -13,7 +13,7 @@ describe('Quiz page', function () {
             },
             () => {
                 it('First question and answer options are rendered', function () {
-                    cy.title().should('eq', 'Tietovisa - Kysymys 1.')
+                    cy.title().should('eq', 'Oppimisvisa - Kysymys 1.')
                     cy.contains(
                         '1. Ilmastonmuutokseen liittyviä väitteitä on kaikenlaisia. Tunnistatko mitkä seuraavista ovat totta?'
                     )
@@ -37,7 +37,7 @@ describe('Quiz page', function () {
                 })
 
                 it('Select one answer, press "Vastaa" and press "Oikeat vastaukset"', function () {
-                    cy.title().should('eq', 'Tietovisa - Kysymys 1.')
+                    cy.title().should('eq', 'Oppimisvisa - Kysymys 1.')
                     cy.contains(
                         '1. Ilmastonmuutokseen liittyviä väitteitä on kaikenlaisia. Tunnistatko mitkä seuraavista ovat totta?'
                     )
@@ -52,8 +52,8 @@ describe('Quiz page', function () {
                 })
 
                 it('Select one wrong answer, press "Vastaa" and press "Oikeat vastaukset"', function () {
-                    cy.visit('/tietovisa/2')
-                    cy.title().should('eq', 'Tietovisa - Kysymys 2.')
+                    cy.visit('/oppimisvisa/2')
+                    cy.title().should('eq', 'Oppimisvisa - Kysymys 2.')
 
                     cy.contains(
                         'Kasvien hiilensidonnan (photosynteesin) lisääntyminen'
@@ -66,8 +66,8 @@ describe('Quiz page', function () {
                 })
 
                 it('Select multiple answers, both wrong and right press "Vastaa" and press "Oikeat vastaukset"', function () {
-                    cy.visit('/tietovisa/2')
-                    cy.title().should('eq', 'Tietovisa - Kysymys 2.')
+                    cy.visit('/oppimisvisa/2')
+                    cy.title().should('eq', 'Oppimisvisa - Kysymys 2.')
 
                     cy.contains(
                         'Vesihöyryn lisääntyminen ilmakehässä ilmaston lämmetessä'
@@ -84,7 +84,7 @@ describe('Quiz page', function () {
                 })
 
                 it('Select one answer, press "Vastaa" and move to next question"', function () {
-                    cy.title().should('eq', 'Tietovisa - Kysymys 1.')
+                    cy.title().should('eq', 'Oppimisvisa - Kysymys 1.')
                     cy.contains(
                         '1. Ilmastonmuutokseen liittyviä väitteitä on kaikenlaisia. Tunnistatko mitkä seuraavista ovat totta?'
                     )
@@ -94,15 +94,15 @@ describe('Quiz page', function () {
                     cy.contains('Vastaa').click()
                     cy.contains('Seuraava kysymys').click()
 
-                    cy.title().should('eq', 'Tietovisa - Kysymys 2.')
+                    cy.title().should('eq', 'Oppimisvisa - Kysymys 2.')
                 })
 
                 it('Move from first question to last question and answer question with answer option', function () {
-                    cy.title().should('eq', 'Tietovisa - Kysymys 1.')
+                    cy.title().should('eq', 'Oppimisvisa - Kysymys 1.')
                     cy.contains('1/8')
 
-                    cy.visit('/tietovisa/8')
-                    cy.title().should('eq', 'Tietovisa - Kysymys 8.')
+                    cy.visit('/oppimisvisa/8')
+                    cy.title().should('eq', 'Oppimisvisa - Kysymys 8.')
                     cy.contains(
                         '8. Käynnissä olevalla ilmastonmuutoksella on paljon vaikutuksia maapallon eliölajien ja populaatioiden hyvinvointiin. Osaatko sanoa, mitkä seuraavista väitteistä ovat totta ja mitkä tarua?'
                     )
@@ -122,7 +122,7 @@ describe('Quiz page', function () {
                 })
 
                 it('Selecting correct answer renders correct checkmark after submitting answer', function () {
-                    cy.title().should('eq', 'Tietovisa - Kysymys 1.')
+                    cy.title().should('eq', 'Oppimisvisa - Kysymys 1.')
                     cy.contains(
                         '1. Ilmastonmuutokseen liittyviä väitteitä on kaikenlaisia. Tunnistatko mitkä seuraavista ovat totta?'
                     )
@@ -134,8 +134,8 @@ describe('Quiz page', function () {
                 })
 
                 it('Selecting incorrect answer renders incorrect checkmark after submitting answer', function () {
-                    cy.visit('/tietovisa/2')
-                    cy.title().should('eq', 'Tietovisa - Kysymys 2.')
+                    cy.visit('/oppimisvisa/2')
+                    cy.title().should('eq', 'Oppimisvisa - Kysymys 2.')
                     cy.contains(
                         '2. Ilmastonmuutos aiheuttaa muutoksia luonnossa ja nämä muutokset puolestaan vaikuttavat ilmastonmuutokseen. Mitä luulet, mitkä seuraavista ilmiöistä voimistavat ilmastonmuutosta?'
                     )
@@ -191,7 +191,7 @@ describe('Quiz page', function () {
                 })
 
                 it('Summary page accordions work, return to landing page', function () {
-                    cy.visit('/tietovisa/yhteenveto')
+                    cy.visit('/oppimisvisa/yhteenveto')
 
                     cy.contains(
                         'Ilmastonmuutokseen liittyviä väitteitä on kaikenlaisia. Tunnistatko mitkä seuraavista ovat totta?'

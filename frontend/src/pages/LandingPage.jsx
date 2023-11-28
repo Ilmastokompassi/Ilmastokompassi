@@ -63,7 +63,7 @@ export const LandingPage = () => {
                     <ToSurveyCard
                         name="Oppimisvisa"
                         description="Kokeile ilmastotietämystäsi oppimisvisan avulla!"
-                        to="/tietovisa/1"
+                        to="/oppimisvisa/1"
                         icon={<TravelExploreIcon sx={{ fontSize: '72px' }} />}
                         iconBackgroundColor="#944290"
                     />

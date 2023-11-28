@@ -7,7 +7,7 @@ export const FactQuizSummaryPage = () => {
     const { data: allSummaryInfo, isLoading: isLoadingAllSummaryInfo } =
         useSWR('/api/quiz/summary')
 
-    useTitle(`Tietovisa - Kertaus`)
+    useTitle(`Oppimisvisa - Kertaus`)
 
     return (
         <Container maxWidth="md">
