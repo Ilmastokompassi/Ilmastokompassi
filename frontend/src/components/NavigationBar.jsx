@@ -19,6 +19,7 @@ import Compass from '../assets/kompassi.png'
 
 const pages = [
     { name: 'Ilmastoroolikysely', route: '/ilmastoroolikysely', id: 'survey' },
+    { name: 'Oppimisvisa', route: '/oppimisvisa/1', id: 'quiz' },
     { name: 'FAQ', route: '/faq', id: 'faq' },
 ]
 
