@@ -15,6 +15,13 @@ Cypress.env('viewports').forEach((viewport) => {
                 cy.title().should('eq', 'Ilmastoroolikysely')
             })
 
+            it('navigate to quiz page', function () {
+                cy.navigateToPageWithNavBar('quiz')
+
+                cy.location('pathname').should('eq', '/oppimisvisa/1')
+                cy.title().should('eq', 'Oppimisvisa - Kysymys 1.')
+            })
+
             it('navigate to faq page', function () {
                 cy.navigateToPageWithNavBar('faq')
 
