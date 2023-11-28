@@ -22,6 +22,15 @@ Cypress.Commands.add('createGroupWithApi', (groupToken) => {
     )
 })
 
+Cypress.Commands.add('answerRoleSurveyWithApi', (groupToken, responses) => {
+    cy.request('POST', '/api/submit', {
+        groupToken: groupToken,
+        responses: responses,
+    }).then((response) => {
+        expect(response.body).to.have.property('status', 'success')
+    })
+})
+
 Cypress.Commands.add('joinGroup', (groupToken) => {
     cy.request('/api/group/' + groupToken).then((response) => {
         expect(response.body).to.have.property('group_token', true)
