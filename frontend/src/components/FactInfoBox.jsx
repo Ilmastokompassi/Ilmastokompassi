@@ -15,7 +15,7 @@ const FactInfoBox = ({ content }) => {
                 aria-controls="panel1a-content"
                 id="panel1a-header"
             >
-                <Typography>Selitykset</Typography>
+                <Typography>Mistä tässä on kyse?</Typography>
             </AccordionSummary>
             <AccordionDetails>
                 {content.map((line, index) => (

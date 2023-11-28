@@ -113,7 +113,7 @@ describe('Quiz page', function () {
                     ).click()
                     cy.contains('Vastaa').click()
                     cy.contains('Oikeat vastaukset')
-                    cy.contains('Selitykset').click()
+                    cy.contains('Mistä tässä on kyse?').click()
                     cy.contains(
                         'Ihmisten toiminnan aiheuttaman ilmastonmuutoksen myötä mm. vuodenaikojen pituudet ja ajankohdat sekä paikalliset sademäärät muuttuvat, mikä muuttaa lajien elinalueita, vuodenkiertoa, yhteisöjen rakenteita ja ekosysteemien toimintaa.'
                     )
