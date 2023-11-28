@@ -3,10 +3,22 @@ import { Typography, Container, Stack, Box, Card } from '@mui/material'
 import { useTitle } from '../hooks/useTitle'
 import { SummaryRole } from '../components/SummaryRole'
 import SummaryDoughnut from '../components/SummaryDoughnut'
+import { useEffect } from 'react'
 
 export const GroupSummaryPage = () => {
-    // Fetch group token from url
     const groupToken = window.location.pathname.split('/').pop()
+    useEffect(() => {
+        fetch(`/api/group/${groupToken}`, {
+            method: 'GET',
+            headers: { 'Content-Type': 'application/json' },
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                if (!data.group_token) {
+                    window.location.href = '/ilmastoroolikysely'
+                }
+            })
+    }, [groupToken])
 
     // Fetch all roles from api
     const { data: roleData, isLoading: isLoadingroles } = useSWR('/api/roles')
