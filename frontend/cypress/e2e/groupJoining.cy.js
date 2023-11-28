@@ -80,7 +80,7 @@ describe('Joining group', function () {
                         .should('be.visible')
                         .within(() => {
                             cy.findByTestId('current-group-token').contains(
-                                'Et ole ryhmässä'
+                                'Liity ryhmään'
                             )
                         })
                 })

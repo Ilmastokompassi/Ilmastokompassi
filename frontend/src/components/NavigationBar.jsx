@@ -64,6 +64,15 @@ const NavigationMenu = () => {
                 open={Boolean(anchorElement)}
                 onClose={() => setAnchorElement(null)}
             >
+                <MenuItem
+                    key="etusivulle"
+                    component={NavLink}
+                    to="/"
+                    data-testid="etusivulle-navigation-menu-item"
+                    onClick={() => setAnchorElement(null)}
+                >
+                    Etusivu
+                </MenuItem>
                 {pages.map((page) => (
                     <MenuItem
                         key={page.id}
