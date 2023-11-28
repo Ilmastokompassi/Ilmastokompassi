@@ -175,8 +175,8 @@ def test_save_quiz_answer(client):
     result = json.loads(response.data)
 
     assert response.status_code == 200
-    assert result['correct_answers'] == [1, 2, 3, 4, 5, 6, 7]
-    assert result['info_text'] == ""
+    assert result['correct_answers'] == [2, 3, 4, 5]
+    assert result['info_text'] == "Näin on näkkileipä. Ilmastonmuutoksen taustalla on paljon fysiikkaa sekä kemiaa, kuten säteilyä ja kasvihuonekaasuja. Maapallo ei ole kuitenkaan yksin kasvihuonekaasuilmiön kanssa, vaan sitä tapahtuu muillakin planeetoilla. Erona tosin on se, että täällä se on lähtöisin ihmisen toiminnasta ja sen vuoksi voimistunut viime aikoina aika lailla."
 
 
 def test_save_quiz_answer_that_has_infotext(client):
