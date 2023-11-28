@@ -104,7 +104,7 @@ describe('Quiz page', function () {
                     cy.visit('/oppimisvisa/8')
                     cy.title().should('eq', 'Oppimisvisa - Kysymys 8.')
                     cy.contains(
-                        '8. Käynnissä olevalla ilmastonmuutoksella on paljon vaikutuksia maapallon eliölajien ja populaatioiden hyvinvointiin. Osaatko sanoa, mitkä seuraavista väitteistä ovat totta ja mitkä tarua?'
+                        '8. Käynnissä olevalla ilmastonmuutoksella on paljon vaikutuksia maapallon eliölajien ja populaatioiden hyvinvointiin. Osaatko sanoa, mitkä seuraavista väitteistä ovat totta?'
                     )
                     cy.contains('8/8')
 
@@ -197,8 +197,12 @@ describe('Quiz page', function () {
                         'Ilmastonmuutokseen liittyviä väitteitä on kaikenlaisia. Tunnistatko mitkä seuraavista ovat totta?'
                     ).click()
                     cy.contains(
-                        'Kaasut eivät vaikuta lämpösäteilyn kulkuun ilmakehässä'
+                        'Käynnissä oleva kasvihuoneilmiön voimistuminen on seurausta ihmisen toimista'
                     )
+
+                    cy.contains(
+                        'Ihmistoiminnasta johtuva otsonikato on aiheuttanut ilmaston lämpenemisen'
+                    ).should('not.exist')
 
                     cy.contains(
                         'Ilmastonmuutos vaatii kaikilta maapallolla kykyä sopeutua. Vaan mitä se tarkoittaa! Osaatko sanoa, mitkä seuraavista ovat esimerkkejä sopeutumista?'
