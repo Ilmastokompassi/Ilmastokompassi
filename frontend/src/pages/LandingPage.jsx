@@ -11,6 +11,7 @@ import { useTitle } from '../hooks/useTitle'
 import { ToSurveyCard } from '../components/ToSurveyCard'
 import FaceIcon from '@mui/icons-material/Face'
 import TravelExploreIcon from '@mui/icons-material/TravelExplore'
+import ClimateCompassMap from '../assets/kompassi_tausta.png'
 
 export const LandingPage = () => {
     useTitle('Ilmastokompassi')
@@ -23,6 +24,13 @@ export const LandingPage = () => {
                 spacing={4}
                 py={2}
             >
+                <Box
+                    component="img"
+                    src={ClimateCompassMap}
+                    alt="ilmastokompassi"
+                    sx={{ width: ['70%', '55%', '40%'] }}
+                />
+
                 <Card>
                     <CardContent>
                         <Stack spacing={2} alignItems="center">

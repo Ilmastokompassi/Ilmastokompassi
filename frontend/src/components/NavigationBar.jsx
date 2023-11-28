@@ -15,7 +15,7 @@ import MenuIcon from '@mui/icons-material/Menu'
 import GroupIcon from '@mui/icons-material/Group'
 import PersonIcon from '@mui/icons-material/Person'
 import { NavLink } from 'react-router-dom'
-import ClimComp from '../assets/climcomp.png'
+import Compass from '../assets/kompassi.png'
 
 const pages = [
     { name: 'Ilmastoroolikysely', route: '/ilmastoroolikysely', id: 'survey' },
@@ -24,18 +24,17 @@ const pages = [
 
 const Logo = () => (
     <Typography
-        variant="h6"
         component={NavLink}
         to="/"
-        fontFamily="monospace"
-        fontWeight="bold"
         color="inherit"
         sx={{ textDecoration: 'none' }}
         data-testid="logo"
     >
-        <Stack direction="row" alignItems="center">
-            <img src={ClimComp} alt="logo" height={48} width={48} />
-            Ilmastokompassi
+        <Stack direction="row" alignItems="center" spacing={0.5}>
+            <img src={Compass} alt="logo" width={40} />
+            <Typography variant="h6" fontFamily="sans-serif" fontWeight="bold">
+                Ilmastokompassi
+            </Typography>
         </Stack>
     </Typography>
 )
