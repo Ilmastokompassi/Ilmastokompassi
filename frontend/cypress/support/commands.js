@@ -1,5 +1,6 @@
 import 'cypress-wait-until'
 import '@testing-library/cypress/add-commands'
+import 'cy-mobile-commands'
 import { isMobile } from './utils'
 
 Cypress.Commands.add(

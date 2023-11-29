@@ -1,3 +1,5 @@
+import { isMobile } from '../support/utils'
+
 Cypress.env('viewports').forEach((viewport) => {
     describe(
         `Front page on ${viewport[2]}`,
@@ -34,13 +36,11 @@ Cypress.env('viewports').forEach((viewport) => {
 
                 cy.location('pathname').should('eq', '/ilmastoroolikysely')
                 cy.title().should('eq', 'Ilmastoroolikysely')
-                if (viewport[0] === 1920) {
-                    cy.get('[data-testid=logo]').click()
+                if (isMobile()) {
+                    cy.findByTestId('navigation-hamburger').click()
+                    cy.findByTestId('landing-page-navigation-menu-item').click()
                 } else {
-                    cy.get('[data-testid=navigation-hamburger]').click()
-                    cy.get(
-                        '[data-testid=etusivulle-navigation-menu-item]'
-                    ).click()
+                    cy.findByTestId('logo').click()
                 }
 
                 cy.location('pathname').should('eq', '/')
