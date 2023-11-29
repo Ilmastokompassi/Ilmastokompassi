@@ -1,14 +1,8 @@
-import {
-    Button,
-    Stack,
-    TextField,
-    Snackbar,
-    useMediaQuery,
-} from '@mui/material'
-import { useState, forwardRef } from 'react'
-import MuiAlert from '@mui/material/Alert'
+import { Button, Stack, TextField, Snackbar } from '@mui/material'
+import { useState } from 'react'
+import Alert from '@mui/material/Alert'
 
-const JoinGroup = () => {
+const JoinGroupForm = () => {
     const [groupToken, setGroupToken] = useState('')
     const [isValid, setIsValid] = useState(true)
     const [open, setOpen] = useState(false)
@@ -17,18 +11,11 @@ const JoinGroup = () => {
         setGroupToken(event.target.value.toUpperCase())
         setIsValid(true)
     }
-    const Alert = forwardRef(function Alert(props, ref) {
-        return <MuiAlert ref={ref} variant="filled" {...props} />
-    })
     const handleClose = (reason) => {
-        if (reason === 'clickaway') {
-            return
+        if (reason !== 'clickaway') {
+            setOpen(false)
         }
-
-        setOpen(false)
     }
-
-    const isMobile = useMediaQuery('(max-width:600px)')
 
     const handleSubmit = () => {
         if (groupToken === '') {
@@ -75,9 +62,7 @@ const JoinGroup = () => {
                     value={groupToken}
                     onChange={handleTextFieldChange}
                     size="small"
-                    onKeyDown={(event) => {
-                        handleKeyDown(event)
-                    }}
+                    onKeyDown={handleKeyDown}
                 />
                 <Button
                     data-testid="join-group"
@@ -87,28 +72,23 @@ const JoinGroup = () => {
                 >
                     Liity ryhmään
                 </Button>
-                <Snackbar
-                    open={open}
-                    autoHideDuration={4500}
-                    onClose={handleClose}
-                    anchorOrigin={{
-                        vertical: 'top',
-                        horizontal: 'right',
-                    }}
-                    style={{ top: isMobile ? 0 : 80 }}
-                >
-                    <Alert
-                        onClose={handleClose}
-                        color={'primary'}
-                        sx={{ width: '100%' }}
-                    >
-                        Ryhmään liittyminen onnistui! Löydät ryhmään liittyvät
-                        toiminnot oikean yläkulman kuvakkeesta.
-                    </Alert>
-                </Snackbar>
             </Stack>
+            <Snackbar
+                open={open}
+                autoHideDuration={4500}
+                onClose={(_, reason) => handleClose(reason)}
+            >
+                <Alert
+                    variant="filled"
+                    color="primary"
+                    onClose={() => setOpen(false)}
+                >
+                    Ryhmään liittyminen onnistui! Löydät ryhmään liittyvät
+                    toiminnot oikean yläkulman kuvakkeesta.
+                </Alert>
+            </Snackbar>
         </>
     )
 }
 
-export default JoinGroup
+export default JoinGroupForm

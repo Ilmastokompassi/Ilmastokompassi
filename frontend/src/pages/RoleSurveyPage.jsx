@@ -10,7 +10,7 @@ import {
 } from '@mui/material'
 
 import { useTitle } from '../hooks/useTitle'
-import JoinGroup from '../components/JoinGroup'
+import JoinGroupForm from '../components/JoinGroupForm'
 import RolesAccordion from '../components/RolesAccordion'
 import CreateGroupDialog from '../components/CreateGroupDialog'
 
@@ -66,7 +66,7 @@ export function RoleSurveyPage() {
                                 painikkeesta.
                             </Typography>
                             <Stack alignItems="center" spacing={2}>
-                                <JoinGroup />
+                                <JoinGroupForm />
                                 <CreateGroupDialog />
                                 <Button
                                     style={{
