@@ -18,6 +18,7 @@ import { NavLink } from 'react-router-dom'
 import Compass from '../assets/kompassi.png'
 
 const pages = [
+    { name: 'Etusivu', route: '/', id: 'landing-page' },
     { name: 'Ilmastoroolikysely', route: '/ilmastoroolikysely', id: 'survey' },
     { name: 'Oppimisvisa', route: '/oppimisvisa/1', id: 'quiz' },
     { name: 'FAQ', route: '/faq', id: 'faq' },
@@ -65,15 +66,6 @@ const NavigationMenu = () => {
                 open={Boolean(anchorElement)}
                 onClose={() => setAnchorElement(null)}
             >
-                <MenuItem
-                    key="etusivulle"
-                    component={NavLink}
-                    to="/"
-                    data-testid="etusivulle-navigation-menu-item"
-                    onClick={() => setAnchorElement(null)}
-                >
-                    Etusivu
-                </MenuItem>
                 {pages.map((page) => (
                     <MenuItem
                         key={page.id}
@@ -194,7 +186,8 @@ const NavigationBar = () => {
                             <>
                                 <Logo />
                                 <Box flexGrow={1}>
-                                    {pages.map((page) => (
+                                    {/* Skip button for landing page on desktop */}
+                                    {pages.slice(1).map((page) => (
                                         <Button
                                             key={page.name}
                                             component={NavLink}
