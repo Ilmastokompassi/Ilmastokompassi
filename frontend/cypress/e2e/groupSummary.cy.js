@@ -50,24 +50,53 @@ describe('Group summary page', function () {
                     )
                 })
 
-                it('Show summary for group with 5 answers', function () {
+                it('Show summary for group with five answers and all profiles', function () {
                     cy.createGroupWithApi(groupToken)
                     cy.joinGroup(groupToken)
 
                     for (var i = 0; i < 5; i++) {
                         cy.answerRoleSurveyWithApi(groupToken, {
-                            1: 1,
-                            2: 1,
-                            3: 1,
-                            4: 1,
-                            5: 1,
+                            1: 5,
+                            2: 5,
+                            3: 5,
+                            4: 5,
                         })
                     }
                     cy.visit('/yhteenveto/ryhma/' + groupToken)
+
                     cy.contains('Ryhmän FOOBAR ilmastorooli')
                     cy.contains(
                         'Ryhmän FOOBAR jakauma. Kyselyyn on vastannut 5 henkilöä.'
                     )
+                    cy.contains('Ilmastoasiantuntija')
+                    cy.contains('Mielipidevaikuttaja')
+                    cy.contains('Kestävän elämäntavan etsijä')
+                    cy.contains('Eettinen kuluttaja')
+                })
+
+                it('Show summary for group with five answers and one profile', function () {
+                    cy.createGroupWithApi(groupToken)
+                    cy.joinGroup(groupToken)
+
+                    for (var i = 0; i < 5; i++) {
+                        cy.answerRoleSurveyWithApi(groupToken, {
+                            1: 5,
+                            2: 5,
+                            3: 5,
+                            4: 5,
+                            5: 5,
+                        })
+                    }
+                    cy.visit('/yhteenveto/ryhma/' + groupToken)
+
+                    cy.contains('Ryhmän FOOBAR ilmastorooli')
+                    cy.contains(
+                        'Ryhmän FOOBAR jakauma. Kyselyyn on vastannut 5 henkilöä.'
+                    )
+                    cy.contains('Ilmastoasiantuntija')
+                    cy.contains('Mielipidevaikuttaja')
+                    cy.contains('Kestävän elämäntavan etsijä')
+                    cy.contains('Eettinen kuluttaja')
                 })
             }
         )

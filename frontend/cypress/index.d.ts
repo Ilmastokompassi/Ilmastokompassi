@@ -15,7 +15,7 @@ declare namespace Cypress {
         /**
          * Creates one group using the API
          * @example
-         * cy.createGroupWithApi('HELLU2', {"1": 3, "2": 2})
+         * cy.createGroupWithApi('HELLU2', {1: 3, 2: 2, ..})
          */
         answerRoleSurveyWithApi(
             groupToken: string,
