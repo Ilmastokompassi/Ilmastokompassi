@@ -1,50 +1,29 @@
-import { Typography, Box, CardContent, CardHeader, Stack } from '@mui/material'
-import PropTypes from 'prop-types'
+import { Typography, Box, Stack } from '@mui/material'
 import RoleImage from './RoleImage'
 import { theme } from '../theme'
+import { RolePropTypes } from '../types'
 
-export const SummaryRole = ({ index, title, description }) => {
+export const SummaryRole = ({ role }) => {
     return (
-        <>
-            <Box
-                sx={{
-                    display: { xs: 'flex', md: 'flex' },
-                    flexDirection: 'column',
-                    paddingBottom: '40px',
-                    overflowWrap: 'break-word',
-                    alignItems: 'center',
-
-                    [theme.breakpoints.up('md')]: {
-                        justifyContent: 'space-between',
-                        alignItems: 'stretch',
-                        flexDirection: 'row-reverse',
-                        ...(index % 2 === 0 && {
-                            flexDirection: 'row',
-                        }),
-                    },
-                }}
-            >
-                <Stack paddingBottom={'20px'} padding={'10px'}>
-                    <RoleImage title={title} />
-                </Stack>
-                <Stack>
-                    <CardHeader
-                        sx={{ textAlign: 'left' }}
-                        titleTypographyProps={{
-                            variant: 'h5',
-                        }}
-                        title={title + '!'}
-                    ></CardHeader>
-                    <CardContent sx={{ flex: '1 0 auto' }}>
-                        <Typography>{description}</Typography>
-                    </CardContent>
-                </Stack>
+        <Stack
+            spacing={2}
+            alignItems="center"
+            direction={{ xs: 'column', sm: 'column', md: 'row' }}
+            sx={{
+                [theme.breakpoints.up('md')]: {
+                    flexDirection: role.id % 2 === 0 ? 'row' : 'row-reverse',
+                },
+            }}
+        >
+            <RoleImage role={role} />
+            <Box>
+                <Typography variant="h5">{role.name}</Typography>
+                <Typography>{role.description}</Typography>
             </Box>
-        </>
+        </Stack>
     )
 }
+
 SummaryRole.propTypes = {
-    index: PropTypes.number.isRequired,
-    title: PropTypes.string.isRequired, // You can adjust the PropTypes as needed
-    description: PropTypes.string.isRequired,
+    role: RolePropTypes,
 }

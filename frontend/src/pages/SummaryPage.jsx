@@ -1,6 +1,14 @@
 import useSWR from 'swr'
 import { SummaryRole } from '../components/SummaryRole'
-import { Typography, Container, Stack, Button, Box, Card } from '@mui/material'
+import {
+    Typography,
+    Container,
+    Stack,
+    Button,
+    Box,
+    Card,
+    CardContent,
+} from '@mui/material'
 import { useParams } from 'react-router-dom'
 import { useTitle } from '../hooks/useTitle'
 import SummaryDoughnut from '../components/SummaryDoughnut'
@@ -12,16 +20,18 @@ export const SummaryPage = () => {
 
     // Fetch all roles from api
     const { data: roleData, isLoading: isLoadingRoles } = useSWR('/api/roles')
-    // Fetch result summary from api. Refreshes group stats every 15 seconds
+
+    // Fetch individual summary from api.
     const { data: summaryData, isLoading: isLoadingSummary } = useSWR(
         `/api/summary/${userId}`
     )
+    // Fetch group summary every 15 seconds.
     const { data: allRolesData, isLoading: isLoadingAllRolesData } = useSWR(
         `/api/group/${groupToken}/score`,
         { refreshInterval: 15000 }
     )
 
-    /* Turn the result key-value pairs into an array of objects with respective role  details
+    /* Turn the result key-value pairs into an array of objects with respective climate role details
        e.g. { "1": 50, "2": 50, ..} => 
         [
             { id: 1, score: 25%, name: .., description: ..}, 
@@ -29,7 +39,6 @@ export const SummaryPage = () => {
             ..
         ]
     */
-
     const createRoleResultsFromScores = (scores, roles) => {
         const totalScore = scores.reduce((acc, score) => acc + score[1], 0)
 
@@ -89,14 +98,14 @@ export const SummaryPage = () => {
 
     useTitle('Ilmastorooli - Tulokset')
     return (
-        <Container>
-            <Box paddingY={5}>
-                <Card>
+        <Container component={Box} paddingY={4}>
+            <Card>
+                <CardContent>
                     <Stack
-                        spacing={4}
-                        paddingTop={'30px'}
-                        paddingBottom={'50px'}
-                        alignItems={'center'}
+                        spacing={2}
+                        paddingX={2}
+                        paddingY={4}
+                        alignItems="center"
                     >
                         <Typography variant="h4">Ilmastoroolisi</Typography>
                         {isLoadingRoles ||
@@ -111,8 +120,7 @@ export const SummaryPage = () => {
                                 <Button
                                     variant="contained"
                                     color="primary"
-                                    aria-label="move to survey"
-                                    href={`/ilmastoroolikysely`}
+                                    href="/ilmastoroolikysely"
                                 >
                                     Siirry tästä kyselyyn!
                                 </Button>
@@ -130,19 +138,19 @@ export const SummaryPage = () => {
                                     )}
                                     ...
                                 </Typography>
-                                {highestScoreRoles.map((role, index) => (
-                                    <SummaryRole
-                                        key={role.id}
-                                        index={index}
-                                        title={role.name}
-                                        description={role.description}
-                                    />
-                                ))}
+                                <Stack spacing={2}>
+                                    {highestScoreRoles.map((role) => (
+                                        <SummaryRole
+                                            key={role.id}
+                                            role={role}
+                                        />
+                                    ))}
+                                </Stack>
                                 <Typography variant="h5">
                                     Eri roolien välinen jakauma
                                 </Typography>
                                 <SummaryDoughnut data={doughnutChartData} />
-                                {groupToken !== null && (
+                                {groupToken && (
                                     <>
                                         <Typography variant="h5">
                                             Ryhmän {groupToken} jakauma.
@@ -176,16 +184,15 @@ export const SummaryPage = () => {
                                 <Button
                                     variant="contained"
                                     color="primary"
-                                    aria-label="move to survey"
-                                    href={`/ilmastoroolikysely`}
+                                    href="/ilmastoroolikysely"
                                 >
                                     Siirry tästä kyselyyn!
                                 </Button>
                             </>
                         )}
                     </Stack>
-                </Card>
-            </Box>
+                </CardContent>
+            </Card>
         </Container>
     )
 }

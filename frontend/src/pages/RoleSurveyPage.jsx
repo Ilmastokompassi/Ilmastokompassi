@@ -11,10 +11,13 @@ import {
 
 import { useTitle } from '../hooks/useTitle'
 import JoinGroupForm from '../components/JoinGroupForm'
-import RolesAccordion from '../components/RolesAccordion'
+import RoleAccordion from '../components/RoleAccordion'
 import CreateGroupDialog from '../components/CreateGroupDialog'
+import useSWR from 'swr'
 
 export function RoleSurveyPage() {
+    const { data: roles } = useSWR('/api/roles')
+
     const [groupToken, setGroupToken] = useState(null)
     const [componentMounted, setComponentMounted] = useState(false)
 
@@ -29,47 +32,51 @@ export function RoleSurveyPage() {
 
         setComponentMounted(true)
 
-        return () => {
-            window.removeEventListener('setGroupToken', refreshToken)
-        }
+        return () => window.removeEventListener('setGroupToken', refreshToken)
     }, [groupToken, componentMounted])
 
     useTitle('Ilmastoroolikysely')
 
     return (
         <Container>
-            <Box paddingY={5}>
+            <Stack paddingY={4} spacing={2}>
                 <Card>
                     <CardContent>
-                        <Box marginLeft={1} paddingY={2}>
-                            <Typography variant="h4">
-                                Ilmastoroolikysely
-                            </Typography>
-                            <Typography marginBottom={3}>
-                                Kyselyn kysymykset liittyvät ilmastonmuutokseen
-                                liittyviin asenteisiisi. Voit vastata kyselyyn
-                                painamalla &quot;Aloita&quot; painiketta. Kun
-                                olet vastannut kyselyyn saat selville, mikä
-                                neljästä ilmastoroolista kuvastaa sinua. Voit
-                                tutustua ilmastorooleihin sivuston alalaidasta.
-                            </Typography>
-                            <Typography variant="h6">
-                                Vastaaminen ryhmässä
-                            </Typography>
-                            <Typography marginBottom={2}>
-                                Voitte vertailla kyselyistä saatuja tuloksia jos
-                                teette sivuston kyselyjä ryhmänä. Ryhmäsi
-                                tulokset tulevat näkyviin, kun viisi ryhmän
-                                jäsentä ovat vastanneet kyselyyn. Ryhmään
-                                liittyviä toiminnallisuuksia, kuten tuloksia,
-                                pääset tarkastelemaan oikean yläkulman
-                                painikkeesta.
-                            </Typography>
+                        <Stack spacing={2} paddingY={2}>
+                            <Box>
+                                <Typography variant="h4">
+                                    Ilmastoroolikysely
+                                </Typography>
+                                <Typography>
+                                    Kyselyn kysymykset liittyvät
+                                    ilmastonmuutokseen liittyviin asenteisiisi.
+                                    Voit vastata kyselyyn painamalla
+                                    &quot;Aloita&quot; painiketta. Kun olet
+                                    vastannut kyselyyn saat selville, mikä
+                                    neljästä ilmastoroolista kuvastaa sinua.
+                                    Voit tutustua ilmastorooleihin sivuston
+                                    alalaidasta.
+                                </Typography>
+                            </Box>
+                            <Box>
+                                <Typography variant="h6">
+                                    Vastaaminen ryhmässä
+                                </Typography>
+                                <Typography>
+                                    Voitte vertailla kyselyistä saatuja tuloksia
+                                    jos teette sivuston kyselyjä ryhmänä.
+                                    Ryhmäsi tulokset tulevat näkyviin, kun viisi
+                                    ryhmän jäsentä ovat vastanneet kyselyyn.
+                                    Ryhmään liittyviä toiminnallisuuksia, kuten
+                                    tuloksia, pääset tarkastelemaan oikean
+                                    yläkulman painikkeesta.
+                                </Typography>
+                            </Box>
                             <Stack alignItems="center" spacing={2}>
                                 <JoinGroupForm />
                                 <CreateGroupDialog />
                                 <Button
-                                    style={{
+                                    sx={{
                                         width: 200,
                                         height: 60,
                                     }}
@@ -83,11 +90,15 @@ export function RoleSurveyPage() {
                                     </Typography>
                                 </Button>
                             </Stack>
-                        </Box>
+                        </Stack>
                     </CardContent>
                 </Card>
-            </Box>
-            <RolesAccordion />
+                <Box>
+                    {roles?.map((role) => (
+                        <RoleAccordion key={role.id} role={role} />
+                    ))}
+                </Box>
+            </Stack>
         </Container>
     )
 }
