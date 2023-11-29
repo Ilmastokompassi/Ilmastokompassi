@@ -1,8 +1,8 @@
 import { createBrowserRouter } from 'react-router-dom'
 import { Layout } from './components/Layout'
 import { LandingPage } from './pages/LandingPage'
-import { SurveyPage } from './pages/SurveyPage'
-import { QuestionPage } from './pages/QuestionPage'
+import { RoleSurveyPage } from './pages/RoleSurveyPage'
+import { RoleSurveyQuestionPage } from './pages/RoleSurveyQuestionPage'
 import { SummaryPage } from './pages/SummaryPage'
 import { FactQuizQuestionPage } from './pages/FactQuizQuestionPage'
 import { GroupSummaryPage } from './pages/GroupSummaryPage'
@@ -20,11 +20,11 @@ export const routes = [
             },
             {
                 path: '/ilmastoroolikysely',
-                element: <SurveyPage />,
+                element: <RoleSurveyPage />,
             },
             {
                 path: '/kysymys/:questionId',
-                element: <QuestionPage />,
+                element: <RoleSurveyQuestionPage />,
             },
             {
                 path: '/oppimisvisa/:questionId',
