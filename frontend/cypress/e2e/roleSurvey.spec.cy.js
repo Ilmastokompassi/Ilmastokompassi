@@ -9,9 +9,7 @@ describe('Role survey page', function () {
                 viewportHeight: viewport[1],
             },
             () => {
-                beforeEach(() => {
-                    cy.exec('../bin/db-reset')
-                })
+                beforeEach(() => cy.exec('../bin/db-reset'))
 
                 it('Move from survey page through questions to summary page', function () {
                     cy.findByTestId('start-survey').click()
@@ -89,5 +87,24 @@ describe('Role survey page', function () {
                 })
             }
         )
+    })
+
+    describe('on iPhone SE 2 viewport', function () {
+        beforeEach(function () {
+            cy.visit('/kysymys/2')
+            cy.viewport('iphone-se2')
+        })
+
+        it('move forward using swipe', function () {
+            cy.title().should('eq', 'Ilmastorooli - Kysymys 2.')
+            cy.findByTestId('questions').swipe('right', 'left')
+            cy.title().should('eq', 'Ilmastorooli - Kysymys 3.')
+        })
+
+        it('move back using swipe', function () {
+            cy.title().should('eq', 'Ilmastorooli - Kysymys 2.')
+            cy.findByTestId('questions').swipe('left', 'right')
+            cy.title().should('eq', 'Ilmastorooli - Kysymys 1.')
+        })
     })
 })
