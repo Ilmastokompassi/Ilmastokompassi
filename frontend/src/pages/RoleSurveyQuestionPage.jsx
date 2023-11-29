@@ -7,7 +7,7 @@ import RoleQuestionButtons from '../components/RoleQuestionButtons'
 import { useTitle } from '../hooks/useTitle'
 import { useSwipeable } from 'react-swipeable'
 
-export function QuestionPage() {
+export function RoleSurveyQuestionPage() {
     const { questionId: questionParamId } = useParams()
     const [selectedOptionId, setSelectedOptionId] = useState(null)
     const navigate = useNavigate()
@@ -23,8 +23,6 @@ export function QuestionPage() {
     const cardStyles = {
         width: '80%',
         maxWidth: '800px',
-        backgroundColor: '#f9f9f9',
-        borderRadius: '16px',
         padding: '5px',
         overflowY: 'auto',
     }
@@ -142,7 +140,6 @@ export function QuestionPage() {
                             <RoleQuestionButtons
                                 questionId={questionId}
                                 totalQuestions={totalQuestions}
-                                isLastQuestion={isLastQuestion}
                                 handleSubmit={handleSubmit}
                             />
                         </CardContent>

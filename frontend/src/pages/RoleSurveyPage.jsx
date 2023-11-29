@@ -14,7 +14,7 @@ import JoinGroup from '../components/JoinGroup'
 import RolesAccordion from '../components/RolesAccordion'
 import CreateGroupDialog from '../components/CreateGroupDialog'
 
-export function SurveyPage() {
+export function RoleSurveyPage() {
     const [groupToken, setGroupToken] = useState(null)
     const [componentMounted, setComponentMounted] = useState(false)
 
