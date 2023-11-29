@@ -11,7 +11,7 @@ import {
 
 import { useTitle } from '../hooks/useTitle'
 import JoinGroupForm from '../components/JoinGroupForm'
-import RoleAccordion from '../components/RoleAccordion'
+import RoleAccordion from '../components/roleSurvey/RoleAccordion'
 import CreateGroupDialog from '../components/CreateGroupDialog'
 import useSWR from 'swr'
 

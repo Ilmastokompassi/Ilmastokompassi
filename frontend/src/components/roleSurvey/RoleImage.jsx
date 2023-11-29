@@ -1,9 +1,9 @@
-import ClimateExpert from '../assets/ilmastoasiantuntija.png'
-import SustainableSearcher from '../assets/kestavanelamantavanetsija.png'
-import EthicalConsumer from '../assets/eettinenkuluttaja.png'
-import OpinionInfluencer from '../assets/mielipidevaikuttaja.png'
 import { Box } from '@mui/material'
-import { RolePropTypes } from '../types'
+import ClimateExpert from '../../assets/ilmastoasiantuntija.png'
+import SustainableSearcher from '../../assets/kestavanelamantavanetsija.png'
+import EthicalConsumer from '../../assets/eettinenkuluttaja.png'
+import OpinionInfluencer from '../../assets/mielipidevaikuttaja.png'
+import { RolePropTypes } from '../../types'
 
 const roles = {
     1: ClimateExpert,

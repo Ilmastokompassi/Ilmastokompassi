@@ -1,11 +1,11 @@
 import { useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { Box, Button, Container, Stack, Typography } from '@mui/material'
-import QuizQuestionCard from '../components/QuizQuestionCard'
+import QuizQuestionCard from '../components/factQuiz/QuizQuestionCard'
 import { useTitle } from '../hooks/useTitle'
 import useSWR from 'swr'
-import FactInfoBox from '../components/FactInfoBox'
-import CorrectAnswersInfo from '../components/CorrectAnswersInfo'
+import FactInfoBox from '../components/factQuiz/FactInfoBox'
+import CorrectAnswersInfo from '../components/factQuiz/CorrectAnswersInfo'
 import { useSwipeable } from 'react-swipeable'
 
 export const FactQuizQuestionPage = () => {

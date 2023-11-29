@@ -8,8 +8,8 @@ import {
     CardContent,
 } from '@mui/material'
 import { useTitle } from '../hooks/useTitle'
-import { SummaryRole } from '../components/SummaryRole'
-import SummaryDoughnut from '../components/SummaryDoughnut'
+import { SummaryRole } from '../components/roleSurvey/SummaryRole'
+import SummaryDoughnut from '../components/roleSurvey/SummaryDoughnut'
 import { useEffect } from 'react'
 
 export const RoleSurveyGroupSummaryPage = () => {

@@ -1,7 +1,7 @@
 import { Typography, Box, Stack } from '@mui/material'
 import RoleImage from './RoleImage'
-import { theme } from '../theme'
-import { RolePropTypes } from '../types'
+import { theme } from '../../theme'
+import { RolePropTypes } from '../../types'
 
 export const SummaryRole = ({ role }) => {
     return (

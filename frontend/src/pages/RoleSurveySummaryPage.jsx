@@ -1,5 +1,5 @@
 import useSWR from 'swr'
-import { SummaryRole } from '../components/SummaryRole'
+import { SummaryRole } from '../components/roleSurvey/SummaryRole'
 import {
     Typography,
     Container,
@@ -11,7 +11,7 @@ import {
 } from '@mui/material'
 import { useParams } from 'react-router-dom'
 import { useTitle } from '../hooks/useTitle'
-import SummaryDoughnut from '../components/SummaryDoughnut'
+import SummaryDoughnut from '../components/roleSurvey/SummaryDoughnut'
 
 export const RoleSurveySummaryPage = () => {
     const { userId: userParamId } = useParams()
