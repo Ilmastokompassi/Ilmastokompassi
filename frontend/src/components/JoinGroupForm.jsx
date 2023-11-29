@@ -2,7 +2,7 @@ import { Button, Stack, TextField, Snackbar } from '@mui/material'
 import { useState } from 'react'
 import Alert from '@mui/material/Alert'
 
-const JoinGroup = () => {
+const JoinGroupForm = () => {
     const [groupToken, setGroupToken] = useState('')
     const [isValid, setIsValid] = useState(true)
     const [open, setOpen] = useState(false)
@@ -91,4 +91,4 @@ const JoinGroup = () => {
     )
 }
 
-export default JoinGroup
+export default JoinGroupForm
