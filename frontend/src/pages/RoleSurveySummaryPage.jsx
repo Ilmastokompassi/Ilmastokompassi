@@ -13,7 +13,7 @@ import { useParams } from 'react-router-dom'
 import { useTitle } from '../hooks/useTitle'
 import SummaryDoughnut from '../components/SummaryDoughnut'
 
-export const SummaryPage = () => {
+export const RoleSurveySummaryPage = () => {
     const { userId: userParamId } = useParams()
     const userId = parseInt(userParamId)
     const groupToken = localStorage.getItem('groupToken')

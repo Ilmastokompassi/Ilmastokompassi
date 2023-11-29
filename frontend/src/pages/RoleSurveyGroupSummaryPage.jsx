@@ -12,7 +12,7 @@ import { SummaryRole } from '../components/SummaryRole'
 import SummaryDoughnut from '../components/SummaryDoughnut'
 import { useEffect } from 'react'
 
-export const GroupSummaryPage = () => {
+export const RoleSurveyGroupSummaryPage = () => {
     const groupToken = window.location.pathname.split('/').pop()
     useEffect(() => {
         fetch(`/api/group/${groupToken}`, {

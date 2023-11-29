@@ -2,10 +2,10 @@ import { createBrowserRouter } from 'react-router-dom'
 import { Layout } from './components/Layout'
 import { LandingPage } from './pages/LandingPage'
 import { RoleSurveyPage } from './pages/RoleSurveyPage'
+import { RoleSurveySummaryPage } from './pages/RoleSurveySummaryPage'
 import { RoleSurveyQuestionPage } from './pages/RoleSurveyQuestionPage'
-import { SummaryPage } from './pages/SummaryPage'
 import { FactQuizQuestionPage } from './pages/FactQuizQuestionPage'
-import { GroupSummaryPage } from './pages/GroupSummaryPage'
+import { RoleSurveyGroupSummaryPage } from './pages/RoleSurveyGroupSummaryPage'
 import { FactQuizSummaryPage } from './pages/FactQuizSummaryPage'
 import { FaqPage } from './pages/FaqPage'
 
@@ -32,11 +32,11 @@ export const routes = [
             },
             {
                 path: '/yhteenveto/:userId',
-                element: <SummaryPage />,
+                element: <RoleSurveySummaryPage />,
             },
             {
                 path: '/yhteenveto/ryhma/:groupToken',
-                element: <GroupSummaryPage />,
+                element: <RoleSurveyGroupSummaryPage />,
             },
             {
                 path: '/oppimisvisa/yhteenveto',
