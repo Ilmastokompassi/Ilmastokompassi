@@ -1,16 +1,9 @@
 import { useEffect, useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import useSWR from 'swr'
-import {
-    Button,
-    IconButton,
-    Stack,
-    Typography,
-    LinearProgress,
-} from '@mui/material'
-import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight'
-import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft'
+import { Stack, Card, CardContent, LinearProgress } from '@mui/material'
 import SurveyQuestionCard from '../components/SurveyQuestionCard'
+import RoleQuestionButtons from '../components/RoleQuestionButtons'
 import { useTitle } from '../hooks/useTitle'
 import { useSwipeable } from 'react-swipeable'
 
@@ -26,6 +19,15 @@ export function QuestionPage() {
         { id: 4, name: 'Jokseenkin samaa mieltä' },
         { id: 5, name: 'Täysin samaa mieltä' },
     ]
+
+    const cardStyles = {
+        width: '80%',
+        maxWidth: '800px',
+        backgroundColor: '#f9f9f9',
+        borderRadius: '16px',
+        padding: '5px',
+        overflowY: 'auto',
+    }
 
     const handlers = useSwipeable({
         onSwipedLeft: () => navigate(`/kysymys/${questionId + 1}`),
@@ -125,61 +127,33 @@ export function QuestionPage() {
                 {isLoadingAllQuestions ? (
                     <p>Loading...</p>
                 ) : (
-                    <>
-                        {/* Question options card */}
-                        <SurveyQuestionCard
-                            question={{ ...currentQuestion, options: options }}
-                            selectedOptionsIds={selectedOptionId}
-                            onOptionSelected={onOptionSelected}
-                        />
-                        {/* Buttons */}
-                        <LinearProgress
-                            variant="determinate"
-                            value={(questionId * 100) / totalQuestions}
-                            style={{ width: '70%', maxWidth: '780px' }}
-                            aria-label="progressbar"
-                        />
-                        <Stack
-                            direction="row"
-                            justifyContent="space-evenly"
-                            alignItems="center"
-                            spacing={4}
-                        >
-                            <IconButton
-                                data-testid="previous-question"
-                                aria-label="previous question"
-                                href={`/kysymys/${questionId - 1}`}
-                                disabled={questionId <= 1}
-                            >
-                                <ArrowCircleLeftIcon fontSize="large" />
-                            </IconButton>
-                            {isLastQuestion ? (
-                                <Button
-                                    variant="contained"
-                                    color="secondary"
-                                    onClick={handleSubmit}
-                                >
-                                    Lopeta kysely
-                                </Button>
-                            ) : (
-                                <Typography data-testid="current-progress">
-                                    {questionId}/{totalQuestions}
-                                </Typography>
-                            )}
-                            <IconButton
-                                data-testid="next-question"
-                                aria-label="next question"
-                                href={`/kysymys/${questionId + 1}`}
-                                disabled={
-                                    !totalQuestions ||
-                                    questionId >= totalQuestions
-                                }
-                            >
-                                <ArrowCircleRightIcon fontSize="large" />
-                            </IconButton>
-                        </Stack>
-                    </>
+                    <Card sx={cardStyles}>
+                        <CardContent>
+                            {/* Question options card */}
+                            <SurveyQuestionCard
+                                question={{
+                                    ...currentQuestion,
+                                    options: options,
+                                }}
+                                selectedOptionsIds={selectedOptionId}
+                                onOptionSelected={onOptionSelected}
+                            />
+                            {/* Buttons */}
+                            <RoleQuestionButtons
+                                questionId={questionId}
+                                totalQuestions={totalQuestions}
+                                isLastQuestion={isLastQuestion}
+                                handleSubmit={handleSubmit}
+                            />
+                        </CardContent>
+                    </Card>
                 )}
+                <LinearProgress
+                    variant="determinate"
+                    value={(questionId * 100) / totalQuestions}
+                    style={{ width: '70%', maxWidth: '780px' }}
+                    aria-label="progressbar"
+                />
             </Stack>
         </div>
     )

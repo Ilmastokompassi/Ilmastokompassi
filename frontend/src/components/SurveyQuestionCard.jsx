@@ -1,11 +1,4 @@
-import {
-    Button,
-    Container,
-    Card,
-    CardContent,
-    Stack,
-    Typography,
-} from '@mui/material'
+import { Button, Box, Container, Stack, Typography } from '@mui/material'
 import PropTypes from 'prop-types'
 
 function SurveyQuestionCard({
@@ -13,20 +6,11 @@ function SurveyQuestionCard({
     selectedOptionsIds,
     onOptionSelected,
 }) {
-    const cardStyles = {
-        width: '80%',
-        maxWidth: '800px',
-        backgroundColor: '#f9f9f9',
-        borderRadius: '16px',
-        padding: '5px',
-        overflowY: 'auto',
-    }
-
     const options = question.options
 
     return (
-        <Card sx={cardStyles}>
-            <CardContent>
+        <Stack>
+            <Box>
                 <Container
                     sx={{
                         minHeight: {
@@ -37,7 +21,7 @@ function SurveyQuestionCard({
                         textAlign: 'center',
                     }}
                 >
-                    <Typography variant="h6" textAlign="center">
+                    <Typography variant="h6" textAlign="center" paddingY={4}>
                         {question.id + '. ' + question.content}
                     </Typography>
                 </Container>
@@ -62,8 +46,8 @@ function SurveyQuestionCard({
                         </Button>
                     ))}
                 </Stack>
-            </CardContent>
-        </Card>
+            </Box>
+        </Stack>
     )
 }
 
