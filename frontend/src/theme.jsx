@@ -1,28 +1,35 @@
-import { createTheme } from '@mui/material'
+import { createTheme, responsiveFontSizes } from '@mui/material'
 import { LinkBehavior } from './components/LinkBehavior'
 
-export const theme = createTheme({
-    typography: {
-        button: {
-            textTransform: 'none',
+export const theme = responsiveFontSizes(
+    createTheme({
+        typography: {
+            button: {
+                textTransform: 'none',
+            },
         },
-    },
-    palette: {
-        primary: {
-            main: '#27632a',
+        palette: {
+            primary: {
+                main: '#27632a',
+            },
+            secondary: {
+                main: '#3949ab',
+            },
+            contrastThreshold: 4.5,
         },
-        secondary: {
-            main: '#3949ab',
+        components: {
+            MuiLink: {
+                defaultProps: { component: LinkBehavior },
+            },
+            MuiButtonBase: {
+                defaultProps: { LinkComponent: LinkBehavior },
+            },
         },
         background: { paper: '#FAFAF8' },
         contrastThreshold: 4.5,
-    },
-    components: {
-        MuiLink: {
-            defaultProps: { component: LinkBehavior },
-        },
-        MuiButtonBase: {
-            defaultProps: { LinkComponent: LinkBehavior },
-        },
-    },
-})
+    }),
+    {
+        /* https://mui.com/material-ui/customization/theming/#responsivefontsizes-theme-options-theme */
+        factor: 2,
+    }
+)
