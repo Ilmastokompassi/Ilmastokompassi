@@ -14,6 +14,7 @@ export const theme = createTheme({
         secondary: {
             main: '#3949ab',
         },
+        background: { paper: '#FAFAF8' },
         contrastThreshold: 4.5,
     },
     components: {
