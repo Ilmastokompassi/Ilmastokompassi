@@ -6,11 +6,12 @@ import PropTypes from 'prop-types'
 export default function RoleQuestionButtons({
     questionId,
     totalQuestions,
-    isLastQuestion,
     handleSubmit,
 }) {
+    const isLastQuestion = questionId === totalQuestions
+
     return (
-        <Stack alignItems={'center'} paddingTop={4}>
+        <Stack alignItems="center" paddingTop={4}>
             <Stack
                 direction="row"
                 justifyContent="space-evenly"
@@ -52,15 +53,8 @@ export default function RoleQuestionButtons({
     )
 }
 
-const questionProps = PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    content: PropTypes.string.isRequired,
-    options: PropTypes.array,
-})
-
 RoleQuestionButtons.propTypes = {
-    questionId: questionProps.number.isRequired,
-    totalQuestions: questionProps.number.isRequired,
-    isLastQuestion: questionProps.bool.isRequired,
-    handleSubmit: questionProps.func.isRequired,
+    questionId: PropTypes.number.isRequired,
+    totalQuestions: PropTypes.number.isRequired,
+    handleSubmit: PropTypes.func.isRequired,
 }
