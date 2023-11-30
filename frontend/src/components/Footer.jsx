@@ -5,7 +5,12 @@ export const Footer = () => (
         <Box sx={{ backgroundColor: 'primary.main' }}>
             <Container>
                 <Stack paddingY={1}>
-                    <Typography variant="h6" component="div" color="white">
+                    <Typography
+                        textAlign={'center'}
+                        variant="h6"
+                        component="div"
+                        color="white"
+                    >
                         Ilmastokompassi
                     </Typography>
                 </Stack>
