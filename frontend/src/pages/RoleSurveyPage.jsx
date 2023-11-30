@@ -39,40 +39,46 @@ export function RoleSurveyPage() {
 
     return (
         <Container>
-            <Stack paddingY={4} spacing={2}>
+            <Stack paddingY={6} spacing={3}>
                 <Card>
                     <CardContent>
-                        <Stack spacing={2} paddingY={2}>
-                            <Box>
-                                <Typography variant="h4">
+                        <Stack spacing={4} padding={{ xs: 1 , md: 4 }} alignItems='center' >
+                                <Typography variant="h3" align='center' >
                                     Ilmastoroolikysely
                                 </Typography>
-                                <Typography>
-                                    Kyselyn kysymykset liittyvät
-                                    ilmastonmuutokseen liittyviin asenteisiisi.
-                                    Voit vastata kyselyyn painamalla
-                                    &quot;Aloita&quot; painiketta. Kun olet
-                                    vastannut kyselyyn saat selville, mikä
-                                    neljästä ilmastoroolista kuvastaa sinua.
-                                    Voit tutustua ilmastorooleihin sivuston
-                                    alalaidasta.
+                            <Box>
+                                <Typography align='center'>
+                                    Testaa, minkälainen ilmastoroolihahmo
+                                    kuvastaa juuri sinua. Koeta vastata
+                                    mahdollisimman rehellisesti ja omana
+                                    itsenäsi. Näin saat parhaan kuvauksen juuri
+                                    sinulle sopivasta hahmosta. Pääset kyselyyn
+                                    painamalla &quot;Aloita&quot; painiketta.
+                                    Kun olet vastannut kysymyksiin, saat
+                                    selville, mikä ilmastoroolihahmo kuvastaa
+                                    sinua parhaiten. Voit tutustua hahmoihin
+                                    lyhyesti alta.
                                 </Typography>
                             </Box>
-                            <Box>
-                                <Typography variant="h6">
+                                <Typography variant="h4" align='center'>
                                     Vastaaminen ryhmässä
                                 </Typography>
-                                <Typography>
-                                    Voitte vertailla kyselystä saatuja tuloksia,
-                                    jos teette kyselyn ryhmänä.
-                                    Ryhmäsi tulokset tulevat näkyviin, kun viisi
-                                    ryhmän jäsentä on vastannut kyselyyn.
-                                    Ryhmään liittyviä toiminnallisuuksia, kuten
-                                    tuloksia, pääset tarkastelemaan oikean
-                                    yläkulman painikkeesta.
+                            <Box>
+                                <Typography align='center'>
+                                    Ilmastoroolikyselyn voi tehdä myös ryhmässä.
+                                    Jokainen vastaaja saa oman roolin ja näkee
+                                    anonyymin yhteenvedon ryhmässä esiintyneistä
+                                    rooleista. Ryhmän tulokset tulevat näkyviin,
+                                    kun vähintään viisi ryhmän jäsentä ovat
+                                    vastanneet kyselyyn. Ryhmän yhteisiä
+                                    tuloksia pääset tarkastelemaan myös sivuston
+                                    oikean yläkulman painikkeesta. Mikäli teillä
+                                    ei ole vielä valmiiksi luotua ryhmää, voit
+                                    tehdä sen painamalla &quot;Luo ryhmä&quot;
+                                    painiketta.
                                 </Typography>
                             </Box>
-                            <Stack alignItems="center" spacing={2}>
+                            <Stack alignItems="center" spacing={2} padding={3}>
                                 <JoinGroupForm />
                                 <CreateGroupDialog />
                                 <Button

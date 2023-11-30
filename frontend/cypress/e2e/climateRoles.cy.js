@@ -21,7 +21,7 @@ Cypress.env('viewports').forEach((viewport) => {
 
             it('Ilmastoasiantuntija accordion has correct content', function () {
                 cy.contains('Ilmastoasiantuntija').click()
-                cy.contains('Sinussa on potentiaalia ilmastoasiantuntijaksi.')
+                cy.contains('Ilmastoasiantuntija on kiinnostunut ilmastonmuutoksen tieteellisestä puolesta')
             })
         }
     )
