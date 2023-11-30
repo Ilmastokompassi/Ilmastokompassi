@@ -1,11 +1,18 @@
 import useSWR from 'swr'
-import { Typography, Container, Stack, Box, Card } from '@mui/material'
+import {
+    Typography,
+    Container,
+    Stack,
+    Box,
+    Card,
+    CardContent,
+} from '@mui/material'
 import { useTitle } from '../hooks/useTitle'
-import { SummaryRole } from '../components/SummaryRole'
-import SummaryDoughnut from '../components/SummaryDoughnut'
+import { SummaryRole } from '../components/roleSurvey/SummaryRole'
+import SummaryDoughnut from '../components/roleSurvey/SummaryDoughnut'
 import { useEffect } from 'react'
 
-export const GroupSummaryPage = () => {
+export const RoleSurveyGroupSummaryPage = () => {
     const groupToken = window.location.pathname.split('/').pop()
     useEffect(() => {
         fetch(`/api/group/${groupToken}`, {
@@ -71,23 +78,16 @@ export const GroupSummaryPage = () => {
 
     useTitle('Ilmastorooli - Tulokset')
     return (
-        <Container>
-            <Box paddingY={5}>
-                <Card>
+        <Container component={Box} paddingY={4}>
+            <Card>
+                <CardContent>
                     <Stack
-                        spacing={4}
-                        paddingTop={'30px'}
-                        paddingBottom={'50px'}
-                        padding={'20px'}
-                        alignItems={'center'}
+                        spacing={2}
+                        paddingX={2}
+                        paddingY={4}
+                        alignItems="center"
                     >
-                        <Typography
-                            variant="h4"
-                            sx={{
-                                textAlign: 'center',
-                                p: '20px',
-                            }}
-                        >
+                        <Typography variant="h4">
                             Ryhmän {groupToken} ilmastorooli
                         </Typography>
                         {isLoadingroles || isLoadingAllrolesData ? (
@@ -95,7 +95,7 @@ export const GroupSummaryPage = () => {
                         ) : (
                             <>
                                 {allRolesData.response_amount < 5 ? (
-                                    <Typography variant="body1">
+                                    <Typography>
                                         Näet tässä ryhmän {groupToken} tulokset,
                                         kun vähintään viisi henkilöä on
                                         vastannut kyselyyn. Nyt kyselyyn on
@@ -110,18 +110,12 @@ export const GroupSummaryPage = () => {
                                                 kuvastavat ryhmäänne!
                                             </Typography>
                                         )}
-                                        {highestScoreroles.map(
-                                            (role, index) => (
-                                                <SummaryRole
-                                                    key={role.id}
-                                                    index={index}
-                                                    title={role.name}
-                                                    description={
-                                                        role.description
-                                                    }
-                                                />
-                                            )
-                                        )}
+                                        {highestScoreroles.map((role) => (
+                                            <SummaryRole
+                                                key={role.id}
+                                                role={role}
+                                            />
+                                        ))}
 
                                         <Typography variant="h5">
                                             Ryhmän {groupToken} jakauma.
@@ -129,24 +123,14 @@ export const GroupSummaryPage = () => {
                                             {allRolesData.response_amount}{' '}
                                             henkilöä.
                                         </Typography>
-                                        <Box
-                                            width={{
-                                                xs: '60vw',
-                                                sm: '50vw',
-                                                md: '40vw',
-                                            }}
-                                        >
-                                            <SummaryDoughnut
-                                                data={groupRoleData}
-                                            />
-                                        </Box>
+                                        <SummaryDoughnut data={groupRoleData} />
                                     </>
                                 )}
                             </>
                         )}
                     </Stack>
-                </Card>
-            </Box>
+                </CardContent>
+            </Card>
         </Container>
     )
 }

@@ -1,6 +1,6 @@
 import '@testing-library/jest-dom'
 import { render, screen } from '@testing-library/react'
-import SurveyQuestionCard from '../../components/SurveyQuestionCard'
+import SurveyQuestionCard from '../../components/roleSurvey/SurveyQuestionCard'
 
 beforeEach(async () => {
     const fakeQuestion = {

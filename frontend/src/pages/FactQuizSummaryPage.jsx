@@ -1,7 +1,7 @@
 import { Box, Button, Container, Stack, Typography } from '@mui/material'
 import useSWR from 'swr'
 import { useTitle } from '../hooks/useTitle'
-import QuizSummaryAccordion from '../components/QuizSummaryAccordion' // Import the new component
+import QuizSummaryAccordion from '../components/factQuiz/QuizSummaryAccordion' // Import the new component
 
 export const FactQuizSummaryPage = () => {
     const { data: allSummaryInfo, isLoading: isLoadingAllSummaryInfo } =
