@@ -66,7 +66,7 @@ export function RoleSurveyPage() {
                                     Voitte vertailla kyselystä saatuja tuloksia,
                                     jos teette kyselyn ryhmänä.
                                     Ryhmäsi tulokset tulevat näkyviin, kun viisi
-                                    ryhmän jäsentä ovat vastanneet kyselyyn.
+                                    ryhmän jäsentä on vastannut kyselyyn.
                                     Ryhmään liittyviä toiminnallisuuksia, kuten
                                     tuloksia, pääset tarkastelemaan oikean
                                     yläkulman painikkeesta.
