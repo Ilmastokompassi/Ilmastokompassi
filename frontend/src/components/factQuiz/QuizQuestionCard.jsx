@@ -9,7 +9,7 @@ import {
 import CheckRoundedIcon from '@mui/icons-material/CheckRounded'
 import ClearRoundedIcon from '@mui/icons-material/ClearRounded'
 import PropTypes from 'prop-types'
-import shuffleArray from '../utils/shuffleArray'
+import shuffleArray from '../../utils/shuffleArray'
 import { useEffect, useState } from 'react'
 
 function QuizQuestionCard({
