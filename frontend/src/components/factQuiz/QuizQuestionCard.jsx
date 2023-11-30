@@ -54,16 +54,33 @@ function QuizQuestionCard({
                             >
                                 {option.name}
                             </Button>
-                            {correctAnswers &&
-                                selectedOptionsIds.has(option.id) && (
-                                    <>
-                                        {correctAnswers.includes(option.id) ? (
-                                            <CheckRoundedIcon color="success" />
-                                        ) : (
-                                            <ClearRoundedIcon color="error" />
-                                        )}
-                                    </>
-                                )}
+                            {correctAnswers && (
+                                <>
+                                    {correctAnswers.includes(option.id) ? (
+                                        <CheckRoundedIcon
+                                            data-testid={`correct-answer-${option.id}`}
+                                            color={
+                                                selectedOptionsIds.has(
+                                                    option.id
+                                                )
+                                                    ? 'success'
+                                                    : 'iconGray'
+                                            }
+                                        />
+                                    ) : (
+                                        <ClearRoundedIcon
+                                            data-testid={`wrong-answer-${option.id}`}
+                                            color={
+                                                selectedOptionsIds.has(
+                                                    option.id
+                                                )
+                                                    ? 'error'
+                                                    : 'iconGray'
+                                            }
+                                        />
+                                    )}
+                                </>
+                            )}
                         </Stack>
                     ))}
                 </Stack>
