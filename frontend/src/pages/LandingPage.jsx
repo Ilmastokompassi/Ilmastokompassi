@@ -13,6 +13,13 @@ import FaceIcon from '@mui/icons-material/Face'
 import TravelExploreIcon from '@mui/icons-material/TravelExplore'
 import ClimateCompassMap from '../assets/kompassi_tausta.png'
 
+const cardDescription = {
+    roleSurvey:
+        'Testaa nopeilla kysymyksillä, minkälainen ilmastoroolihahmo kuvastaa juuri sinua! ',
+    factQuiz:
+        'Kokeile rohkeasti, esitteleekö ilmasto-oppimisvisa uusia aiheita, joilla voit kartuttaa ilmastotietämystäsi! Nämä eivät ole yksinkertaisia, olet aikamoinen ilmastotaituri, jos saat vastattua kaikkiin oikein.',
+}
+
 export const LandingPage = () => {
     useTitle('Ilmastokompassi')
     return (
@@ -54,14 +61,14 @@ export const LandingPage = () => {
                 <Stack spacing={2} width="100%" alignItems="stretch">
                     <ToSurveyCard
                         name="Ilmastoroolikysely"
-                        description="Selvitä mikä ilmastorooli kuvastaa sinua parhaiten!"
+                        description={cardDescription.roleSurvey}
                         icon={<FaceIcon sx={{ fontSize: '72px' }} />}
                         iconBackgroundColor="#429446"
                         to="/ilmastoroolikysely"
                     />
                     <ToSurveyCard
                         name="Oppimisvisa"
-                        description="Kokeile ilmastotietämystäsi oppimisvisan avulla!"
+                        description={cardDescription.factQuiz}
                         to="/oppimisvisa/1"
                         icon={<TravelExploreIcon sx={{ fontSize: '72px' }} />}
                         iconBackgroundColor="#944290"
