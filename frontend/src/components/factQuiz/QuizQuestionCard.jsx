@@ -9,6 +9,8 @@ import {
 import CheckRoundedIcon from '@mui/icons-material/CheckRounded'
 import ClearRoundedIcon from '@mui/icons-material/ClearRounded'
 import PropTypes from 'prop-types'
+import shuffleArray from '../utils/shuffleArray'
+import { useEffect, useState } from 'react'
 
 function QuizQuestionCard({
     question,
@@ -17,6 +19,12 @@ function QuizQuestionCard({
     canAnswer,
     correctAnswers,
 }) {
+    const [options, setOptions] = useState([])
+
+    // Use useEffect to only re-render the card component when question changes
+    // to avoid re-shuffling the options on answer
+    useEffect(() => setOptions(shuffleArray(question.options)), [question])
+
     return (
         <Card sx={{ width: '100%', borderRadius: 2 }}>
             <CardContent>
@@ -27,7 +35,7 @@ function QuizQuestionCard({
                 </Container>
 
                 <Stack spacing={2} marginTop={1} direction="column">
-                    {question.options.map((option) => (
+                    {options.map((option) => (
                         <Stack
                             key={option.id}
                             direction="row"
