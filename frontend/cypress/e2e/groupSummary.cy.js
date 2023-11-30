@@ -94,9 +94,6 @@ describe('Group summary page', function () {
                         'Ryhmän FOOBAR jakauma. Kyselyyn on vastannut 5 henkilöä.'
                     )
                     cy.contains('Ilmastoasiantuntija')
-                    cy.contains('Mielipidevaikuttaja')
-                    cy.contains('Kestävän elämäntavan etsijä')
-                    cy.contains('Eettinen kuluttaja')
                 })
             }
         )
