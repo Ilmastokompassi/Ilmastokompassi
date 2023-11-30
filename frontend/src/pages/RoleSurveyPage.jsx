@@ -69,8 +69,8 @@ export function RoleSurveyPage() {
                                     Jokainen vastaaja saa oman roolin ja näkee
                                     anonyymin yhteenvedon ryhmässä esiintyneistä
                                     rooleista. Ryhmän tulokset tulevat näkyviin,
-                                    kun vähintään viisi ryhmän jäsentä ovat
-                                    vastanneet kyselyyn. Ryhmän yhteisiä
+                                    kun vähintään viisi ryhmän jäsentä on
+                                    vastannut kyselyyn. Ryhmän yhteisiä
                                     tuloksia pääset tarkastelemaan myös sivuston
                                     oikean yläkulman painikkeesta. Mikäli teillä
                                     ei ole vielä valmiiksi luotua ryhmää, voit
