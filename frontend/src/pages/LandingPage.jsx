@@ -7,11 +7,10 @@ import {
     CardContent,
 } from '@mui/material'
 import { useTitle } from '../hooks/useTitle'
-
 import { ToSurveyCard } from '../components/ToSurveyCard'
-import FaceIcon from '@mui/icons-material/Face'
-import TravelExploreIcon from '@mui/icons-material/TravelExplore'
 import ClimateCompassMap from '../assets/kompassi_tausta.png'
+import RoleSurveyLogo from '../assets/roolilogo.png'
+import FactQuizLogo from '../assets/oppimisvisalogo.png'
 
 const cardDescription = {
     roleSurvey:
@@ -62,16 +61,32 @@ export const LandingPage = () => {
                     <ToSurveyCard
                         name="Ilmastoroolikysely"
                         description={cardDescription.roleSurvey}
-                        icon={<FaceIcon sx={{ fontSize: '72px' }} />}
-                        iconBackgroundColor="#429446"
+                        icon={
+                            <img
+                                src={RoleSurveyLogo}
+                                alt="Role Survey"
+                                style={{
+                                    width: '18.75rem',
+                                    height: '18.75rem',
+                                }}
+                            />
+                        }
                         to="/ilmastoroolikysely"
                     />
                     <ToSurveyCard
                         name="Oppimisvisa"
                         description={cardDescription.factQuiz}
                         to="/oppimisvisa/1"
-                        icon={<TravelExploreIcon sx={{ fontSize: '72px' }} />}
-                        iconBackgroundColor="#944290"
+                        icon={
+                            <img
+                                src={FactQuizLogo}
+                                alt="Fact Quiz"
+                                style={{
+                                    width: '18.75rem',
+                                    height: '18.75rem',
+                                }}
+                            />
+                        }
                     />
                 </Stack>
             </Stack>
