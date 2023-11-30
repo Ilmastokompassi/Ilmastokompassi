@@ -51,12 +51,7 @@ export const LandingPage = () => {
                         </Stack>
                     </CardContent>
                 </Card>
-                <Stack
-                    spacing={2}
-                    width="100%"
-                    direction={{ xs: 'column', md: 'row' }}
-                    alignItems="stretch"
-                >
+                <Stack spacing={2} width="100%" alignItems="stretch">
                     <ToSurveyCard
                         name="Ilmastoroolikysely"
                         description="Selvitä mikä ilmastorooli kuvastaa sinua parhaiten!"
