@@ -5,62 +5,61 @@ import {
     CardActionArea,
     Typography,
     Stack,
+    useMediaQuery,
+    useTheme,
 } from '@mui/material'
 import PropTypes from 'prop-types'
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
 
-export const ToSurveyCard = ({
-    name,
-    description,
-    to,
-    icon,
-    iconBackgroundColor,
-}) => (
-    <Card
-        elevation={1}
-        sx={{
-            width: '100%',
-            height: '100%',
-        }}
-    >
-        <CardActionArea href={to}>
-            <Stack direction="row">
-                <CardMedia
-                    sx={{
-                        height: 128,
-                        minWidth: 128,
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        backgroundColor: iconBackgroundColor,
-                        color: iconBackgroundColor && 'rgba(0, 0, 0, 0.66)',
-                    }}
-                >
-                    {icon}
-                </CardMedia>
-                <CardContent sx={{ flexGrow: 1 }}>
-                    <Stack
-                        height="100%"
-                        direction="row"
-                        justifyContent="space-between"
-                        alignItems="center"
+export const ToSurveyCard = ({ name, description, to, icon }) => {
+    const theme = useTheme()
+    const isDesktop = useMediaQuery(theme.breakpoints.up('md'))
+
+    return (
+        <Card
+            elevation={1}
+            sx={{
+                width: '100%',
+                height: 'auto',
+                minHeight: '18.75rem',
+            }}
+        >
+            <CardActionArea href={to}>
+                <Stack direction={isDesktop ? 'row' : 'column'}>
+                    <CardMedia
+                        sx={{
+                            height: '18.75rem',
+                            width: isDesktop ? '18.75rem' : '100%',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                        }}
                     >
-                        <Stack>
-                            <Typography variant="h5">{name}</Typography>
-                            {description}
+                        {icon}
+                    </CardMedia>
+                    <CardContent sx={{ flexGrow: 1 }}>
+                        <Stack
+                            height="100%"
+                            direction="row"
+                            justifyContent="space-around"
+                            alignItems="center"
+                        >
+                            <Stack>
+                                <Typography variant="h5">{name}</Typography>
+                                {description}
+                            </Stack>
+                            <ArrowForwardIcon />
                         </Stack>
-                        <ArrowForwardIcon />
-                    </Stack>
-                </CardContent>
-            </Stack>
-        </CardActionArea>
-    </Card>
-)
+                    </CardContent>
+                </Stack>
+            </CardActionArea>
+        </Card>
+    )
+}
 
 ToSurveyCard.propTypes = {
     name: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
     to: PropTypes.string,
     icon: PropTypes.element.isRequired,
-    iconBackgroundColor: PropTypes.string,
 }
