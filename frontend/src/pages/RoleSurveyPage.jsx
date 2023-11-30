@@ -63,8 +63,8 @@ export function RoleSurveyPage() {
                                     Vastaaminen ryhmässä
                                 </Typography>
                                 <Typography>
-                                    Voitte vertailla kyselyistä saatuja tuloksia
-                                    jos teette sivuston kyselyjä ryhmänä.
+                                    Voitte vertailla kyselystä saatuja tuloksia,
+                                    jos teette kyselyn ryhmänä.
                                     Ryhmäsi tulokset tulevat näkyviin, kun viisi
                                     ryhmän jäsentä ovat vastanneet kyselyyn.
                                     Ryhmään liittyviä toiminnallisuuksia, kuten
