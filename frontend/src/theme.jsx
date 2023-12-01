@@ -18,6 +18,9 @@ export const theme = responsiveFontSizes(
             iconGray: {
                 main: '#A9A9A9',
             },
+            action: {
+                disabled: 'black',
+            },
             contrastThreshold: 4.5,
         },
         components: {
