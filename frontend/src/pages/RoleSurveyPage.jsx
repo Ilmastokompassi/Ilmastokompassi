@@ -13,6 +13,7 @@ import { useTitle } from '../hooks/useTitle'
 import JoinGroupForm from '../components/JoinGroupForm'
 import RoleAccordion from '../components/roleSurvey/RoleAccordion'
 import CreateGroupDialog from '../components/CreateGroupDialog'
+import RoleSurveyLogo from '../assets/roolilogo.png'
 import useSWR from 'swr'
 
 export function RoleSurveyPage() {
@@ -42,12 +43,21 @@ export function RoleSurveyPage() {
             <Stack paddingY={6} spacing={3}>
                 <Card>
                     <CardContent>
-                        <Stack spacing={4} padding={{ xs: 1 , md: 4 }} alignItems='center' >
-                                <Typography variant="h3" align='center' >
-                                    Ilmastoroolikysely
-                                </Typography>
+                        <Stack
+                            spacing={4}
+                            padding={{ xs: 1, md: 4 }}
+                            alignItems="center"
+                        >
+                            <Typography
+                                variant="h1"
+                                sx={{ fontSize: ['1.5rem', '2.5rem', '3rem'] }}
+                                align="center"
+                            >
+                                Ilmastoroolikysely
+                            </Typography>
+
                             <Box>
-                                <Typography align='center'>
+                                <Typography align="center">
                                     Testaa, minkälainen ilmastoroolihahmo
                                     kuvastaa juuri sinua. Koeta vastata
                                     mahdollisimman rehellisesti ja omana
@@ -60,21 +70,33 @@ export function RoleSurveyPage() {
                                     lyhyesti alta.
                                 </Typography>
                             </Box>
-                                <Typography variant="h4" align='center'>
-                                    Vastaaminen ryhmässä
-                                </Typography>
+                            <Box
+                                component="img"
+                                src={RoleSurveyLogo}
+                                alt="ilmastoroolien hahmot"
+                                sx={{ width: ['70%', '60%', '50%'] }}
+                                borderRadius={2}
+                                boxShadow={5}
+                            />
+                            <Typography
+                                variant="h2"
+                                sx={{ fontSize: ['1.5rem', '1.8rem', '2rem'] }}
+                                align="center"
+                            >
+                                Vastaaminen ryhmässä
+                            </Typography>
                             <Box>
-                                <Typography align='center'>
+                                <Typography align="center">
                                     Ilmastoroolikyselyn voi tehdä myös ryhmässä.
                                     Jokainen vastaaja saa oman roolin ja näkee
                                     anonyymin yhteenvedon ryhmässä esiintyneistä
                                     rooleista. Ryhmän tulokset tulevat näkyviin,
                                     kun vähintään viisi ryhmän jäsentä on
-                                    vastannut kyselyyn. Ryhmän yhteisiä
-                                    tuloksia pääset tarkastelemaan myös sivuston
-                                    oikean yläkulman painikkeesta. Mikäli teillä
-                                    ei ole vielä valmiiksi luotua ryhmää, voit
-                                    tehdä sen painamalla &quot;Luo ryhmä&quot;
+                                    vastannut kyselyyn. Ryhmän yhteisiä tuloksia
+                                    pääset tarkastelemaan myös sivuston oikean
+                                    yläkulman painikkeesta. Mikäli teillä ei ole
+                                    vielä valmiiksi luotua ryhmää, voit tehdä
+                                    sen painamalla &quot;Luo ryhmä&quot;
                                     painiketta.
                                 </Typography>
                             </Box>
@@ -91,7 +113,11 @@ export function RoleSurveyPage() {
                                     href="/kysymys/1"
                                     color="secondary"
                                 >
-                                    <Typography variant="h5" letterSpacing={2}>
+                                    <Typography
+                                        variant="h5"
+                                        component="div"
+                                        letterSpacing={2}
+                                    >
                                         Aloita
                                     </Typography>
                                 </Button>

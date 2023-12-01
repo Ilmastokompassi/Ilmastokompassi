@@ -24,7 +24,9 @@ const RoleAccordion = ({ role }) => (
             expandIcon={<ExpandMoreIcon />}
             aria-controls={`panel-${role.id}-content`}
         >
-            <Typography variant="h6">{role.name}</Typography>
+            <Typography variant="h2" sx={{ fontSize: ['1.5rem', '2rem'] }}>
+                {role.name}
+            </Typography>
         </AccordionSummary>
         <AccordionDetails
             id={`panel-${role.id}-content`}

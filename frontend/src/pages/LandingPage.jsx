@@ -42,6 +42,7 @@ export const LandingPage = () => {
                         </Typography>
                         <Typography
                             variant="h4"
+                            component="div"
                             align="center"
                             fontWeight={700}
                             sx={{ fontSize: ['1rem', '1.2rem', '1.5rem'] }}
