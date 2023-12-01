@@ -19,7 +19,7 @@ export const theme = responsiveFontSizes(
                 main: '#A9A9A9',
             },
             action: {
-                disabled: 'black',
+                disabled: '#111111',
             },
             contrastThreshold: 4.5,
         },
