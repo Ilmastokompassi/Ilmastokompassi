@@ -9,18 +9,19 @@ ChartJS.register(ArcElement, Tooltip, Legend, Colors)
 
 export const SummaryDoughnut = ({ data }) => (
     <Stack
-        position="relative"
-        width={{
-            xs: '70vw',
-            sm: '60vw',
-            md: '50vw',
+        maxWidth={{
+            xs: '80vw',
+            sm: '50vw',
+            md: '65vw',
         }}
-        height={{
-            xs: '70vw',
-            sm: '60vw',
-            md: '50vw',
+        maxHeight={{
+            xs: '140vw',
+            sm: '80vw',
+            md: '35vw',
         }}
-        direction={{ xs: 'column', md: 'row' }}
+        direction={{ xs: 'column-reverse', md: 'row' }}
+        spacing={1}
+        sx={{ minWidth: 0 }}
     >
         <Doughnut
             data={{
@@ -35,9 +36,10 @@ export const SummaryDoughnut = ({ data }) => (
                 ],
             }}
             options={{
-                maintainAspectRatio: false,
+                maintainAspectRatio: true,
                 plugins: {
                     legend: {
+                        display: false,
                         labels: {
                             usePointStyle: true,
                             font: {
@@ -56,7 +58,7 @@ export const SummaryDoughnut = ({ data }) => (
             {data.map((x) => (
                 <ListItem key={x}>
                     <ListItemIcon>
-                        <CircleIcon sx={{color: x.color}} />
+                        <CircleIcon sx={{color: x.color}} fontSize='large' />
                     </ListItemIcon>
                     <ListItemText primary={`${x.label}, ${Math.round(x.value)}%`} />
                 </ListItem>

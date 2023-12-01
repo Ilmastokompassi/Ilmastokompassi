@@ -84,10 +84,10 @@ export const RoleSurveySummaryPage = () => {
     // require a new column in the table and that feels like overkill at this point
     const roleColor = (role) => {
         switch(role) {
-            case 'Ilmastoasiantuntija': return'#E9E775'
-            case 'Mielipidevaikuttaja': return '#50B8DC'
-            case 'Kestävän elämäntavan etsijä': return '#DF8715'
-            case 'Eettinen kuluttaja': return '#4CD865'
+            case 1: return'#E9E775'
+            case 2: return '#50B8DC'
+            case 3: return '#DF8715'
+            case 4: return '#4CD865'
             default: return '#FFFFFF'
         }
     }
@@ -97,14 +97,14 @@ export const RoleSurveySummaryPage = () => {
         id: result.id,
         value: result.score,
         label: result.name,
-        color: roleColor(result.name),
+        color: roleColor(result.id),
     }))
 
     const groupRoleData = groupRoleResults?.map((result) => ({
         id: result.id,
         value: result.score,
         label: result.name,
-        color: roleColor(result.name),
+        color: roleColor(result.id),
     }))
 
     const answerCount = summaryData?.count
