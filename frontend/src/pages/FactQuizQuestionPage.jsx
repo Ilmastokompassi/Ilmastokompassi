@@ -1,6 +1,13 @@
 import { useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
-import { Box, Button, Container, Stack, Typography } from '@mui/material'
+import {
+    Box,
+    Button,
+    Container,
+    LinearProgress,
+    Stack,
+    Typography,
+} from '@mui/material'
 import QuizQuestionCard from '../components/factQuiz/QuizQuestionCard'
 import { useTitle } from '../hooks/useTitle'
 import useSWR from 'swr'
@@ -191,6 +198,17 @@ export const FactQuizQuestionPage = () => {
                                     <Typography>
                                         {questionId}/{totalQuestions}
                                     </Typography>
+                                    <LinearProgress
+                                        variant="determinate"
+                                        value={
+                                            (questionId * 100) / totalQuestions
+                                        }
+                                        style={{
+                                            width: '70%',
+                                            maxWidth: '780px',
+                                        }}
+                                        aria-label="progressbar"
+                                    />
                                 </Stack>
                             </>
                         )}
