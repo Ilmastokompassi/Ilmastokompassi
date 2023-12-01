@@ -248,6 +248,13 @@ describe('Quiz page', function () {
                         'Ilmastossa tapahtuneisiin muutoksiin mukautuminen'
                     )
                 })
+
+                it('Introduction text is rendered', function () {
+                    cy.visit('/oppimisvisa/5')
+                    cy.contains(
+                        'Ilmastomalleilla koetetaan kartoittaa, miltä ilmasto tulevaisuudessa voisi näyttää. Ilmastomalleilla tarkoitetaan kolmiulotteisia ilmakehä-valtamerimalleja, jotka kuvaavat ilmakehän ja valtamerten käyttäytymistä päästöskenaarioita ja fysiikan lakeja käyttäen. Ilmastomallit eivät ole kuitenkaan täydellisiä ennustamisen välineitä, vaan niissä esiintyy epävarmuuksia.'
+                    )
+                })
             }
         )
     })
