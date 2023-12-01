@@ -58,7 +58,7 @@ export const LandingPage = () => {
                         icon={
                             <img
                                 src={RoleSurveyLogo}
-                                alt="Role Survey"
+                                alt="ilmastoroolien hahmot"
                                 style={{
                                     maxWidth: '100%',
                                     maxHeight: '100%',
@@ -74,7 +74,7 @@ export const LandingPage = () => {
                         icon={
                             <img
                                 src={FactQuizLogo}
-                                alt="Fact Quiz"
+                                alt="hymyilevä maapallo suurennuslasilla"
                                 style={{
                                     maxWidth: '100%',
                                     maxHeight: '100%',
