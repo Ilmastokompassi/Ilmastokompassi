@@ -41,6 +41,7 @@ spec:
             - bash
             - "-c"
             - |
+              set -euo pipefail
               echo Waiting for postgres to be available
               until pg_isready -d $DATABASE_URI; do sleep 1; done;
               echo Postgres is available, applying migrations..
