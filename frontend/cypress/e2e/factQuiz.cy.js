@@ -1,8 +1,15 @@
+import theme from '../../src/theme'
+import { hexToRgb } from '@mui/material'
+
 describe('Quiz page', function () {
     beforeEach(() => {
         cy.visit('/')
         cy.contains('Oppimisvisa').click()
     })
+
+    const successColor = hexToRgb(theme.palette.success.main)
+    const errorColor = hexToRgb(theme.palette.error.main)
+    const iconGray = hexToRgb(theme.palette.iconGray.main)
 
     Cypress.env('viewports').forEach((viewport) => {
         describe(
@@ -81,6 +88,36 @@ describe('Quiz page', function () {
                     cy.contains('Oikeat vastaukset').click()
 
                     cy.contains('Olet valinnut oikein 2')
+                })
+
+                it('Check that marks are correct color', function () {
+                    cy.contains(
+                        'Ihmistoiminnasta johtuva otsonikato on aiheuttanut ilmaston lämpenemisen'
+                    ).click()
+                    cy.contains(
+                        'Suurin osa saapuvasta auringonsäteilystä imeytyy maanpinnalle'
+                    ).click()
+                    cy.contains('Vastaa').click()
+                    cy.findByTestId('correct-answer-5').should(
+                        'have.css',
+                        'color',
+                        successColor
+                    )
+                    cy.findByTestId('wrong-answer-1').should(
+                        'have.css',
+                        'color',
+                        errorColor
+                    )
+                    cy.findByTestId('correct-answer-3').should(
+                        'have.css',
+                        'color',
+                        iconGray
+                    )
+                    cy.findByTestId('wrong-answer-7').should(
+                        'have.css',
+                        'color',
+                        iconGray
+                    )
                 })
 
                 it('Select one answer, press "Vastaa" and move to next question"', function () {

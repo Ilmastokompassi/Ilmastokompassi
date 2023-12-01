@@ -15,6 +15,9 @@ export const theme = responsiveFontSizes(
             secondary: {
                 main: '#3949ab',
             },
+            iconGray: {
+                main: '#A9A9A9',
+            },
             contrastThreshold: 4.5,
         },
         components: {
@@ -33,3 +36,5 @@ export const theme = responsiveFontSizes(
         factor: 2,
     }
 )
+
+export default theme

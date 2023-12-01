@@ -7,11 +7,17 @@ import {
     CardContent,
 } from '@mui/material'
 import { useTitle } from '../hooks/useTitle'
-
 import { ToSurveyCard } from '../components/ToSurveyCard'
-import FaceIcon from '@mui/icons-material/Face'
-import TravelExploreIcon from '@mui/icons-material/TravelExplore'
 import ClimateCompassMap from '../assets/kompassi_tausta.png'
+import RoleSurveyLogo from '../assets/roolilogo.png'
+import FactQuizLogo from '../assets/oppimisvisalogo.png'
+
+const cardDescription = {
+    roleSurvey:
+        'Testaa nopeilla kysymyksillä, minkälainen ilmastoroolihahmo kuvastaa juuri sinua! ',
+    factQuiz:
+        'Kokeile rohkeasti, esitteleekö ilmasto-oppimisvisa uusia aiheita, joilla voit kartuttaa ilmastotietämystäsi! Nämä eivät ole yksinkertaisia, olet aikamoinen ilmastotaituri, jos saat vastattua kaikkiin oikein.',
+}
 
 export const LandingPage = () => {
     useTitle('Ilmastokompassi')
@@ -51,25 +57,36 @@ export const LandingPage = () => {
                         </Stack>
                     </CardContent>
                 </Card>
-                <Stack
-                    spacing={2}
-                    width="100%"
-                    direction={{ xs: 'column', md: 'row' }}
-                    alignItems="stretch"
-                >
+                <Stack spacing={2} width="100%" alignItems="stretch">
                     <ToSurveyCard
                         name="Ilmastoroolikysely"
-                        description="Selvitä mikä ilmastorooli kuvastaa sinua parhaiten!"
-                        icon={<FaceIcon sx={{ fontSize: '72px' }} />}
-                        iconBackgroundColor="#429446"
+                        description={cardDescription.roleSurvey}
+                        icon={
+                            <img
+                                src={RoleSurveyLogo}
+                                alt="Role Survey"
+                                style={{
+                                    width: '18.75rem',
+                                    height: '18.75rem',
+                                }}
+                            />
+                        }
                         to="/ilmastoroolikysely"
                     />
                     <ToSurveyCard
                         name="Oppimisvisa"
-                        description="Kokeile ilmastotietämystäsi oppimisvisan avulla!"
+                        description={cardDescription.factQuiz}
                         to="/oppimisvisa/1"
-                        icon={<TravelExploreIcon sx={{ fontSize: '72px' }} />}
-                        iconBackgroundColor="#944290"
+                        icon={
+                            <img
+                                src={FactQuizLogo}
+                                alt="Fact Quiz"
+                                style={{
+                                    width: '18.75rem',
+                                    height: '18.75rem',
+                                }}
+                            />
+                        }
                     />
                 </Stack>
             </Stack>
