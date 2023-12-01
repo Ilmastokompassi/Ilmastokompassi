@@ -28,25 +28,31 @@ export const ToSurveyCard = ({ name, description, to, icon }) => {
                 <Stack direction={isDesktop ? 'row' : 'column'}>
                     <CardMedia
                         sx={{
-                            height: '18.75rem',
-                            width: isDesktop ? '18.75rem' : '100%',
-                            display: 'flex',
+                            width: isDesktop ? '33%' : '100%',
+                            display: 'grid',
                             alignItems: 'center',
                             justifyContent: 'center',
                         }}
                     >
                         {icon}
                     </CardMedia>
-                    <CardContent sx={{ flexGrow: 1 }}>
+                    <CardContent
+                        sx={{ flexGrow: 1, width: isDesktop ? '67%' : '100%' }}
+                    >
                         <Stack
                             height="100%"
+                            width="100%"
                             direction="row"
                             justifyContent="space-around"
                             alignItems="center"
                         >
                             <Stack>
-                                <Typography variant="h5">{name}</Typography>
-                                {description}
+                                <Typography variant="h3" paddingBottom={3}>
+                                    {name}
+                                </Typography>
+                                <Typography variant="h5">
+                                    {description}
+                                </Typography>
                             </Stack>
                             <ArrowForwardIcon />
                         </Stack>

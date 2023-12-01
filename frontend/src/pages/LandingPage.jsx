@@ -1,11 +1,4 @@
-import {
-    Typography,
-    Container,
-    Stack,
-    Box,
-    Card,
-    CardContent,
-} from '@mui/material'
+import { Typography, Container, Stack, Box } from '@mui/material'
 import { useTitle } from '../hooks/useTitle'
 import { ToSurveyCard } from '../components/ToSurveyCard'
 import ClimateCompassMap from '../assets/kompassi_tausta.png'
@@ -14,9 +7,9 @@ import FactQuizLogo from '../assets/oppimisvisalogo.png'
 
 const cardDescription = {
     roleSurvey:
-        'Testaa nopeilla kysymyksillä, minkälainen ilmastoroolihahmo kuvastaa juuri sinua! ',
+        'Vastaa rehellisesti ja omana itsenäsi pikaisiin kysymyksiin, jolloin näet minkälainen ilmastoroolihahmo kuvastaa juuri sinua! Voit tehdä kyselyn yksin tai ryhmässä.',
     factQuiz:
-        'Kokeile rohkeasti, esitteleekö ilmasto-oppimisvisa uusia aiheita, joilla voit kartuttaa ilmastotietämystäsi! Nämä eivät ole yksinkertaisia, olet aikamoinen ilmastotaituri, jos saat vastattua kaikkiin oikein.',
+        'Kokeile ilmasto-oppimisvisaa ja laajenna ilmastotietämystäsi. Ilmastonmuutos on laaja aihe ja sen ymmärtäminen vaatii monenlaista osaamista. Olet aikamoinen ilmastotaituri, jos saat vastattua kaikkiin oikein!',
 }
 
 export const LandingPage = () => {
@@ -37,26 +30,27 @@ export const LandingPage = () => {
                     sx={{ width: ['70%', '55%', '40%'] }}
                 />
 
-                <Card>
-                    <CardContent>
-                        <Stack spacing={2} alignItems="center">
-                            <Box>
-                                <Typography variant="h5" align="left">
-                                    Tervetuloa Ilmastokompassiin!
-                                </Typography>
-                                <Typography variant="body1" align="left">
-                                    Ilmastokompassi on ilmastonmuutokseen
-                                    liittyvä oppimisalusta, joka tarjoaa
-                                    oppimateriaalia ilmastonmuutoksesta ja sen
-                                    hillinnästä. Ilmastokompassi on suunnattu
-                                    erityisesti yläkoululaisille ja
-                                    lukiolaisille, mutta soveltuu myös muille
-                                    ilmastonmuutoksesta kiinnostuneille.
-                                </Typography>
-                            </Box>
-                        </Stack>
-                    </CardContent>
-                </Card>
+                <Stack spacing={2} alignItems="center">
+                    <Box>
+                        <Typography
+                            variant="h1"
+                            align="center"
+                            fontWeight={700}
+                            sx={{ fontSize: ['1.5rem', '2.5rem', '3rem'] }}
+                        >
+                            Tervetuloa Ilmastokompassiin!
+                        </Typography>
+                        <Typography
+                            variant="h4"
+                            align="center"
+                            fontWeight={700}
+                            sx={{ fontSize: ['1rem', '1.2rem', '1.5rem'] }}
+                        >
+                            Täällä pääset kartuttamaan ilmastotietämystäsi ja
+                            ymmärtämään omaa suhtautumistasi ilmastonmuutokseen.
+                        </Typography>
+                    </Box>
+                </Stack>
                 <Stack spacing={2} width="100%" alignItems="stretch">
                     <ToSurveyCard
                         name="Ilmastoroolikysely"
@@ -66,8 +60,8 @@ export const LandingPage = () => {
                                 src={RoleSurveyLogo}
                                 alt="Role Survey"
                                 style={{
-                                    width: '18.75rem',
-                                    height: '18.75rem',
+                                    maxWidth: '100%',
+                                    maxHeight: '100%',
                                 }}
                             />
                         }
@@ -82,8 +76,8 @@ export const LandingPage = () => {
                                 src={FactQuizLogo}
                                 alt="Fact Quiz"
                                 style={{
-                                    width: '18.75rem',
-                                    height: '18.75rem',
+                                    maxWidth: '100%',
+                                    maxHeight: '100%',
                                 }}
                             />
                         }
