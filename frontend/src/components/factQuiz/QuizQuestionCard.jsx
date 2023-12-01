@@ -1,11 +1,4 @@
-import {
-    Button,
-    Container,
-    Card,
-    CardContent,
-    Stack,
-    Typography,
-} from '@mui/material'
+import { Button, Container, Stack, Typography } from '@mui/material'
 import CheckRoundedIcon from '@mui/icons-material/CheckRounded'
 import ClearRoundedIcon from '@mui/icons-material/ClearRounded'
 import PropTypes from 'prop-types'
@@ -26,13 +19,11 @@ function QuizQuestionCard({
     useEffect(() => setOptions(shuffleArray(question.options)), [question])
 
     return (
-        <Card sx={{ width: '100%', borderRadius: 2 }}>
-            <CardContent>
-                <Container sx={{ padding: 2 }}>
-                    <Typography variant="h6" textAlign="center">
-                        {question.id + '. ' + question.content}
-                    </Typography>
-                </Container>
+        <>
+            <Container sx={{ padding: 2 }}>
+                <Typography variant="h6" textAlign="center">
+                    {question.id + '. ' + question.content}
+                </Typography>
 
                 <Stack spacing={2} marginTop={1} direction="column">
                     {options.map((option) => (
@@ -84,8 +75,8 @@ function QuizQuestionCard({
                         </Stack>
                     ))}
                 </Stack>
-            </CardContent>
-        </Card>
+            </Container>
+        </>
     )
 }
 

@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom'
 import {
     Box,
     Button,
+    Card,
     Container,
     LinearProgress,
     Stack,
@@ -108,7 +109,7 @@ export const FactQuizQuestionPage = () => {
     return (
         <div {...swipeHandlers}>
             <Container>
-                <Box display="flex" justifyContent="center">
+                <Box display="flex" justifyContent="center" paddingBottom={10}>
                     <Stack
                         maxWidth="800px"
                         direction="column"
@@ -123,12 +124,34 @@ export const FactQuizQuestionPage = () => {
                         ) : (
                             <>
                                 {/* Question options card */}
-                                <QuizQuestionCard
-                                    question={currentQuestion}
-                                    selectedOptionsIds={selectedOptionsIds}
-                                    onOptionSelected={onOptionSelected}
-                                    canAnswer={!hasAnswered}
-                                    correctAnswers={correctAnswers}
+                                <Card
+                                    sx={{
+                                        width: '100%',
+                                        maxWidth: '800px',
+                                        padding: '5px',
+                                        overflowY: 'auto',
+                                        textAlign: 'center',
+                                    }}
+                                >
+                                    <QuizQuestionCard
+                                        question={currentQuestion}
+                                        selectedOptionsIds={selectedOptionsIds}
+                                        onOptionSelected={onOptionSelected}
+                                        canAnswer={!hasAnswered}
+                                        correctAnswers={correctAnswers}
+                                    />
+                                    <Typography paddingY={4}>
+                                        {questionId}/{totalQuestions}
+                                    </Typography>
+                                </Card>
+                                <LinearProgress
+                                    variant="determinate"
+                                    value={(questionId * 100) / totalQuestions}
+                                    style={{
+                                        width: '70%',
+                                        maxWidth: '780px',
+                                    }}
+                                    aria-label="progressbar"
                                 />
                                 {/* Buttons */}
                                 <Stack
@@ -195,20 +218,6 @@ export const FactQuizQuestionPage = () => {
                                             )}
                                         </>
                                     )}
-                                    <Typography>
-                                        {questionId}/{totalQuestions}
-                                    </Typography>
-                                    <LinearProgress
-                                        variant="determinate"
-                                        value={
-                                            (questionId * 100) / totalQuestions
-                                        }
-                                        style={{
-                                            width: '70%',
-                                            maxWidth: '780px',
-                                        }}
-                                        aria-label="progressbar"
-                                    />
                                 </Stack>
                             </>
                         )}
