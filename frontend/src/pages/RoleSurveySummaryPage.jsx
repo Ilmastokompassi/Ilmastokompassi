@@ -80,17 +80,31 @@ export const RoleSurveySummaryPage = () => {
         roleData
     )
 
+    // These honestly should be part of the role data in the database, but that would
+    // require a new column in the table and that feels like overkill at this point
+    const roleColor = (role) => {
+        switch(role) {
+            case 'Ilmastoasiantuntija': return'#E9E775'
+            case 'Mielipidevaikuttaja': return '#50B8DC'
+            case 'Kestävän elämäntavan etsijä': return '#DF8715'
+            case 'Eettinen kuluttaja': return '#4CD865'
+            default: return '#FFFFFF'
+        }
+    }
+
     // Create pie chart data and fetch
     const doughnutChartData = roleResults?.map((result) => ({
         id: result.id,
         value: result.score,
         label: result.name,
+        color: roleColor(result.name),
     }))
 
     const groupRoleData = groupRoleResults?.map((result) => ({
         id: result.id,
         value: result.score,
         label: result.name,
+        color: roleColor(result.name),
     }))
 
     const answerCount = summaryData?.count
