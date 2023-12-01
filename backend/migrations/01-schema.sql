@@ -42,7 +42,8 @@ CREATE TABLE profile_answers (
 CREATE TABLE quiz_questions (
     id SERIAL PRIMARY KEY,
     content TEXT,
-    info_text TEXT
+    info_text TEXT,
+    introduction TEXT
 );
 
 CREATE TABLE quiz_question_options (
