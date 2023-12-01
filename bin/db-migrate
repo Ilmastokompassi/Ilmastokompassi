@@ -6,5 +6,4 @@ BASEDIR="$(dirname "${BASH_SOURCE[0]}")"
 FOLDER_PATH="$BASEDIR/../"
 RELATIVE_PATH=$(realpath --relative-to="$(pwd)" "$FOLDER_PATH")
 
-run_command "$RELATIVE_PATH/backend/bin/db-reset"
 run_command "$RELATIVE_PATH/backend/bin/db-migrate"
