@@ -21,9 +21,11 @@ function QuizQuestionCard({
     return (
         <>
             <Container sx={{ padding: 2 }}>
-                <Typography variant="h6" textAlign="center">
+                <Typography variant="h6" textAlign="center" paddingBottom={2}>
                     {question.id + '. ' + question.content}
                 </Typography>
+
+                {question.introduction}
 
                 <Stack spacing={2} marginTop={1} direction="column">
                     {options.map((option) => (
@@ -84,6 +86,7 @@ const questionProps = PropTypes.shape({
     id: PropTypes.number.isRequired,
     content: PropTypes.string.isRequired,
     options: PropTypes.array,
+    introduction: PropTypes.string,
 })
 
 QuizQuestionCard.propTypes = {
