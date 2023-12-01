@@ -224,10 +224,10 @@ describe('Quiz page', function () {
                     cy.findByTestId('quiz-answer-button').click()
                     cy.findByTestId('quiz-end-button').click()
 
-                    cy.contains('Kertaus')
+                    cy.contains('Hyvää työtä !')
                 })
 
-                it('Summary page accordions work, return to landing page', function () {
+                it('Summary page accordions work', function () {
                     cy.visit('/oppimisvisa/yhteenveto')
 
                     cy.contains(
@@ -247,9 +247,6 @@ describe('Quiz page', function () {
                     cy.contains(
                         'Ilmastossa tapahtuneisiin muutoksiin mukautuminen'
                     )
-
-                    cy.contains('Palaa etusivulle').click()
-                    cy.title('Ilmastokompassi')
                 })
             }
         )

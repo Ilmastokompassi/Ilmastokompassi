@@ -1,7 +1,15 @@
-import { Box, Button, Container, Stack, Typography } from '@mui/material'
+import {
+    Box,
+    Container,
+    Stack,
+    Typography,
+    Card,
+    CardContent,
+} from '@mui/material'
 import useSWR from 'swr'
 import { useTitle } from '../hooks/useTitle'
 import QuizSummaryAccordion from '../components/factQuiz/QuizSummaryAccordion' // Import the new component
+import FactQuizLogo from '../assets/oppimisvisalogo.png'
 
 export const FactQuizSummaryPage = () => {
     const { data: allSummaryInfo, isLoading: isLoadingAllSummaryInfo } =
@@ -11,44 +19,66 @@ export const FactQuizSummaryPage = () => {
 
     return (
         <Container maxWidth="md">
-            <Box paddingY={5}>
-                <Box
-                    display="flex"
-                    justifyContent="center"
-                    alignItems="center"
-                    padding={2}
-                >
-                    <Stack direction="column" justifyContent="center">
-                        <Typography variant="h4" textAlign={'center'}>
-                            Kertaus
-                        </Typography>
-                        <Typography
-                            variant="h6"
-                            paddingTop={2}
-                            paddingBottom={2}
-                            textAlign={'center'}
+            <Box
+                display="flex"
+                justifyContent="center"
+                alignItems="center"
+                padding={2}
+                paddingY={5}
+            >
+                <Card>
+                    <CardContent>
+                        <Stack
+                            direction="column"
+                            justifyContent="center"
+                            padding={{ xs: 1, md: 4 }}
                         >
-                            Alta löydät muistin virkistämiseksi kysymyskohtaiset
-                            oikeat vastaukset
-                        </Typography>
-                        {isLoadingAllSummaryInfo ? (
-                            <Typography>Ladataan...</Typography>
-                        ) : (
-                            allSummaryInfo.map((item, index) => (
-                                <QuizSummaryAccordion
-                                    key={index}
-                                    questionText={item.question_text}
-                                    correctAnswers={item.correct_answers}
+                            <Stack alignItems="center" spacing={3} paddingY={2}>
+                                <Typography variant="h4" textAlign={'center'}>
+                                    Hyvää työtä !
+                                </Typography>
+                                <Box
+                                    component="img"
+                                    src={FactQuizLogo}
+                                    alt="hymyilevä maapallo suurennuslasilla"
+                                    sx={{ width: ['70%', '60%', '50%'] }}
+                                    borderRadius={2}
+                                    boxShadow={5}
                                 />
-                            ))
-                        )}
-                        <Stack paddingTop={2}>
-                            <Button variant="contained" href="/">
-                                Palaa etusivulle
-                            </Button>
+                                <Typography
+                                    variant="h5"
+                                    paddingTop={2}
+                                    paddingBottom={2}
+                                    textAlign={'center'}
+                                >
+                                    Olet seikkaillut oppimisvisan loppuun saakka.
+                                    Tästä voit vielä tarkastella, mitä kaikkea
+                                    sitä tulikaan käytyä läpi.
+                                </Typography>
+                            </Stack>
+                            {isLoadingAllSummaryInfo ? (
+                                <Typography>Ladataan...</Typography>
+                            ) : (
+                                allSummaryInfo.map((item, index) => (
+                                    <QuizSummaryAccordion
+                                        key={index}
+                                        questionText={item.question_text}
+                                        correctAnswers={item.correct_answers}
+                                    />
+                                ))
+                            )}
+                            <Typography
+                                paddingTop={3}
+                                paddingBottom={2}
+                                textAlign={'center'}
+                            >
+                                Jäikö jokin epäselväksi tai mietityttämään?
+                                Uskalla keskustella ystävien ja läheisten
+                                kanssa. Et varmasti ole yksin ajatustesi kanssa!
+                            </Typography>
                         </Stack>
-                    </Stack>
-                </Box>
+                    </CardContent>
+                </Card>
             </Box>
         </Container>
     )
