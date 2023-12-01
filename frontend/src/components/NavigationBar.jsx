@@ -47,8 +47,8 @@ const NavigationMenu = () => {
     return (
         <>
             <IconButton
-                aria-controls="navigation-menu"
                 aria-haspopup="true"
+                aria-label="Navigaatio valikko"
                 onClick={(event) => setAnchorElement(event.currentTarget)}
                 color="inherit"
                 data-testid="navigation-hamburger"
@@ -100,9 +100,8 @@ const GroupMenu = () => {
             <IconButton
                 onClick={(event) => setAnchorElement(event.currentTarget)}
                 data-testid="show-group-menu"
-                aria-controls="group-menu"
                 aria-haspopup="true"
-                aria-label="Ryhmätiedot"
+                aria-label="Ryhmätoiminnot"
                 color="inherit"
             >
                 {groupToken ? <GroupIcon /> : <PersonIcon />}
