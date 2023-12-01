@@ -16,6 +16,7 @@ class QuizService:
                     questions[question_id] = {
                         "id": question_id,
                         "content": question_options["content"],
+                        "introduction": question_options["introduction"],
                         "options": []}
                 questions[question_id]["options"].append(
                     {

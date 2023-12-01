@@ -8,17 +8,17 @@ class QuizRepositoryMock:
 
     def get_questions(self):
         return [
-            {"question_id": 1, "content": "kysymys 1",
+            {"question_id": 1, "content": "kysymys 1", "introduction": "",
                 "option_id": 1, "option": "vastaus 1"},
-            {"question_id": 1, "content": "kysymys 1",
+            {"question_id": 1, "content": "kysymys 1", "introduction": "",
                 "option_id": 2, "option": "vastaus 2"},
-            {"question_id": 1, "content": "kysymys 1",
+            {"question_id": 1, "content": "kysymys 1", "introduction": "",
                 "option_id": 3, "option": "vastaus 3"},
-            {"question_id": 2, "content": "kysymys 2",
+            {"question_id": 2, "content": "kysymys 2", "introduction": "Alustus",
                 "option_id": 4, "option": "vastaus 1"},
-            {"question_id": 3, "content": "kysymys 3",
+            {"question_id": 3, "content": "kysymys 3", "introduction": "",
                 "option_id": 5, "option": "vastaus 1"},
-            {"question_id": 3, "content": "kysymys 3",
+            {"question_id": 3, "content": "kysymys 3", "introduction": "",
                 "option_id": 6, "option": "vastaus 2"}
         ]
 
@@ -58,6 +58,8 @@ class TestQuizService(unittest.TestCase):
         self.assertEqual(len(result), 3)
         self.assertEqual(result[1]["id"], 1)
         self.assertEqual(result[1]["content"], "kysymys 1")
+        self.assertEqual(result[1]["introduction"], "")
+        self.assertEqual(result[2]["introduction"], "Alustus")
         self.assertEqual(len(result[1]["options"]), 3)
 
     def test_get_questions_exception(self):

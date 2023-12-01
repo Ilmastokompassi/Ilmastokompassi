@@ -7,7 +7,7 @@ class QuizRepository:
     def get_questions(self):
         result = db.session.execute(
             text("""
-            SELECT Q.id AS question_id, Q.content, O.id AS option_id, O.option
+            SELECT Q.id AS question_id, Q.content, Q.introduction, O.id AS option_id, O.option
             FROM quiz_questions AS Q
             JOIN quiz_question_options AS O ON O.question_id = Q.id;""")).mappings().all()
         questions = [dict(row) for row in result]
