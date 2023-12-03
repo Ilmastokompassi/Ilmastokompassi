@@ -17,8 +17,8 @@ export const SummaryRole = ({ role }) => {
         >
             <RoleImage role={role} />
             <Box>
-                <Typography variant="h5">{role.name}</Typography>
-                <Typography>{role.description}</Typography>
+                <Typography variant="h2">{role.name}</Typography>
+                <Typography variant="h3">{role.description}</Typography>
             </Box>
         </Stack>
     )

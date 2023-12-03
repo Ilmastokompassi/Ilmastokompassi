@@ -34,7 +34,7 @@ export const FactQuizSummaryPage = () => {
                             padding={{ xs: 1, md: 4 }}
                         >
                             <Stack alignItems="center" spacing={3} paddingY={2}>
-                                <Typography variant="h4" textAlign={'center'}>
+                                <Typography variant="h3" textAlign={'center'}>
                                     Hyvää työtä !
                                 </Typography>
                                 <Box
@@ -51,9 +51,9 @@ export const FactQuizSummaryPage = () => {
                                     paddingBottom={2}
                                     textAlign={'center'}
                                 >
-                                    Olet seikkaillut oppimisvisan loppuun saakka.
-                                    Tästä voit vielä tarkastella, mitä kaikkea
-                                    sitä tulikaan käytyä läpi.
+                                    Olet seikkaillut oppimisvisan loppuun
+                                    saakka. Tästä voit vielä tarkastella, mitä
+                                    kaikkea sitä tulikaan käytyä läpi.
                                 </Typography>
                             </Stack>
                             {isLoadingAllSummaryInfo ? (

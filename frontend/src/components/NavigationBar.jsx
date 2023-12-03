@@ -34,7 +34,7 @@ const Logo = () => (
     >
         <Stack direction="row" alignItems="center" spacing={0.5}>
             <img src={Compass} alt="logo" width={40} />
-            <Typography variant="h6" fontFamily="sans-serif" fontWeight="bold">
+            <Typography variant="h2" fontFamily="sans-serif" fontWeight="bold">
                 Ilmastokompassi
             </Typography>
         </Stack>
@@ -197,7 +197,9 @@ const NavigationBar = () => {
                                             variant="contained"
                                             disableElevation
                                         >
-                                            {page.name}
+                                            <Typography variant="h3">
+                                                {page.name}
+                                            </Typography>
                                         </Button>
                                     ))}
                                 </Box>

@@ -107,14 +107,14 @@ export const RoleSurveySummaryPage = () => {
                         paddingY={4}
                         alignItems="center"
                     >
-                        <Typography variant="h4">Ilmastoroolisi</Typography>
+                        <Typography variant="h1">Ilmastoroolisi</Typography>
                         {isLoadingRoles ||
                         isLoadingSummary ||
                         isLoadingAllRolesData ? (
                             <p>Loading...</p>
                         ) : filteredSummaryScores.length === 0 ? (
                             <>
-                                <Typography variant="h5">
+                                <Typography variant="h2">
                                     Ei tarpeeksi dataa tulosten näyttämiseen
                                 </Typography>
                                 <Button
@@ -127,7 +127,7 @@ export const RoleSurveySummaryPage = () => {
                             </>
                         ) : answerCount > 0 ? (
                             <>
-                                <Typography variant="h5">
+                                <Typography variant="h2" paddingBottom={2}>
                                     Olet vastannut {answerCount}/
                                     {totalQuestions} kysymykseen ja niiden
                                     perusteella sinun ilmastoroolisi
@@ -138,7 +138,7 @@ export const RoleSurveySummaryPage = () => {
                                     )}
                                     ...
                                 </Typography>
-                                <Stack spacing={2}>
+                                <Stack spacing={2} paddingBottom={4}>
                                     {highestScoreRoles.map((role) => (
                                         <SummaryRole
                                             key={role.id}
@@ -146,13 +146,13 @@ export const RoleSurveySummaryPage = () => {
                                         />
                                     ))}
                                 </Stack>
-                                <Typography variant="h5">
+                                <Typography variant="h2">
                                     Eri roolien välinen jakauma
                                 </Typography>
                                 <SummaryDoughnut data={doughnutChartData} />
                                 {groupToken && (
                                     <>
-                                        <Typography variant="h5">
+                                        <Typography variant="h2">
                                             Ryhmän {groupToken} jakauma.
                                             Kyselyyn on vastannut{' '}
                                             {allRolesData.response_amount}{' '}

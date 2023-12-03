@@ -47,10 +47,10 @@ export const ToSurveyCard = ({ name, description, to, icon }) => {
                             alignItems="center"
                         >
                             <Stack>
-                                <Typography variant="h2" paddingBottom={3}>
+                                <Typography variant="h1" paddingBottom={3}>
                                     {name}
                                 </Typography>
-                                <Typography variant="h5" component="div">
+                                <Typography variant="h3" component="div">
                                     {description}
                                 </Typography>
                             </Stack>
