@@ -7,12 +7,12 @@ from src.services.quiz_service import default_quiz_service
 api = Blueprint('api', __name__, url_prefix='/api')
 
 
-@api.route("/ping")
+@api.get("/ping")
 def ping():
     return "pong"
 
 
-@api.route("/question")
+@api.get("/question")
 def total_questions():
     try:
         questions_list = default_survey_service.get_questions()
@@ -22,7 +22,7 @@ def total_questions():
         return jsonify(error="Something went wrong!"), 500
 
 
-@api.route("/roles")
+@api.get("/roles")
 def roles():
     try:
         role_list = default_profile_service.get_profiles()
@@ -32,7 +32,7 @@ def roles():
         return jsonify(error="Something went wrong!"), 500
 
 
-@api.route("/question/<int:question_id>")
+@api.get("/question/<int:question_id>")
 def individual_question(question_id):
     try:
         questions_list = default_survey_service.get_questions()
@@ -46,7 +46,7 @@ def individual_question(question_id):
         return jsonify(error="Something went wrong!"), 500
 
 
-@api.route("/submit", methods=['POST'])
+@api.post("/submit")
 def submit():
     data = request.get_json()
     responses = data.get('responses')
@@ -65,7 +65,7 @@ def submit():
                         "message": "Something went wrong"}), 500
 
 
-@api.route('/summary/<int:response_id>', methods=['GET'])
+@api.get('/summary/<int:response_id>')
 def get_summary(response_id):
     try:
         summary, count, total_questions_count = default_survey_service.get_summary(
@@ -75,7 +75,7 @@ def get_summary(response_id):
         return jsonify(error="Something went wrong!"), 500
 
 
-@api.route('/group/new', methods=['POST'])
+@api.post('/group/new')
 def new_group():
     data = request.get_json()
     token = data.get('token')
@@ -94,7 +94,7 @@ def new_group():
         return jsonify(error="Something went wrong!"), 500
 
 
-@api.route('/group/<string:group_token>/summary', methods=['GET'])
+@api.get('/group/<string:group_token>/summary')
 def group_summary(group_token):
     try:
         if not default_group_service.check_if_group_exists(group_token):
@@ -106,7 +106,7 @@ def group_summary(group_token):
         return jsonify(error="Something went wrong!"), 500
 
 
-@api.route('/group/<string:group_token>', methods=['GET'])
+@api.get('/group/<string:group_token>')
 def get_group(group_token):
     try:
         group_token = default_group_service.check_if_group_exists(group_token)
@@ -115,7 +115,7 @@ def get_group(group_token):
         return jsonify(error="Something went wrong!"), 500
 
 
-@api.route('/group/<string:group_token>/score', methods=['GET'])
+@api.get('/group/<string:group_token>/score')
 def get_group_score(group_token):
     try:
         if not default_group_service.check_if_group_exists(group_token):
@@ -128,7 +128,7 @@ def get_group_score(group_token):
         return jsonify(error="Something went wrong!"), 500
 
 
-@api.route('/new-quiz', methods=["POST"])
+@api.post('/new-quiz')
 def create_new_quiz_response():
     data = request.get_json()
     group_token = data.get("groupToken")
@@ -139,7 +139,7 @@ def create_new_quiz_response():
         return jsonify(error="Could not create response_id"), 500
 
 
-@api.route("/quiz", methods=["GET"])
+@api.get("/quiz")
 def get_quiz_questions():
     try:
         quiz = default_quiz_service.get_questions()
@@ -148,7 +148,7 @@ def get_quiz_questions():
         return jsonify(error="Could not get questions"), 500
 
 
-@api.route("/quiz", methods=["POST"])
+@api.post("/quiz")
 def save_quiz_answer():
     data = request.get_json()
     answer = data.get("answer")
@@ -164,7 +164,7 @@ def save_quiz_answer():
         return jsonify("error"), 500
 
 
-@api.route("/quiz/summary", methods=["GET"])
+@api.get("/quiz/summary")
 def get_quiz_summary():
     try:
         summary = default_quiz_service.get_all_questions_and_answers()
