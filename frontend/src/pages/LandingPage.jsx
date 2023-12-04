@@ -43,8 +43,8 @@ export const LandingPage = () => {
                         <Typography
                             variant="h1"
                             align="center"
-                            fontFamily={'Roboto condensed'}
-                            fontWeight={'800'}
+                            fontFamily="Roboto condensed"
+                            fontWeight={700}
                             marginBottom={2}
                         >
                             Tervetuloa Ilmastokompassiin!
@@ -53,7 +53,7 @@ export const LandingPage = () => {
                             variant="h3"
                             component="div"
                             align="center"
-                            fontFamily={'Roboto condensed'}
+                            fontFamily="Roboto condensed"
                         >
                             Täällä pääset kartuttamaan ilmastotietämystäsi ja
                             ymmärtämään omaa suhtautumistasi ilmastonmuutokseen.
