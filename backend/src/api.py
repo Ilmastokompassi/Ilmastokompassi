@@ -128,7 +128,7 @@ def get_group_score(group_token):
         return jsonify(error="Something went wrong!"), 500
 
 
-@api.post('/new-quiz')
+@api.post('/quiz/new')
 def create_new_quiz_response():
     data = request.get_json()
     group_token = data.get("groupToken")

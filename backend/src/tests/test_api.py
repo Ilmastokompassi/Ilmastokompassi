@@ -140,7 +140,7 @@ def test_get_nonexisting_group_score(client):
 
 def test_create_new_quiz_response_with_grouptoken(client):
     data = {"groupToken": "YESGROUP"}
-    response = client.post('api/new-quiz', json=data)
+    response = client.post('api/quiz/new', json=data)
     result = json.loads(response.data)
 
     assert response.status_code == 200
@@ -149,7 +149,7 @@ def test_create_new_quiz_response_with_grouptoken(client):
 
 def test_create_new_quiz_response_without_grouptoken(client):
     data = {}
-    response = client.post('api/new-quiz', json=data)
+    response = client.post('api/quiz/new', json=data)
     result = json.loads(response.data)
 
     assert response.status_code == 200
