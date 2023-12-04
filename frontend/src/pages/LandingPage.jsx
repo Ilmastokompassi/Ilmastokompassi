@@ -1,5 +1,7 @@
 import { Typography, Container, Stack, Box } from '@mui/material'
 import { useTitle } from '../hooks/useTitle'
+import { useTheme } from '@mui/material'
+import { useMediaQuery } from '@mui/material'
 import { ToSurveyCard } from '../components/ToSurveyCard'
 import ClimateCompassMap from '../assets/kompassi_tausta.png'
 import RoleSurveyLogo from '../assets/roolilogo.png'
@@ -14,6 +16,9 @@ const cardDescription = {
 
 export const LandingPage = () => {
     useTitle('Ilmastokompassi')
+    const theme = useTheme()
+    const isDesktop = useMediaQuery(theme.breakpoints.up('md'))
+
     return (
         <Container>
             <Stack
@@ -22,6 +27,9 @@ export const LandingPage = () => {
                 alignItems="center"
                 spacing={4}
                 py={2}
+                sx={{
+                    padding: isDesktop ? 4 : 2,
+                }}
             >
                 <Box
                     component="img"
@@ -35,7 +43,9 @@ export const LandingPage = () => {
                         <Typography
                             variant="h1"
                             align="center"
-                            fontWeight={700}
+                            fontFamily={'Roboto condensed'}
+                            fontWeight={'800'}
+                            marginBottom={2}
                         >
                             Tervetuloa Ilmastokompassiin!
                         </Typography>
@@ -43,7 +53,7 @@ export const LandingPage = () => {
                             variant="h3"
                             component="div"
                             align="center"
-                            fontWeight={700}
+                            fontFamily={'Roboto condensed'}
                         >
                             Täällä pääset kartuttamaan ilmastotietämystäsi ja
                             ymmärtämään omaa suhtautumistasi ilmastonmuutokseen.
