@@ -87,7 +87,7 @@ export const RoleSurveyGroupSummaryPage = () => {
                         paddingY={4}
                         alignItems="center"
                     >
-                        <Typography variant="h4">
+                        <Typography variant="h1">
                             Ryhmän {groupToken} ilmastorooli
                         </Typography>
                         {isLoadingroles || isLoadingAllrolesData ? (
@@ -105,7 +105,7 @@ export const RoleSurveyGroupSummaryPage = () => {
                                 ) : (
                                     <>
                                         {highestScoreroles.length > 1 && (
-                                            <Typography variant="h5">
+                                            <Typography variant="h2">
                                                 Teillä on useita rooleja, jotka
                                                 kuvastavat ryhmäänne!
                                             </Typography>
@@ -117,7 +117,7 @@ export const RoleSurveyGroupSummaryPage = () => {
                                             />
                                         ))}
 
-                                        <Typography variant="h5">
+                                        <Typography variant="h2">
                                             Ryhmän {groupToken} jakauma.
                                             Kyselyyn on vastannut{' '}
                                             {allRolesData.response_amount}{' '}

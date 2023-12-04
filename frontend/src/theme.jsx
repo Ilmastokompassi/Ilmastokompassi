@@ -7,6 +7,25 @@ export const theme = responsiveFontSizes(
             button: {
                 textTransform: 'none',
             },
+            body1: {
+                fontSize: '1.4rem',
+            },
+            h1: {
+                fontSize: '3rem',
+                fontWeight: 'normal',
+            },
+            h2: {
+                fontSize: '1.8rem',
+                fontWeight: 'normal',
+            },
+            h3: {
+                fontSize: '1.4rem',
+                fontWeight: 'normal',
+            },
+            h4: {
+                fontSize: '1.2rem',
+                fontWeight: 'normal',
+            },
         },
         palette: {
             primary: {

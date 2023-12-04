@@ -36,16 +36,14 @@ export const LandingPage = () => {
                             variant="h1"
                             align="center"
                             fontWeight={700}
-                            sx={{ fontSize: ['1.5rem', '2.5rem', '3rem'] }}
                         >
                             Tervetuloa Ilmastokompassiin!
                         </Typography>
                         <Typography
-                            variant="h4"
+                            variant="h3"
                             component="div"
                             align="center"
                             fontWeight={700}
-                            sx={{ fontSize: ['1rem', '1.2rem', '1.5rem'] }}
                         >
                             Täällä pääset kartuttamaan ilmastotietämystäsi ja
                             ymmärtämään omaa suhtautumistasi ilmastonmuutokseen.

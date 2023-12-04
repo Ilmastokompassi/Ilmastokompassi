@@ -9,14 +9,23 @@ export function FaqPage() {
                 <Card>
                     <CardContent>
                         <Box marginLeft={1} paddingY={2}>
-                            <Typography variant="h4">
+                            <Typography textAlign={'center'} variant="h1">
                                 Usein kysytyt kysymykset
                             </Typography>
-                            <Typography marginBottom={3}>
+                            <Typography
+                                marginTop={4}
+                                marginBottom={4}
+                                textAlign={'center'}
+                                variant="h2"
+                            >
                                 Täältä löydät vastauksia usein kysyttyihin
                                 kysymyksiin.
                             </Typography>
-                            <Typography variant="h6">
+                            <Typography
+                                variant="h3"
+                                marginBottom={1}
+                                fontWeight={'bold'}
+                            >
                                 Mikä on Ilmastokompassi?
                             </Typography>
                             <Typography marginBottom={2}>
@@ -28,7 +37,11 @@ export function FaqPage() {
                                 soveltuu myös muille ilmastonmuutoksesta
                                 kiinnostuneille.
                             </Typography>
-                            <Typography variant="h6">
+                            <Typography
+                                variant="h3"
+                                marginBottom={1}
+                                fontWeight={'bold'}
+                            >
                                 Miten voin navigoida sivustolla?
                             </Typography>
                             <Typography marginBottom={2}>
@@ -38,7 +51,11 @@ export function FaqPage() {
                                 osioon. Logo ja &quot;Ilmastokompassi&quot;
                                 vievät sivuston etusivulle.
                             </Typography>
-                            <Typography variant="h6">
+                            <Typography
+                                variant="h3"
+                                marginBottom={1}
+                                fontWeight={'bold'}
+                            >
                                 Mikä on Ilmastoroolikysely?
                             </Typography>
                             <Typography marginBottom={2}>
@@ -47,7 +64,11 @@ export function FaqPage() {
                                 Ilmastoroolikyselyyn vastaaminen onnistuu
                                 sivuston etusivulta.
                             </Typography>
-                            <Typography variant="h6">
+                            <Typography
+                                variant="h3"
+                                marginBottom={1}
+                                fontWeight={'bold'}
+                            >
                                 Mikä on Ilmastorooli?
                             </Typography>
                             <Typography marginBottom={2}>
@@ -58,7 +79,11 @@ export function FaqPage() {
                                 Kestävän elämäntavan etsijä tai Eettinen
                                 kuluttaja.
                             </Typography>
-                            <Typography variant="h6">
+                            <Typography
+                                variant="h3"
+                                marginBottom={1}
+                                fontWeight={'bold'}
+                            >
                                 Miten voin tehdä kyselyn?
                             </Typography>
                             <Typography marginBottom={2}>
@@ -67,13 +92,23 @@ export function FaqPage() {
                                 painiketta. Kysely alkaa painamalla
                                 &quot;ALOITA&quot; painiketta.
                             </Typography>
-                            <Typography variant="h6">Mikä on ryhmä?</Typography>
+                            <Typography
+                                variant="h3"
+                                marginBottom={1}
+                                fontWeight={'bold'}
+                            >
+                                Mikä on ryhmä?
+                            </Typography>
                             <Typography marginBottom={2}>
                                 Kyselyyn vastaaminen onnistuu myös ryhmänä,
                                 jolloin voitte vertailla kyselyn tuloksia
                                 keskenänne.
                             </Typography>
-                            <Typography variant="h6">
+                            <Typography
+                                variant="h3"
+                                marginBottom={1}
+                                fontWeight={'bold'}
+                            >
                                 Mistä tiedän olenko liittynyt ryhmään?
                             </Typography>
                             <Typography marginBottom={2}>
@@ -81,7 +116,11 @@ export function FaqPage() {
                                 ole osa ryhmää, ikonia painamalla pääset
                                 liittymään ryhmään.
                             </Typography>
-                            <Typography variant="h6">
+                            <Typography
+                                variant="h3"
+                                marginBottom={1}
+                                fontWeight={'bold'}
+                            >
                                 Miten voin liittyä ryhmään?
                             </Typography>
                             <Typography marginBottom={2}>
@@ -93,14 +132,22 @@ export function FaqPage() {
                                 &quot;LIITY&quot; painiketta. Ryhmätunnuksen
                                 saat ryhmän ylläpitäjältä.
                             </Typography>
-                            <Typography variant="h6">
+                            <Typography
+                                variant="h3"
+                                marginBottom={1}
+                                fontWeight={'bold'}
+                            >
                                 Miten voin luoda ryhmän?
                             </Typography>
                             <Typography marginBottom={2}>
                                 Ryhmän luominen onnistuu Ilmastoroolikyselyt-
                                 sivulta. Paina &quot;LUO RYHMÄ&quot; painiketta.
                             </Typography>
-                            <Typography variant="h6">
+                            <Typography
+                                variant="h3"
+                                marginBottom={1}
+                                fontWeight={'bold'}
+                            >
                                 Miten voin tarkastella ryhmän tuloksia?
                             </Typography>
                             <Typography marginBottom={2}>
@@ -109,7 +156,11 @@ export function FaqPage() {
                                 olevaa kuvaa ja &quot;Ryhmän tulokset&quot;
                                 painiketta.
                             </Typography>
-                            <Typography variant="h6">
+                            <Typography
+                                variant="h3"
+                                marginBottom={1}
+                                fontWeight={'bold'}
+                            >
                                 Miten voin poistua ryhmästä?
                             </Typography>
                             <Typography marginBottom={2}>
