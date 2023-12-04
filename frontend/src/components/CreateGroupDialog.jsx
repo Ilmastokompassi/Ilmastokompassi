@@ -32,7 +32,7 @@ export default function CreateGroupDialog() {
             setAlertMessage('Ryhmätunnus ei voi olla tyhjä.')
             return
         }
-        fetch('/api/group/new', {
+        fetch('/api/groups/new', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

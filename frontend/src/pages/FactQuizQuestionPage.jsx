@@ -47,8 +47,9 @@ export const FactQuizQuestionPage = () => {
         getResponseID()
     }
 
-    const { data: allQuestions, isLoading: isLoadingAllQuestions } =
-        useSWR('/api/quiz')
+    const { data: allQuestions, isLoading: isLoadingAllQuestions } = useSWR(
+        '/api/quiz/questions'
+    )
 
     const questionId = Math.min(
         Object.keys(allQuestions || {}).length,
@@ -62,7 +63,7 @@ export const FactQuizQuestionPage = () => {
 
     const handleAnswer = async () => {
         try {
-            const response = await fetch('/api/quiz', {
+            const response = await fetch('/api/quiz/save', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
