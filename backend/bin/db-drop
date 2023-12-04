@@ -1,0 +1,27 @@
+#!/bin/bash
+set -euo pipefail
+
+PARENT_PATH=$( cd "$(dirname "${BASH_SOURCE[0]}")" ; pwd -P )
+
+cd "$PARENT_PATH"
+
+if [ -f ../.env ]
+then
+    source ../.env
+fi
+
+COMMAND="psql"
+ARGUMENTS=("$DATABASE_URI" \
+  -c "DROP TABLE IF EXISTS groups CASCADE;
+DROP TABLE IF EXISTS responses CASCADE;
+
+DROP TABLE IF EXISTS profiles CASCADE;
+DROP TABLE IF EXISTS profile_questions CASCADE;
+DROP TABLE IF EXISTS profile_answers CASCADE;
+
+DROP TABLE IF EXISTS quiz_answers CASCADE;
+DROP TABLE IF EXISTS quiz_questions CASCADE;
+DROP TABLE IF EXISTS quiz_question_options CASCADE;""$@")
+
+echo "> $COMMAND" "$(printf "%q " "${ARGUMENTS[@]}")"
+exec "$COMMAND" "${ARGUMENTS[@]}"
