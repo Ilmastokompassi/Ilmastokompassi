@@ -28,7 +28,7 @@ export const LandingPage = () => {
                 spacing={4}
                 py={2}
                 sx={{
-                    padding: isDesktop ? 4 : 2,
+                    padding: isDesktop ? theme.spacing(4) : theme.spacing(2),
                 }}
             >
                 <Box
