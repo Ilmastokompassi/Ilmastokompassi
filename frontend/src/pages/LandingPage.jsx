@@ -21,7 +21,7 @@ export const LandingPage = () => {
                 justifyContent="center"
                 alignItems="center"
                 spacing={4}
-                py={2}
+                padding={{ xs: 2, sm: 2, md: 4 }}
             >
                 <Box
                     component="img"
@@ -35,7 +35,9 @@ export const LandingPage = () => {
                         <Typography
                             variant="h1"
                             align="center"
+                            fontFamily="Roboto condensed"
                             fontWeight={700}
+                            marginBottom={2}
                         >
                             Tervetuloa Ilmastokompassiin!
                         </Typography>
@@ -43,7 +45,7 @@ export const LandingPage = () => {
                             variant="h3"
                             component="div"
                             align="center"
-                            fontWeight={700}
+                            fontFamily="Roboto condensed"
                         >
                             Täällä pääset kartuttamaan ilmastotietämystäsi ja
                             ymmärtämään omaa suhtautumistasi ilmastonmuutokseen.
