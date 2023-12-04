@@ -82,14 +82,12 @@ export const RoleSurveySummaryPage = () => {
 
     // These honestly should be part of the role data in the database, but that would
     // require a new column in the table and that feels like overkill at this point
-    const roleColor = (role) => {
-        switch(role) {
-            case 1: return'#E9E775'
-            case 2: return '#50B8DC'
-            case 3: return '#DF8715'
-            case 4: return '#4CD865'
-            default: return '#FFFFFF'
-        }
+    // They can also be found both here and in the group summary page file
+    const roleColor = {
+        1: '#F2DC79',
+        2: '#94CAEC',
+        3: '#E58E67',
+        4: '#6DB146',
     }
 
     // Create pie chart data and fetch
@@ -97,14 +95,14 @@ export const RoleSurveySummaryPage = () => {
         id: result.id,
         value: result.score,
         label: result.name,
-        color: roleColor(result.id),
+        color: roleColor[result.id],
     }))
 
     const groupRoleData = groupRoleResults?.map((result) => ({
         id: result.id,
         value: result.score,
         label: result.name,
-        color: roleColor(result.id),
+        color: roleColor[result.id],
     }))
 
     const answerCount = summaryData?.count
