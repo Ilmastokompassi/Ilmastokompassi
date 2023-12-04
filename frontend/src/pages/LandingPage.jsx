@@ -1,7 +1,5 @@
 import { Typography, Container, Stack, Box } from '@mui/material'
 import { useTitle } from '../hooks/useTitle'
-import { useTheme } from '@mui/material'
-import { useMediaQuery } from '@mui/material'
 import { ToSurveyCard } from '../components/ToSurveyCard'
 import ClimateCompassMap from '../assets/kompassi_tausta.png'
 import RoleSurveyLogo from '../assets/roolilogo.png'
@@ -16,9 +14,6 @@ const cardDescription = {
 
 export const LandingPage = () => {
     useTitle('Ilmastokompassi')
-    const theme = useTheme()
-    const isDesktop = useMediaQuery(theme.breakpoints.up('md'))
-
     return (
         <Container>
             <Stack
@@ -26,10 +21,7 @@ export const LandingPage = () => {
                 justifyContent="center"
                 alignItems="center"
                 spacing={4}
-                py={2}
-                sx={{
-                    padding: isDesktop ? theme.spacing(4) : theme.spacing(2),
-                }}
+                padding={{ xs: 2, sm: 2, md: 4 }}
             >
                 <Box
                     component="img"
