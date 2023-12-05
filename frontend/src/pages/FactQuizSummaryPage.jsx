@@ -65,6 +65,7 @@ export const FactQuizSummaryPage = () => {
                                         key={index}
                                         questionText={item.question_text}
                                         correctAnswers={item.correct_answers}
+                                        infoText={item.info_text}
                                     />
                                 ))
                             )}

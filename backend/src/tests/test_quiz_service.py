@@ -45,7 +45,7 @@ class QuizRepositoryMock:
         return "info text"
 
     def get_all_questions_and_answers(self):
-        return [('kysymys 1', 'vastaus 1'), ('kysymys 1', 'vastaus 2'), ('kysymys 1', 'vastaus 3'), ('kysymys 2', 'vastaus 1')]
+        return [('kysymys 1', "info_text1", 'vastaus 1'), ('kysymys 1', "info_text1", 'vastaus 2'), ('kysymys 1', "info_text1", 'vastaus 3'), ('kysymys 2', "info_text2", 'vastaus 1')]
 
 
 class TestQuizService(unittest.TestCase):
