@@ -21,7 +21,8 @@ export const LandingPage = () => {
                 justifyContent="center"
                 alignItems="center"
                 spacing={4}
-                padding={{ xs: 2, sm: 2, md: 4 }}
+                padding={{ xs: 2, sm: 2 }}
+                mb={4}
             >
                 <Box
                     component="img"
