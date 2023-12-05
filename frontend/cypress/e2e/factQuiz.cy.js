@@ -255,6 +255,86 @@ describe('Quiz page', function () {
                         'Ilmastomalleilla koetetaan kartoittaa, miltä ilmasto tulevaisuudessa voisi näyttää. Ilmastomalleilla tarkoitetaan kolmiulotteisia ilmakehä-valtamerimalleja, jotka kuvaavat ilmakehän ja valtamerten käyttäytymistä päästöskenaarioita ja fysiikan lakeja käyttäen. Ilmastomallit eivät ole kuitenkaan täydellisiä ennustamisen välineitä, vaan niissä esiintyy epävarmuuksia.'
                     )
                 })
+
+                it('Show responses in previous question when not answered to next question', function () {
+                    cy.contains(
+                        'Suurin osa saapuvasta auringonsäteilystä imeytyy maanpinnalle'
+                    ).click()
+                    cy.contains(
+                        'Ihmistoiminnasta johtuva otsonikato on aiheuttanut ilmaston lämpenemisen'
+                    ).click()
+                    cy.nextQuizQuestion()
+
+                    cy.contains(
+                        '2. Ilmastonmuutos aiheuttaa muutoksia luonnossa ja nämä muutokset puolestaan vaikuttavat ilmastonmuutokseen. Mitä luulet, mitkä seuraavista ilmiöistä voimistavat ilmastonmuutosta?'
+                    )
+                    cy.visit('/oppimisvisa/1')
+                    cy.findByTestId('wrong-answer-1').should(
+                        'have.css',
+                        'color',
+                        errorColor
+                    )
+                    cy.findByTestId('correct-answer-5').should(
+                        'have.css',
+                        'color',
+                        successColor
+                    )
+                    cy.findByTestId('correct-answer-3').should(
+                        'have.css',
+                        'color',
+                        iconGray
+                    )
+                    cy.findByTestId('wrong-answer-6').should(
+                        'have.css',
+                        'color',
+                        iconGray
+                    )
+
+                    cy.findByTestId('quiz-next-button').click()
+                    cy.findByTestId('quiz-answer-button').should('be.disabled')
+                })
+
+                it('Show responses in previous question after answered to next question', function () {
+                    cy.contains(
+                        'Suurin osa saapuvasta auringonsäteilystä imeytyy maanpinnalle'
+                    ).click()
+                    cy.contains(
+                        'Ihmistoiminnasta johtuva otsonikato on aiheuttanut ilmaston lämpenemisen'
+                    ).click()
+                    cy.nextQuizQuestion()
+
+                    cy.contains(
+                        '2. Ilmastonmuutos aiheuttaa muutoksia luonnossa ja nämä muutokset puolestaan vaikuttavat ilmastonmuutokseen. Mitä luulet, mitkä seuraavista ilmiöistä voimistavat ilmastonmuutosta?'
+                    )
+                    cy.contains('Ikiroudan (ja jäätiköiden) sulaminen').click()
+                    cy.findByTestId('quiz-answer-button').click()
+
+                    cy.visit('/oppimisvisa/1')
+                    cy.findByTestId('wrong-answer-1').should(
+                        'have.css',
+                        'color',
+                        errorColor
+                    )
+                    cy.findByTestId('correct-answer-5').should(
+                        'have.css',
+                        'color',
+                        successColor
+                    )
+                    cy.findByTestId('correct-answer-3').should(
+                        'have.css',
+                        'color',
+                        iconGray
+                    )
+                    cy.findByTestId('wrong-answer-6').should(
+                        'have.css',
+                        'color',
+                        iconGray
+                    )
+
+                    cy.findByTestId('quiz-next-button').click()
+
+                    cy.findByTestId('quiz-next-button').should('exist')
+                })
             }
         )
     })

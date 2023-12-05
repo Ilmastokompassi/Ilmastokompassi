@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import {
     Box,
@@ -58,6 +58,34 @@ export const FactQuizQuestionPage = () => {
 
     const currentQuestion = allQuestions ? allQuestions[questionId] : null
 
+    useEffect(() => {
+        if (!currentQuestion) return
+        const oldAnswers = localStorage.getItem(`quiz${currentQuestion.id}`)
+
+        const getCorrectAnswers = async () => {
+            try {
+                const response = await fetch(
+                    `/api/quiz/answers/${currentQuestion.id}`
+                )
+
+                const oldAnswersArray = JSON.parse(oldAnswers)
+                const data = await response.json()
+                setCorrectAnswers(data.correct_answers)
+                setSelectedOptionsIds(new Set(oldAnswersArray))
+                setHasAnswered(true)
+            } catch (error) {
+                console.log(error)
+            }
+        }
+        if (oldAnswers) {
+            getCorrectAnswers()
+        } else {
+            setHasAnswered(false)
+            setSelectedOptionsIds(new Set())
+            setCorrectAnswers(null)
+        }
+    }, [currentQuestion])
+
     const totalQuestions = Object.keys(allQuestions || {})?.length
     const isLastQuestion = questionId == totalQuestions
 
@@ -83,6 +111,10 @@ export const FactQuizQuestionPage = () => {
                 .filter((line) => line?.length > 0)
             setInfoText(splittedInfoText)
             setHasAnswered(true)
+            localStorage.setItem(
+                `quiz${currentQuestion.id}`,
+                JSON.stringify([...selectedOptionsIds])
+            )
         } catch (error) {
             console.log(error)
         }
