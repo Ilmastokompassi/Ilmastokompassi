@@ -19,10 +19,10 @@ export const Footer = () => (
                     }}
                 >
                     <img src={Compass} alt="ilmastokompassi" width={40} />
-                    <Typography variant="h4" color="white">
+                    <Typography variant="h4" component="div" color="white">
                         2023
                     </Typography>
-                    <Typography variant="h4" color="white">
+                    <Typography variant="h4" component="div" color="white">
                         © Helsingin yliopisto
                     </Typography>
                     <a
