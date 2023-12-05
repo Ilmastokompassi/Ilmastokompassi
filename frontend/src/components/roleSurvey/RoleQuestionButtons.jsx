@@ -11,7 +11,7 @@ export default function RoleQuestionButtons({
     const isLastQuestion = questionId === totalQuestions
 
     return (
-        <Stack alignItems="center" paddingTop={6}>
+        <Stack alignItems="center" paddingTop={4}>
             <Stack
                 direction="row"
                 justifyContent="space-evenly"
