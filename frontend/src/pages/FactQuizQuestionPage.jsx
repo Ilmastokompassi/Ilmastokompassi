@@ -110,9 +110,12 @@ export const FactQuizQuestionPage = () => {
     return (
         <div {...swipeHandlers}>
             <Container>
-                <Box display="flex" justifyContent="center" paddingBottom={10}>
+                <Box
+                    display="flex"
+                    justifyContent="center"
+                    padding={{ xs: 2, sm: 2, md: 4 }}
+                >
                     <Stack
-                        maxWidth="800px"
                         direction="column"
                         justifyContent="center"
                         alignItems="center"
@@ -141,7 +144,7 @@ export const FactQuizQuestionPage = () => {
                                         canAnswer={!hasAnswered}
                                         correctAnswers={correctAnswers}
                                     />
-                                    <Typography paddingY={4}>
+                                    <Typography variant="h2" paddingY={4}>
                                         {questionId}/{totalQuestions}
                                     </Typography>
                                 </Card>
@@ -149,8 +152,7 @@ export const FactQuizQuestionPage = () => {
                                     variant="determinate"
                                     value={(questionId * 100) / totalQuestions}
                                     style={{
-                                        width: '70%',
-                                        maxWidth: '780px',
+                                        width: '80%',
                                     }}
                                     aria-label="progressbar"
                                 />

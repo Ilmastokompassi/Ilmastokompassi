@@ -20,8 +20,8 @@ function QuizQuestionCard({
 
     return (
         <>
-            <Container sx={{ padding: 2 }}>
-                <Typography variant="h6" textAlign="center" paddingBottom={2}>
+            <Container>
+                <Typography variant="h2" textAlign="center" paddingY={6}>
                     {question.id + '. ' + question.content}
                 </Typography>
 
@@ -45,7 +45,7 @@ function QuizQuestionCard({
                                 onClick={() => onOptionSelected(option.id)}
                                 disabled={!canAnswer}
                             >
-                                {option.name}
+                                <Typography>{option.name}</Typography>
                             </Button>
                             {correctAnswers && (
                                 <>
