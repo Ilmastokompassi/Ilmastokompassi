@@ -32,22 +32,39 @@ function QuizQuestionCard({
         <>
             <Card elevation={5}>
                 <CardContent>
-                    <Typography variant="h2" textAlign="center" paddingY={6}>
-                        {question.id + '. ' + question.content}
-                    </Typography>
+                    <Stack
+                        spacing={2}
+                        marginTop={1}
+                        direction="column"
+                        alignItems={'center'}
+                        sx={{
+                            marginX: {
+                                xs: 2,
+                                sm: 10,
+                                md: 20,
+                            },
+                        }}
+                    >
+                        <Typography
+                            variant="h2"
+                            textAlign="center"
+                            paddingY={6}
+                        >
+                            {question.id + '. ' + question.content}
+                        </Typography>
 
-                    {question.introduction}
-
-                    <Stack spacing={2} marginTop={1} direction="column">
+                        {question.introduction}
                         {options.map((option) => (
                             <Stack
                                 key={option.id}
                                 direction="row"
                                 alignItems="center"
                                 gap={1}
+                                sx={{
+                                    width: '100%',
+                                }}
                             >
                                 <Button
-                                    fullWidth
                                     variant={
                                         selectedOptionsIds.has(option.id)
                                             ? 'contained'
@@ -55,6 +72,10 @@ function QuizQuestionCard({
                                     }
                                     onClick={() => onOptionSelected(option.id)}
                                     disabled={!canAnswer}
+                                    sx={{
+                                        width: '100%',
+                                        margin: 'auto',
+                                    }}
                                 >
                                     <Typography>{option.name}</Typography>
                                 </Button>

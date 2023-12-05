@@ -25,62 +25,60 @@ function SurveyQuestionCard({
         <>
             <Card elevation={5}>
                 <CardContent>
-                    <Stack>
-                        <Container
-                            sx={{
-                                minHeight: {
-                                    xs: '260px',
-                                    sm: '280px',
-                                },
-                                paddingX: '15px',
-                                display: 'flex',
-                                justifyContent: 'center',
-                                alignItems: 'center',
-                                textAlign: 'center',
-                            }}
-                        >
-                            <Typography variant="h2" paddingY={6}>
-                                {question.id + '. ' + question.content + '.'}
-                            </Typography>
-                        </Container>
+                    <Container
+                        sx={{
+                            minHeight: {
+                                xs: '260px',
+                                sm: '280px',
+                            },
+                            paddingX: '15px',
+                            display: 'flex',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            textAlign: 'center',
+                        }}
+                    >
+                        <Typography variant="h2" paddingY={6}>
+                            {question.id + '. ' + question.content + '.'}
+                        </Typography>
+                    </Container>
 
-                        <Stack
-                            spacing={2}
-                            marginTop={1}
-                            direction={{
-                                xs: 'column',
-                                sm: 'column',
-                                md: 'row',
-                            }}
-                        >
-                            {options.map((option) => (
-                                <Button
-                                    key={option.id}
-                                    data-testid={`option-${option.id}`}
-                                    variant={
-                                        option.id === selectedOptionsIds
-                                            ? 'contained'
-                                            : 'outlined'
-                                    }
-                                    sx={{
-                                        minHeight: {
-                                            xs: '46px',
-                                            sm: '82px',
-                                        },
-                                    }}
-                                    onClick={() => onOptionSelected(option.id)}
-                                >
-                                    <Typography>{option.name}</Typography>
-                                </Button>
-                            ))}
-                        </Stack>
-                        {/* Buttons */}
-                        <RoleQuestionButtons
-                            questionId={questionId}
-                            totalQuestions={totalQuestions}
-                            handleSubmit={handleSubmit}
-                        />
+                    <Stack
+                        spacing={2}
+                        marginTop={1}
+                        direction={{
+                            xs: 'column',
+                            sm: 'column',
+                            md: 'row',
+                        }}
+                    >
+                        {options.map((option) => (
+                            <Button
+                                key={option.id}
+                                data-testid={`option-${option.id}`}
+                                variant={
+                                    option.id === selectedOptionsIds
+                                        ? 'contained'
+                                        : 'outlined'
+                                }
+                                sx={{
+                                    minHeight: {
+                                        xs: '46px',
+                                        sm: '82px',
+                                    },
+                                }}
+                                onClick={() => onOptionSelected(option.id)}
+                            >
+                                <Typography>{option.name}</Typography>
+                            </Button>
+                        ))}
                     </Stack>
+                    {/* Buttons */}
+                    <RoleQuestionButtons
+                        questionId={questionId}
+                        totalQuestions={totalQuestions}
+                        handleSubmit={handleSubmit}
+                    />
                 </CardContent>
             </Card>
             <Box
