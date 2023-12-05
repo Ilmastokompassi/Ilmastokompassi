@@ -1,4 +1,12 @@
-import { Button, Container, Stack, Typography } from '@mui/material'
+import {
+    Button,
+    Stack,
+    Typography,
+    LinearProgress,
+    Box,
+    Card,
+    CardContent,
+} from '@mui/material'
 import CheckRoundedIcon from '@mui/icons-material/CheckRounded'
 import ClearRoundedIcon from '@mui/icons-material/ClearRounded'
 import PropTypes from 'prop-types'
@@ -7,6 +15,8 @@ import { useEffect, useState } from 'react'
 
 function QuizQuestionCard({
     question,
+    questionId,
+    totalQuestions,
     selectedOptionsIds,
     onOptionSelected,
     canAnswer,
@@ -20,64 +30,106 @@ function QuizQuestionCard({
 
     return (
         <>
-            <Container sx={{ padding: 2 }}>
-                <Typography variant="h6" textAlign="center" paddingBottom={2}>
-                    {question.id + '. ' + question.content}
-                </Typography>
-
-                {question.introduction}
-
-                <Stack spacing={2} marginTop={1} direction="column">
-                    {options.map((option) => (
-                        <Stack
-                            key={option.id}
-                            direction="row"
-                            alignItems="center"
-                            gap={1}
+            <Card elevation={5}>
+                <CardContent>
+                    <Stack
+                        spacing={2}
+                        marginTop={1}
+                        direction="column"
+                        alignItems={'center'}
+                        sx={{
+                            marginX: {
+                                xs: 2,
+                                sm: 10,
+                                md: 20,
+                            },
+                        }}
+                    >
+                        <Typography
+                            variant="h2"
+                            textAlign="center"
+                            paddingY={6}
                         >
-                            <Button
-                                fullWidth
-                                variant={
-                                    selectedOptionsIds.has(option.id)
-                                        ? 'contained'
-                                        : 'outlined'
-                                }
-                                onClick={() => onOptionSelected(option.id)}
-                                disabled={!canAnswer}
+                            {question.id + '. ' + question.content}
+                        </Typography>
+
+                        {question.introduction}
+                        {options.map((option) => (
+                            <Stack
+                                key={option.id}
+                                direction="row"
+                                alignItems="center"
+                                gap={1}
+                                sx={{
+                                    width: '100%',
+                                }}
                             >
-                                {option.name}
-                            </Button>
-                            {correctAnswers && (
-                                <>
-                                    {correctAnswers.includes(option.id) ? (
-                                        <CheckRoundedIcon
-                                            data-testid={`correct-answer-${option.id}`}
-                                            color={
-                                                selectedOptionsIds.has(
-                                                    option.id
-                                                )
-                                                    ? 'success'
-                                                    : 'iconGray'
-                                            }
-                                        />
-                                    ) : (
-                                        <ClearRoundedIcon
-                                            data-testid={`wrong-answer-${option.id}`}
-                                            color={
-                                                selectedOptionsIds.has(
-                                                    option.id
-                                                )
-                                                    ? 'error'
-                                                    : 'iconGray'
-                                            }
-                                        />
-                                    )}
-                                </>
-                            )}
-                        </Stack>
-                    ))}
-                </Stack>
-            </Container>
+                                <Button
+                                    variant={
+                                        selectedOptionsIds.has(option.id)
+                                            ? 'contained'
+                                            : 'outlined'
+                                    }
+                                    onClick={() => onOptionSelected(option.id)}
+                                    disabled={!canAnswer}
+                                    sx={{
+                                        width: '100%',
+                                        margin: 'auto',
+                                    }}
+                                >
+                                    <Typography>{option.name}</Typography>
+                                </Button>
+                                {correctAnswers && (
+                                    <>
+                                        {correctAnswers.includes(option.id) ? (
+                                            <CheckRoundedIcon
+                                                data-testid={`correct-answer-${option.id}`}
+                                                color={
+                                                    selectedOptionsIds.has(
+                                                        option.id
+                                                    )
+                                                        ? 'success'
+                                                        : 'iconGray'
+                                                }
+                                            />
+                                        ) : (
+                                            <ClearRoundedIcon
+                                                data-testid={`wrong-answer-${option.id}`}
+                                                color={
+                                                    selectedOptionsIds.has(
+                                                        option.id
+                                                    )
+                                                        ? 'error'
+                                                        : 'iconGray'
+                                                }
+                                            />
+                                        )}
+                                    </>
+                                )}
+                            </Stack>
+                        ))}
+                        <Typography variant="h2" padding={2}>
+                            {questionId}/{totalQuestions}
+                        </Typography>
+                    </Stack>
+                </CardContent>
+            </Card>
+            <Box
+                sx={{
+                    padding: 2,
+                    display: 'flex',
+                    justifyContent: 'center',
+                }}
+            >
+                <LinearProgress
+                    variant="determinate"
+                    value={(questionId * 100) / totalQuestions}
+                    style={{
+                        width: '80%',
+                    }}
+                    aria-label="progressbar"
+                />
+            </Box>
         </>
     )
 }
@@ -91,6 +143,8 @@ const questionProps = PropTypes.shape({
 
 QuizQuestionCard.propTypes = {
     question: questionProps.isRequired,
+    questionId: PropTypes.number.isRequired,
+    totalQuestions: PropTypes.number.isRequired,
     selectedOptionsIds: PropTypes.object,
     onOptionSelected: PropTypes.func,
     canAnswer: PropTypes.bool,

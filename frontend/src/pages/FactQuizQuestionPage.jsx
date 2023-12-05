@@ -1,14 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
-import {
-    Box,
-    Button,
-    Card,
-    Container,
-    LinearProgress,
-    Stack,
-    Typography,
-} from '@mui/material'
+import { Box, Button, Stack, Typography } from '@mui/material'
 import QuizQuestionCard from '../components/factQuiz/QuizQuestionCard'
 import { useTitle } from '../hooks/useTitle'
 import useSWR from 'swr'
@@ -141,122 +133,91 @@ export const FactQuizQuestionPage = () => {
 
     return (
         <div {...swipeHandlers}>
-            <Container>
-                <Box display="flex" justifyContent="center" paddingBottom={10}>
-                    <Stack
-                        maxWidth="800px"
-                        direction="column"
-                        justifyContent="center"
-                        alignItems="center"
-                        spacing={2}
-                        paddingTop={2}
-                        style={{ minHeight: '80vh' }}
-                    >
-                        {isLoadingAllQuestions ? (
-                            <p>Loading...</p>
-                        ) : (
-                            <>
-                                {/* Question options card */}
-                                <Card
-                                    sx={{
-                                        width: '100%',
-                                        maxWidth: '800px',
-                                        padding: '5px',
-                                        overflowY: 'auto',
-                                        textAlign: 'center',
-                                    }}
+            <Stack
+                direction="column"
+                justifyContent="center"
+                alignItems="center"
+                spacing={2}
+                margin={2}
+                paddingTop={2}
+                padding={{ xs: 2, sm: 2, md: 4 }}
+                style={{ minHeight: '80vh' }}
+            >
+                {isLoadingAllQuestions ? (
+                    <p>Loading...</p>
+                ) : (
+                    <Box textAlign={'center'}>
+                        {/* Question options card */}
+                        <QuizQuestionCard
+                            question={currentQuestion}
+                            questionId={questionId}
+                            totalQuestions={totalQuestions}
+                            selectedOptionsIds={selectedOptionsIds}
+                            onOptionSelected={onOptionSelected}
+                            canAnswer={!hasAnswered}
+                            correctAnswers={correctAnswers}
+                        />
+                        {/* Buttons */}
+                        <Stack
+                            width="100%"
+                            direction="column"
+                            justifyContent="space-evenly"
+                            alignItems="center"
+                            spacing={4}
+                        >
+                            {!hasAnswered && (
+                                <Button
+                                    data-testid="quiz-answer-button"
+                                    variant="contained"
+                                    color="primary"
+                                    onClick={handleAnswer}
+                                    disabled={selectedOptionsIds.size === 0}
                                 >
-                                    <QuizQuestionCard
-                                        question={currentQuestion}
-                                        selectedOptionsIds={selectedOptionsIds}
-                                        onOptionSelected={onOptionSelected}
-                                        canAnswer={!hasAnswered}
-                                        correctAnswers={correctAnswers}
-                                    />
-                                    <Typography paddingY={4}>
-                                        {questionId}/{totalQuestions}
-                                    </Typography>
-                                </Card>
-                                <LinearProgress
-                                    variant="determinate"
-                                    value={(questionId * 100) / totalQuestions}
-                                    style={{
-                                        width: '70%',
-                                        maxWidth: '780px',
-                                    }}
-                                    aria-label="progressbar"
-                                />
-                                {/* Buttons */}
-                                <Stack
-                                    width="100%"
-                                    direction="column"
-                                    justifyContent="space-evenly"
-                                    alignItems="center"
-                                    spacing={4}
-                                >
-                                    {!hasAnswered && (
+                                    <Typography>Vastaa</Typography>
+                                </Button>
+                            )}
+                            {hasAnswered && (
+                                <>
+                                    <Box width="100%">
+                                        <CorrectAnswersInfo
+                                            options={currentQuestion.options}
+                                            correctAnswers={correctAnswers}
+                                            userAnswers={[
+                                                ...selectedOptionsIds,
+                                            ]}
+                                        />
+                                        {infoText?.length > 0 && (
+                                            <FactInfoBox content={infoText} />
+                                        )}
+                                    </Box>
+                                    {isLastQuestion ? (
                                         <Button
-                                            data-testid="quiz-answer-button"
+                                            data-testid="quiz-end-button"
                                             variant="contained"
                                             color="primary"
-                                            onClick={handleAnswer}
-                                            disabled={
-                                                selectedOptionsIds.size === 0
-                                            }
+                                            href="/oppimisvisa/yhteenveto"
                                         >
-                                            Vastaa
+                                            Lopeta kysely
+                                        </Button>
+                                    ) : (
+                                        <Button
+                                            data-testid="quiz-next-button"
+                                            variant="contained"
+                                            color="primary"
+                                            href={`/oppimisvisa/${
+                                                questionId + 1
+                                            }`}
+                                            onClick={handleNextQuestion}
+                                        >
+                                            Seuraava kysymys
                                         </Button>
                                     )}
-                                    {hasAnswered && (
-                                        <>
-                                            <Box width="100%">
-                                                <CorrectAnswersInfo
-                                                    options={
-                                                        currentQuestion.options
-                                                    }
-                                                    correctAnswers={
-                                                        correctAnswers
-                                                    }
-                                                    userAnswers={[
-                                                        ...selectedOptionsIds,
-                                                    ]}
-                                                />
-                                                {infoText?.length > 0 && (
-                                                    <FactInfoBox
-                                                        content={infoText}
-                                                    />
-                                                )}
-                                            </Box>
-                                            {isLastQuestion ? (
-                                                <Button
-                                                    data-testid="quiz-end-button"
-                                                    variant="contained"
-                                                    color="primary"
-                                                    href="/oppimisvisa/yhteenveto"
-                                                >
-                                                    Lopeta kysely
-                                                </Button>
-                                            ) : (
-                                                <Button
-                                                    data-testid="quiz-next-button"
-                                                    variant="contained"
-                                                    color="primary"
-                                                    href={`/oppimisvisa/${
-                                                        questionId + 1
-                                                    }`}
-                                                    onClick={handleNextQuestion}
-                                                >
-                                                    Seuraava kysymys
-                                                </Button>
-                                            )}
-                                        </>
-                                    )}
-                                </Stack>
-                            </>
-                        )}
-                    </Stack>
-                </Box>
-            </Container>
+                                </>
+                            )}
+                        </Stack>
+                    </Box>
+                )}
+            </Stack>
         </div>
     )
 }

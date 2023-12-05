@@ -33,10 +33,10 @@ export default function RoleQuestionButtons({
                         color="secondary"
                         onClick={handleSubmit}
                     >
-                        Lopeta kysely
+                        <Typography>Lopeta kysely</Typography>
                     </Button>
                 ) : (
-                    <Typography data-testid="current-progress">
+                    <Typography data-testid="current-progress" variant="h2">
                         {questionId}/{totalQuestions}
                     </Typography>
                 )}
