@@ -10,6 +10,7 @@ describe('Open group creation dialog', function () {
             },
             () => {
                 beforeEach(() => {
+                    cy.contains('Vastaa ryhmässä').click()
                     cy.findByTestId('open-create-group-dialog').click()
                     cy.findByTestId('create-group-dialog')
                         .as('groupDialog')

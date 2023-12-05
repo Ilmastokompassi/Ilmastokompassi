@@ -12,6 +12,7 @@ describe('Group summary page', function () {
             },
             () => {
                 beforeEach(() => {
+                    cy.contains('Vastaa ryhmässä').click()
                     cy.findByTestId('group-token-input').as('groupTokenInput')
                     cy.findByTestId('join-group').as('joinGroup')
 

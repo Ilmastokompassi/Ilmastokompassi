@@ -1,6 +1,7 @@
-import { Button, Stack, TextField, Snackbar } from '@mui/material'
+import { Button, Stack, TextField, Snackbar, Typography } from '@mui/material'
 import { useState } from 'react'
 import Alert from '@mui/material/Alert'
+import CreateGroupDialog from './CreateGroupDialog'
 
 const JoinGroupForm = () => {
     const [groupToken, setGroupToken] = useState('')
@@ -48,9 +49,9 @@ const JoinGroupForm = () => {
     return (
         <>
             <Stack
-                direction={{ xs: 'column', sm: 'row' }}
+                direction={{ xs: 'column', sm: 'column', md: 'row' }}
                 justifyContent="space-evenly"
-                alignItems="center"
+                alignItems={{ xs: 'center', sm: 'center', md: 'flex-start' }}
                 spacing={2}
             >
                 <TextField
@@ -64,14 +65,24 @@ const JoinGroupForm = () => {
                     size="small"
                     onKeyDown={handleKeyDown}
                 />
-                <Button
-                    data-testid="join-group"
-                    onClick={handleSubmit}
-                    color="secondary"
-                    variant="contained"
-                >
-                    Liity ryhmään
-                </Button>
+                <Stack direction={'row'} spacing={3}>
+                    <Button
+                        data-testid="join-group"
+                        onClick={handleSubmit}
+                        color="secondary"
+                        variant="contained"
+                    >
+                        <Typography
+                            component="div"
+                            padding={0.5}
+                            letterSpacing={1}
+                            variant="button"
+                        >
+                            LIITY
+                        </Typography>
+                    </Button>
+                    <CreateGroupDialog />
+                </Stack>
             </Stack>
             <Snackbar
                 open={open}
