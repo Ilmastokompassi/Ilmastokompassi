@@ -112,7 +112,11 @@ export const RoleSurveyGroupSummaryPage = () => {
                                         kun vähintään viisi henkilöä on
                                         vastannut kyselyyn. Nyt kyselyyn on
                                         vastannut {allRolesData.response_amount}{' '}
-                                        henkilöä.
+                                        {allRolesData.response_amount === 1 ? (
+                                            <span>henkilö.</span>
+                                        ) : (
+                                            <span>henkilöä.</span>
+                                        )}
                                     </Typography>
                                 ) : (
                                     <>
