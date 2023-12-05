@@ -236,16 +236,19 @@ describe('Quiz page', function () {
                     cy.contains(
                         'Käynnissä oleva kasvihuoneilmiön voimistuminen on seurausta ihmisen toimista'
                     )
-
                     cy.contains(
                         'Ihmistoiminnasta johtuva otsonikato on aiheuttanut ilmaston lämpenemisen'
                     ).should('not.exist')
+                    cy.contains('Näin on näkkileipä.')
 
                     cy.contains(
                         'Ilmastonmuutos vaatii kaikilta maapallolla kykyä sopeutua. Vaan mitä se tarkoittaa! Osaatko sanoa, mitkä seuraavista ovat esimerkkejä sopeutumista?'
                     ).click()
                     cy.contains(
                         'Ilmastossa tapahtuneisiin muutoksiin mukautuminen'
+                    )
+                    cy.contains(
+                        'Ilmastonmuutos tulee lisäämään epätasa-arvoisuuksia,'
                     )
                 })
 
