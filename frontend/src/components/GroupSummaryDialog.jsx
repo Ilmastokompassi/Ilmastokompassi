@@ -25,7 +25,7 @@ export default function GroupSummaryDialog() {
             setIsValid(false)
             return
         }
-        fetch(`/api/group/${groupToken}`, {
+        fetch(`/api/groups/${groupToken}`, {
             method: 'GET',
             headers: { 'Content-Type': 'application/json' },
         })

@@ -19,15 +19,16 @@ export const RoleSurveySummaryPage = () => {
     const groupToken = localStorage.getItem('groupToken')
 
     // Fetch all roles from api
-    const { data: roleData, isLoading: isLoadingRoles } = useSWR('/api/roles')
+    const { data: roleData, isLoading: isLoadingRoles } =
+        useSWR('/api/survey/roles')
 
     // Fetch individual summary from api.
     const { data: summaryData, isLoading: isLoadingSummary } = useSWR(
-        `/api/summary/${userId}`
+        `/api/survey/summary/${userId}`
     )
     // Fetch group summary every 15 seconds.
     const { data: allRolesData, isLoading: isLoadingAllRolesData } = useSWR(
-        `/api/group/${groupToken}/score`,
+        `/api/groups/${groupToken}/score`,
         { refreshInterval: 15000 }
     )
 

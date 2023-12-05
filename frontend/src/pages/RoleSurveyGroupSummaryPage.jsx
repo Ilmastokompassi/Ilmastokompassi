@@ -15,7 +15,7 @@ import { useEffect } from 'react'
 export const RoleSurveyGroupSummaryPage = () => {
     const groupToken = window.location.pathname.split('/').pop()
     useEffect(() => {
-        fetch(`/api/group/${groupToken}`, {
+        fetch(`/api/groups/${groupToken}`, {
             method: 'GET',
             headers: { 'Content-Type': 'application/json' },
         })
@@ -28,10 +28,11 @@ export const RoleSurveyGroupSummaryPage = () => {
     }, [groupToken])
 
     // Fetch all roles from api
-    const { data: roleData, isLoading: isLoadingroles } = useSWR('/api/roles')
+    const { data: roleData, isLoading: isLoadingroles } =
+        useSWR('/api/survey/roles')
 
     const { data: allRolesData, isLoading: isLoadingAllrolesData } = useSWR(
-        `/api/group/${groupToken}/score`,
+        `/api/groups/${groupToken}/score`,
         { refreshInterval: 15000 }
     )
 
