@@ -26,6 +26,11 @@ export const theme = responsiveFontSizes(
                 fontSize: '1.2rem',
                 fontWeight: 'normal',
             },
+            footer_link: {
+                fontSize: '1.2rem',
+                fontWeight: 'normal',
+                color: '#ffffff',
+            },
         },
         palette: {
             primary: {
