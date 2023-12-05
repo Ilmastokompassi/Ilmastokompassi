@@ -85,6 +85,7 @@ class QuizRepository:
     def get_all_questions_and_answers(self):
         sql = text("""
                    SELECT q.content AS question_text,
+                   q.info_text,
                    o.option AS correct_answer
                    FROM quiz_questions AS q
                    JOIN quiz_question_options AS o ON q.id = o.question_id

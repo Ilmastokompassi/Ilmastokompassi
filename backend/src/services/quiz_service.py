@@ -67,13 +67,20 @@ class QuizService:
             results = self.quiz_repository.get_all_questions_and_answers()
 
             summary = {}
-            for question_text, correct_answer in results:
+            for question_text, info_text, correct_answer in results:
                 if question_text not in summary:
-                    summary[question_text] = []
-                summary[question_text].append(correct_answer)
+                    summary[question_text] = {
+                        "correct_answers": [], "info_text": info_text}
+                summary[question_text]["correct_answers"].append(
+                    correct_answer)
 
-            summary_list = [{'question_text': k, 'correct_answers': v}
-                            for k, v in summary.items()]
+            summary_list = [
+                {
+                    'question_text': k,
+                    'correct_answers': v["correct_answers"],
+                    "info_text": v["info_text"]
+                }
+                for k, v in summary.items()]
 
             return summary_list
         except Exception as error:
