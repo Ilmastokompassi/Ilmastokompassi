@@ -17,7 +17,7 @@ import RoleSurveyLogo from '../assets/roolilogo.png'
 import useSWR from 'swr'
 
 export function RoleSurveyPage() {
-    const { data: roles } = useSWR('/api/roles')
+    const { data: roles } = useSWR('/api/survey/roles')
 
     const [groupToken, setGroupToken] = useState(null)
     const [componentMounted, setComponentMounted] = useState(false)

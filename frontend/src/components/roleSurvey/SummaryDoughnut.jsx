@@ -1,23 +1,27 @@
 import PropTypes from 'prop-types'
-import { Box } from '@mui/material'
+import { Stack, List, ListItem, ListItemText, ListItemIcon } from '@mui/material'
+import CircleIcon from '@mui/icons-material/Circle';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend, Colors } from 'chart.js'
 import { Doughnut } from 'react-chartjs-2'
 
 ChartJS.register(ArcElement, Tooltip, Legend, Colors)
 
+
 export const SummaryDoughnut = ({ data }) => (
-    <Box
-        position="relative"
-        width={{
-            xs: '60vw',
+    <Stack
+        maxWidth={{
+            xs: '80vw',
             sm: '50vw',
-            md: '40vw',
+            md: '65vw',
         }}
-        height={{
-            xs: '60vw',
-            sm: '50vw',
-            md: '40vw',
+        maxHeight={{
+            xs: '140vw',
+            sm: '80vw',
+            md: '35vw',
         }}
+        direction={{ xs: 'column-reverse', md: 'row' }}
+        spacing={1}
+        sx={{ minWidth: 0 }}
     >
         <Doughnut
             data={{
@@ -27,13 +31,15 @@ export const SummaryDoughnut = ({ data }) => (
                         label: '%',
                         data: data.map((x) => x.value),
                         borderWidth: 1,
+                        backgroundColor: data.map((x) => x.color),
                     },
                 ],
             }}
             options={{
-                maintainAspectRatio: false,
+                maintainAspectRatio: true,
                 plugins: {
                     legend: {
+                        display: false,
                         labels: {
                             usePointStyle: true,
                             font: {
@@ -41,12 +47,24 @@ export const SummaryDoughnut = ({ data }) => (
                             },
                             color: 'black',
                         },
+                        position: 'top'
                     },
                 },
             }}
             aria-label="Rooliosuudet"
+            role="img"
         />
-    </Box>
+        <List>
+            {data.map((x) => (
+                <ListItem key={x}>
+                    <ListItemIcon>
+                        <CircleIcon sx={{color: x.color}} fontSize='large' />
+                    </ListItemIcon>
+                    <ListItemText primary={`${x.label}, ${Math.round(x.value)}%`} />
+                </ListItem>
+            ))}
+        </List>
+    </Stack>
 )
 
 SummaryDoughnut.propTypes = {

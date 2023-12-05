@@ -15,7 +15,7 @@ import { useEffect } from 'react'
 export const RoleSurveyGroupSummaryPage = () => {
     const groupToken = window.location.pathname.split('/').pop()
     useEffect(() => {
-        fetch(`/api/group/${groupToken}`, {
+        fetch(`/api/groups/${groupToken}`, {
             method: 'GET',
             headers: { 'Content-Type': 'application/json' },
         })
@@ -28,10 +28,11 @@ export const RoleSurveyGroupSummaryPage = () => {
     }, [groupToken])
 
     // Fetch all roles from api
-    const { data: roleData, isLoading: isLoadingroles } = useSWR('/api/roles')
+    const { data: roleData, isLoading: isLoadingroles } =
+        useSWR('/api/survey/roles')
 
     const { data: allRolesData, isLoading: isLoadingAllrolesData } = useSWR(
-        `/api/group/${groupToken}/score`,
+        `/api/groups/${groupToken}/score`,
         { refreshInterval: 15000 }
     )
 
@@ -61,10 +62,21 @@ export const RoleSurveyGroupSummaryPage = () => {
         roleData
     )
 
+    // These honestly should be part of the role data in the database, but that would
+    // require a new column in the table and that feels like overkill at this point
+    // They can also be found both here and in the individual summary page file
+    const roleColor = {
+        1: '#F2DC79',
+        2: '#94CAEC',
+        3: '#E58E67',
+        4: '#6DB146',
+    }
+
     const groupRoleData = groupRoleResults?.map((result) => ({
         id: result.id,
         value: result.score,
         label: result.name,
+        color: roleColor[result.id],
     }))
 
     const maxScore = groupRoleResults.reduce(

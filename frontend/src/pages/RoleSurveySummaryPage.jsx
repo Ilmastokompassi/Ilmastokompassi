@@ -19,15 +19,16 @@ export const RoleSurveySummaryPage = () => {
     const groupToken = localStorage.getItem('groupToken')
 
     // Fetch all roles from api
-    const { data: roleData, isLoading: isLoadingRoles } = useSWR('/api/roles')
+    const { data: roleData, isLoading: isLoadingRoles } =
+        useSWR('/api/survey/roles')
 
     // Fetch individual summary from api.
     const { data: summaryData, isLoading: isLoadingSummary } = useSWR(
-        `/api/summary/${userId}`
+        `/api/survey/summary/${userId}`
     )
     // Fetch group summary every 15 seconds.
     const { data: allRolesData, isLoading: isLoadingAllRolesData } = useSWR(
-        `/api/group/${groupToken}/score`,
+        `/api/groups/${groupToken}/score`,
         { refreshInterval: 15000 }
     )
 
@@ -80,17 +81,29 @@ export const RoleSurveySummaryPage = () => {
         roleData
     )
 
+    // These honestly should be part of the role data in the database, but that would
+    // require a new column in the table and that feels like overkill at this point
+    // They can also be found both here and in the group summary page file
+    const roleColor = {
+        1: '#F2DC79',
+        2: '#94CAEC',
+        3: '#E58E67',
+        4: '#6DB146',
+    }
+
     // Create pie chart data and fetch
     const doughnutChartData = roleResults?.map((result) => ({
         id: result.id,
         value: result.score,
         label: result.name,
+        color: roleColor[result.id],
     }))
 
     const groupRoleData = groupRoleResults?.map((result) => ({
         id: result.id,
         value: result.score,
         label: result.name,
+        color: roleColor[result.id],
     }))
 
     const answerCount = summaryData?.count

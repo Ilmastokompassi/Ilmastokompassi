@@ -32,8 +32,9 @@ export function RoleSurveyQuestionPage() {
         onSwipedRight: () => navigate(`/kysymys/${questionId - 1}`),
     })
 
-    const { data: allQuestions, isLoading: isLoadingAllQuestions } =
-        useSWR('/api/question')
+    const { data: allQuestions, isLoading: isLoadingAllQuestions } = useSWR(
+        '/api/survey/questions'
+    )
 
     const questionId = Math.min(
         allQuestions?.length,
@@ -52,7 +53,7 @@ export function RoleSurveyQuestionPage() {
     const handleSubmit = () => {
         const responses = JSON.parse(localStorage.getItem('surveyResponses'))
         const groupToken = localStorage.getItem('groupToken')
-        fetch('/api/submit', {
+        fetch('/api/survey/submit', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ responses, groupToken }),
