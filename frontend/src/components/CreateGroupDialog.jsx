@@ -7,6 +7,7 @@ import {
     DialogActions,
     TextField,
     Button,
+    Typography,
 } from '@mui/material'
 
 export default function CreateGroupDialog() {
@@ -69,7 +70,14 @@ export default function CreateGroupDialog() {
                 color="secondary"
                 onClick={() => setOpen(true)}
             >
-                Luo ryhmä
+                <Typography
+                    component="div"
+                    padding={0.5}
+                    letterSpacing={1}
+                    variant="button"
+                >
+                    LUO RYHMÄ
+                </Typography>
             </Button>
             <Dialog
                 data-testid="create-group-dialog"

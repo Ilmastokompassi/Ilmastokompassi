@@ -10,10 +10,9 @@ import {
 } from '@mui/material'
 
 import { useTitle } from '../hooks/useTitle'
-import JoinGroupForm from '../components/JoinGroupForm'
 import RoleAccordion from '../components/roleSurvey/RoleAccordion'
-import CreateGroupDialog from '../components/CreateGroupDialog'
 import RoleSurveyLogo from '../assets/roolilogo.png'
+import GroupAccordion from '../components/roleSurvey/GroupAccordion'
 import useSWR from 'swr'
 
 export function RoleSurveyPage() {
@@ -55,21 +54,10 @@ export function RoleSurveyPage() {
                             >
                                 Ilmastoroolikysely
                             </Typography>
-
-                            <Box>
-                                <Typography align="center">
-                                    Testaa, minkälainen ilmastoroolihahmo
-                                    kuvastaa juuri sinua. Koeta vastata
-                                    mahdollisimman rehellisesti ja omana
-                                    itsenäsi. Näin saat parhaan kuvauksen juuri
-                                    sinulle sopivasta hahmosta. Pääset kyselyyn
-                                    painamalla &quot;Aloita&quot; painiketta.
-                                    Kun olet vastannut kysymyksiin, saat
-                                    selville, mikä ilmastoroolihahmo kuvastaa
-                                    sinua parhaiten. Voit tutustua hahmoihin
-                                    lyhyesti alta.
-                                </Typography>
-                            </Box>
+                            <Typography align="center">
+                                Testaa, minkälainen ilmastoroolihahmo kuvastaa
+                                juuri sinua!
+                            </Typography>
                             <Box
                                 component="img"
                                 src={RoleSurveyLogo}
@@ -78,50 +66,36 @@ export function RoleSurveyPage() {
                                 borderRadius={2}
                                 boxShadow={5}
                             />
-                            <Typography
-                                variant="h2"
-                                sx={{ fontSize: ['1.5rem', '1.8rem', '2rem'] }}
-                                align="center"
-                            >
-                                Vastaaminen ryhmässä
-                            </Typography>
+
                             <Box>
                                 <Typography align="center">
-                                    Ilmastoroolikyselyn voi tehdä myös ryhmässä.
-                                    Jokainen vastaaja saa oman roolin ja näkee
-                                    anonyymin yhteenvedon ryhmässä esiintyneistä
-                                    rooleista. Ryhmän tulokset tulevat näkyviin,
-                                    kun vähintään viisi ryhmän jäsentä on
-                                    vastannut kyselyyn. Ryhmän yhteisiä tuloksia
-                                    pääset tarkastelemaan myös sivuston oikean
-                                    yläkulman painikkeesta. Mikäli teillä ei ole
-                                    vielä valmiiksi luotua ryhmää, voit tehdä
-                                    sen painamalla &quot;Luo ryhmä&quot;
-                                    painiketta.
+                                    Koeta vastata mahdollisimman rehellisesti ja
+                                    omana itsenäsi. Näin saat parhaan kuvauksen
+                                    juuri sinulle sopivasta hahmosta. Pääset
+                                    kyselyyn painamalla &quot;Aloita&quot;
+                                    painiketta. Kun olet vastannut kysymyksiin,
+                                    saat selville, mikä ilmastoroolihahmo
+                                    kuvastaa sinua parhaiten.
                                 </Typography>
                             </Box>
-                            <Stack alignItems="center" spacing={2} padding={3}>
-                                <JoinGroupForm />
-                                <CreateGroupDialog />
-                                <Button
-                                    sx={{
-                                        width: 200,
-                                        height: 60,
-                                    }}
-                                    data-testid="start-survey"
-                                    variant="contained"
-                                    href="/kysymys/1"
-                                    color="secondary"
+                            <GroupAccordion />
+                            <Button
+                                size="large"
+                                data-testid="start-survey"
+                                variant="contained"
+                                href="/kysymys/1"
+                                color="secondary"
+                            >
+                                <Typography
+                                    paddingY={2}
+                                    paddingX={4}
+                                    variant="h2"
+                                    component="div"
+                                    letterSpacing={2}
                                 >
-                                    <Typography
-                                        variant="h5"
-                                        component="div"
-                                        letterSpacing={2}
-                                    >
-                                        Aloita
-                                    </Typography>
-                                </Button>
-                            </Stack>
+                                    ALOITA
+                                </Typography>
+                            </Button>
                         </Stack>
                     </CardContent>
                 </Card>
