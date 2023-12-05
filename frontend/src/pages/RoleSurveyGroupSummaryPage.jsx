@@ -90,7 +90,7 @@ export const RoleSurveyGroupSummaryPage = () => {
 
     useTitle('Ilmastorooli - Tulokset')
     return (
-        <Container component={Box} paddingY={4}>
+        <Container component={Box} paddingY={4} mb={2}>
             <Card>
                 <CardContent>
                     <Stack

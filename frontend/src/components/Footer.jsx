@@ -1,18 +1,44 @@
 import { Box, Container, Stack, Typography } from '@mui/material'
+import { theme } from '../theme'
+import Compass from '../assets/kompassi.png'
 
 export const Footer = () => (
     <Box component="footer" mt="auto">
         <Box sx={{ backgroundColor: 'primary.main' }}>
             <Container>
-                <Stack paddingY={1}>
-                    <Typography
-                        textAlign={'center'}
-                        variant="h6"
-                        component="div"
-                        color="white"
-                    >
-                        Ilmastokompassi
+                <Stack
+                    sx={{
+                        display: 'flex',
+                        justifyContent: 'space-evenly',
+                        alignItems: 'center',
+                        flexDirection: 'column',
+                        paddingY: 1,
+                        [theme.breakpoints.up('sm')]: {
+                            flexDirection: 'row',
+                        },
+                    }}
+                >
+                    <img src={Compass} alt="ilmastokompassi" width={40} />
+                    <Typography variant="h4" component="div" color="white">
+                        2023
                     </Typography>
+                    <Typography variant="h4" component="div" color="white">
+                        © Helsingin yliopisto
+                    </Typography>
+                    <a
+                        href="https://www.helsinki.fi/fi/inar"
+                        className="footer_link"
+                        style={theme.typography.footer_link}
+                    >
+                        INAR
+                    </a>
+                    <a
+                        href="https://blogs.helsinki.fi/climatecompetencies/about/"
+                        className="footer_link"
+                        style={theme.typography.footer_link}
+                    >
+                        ClimComp
+                    </a>
                 </Stack>
             </Container>
         </Box>

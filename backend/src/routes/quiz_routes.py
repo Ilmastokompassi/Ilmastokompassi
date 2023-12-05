@@ -23,6 +23,15 @@ def get_quiz_questions():
         return jsonify(error="Could not get questions"), 500
 
 
+@quiz_routes.get("/answers/<string:question_id>")
+def get_correct_answers(question_id):
+    try:
+        correct_answers = default_quiz_service.get_correct_answers(question_id)
+        return jsonify(correct_answers=correct_answers)
+    except Exception:  # pylint: disable=broad-except
+        return jsonify("Could not fetch correct answers"), 500
+
+
 @quiz_routes.post("/save")
 def save_quiz_answer():
     data = request.get_json()

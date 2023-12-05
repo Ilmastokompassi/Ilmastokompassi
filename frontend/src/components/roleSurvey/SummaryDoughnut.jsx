@@ -11,15 +11,15 @@ export const SummaryDoughnut = ({ data }) => (
     <Stack
         maxWidth={{
             xs: '80vw',
-            sm: '50vw',
-            md: '65vw',
+            sm: '90vw',
+            md: '80vw',
         }}
         maxHeight={{
             xs: '140vw',
-            sm: '80vw',
+            sm: '45vw',
             md: '35vw',
         }}
-        direction={{ xs: 'column-reverse', md: 'row' }}
+        direction={{ xs: 'column-reverse', sm:'row', md: 'row' }}
         spacing={1}
         sx={{ minWidth: 0 }}
     >
@@ -54,7 +54,7 @@ export const SummaryDoughnut = ({ data }) => (
             aria-label="Rooliosuudet"
             role="img"
         />
-        <List>
+        <List dense='true'>
             {data.map((x) => (
                 <ListItem key={x}>
                     <ListItemIcon>
