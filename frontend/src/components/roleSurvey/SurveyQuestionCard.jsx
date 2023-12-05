@@ -29,19 +29,18 @@ function SurveyQuestionCard({
                         <Container
                             sx={{
                                 minHeight: {
-                                    xs: '290px',
-                                    sm: '160px',
+                                    xs: '260px',
+                                    sm: '280px',
                                 },
-                                padding: '15px',
+                                paddingX: '15px',
+                                display: 'flex',
+                                justifyContent: 'center',
+                                alignItems: 'center',
                                 textAlign: 'center',
                             }}
                         >
-                            <Typography
-                                variant="h2"
-                                textAlign="center"
-                                paddingY={4}
-                            >
-                                {question.id + '. ' + question.content}
+                            <Typography variant="h2" paddingY={6}>
+                                {question.id + '. ' + question.content + '.'}
                             </Typography>
                         </Container>
 
@@ -63,6 +62,12 @@ function SurveyQuestionCard({
                                             ? 'contained'
                                             : 'outlined'
                                     }
+                                    sx={{
+                                        minHeight: {
+                                            xs: '46px',
+                                            sm: '82px',
+                                        },
+                                    }}
                                     onClick={() => onOptionSelected(option.id)}
                                 >
                                     <Typography>{option.name}</Typography>

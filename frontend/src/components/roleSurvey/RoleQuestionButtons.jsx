@@ -11,7 +11,7 @@ export default function RoleQuestionButtons({
     const isLastQuestion = questionId === totalQuestions
 
     return (
-        <Stack alignItems="center" paddingTop={4}>
+        <Stack alignItems="center" paddingTop={6}>
             <Stack
                 direction="row"
                 justifyContent="space-evenly"
@@ -33,10 +33,10 @@ export default function RoleQuestionButtons({
                         color="secondary"
                         onClick={handleSubmit}
                     >
-                        Lopeta kysely
+                        <Typography>Lopeta kysely</Typography>
                     </Button>
                 ) : (
-                    <Typography data-testid="current-progress">
+                    <Typography data-testid="current-progress" variant="h2">
                         {questionId}/{totalQuestions}
                     </Typography>
                 )}
