@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import { Stack, List, ListItem, ListItemText, ListItemIcon } from '@mui/material'
 import CircleIcon from '@mui/icons-material/Circle';
-import { Chart as ChartJS, ArcElement, Tooltip, Legend, Colors, Chart } from 'chart.js'
+import { Chart as ChartJS, ArcElement, Tooltip, Legend, Colors } from 'chart.js'
 import { Doughnut } from 'react-chartjs-2'
 
 ChartJS.register(ArcElement, Tooltip, Legend, Colors)
