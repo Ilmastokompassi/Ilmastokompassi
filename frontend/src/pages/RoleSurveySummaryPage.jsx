@@ -7,7 +7,6 @@ import {
     Button,
     Box,
     Card,
-    CardContent,
 } from '@mui/material'
 import { useParams } from 'react-router-dom'
 import { useTitle } from '../hooks/useTitle'
@@ -112,18 +111,18 @@ export const RoleSurveySummaryPage = () => {
     useTitle('Ilmastorooli - Tulokset')
     return (
         <Container component={Box} paddingY={4}>
-            <Card>
-                <CardContent>
+            <Stack spacing={3}>
+                <Card>
                     <Stack
-                        spacing={2}
+                        spacing={4}
                         paddingX={2}
                         paddingY={4}
+                        marginBottom={2}
                         alignItems="center"
                     >
                         <Typography variant="h1">Ilmastoroolisi</Typography>
                         {isLoadingRoles ||
-                        isLoadingSummary ||
-                        isLoadingAllRolesData ? (
+                        isLoadingSummary ? (
                             <p>Loading...</p>
                         ) : filteredSummaryScores.length === 0 ? (
                             <>
@@ -163,31 +162,6 @@ export const RoleSurveySummaryPage = () => {
                                     Eri roolien välinen jakauma
                                 </Typography>
                                 <SummaryDoughnut data={doughnutChartData} />
-                                {groupToken && (
-                                    <>
-                                        <Typography variant="h2">
-                                            Ryhmän {groupToken} jakauma.
-                                            Kyselyyn on vastannut{' '}
-                                            {allRolesData.response_amount}{' '}
-                                            henkilöä.
-                                        </Typography>
-
-                                        {allRolesData.response_amount < 5 ? (
-                                            <Typography variant="body1">
-                                                Näet tässä ryhmäsi tulokset, kun
-                                                vähintään viisi henkilöä ovat
-                                                vastanneet kyselyyn. Nyt
-                                                kyselyyn on vastannut{' '}
-                                                {allRolesData.response_amount}{' '}
-                                                henkilöä.
-                                            </Typography>
-                                        ) : (
-                                            <SummaryDoughnut
-                                                data={groupRoleData}
-                                            />
-                                        )}
-                                    </>
-                                )}
                             </>
                         ) : (
                             <>
@@ -204,8 +178,54 @@ export const RoleSurveySummaryPage = () => {
                             </>
                         )}
                     </Stack>
-                </CardContent>
-            </Card>
+                </Card>
+                {groupToken && (
+                    <Card>
+                        <Stack
+                            spacing={4}
+                            paddingX={2}
+                            paddingY={4}
+                            alignItems="center"
+                        >
+                            {isLoadingAllRolesData ? (
+                                <p>Loading...</p>
+                            ) : (
+                                <>
+                                    <Typography variant="h2">
+                                        Ryhmän {groupToken} jakauma.
+                                        Kyselyyn on vastannut{' '}
+                                        {allRolesData.response_amount}{' '}
+                                        {allRolesData.response_amount == 1 ? (
+                                            <span>henkilö.</span>
+                                        ) : (
+                                            <span>henkilöä.</span>
+                                        )}
+                                    </Typography>
+
+                                    {allRolesData.response_amount < 5 ? (
+                                        <Typography variant="body1">
+                                            Näet tässä ryhmäsi tulokset, kun
+                                            vähintään viisi henkilöä on
+                                            vastannut kyselyyn. Nyt
+                                            kyselyyn on vastannut{' '}
+                                            {allRolesData.response_amount}{' '}
+                                            {allRolesData.response_amount == 1 ? (
+                                                <span>henkilö.</span>
+                                            ) : (
+                                                <span>henkilöä.</span>
+                                            )}
+                                        </Typography>
+                                    ) : (
+                                        <SummaryDoughnut
+                                            data={groupRoleData}
+                                        />
+                                    )}
+                                </>
+                            )}
+                        </Stack>
+                    </Card>
+                )}
+            </Stack>
         </Container>
     )
 }
