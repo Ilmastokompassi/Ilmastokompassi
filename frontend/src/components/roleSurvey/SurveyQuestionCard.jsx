@@ -23,7 +23,7 @@ function SurveyQuestionCard({
 
     return (
         <>
-            <Card>
+            <Card elevation={5}>
                 <CardContent>
                     <Stack>
                         <Container
