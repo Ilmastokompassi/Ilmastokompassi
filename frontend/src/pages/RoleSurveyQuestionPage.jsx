@@ -1,9 +1,8 @@
+import { Box, Stack } from '@mui/material'
 import { useEffect, useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import useSWR from 'swr'
-import { Stack, Card, CardContent, LinearProgress } from '@mui/material'
 import SurveyQuestionCard from '../components/roleSurvey/SurveyQuestionCard'
-import RoleQuestionButtons from '../components/roleSurvey/RoleQuestionButtons'
 import { useTitle } from '../hooks/useTitle'
 import { useSwipeable } from 'react-swipeable'
 
@@ -19,13 +18,6 @@ export function RoleSurveyQuestionPage() {
         { id: 4, name: 'Jokseenkin samaa mieltä' },
         { id: 5, name: 'Täysin samaa mieltä' },
     ]
-
-    const cardStyles = {
-        width: '80%',
-        maxWidth: '800px',
-        padding: '5px',
-        overflowY: 'auto',
-    }
 
     const handlers = useSwipeable({
         onSwipedLeft: () => navigate(`/kysymys/${questionId + 1}`),
@@ -120,38 +112,28 @@ export function RoleSurveyQuestionPage() {
                 alignItems="center"
                 spacing={2}
                 margin={2}
+                padding={{ xs: 2, sm: 2, md: 4 }}
                 style={{ minHeight: '80vh' }}
                 data-testid="questions"
             >
                 {isLoadingAllQuestions ? (
                     <p>Loading...</p>
                 ) : (
-                    <Card sx={cardStyles}>
-                        <CardContent>
-                            {/* Question options card */}
-                            <SurveyQuestionCard
-                                question={{
-                                    ...currentQuestion,
-                                    options: options,
-                                }}
-                                selectedOptionsIds={selectedOptionId}
-                                onOptionSelected={onOptionSelected}
-                            />
-                            {/* Buttons */}
-                            <RoleQuestionButtons
-                                questionId={questionId}
-                                totalQuestions={totalQuestions}
-                                handleSubmit={handleSubmit}
-                            />
-                        </CardContent>
-                    </Card>
+                    <Box>
+                        {/* Question options card */}
+                        <SurveyQuestionCard
+                            question={{
+                                ...currentQuestion,
+                                options: options,
+                            }}
+                            selectedOptionsIds={selectedOptionId}
+                            onOptionSelected={onOptionSelected}
+                            questionId={questionId}
+                            totalQuestions={totalQuestions}
+                            handleSubmit={handleSubmit}
+                        />
+                    </Box>
                 )}
-                <LinearProgress
-                    variant="determinate"
-                    value={(questionId * 100) / totalQuestions}
-                    style={{ width: '70%', maxWidth: '780px' }}
-                    aria-label="progressbar"
-                />
             </Stack>
         </div>
     )
