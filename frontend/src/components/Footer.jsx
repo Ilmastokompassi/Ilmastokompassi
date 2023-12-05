@@ -19,10 +19,10 @@ export const Footer = () => (
                     }}
                 >
                     <img src={Compass} alt="ilmastokompassi" width={40} />
-                    <Typography variant="subtitle1" color="white">
-                        INAR- Ilmakehätieteiden tutkimuskeskus
+                    <Typography variant="h4" color="white">
+                        2023
                     </Typography>
-                    <Typography variant="subtitle1" color="white">
+                    <Typography variant="h4" color="white">
                         © Helsingin yliopisto
                     </Typography>
                     <a

@@ -22,6 +22,7 @@ export const LandingPage = () => {
                 alignItems="center"
                 spacing={4}
                 py={2}
+                mb={4}
             >
                 <Box
                     component="img"
