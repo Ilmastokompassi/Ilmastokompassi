@@ -30,61 +30,43 @@ class QuizService:
             raise error
 
     def create_quiz_response(self, group_token=None):
-        try:
-            return self.quiz_repository.create_quiz_response(group_token)
-        except Exception as error:
-            raise error
+        return self.quiz_repository.create_quiz_response(group_token)
 
     def save_answers(self, question_id, answers, response_id):
-        try:
-            self.quiz_repository.save_answers(
-                question_id, answers, response_id)
-        except Exception as error:
-            raise error
+        self.quiz_repository.save_answers(
+            question_id, answers, response_id)
 
         return response_id
 
     def get_response_answers(self, response_id):
-        try:
-            return self.quiz_repository.get_response_answers(response_id)
-        except Exception as error:
-            raise error
+        return self.quiz_repository.get_response_answers(response_id)
 
     def get_correct_answers(self, question_id):
-        try:
-            return self.quiz_repository.get_correct_answers(question_id)
-        except Exception as error:
-            raise error
+        return self.quiz_repository.get_correct_answers(question_id)
 
     def get_info_text(self, question_id):
-        try:
-            return self.quiz_repository.get_info_text(question_id)
-        except Exception as error:
-            raise error
+        return self.quiz_repository.get_info_text(question_id)
 
     def get_all_questions_and_answers(self):
-        try:
-            results = self.quiz_repository.get_all_questions_and_answers()
+        results = self.quiz_repository.get_all_questions_and_answers()
 
-            summary = {}
-            for question_text, info_text, correct_answer in results:
-                if question_text not in summary:
-                    summary[question_text] = {
-                        "correct_answers": [], "info_text": info_text}
-                summary[question_text]["correct_answers"].append(
-                    correct_answer)
+        summary = {}
+        for question_text, info_text, correct_answer in results:
+            if question_text not in summary:
+                summary[question_text] = {
+                    "correct_answers": [], "info_text": info_text}
+            summary[question_text]["correct_answers"].append(
+                correct_answer)
 
-            summary_list = [
-                {
-                    'question_text': k,
-                    'correct_answers': v["correct_answers"],
-                    "info_text": v["info_text"]
-                }
-                for k, v in summary.items()]
+        summary_list = [
+            {
+                'question_text': k,
+                'correct_answers': v["correct_answers"],
+                "info_text": v["info_text"]
+            }
+            for k, v in summary.items()]
 
-            return summary_list
-        except Exception as error:
-            raise error
+        return summary_list
 
 
 default_quiz_service = QuizService(default_quiz_repository)
