@@ -34,8 +34,10 @@ def test_get_question(client):
 
 def test_get_question_not_found(client):
     response = client.get('/api/survey/questions/420')
+    result = json.loads(response.data)
 
-    assert response.status_code == 500
+    assert response.status_code == 404
+    assert result['description'] == 'Question not found'
 
 
 def test_submit(client):
@@ -50,7 +52,7 @@ def test_submit(client):
 
 def test_submit_with_group(client):
     group_token = 'FOOBAR7'
-    response = client.post('/api/groups/new', json={'token': group_token})
+    response = client.post('/api/groups/new', json={'groupToken': group_token})
 
     data = {"responses": {"1": 1, "2": 2, "3": 3}, "groupToken": group_token}
     response = client.post('/api/survey/submit', json=data)

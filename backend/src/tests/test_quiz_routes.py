@@ -3,7 +3,8 @@ import json
 
 def test_create_new_quiz_response_with_group_token(client):
     group_token = "FOOBAR5"
-    response = client.post('/api/groups/new', json={'token': group_token})
+    response = client.post(
+        '/api/groups/new', json={'groupToken': group_token})
     response = client.post('/api/quiz/new', json={"groupToken": group_token})
     result = json.loads(response.data)
 
@@ -31,7 +32,7 @@ def test_get_quiz_questions(client):
 
 def test_save_quiz_answer(client):
     group_token = "FOOBAR6"
-    response = client.post('/api/groups/new', json={'token': group_token})
+    response = client.post('/api/groups/new', json={'groupToken': group_token})
 
     response = client.post('/api/quiz/new', json={"groupToken": group_token})
     result = json.loads(response.data)
