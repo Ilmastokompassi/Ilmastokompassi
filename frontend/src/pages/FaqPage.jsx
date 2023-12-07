@@ -5,7 +5,7 @@ export function FaqPage() {
     useTitle('Usein kysytyt kysymykset')
     return (
         <Container>
-            <Box paddingY={5} mb={1}>
+            <Box paddingY={6}>
                 <Card>
                     <CardContent>
                         <Box marginLeft={1} paddingY={2}>

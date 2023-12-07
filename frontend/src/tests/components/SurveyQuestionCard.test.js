@@ -16,7 +16,12 @@ beforeEach(async () => {
     }
 
     render(
-        <SurveyQuestionCard question={fakeQuestion} onOptionSelected={null} />
+        <SurveyQuestionCard
+            question={fakeQuestion}
+            onOptionSelected={null}
+            totalQuestions={1}
+            handleSubmit={() => {}}
+        />
     )
 })
 

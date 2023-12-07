@@ -15,7 +15,6 @@ function SurveyQuestionCard({
     question,
     selectedOptionsIds,
     onOptionSelected,
-    questionId,
     totalQuestions,
     handleSubmit,
 }) {
@@ -75,7 +74,7 @@ function SurveyQuestionCard({
                     </Stack>
                     {/* Buttons */}
                     <RoleQuestionButtons
-                        questionId={questionId}
+                        questionId={question.id}
                         totalQuestions={totalQuestions}
                         handleSubmit={handleSubmit}
                     />
@@ -90,7 +89,7 @@ function SurveyQuestionCard({
             >
                 <LinearProgress
                     variant="determinate"
-                    value={(questionId * 100) / totalQuestions}
+                    value={(question.id * 100) / totalQuestions}
                     style={{ width: '80%' }}
                     aria-label="progressbar"
                 />
@@ -109,7 +108,6 @@ SurveyQuestionCard.propTypes = {
     question: questionProps.isRequired,
     selectedOptionsIds: PropTypes.number,
     onOptionSelected: PropTypes.func,
-    questionId: PropTypes.number.isRequired,
     totalQuestions: PropTypes.number.isRequired,
     handleSubmit: PropTypes.func.isRequired,
 }
