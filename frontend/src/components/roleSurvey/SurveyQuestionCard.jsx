@@ -47,8 +47,8 @@ function SurveyQuestionCard({
                         spacing={2}
                         marginTop={1}
                         direction={{
-                            xs: 'column',
-                            sm: 'column',
+                            xs: 'column-reverse',
+                            sm: 'column-reverse',
                             md: 'row',
                         }}
                     >
