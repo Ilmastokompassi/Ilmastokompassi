@@ -11,9 +11,14 @@ describe('Joining group', function () {
             () => {
                 beforeEach(() => {
                     cy.findByTestId('group-token-input').as('groupTokenInput')
+                    cy.findByTestId('join-group-accordion').as(
+                        'joinGroupAccordion'
+                    )
                     cy.findByTestId('join-group').as('joinGroup')
 
                     cy.exec('../bin/db-reset')
+
+                    cy.get('@joinGroupAccordion').click()
                 })
 
                 it('with empty token fails', function () {

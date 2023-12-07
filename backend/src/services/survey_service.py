@@ -20,25 +20,18 @@ class SurveyService:
 
     def save_answers(self, answers):
         answers_with_scores = {}
-        try:
-            for question_id, answer in answers.items():
-                answers_with_scores[question_id] = SCORES[answer]
+        for question_id, answer in answers.items():
+            answers_with_scores[question_id] = SCORES[answer]
 
-            response_id = self.survey_repository.save_answers(
-                answers_with_scores)
-        except Exception as error:
-            raise error
+        response_id = self.survey_repository.save_answers(answers_with_scores)
 
         return response_id
 
     def get_climate_percentages(self, response_id):
-        try:
-            score_profile = self.survey_repository.get_response_answers(
-                response_id)
-        except Exception as error:
-            raise error
-
         total_scores = {}
+
+        score_profile = self.survey_repository.get_response_answers(
+            response_id)
 
         for score, profile_id in score_profile:
             if profile_id not in total_scores:
@@ -46,7 +39,6 @@ class SurveyService:
             else:
                 total_scores[profile_id] += score
 
-        print(total_scores)
         return total_scores
 
     def get_summary(self, response_id):

@@ -15,10 +15,10 @@ Cypress.Commands.add(
 )
 
 Cypress.Commands.add('createGroupWithApi', (groupToken) => {
-    cy.request('POST', '/api/groups/new', { token: groupToken }).then(
+    cy.request('POST', '/api/groups/new', { groupToken: groupToken }).then(
         (response) => {
+            expect(response.status).equals(201)
             expect(response.body).to.have.property('group_token', groupToken)
-            expect(response.body).to.have.property('status', 'success')
         }
     )
 })
@@ -28,13 +28,13 @@ Cypress.Commands.add('answerRoleSurveyWithApi', (groupToken, responses) => {
         groupToken: groupToken,
         responses: responses,
     }).then((response) => {
-        expect(response.body).to.have.property('status', 'success')
+        expect(response.status).equals(200)
     })
 })
 
 Cypress.Commands.add('joinGroup', (groupToken) => {
     cy.request('/api/groups/' + groupToken).then((response) => {
-        expect(response.body).to.have.property('group_token', true)
+        expect(response.body).to.have.property('group_token', groupToken)
 
         window.localStorage.setItem('groupToken', groupToken)
     })

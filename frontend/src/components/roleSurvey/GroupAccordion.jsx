@@ -15,7 +15,7 @@ const GroupAccordion = () => {
             <AccordionSummary
                 expandIcon={<ExpandMoreIcon />}
                 aria-controls="panel-1-content"
-                id="panel-1-content"
+                data-testid="join-group-accordion"
             >
                 <Typography align="center" fontWeight={500}>
                     Vastaa ryhmässä

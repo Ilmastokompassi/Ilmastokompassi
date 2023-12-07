@@ -38,17 +38,15 @@ export default function CreateGroupDialog() {
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ token: groupName.toUpperCase() }),
+            body: JSON.stringify({ groupToken: groupName.toUpperCase() }),
+        }).then((response) => {
+            if (response.status !== 201) {
+                setIsValid(false)
+                setAlertMessage('Ryhmätunnus on jo käytössä.')
+                return
+            }
+            setGroupIsMade(true)
         })
-            .then((response) => response.json())
-            .then((data) => {
-                if (data.message === 'Group already exists') {
-                    setIsValid(false)
-                    setAlertMessage('Ryhmätunnus on jo käytössä.')
-                    return
-                }
-                setGroupIsMade(true)
-            })
     }
 
     const resetDialog = () => {
