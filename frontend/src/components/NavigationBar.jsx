@@ -88,6 +88,15 @@ const GroupMenu = () => {
 
     const refreshToken = () => setGroupToken(localStorage.getItem('groupToken'))
 
+    const handleOpenMenu = (event) => {
+        event.stopPropagation()
+        setAnchorElement(event.currentTarget)
+    }
+    const handleCloseMenu = (event) => {
+        event.stopPropagation()
+        setAnchorElement(null)
+    }
+
     React.useEffect(() => {
         refreshToken()
         window.addEventListener('setGroupToken', refreshToken)
@@ -98,7 +107,7 @@ const GroupMenu = () => {
     return (
         <>
             <IconButton
-                onClick={(event) => setAnchorElement(event.currentTarget)}
+                onClick={handleOpenMenu}
                 data-testid="show-group-menu"
                 aria-haspopup="true"
                 aria-label="Ryhmätoiminnot"
@@ -107,6 +116,7 @@ const GroupMenu = () => {
                 {groupToken ? <GroupIcon /> : <PersonIcon />}
             </IconButton>
             <Menu
+                disableScrollLock={true}
                 sx={{ mt: '45px' }}
                 id="group-menu"
                 data-testid="group-menu"
@@ -116,7 +126,7 @@ const GroupMenu = () => {
                     horizontal: 'right',
                 }}
                 open={Boolean(anchorElement)}
-                onClose={() => setAnchorElement(null)}
+                onClose={handleCloseMenu}
             >
                 <Box
                     paddingX={2}
@@ -130,7 +140,7 @@ const GroupMenu = () => {
                         <MenuItem
                             key="create-group"
                             data-testid="create-group"
-                            onClick={() => setAnchorElement(null)}
+                            onClick={handleCloseMenu}
                             component={NavLink}
                             to="/ilmastoroolikysely"
                         >
@@ -142,7 +152,7 @@ const GroupMenu = () => {
                     <MenuItem
                         key="open-group-summary"
                         data-testid="open-group-summary"
-                        onClick={() => setAnchorElement(null)}
+                        onClick={handleCloseMenu}
                         component={NavLink}
                         to={'/yhteenveto/ryhma/' + groupToken}
                     >
@@ -155,7 +165,8 @@ const GroupMenu = () => {
                             localStorage.removeItem('groupToken')
                             setGroupToken(null)
                             window.dispatchEvent(new Event('setGroupToken'))
-                            setAnchorElement(null)
+
+                            handleCloseMenu()
                         }}
                     >
                         Poistu ryhmästä

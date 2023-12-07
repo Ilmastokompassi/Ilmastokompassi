@@ -12,5 +12,3 @@ export const Background = styled('div')({
     zIndex: -1,
     backgroundAttachment: 'fixed',
 })
-
-
