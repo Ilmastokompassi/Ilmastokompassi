@@ -4,6 +4,7 @@ import { Typography, Container, Stack, Button, Box, Card } from '@mui/material'
 import { useParams } from 'react-router-dom'
 import { useTitle } from '../hooks/useTitle'
 import SummaryDoughnut from '../components/roleSurvey/SummaryDoughnut'
+import { ShareButtons } from '../components/ShareButtons'
 
 export const RoleSurveySummaryPage = () => {
     const { userId: userParamId } = useParams()
@@ -150,6 +151,13 @@ export const RoleSurveySummaryPage = () => {
                                         />
                                     ))}
                                 </Stack>
+                                <ShareButtons
+                                    url={
+                                        import.meta.env.VITE_BASE_URL +
+                                        'yhteenveto/' +
+                                        userId
+                                    }
+                                />
                                 <Typography variant="h2">
                                     Eri roolien välinen jakauma
                                 </Typography>
