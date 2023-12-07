@@ -1,13 +1,6 @@
 import useSWR from 'swr'
 import { SummaryRole } from '../components/roleSurvey/SummaryRole'
-import {
-    Typography,
-    Container,
-    Stack,
-    Button,
-    Box,
-    Card,
-} from '@mui/material'
+import { Typography, Container, Stack, Button, Box, Card } from '@mui/material'
 import { useParams } from 'react-router-dom'
 import { useTitle } from '../hooks/useTitle'
 import SummaryDoughnut from '../components/roleSurvey/SummaryDoughnut'
@@ -27,7 +20,7 @@ export const RoleSurveySummaryPage = () => {
     )
     // Fetch group summary every 15 seconds.
     const { data: allRolesData, isLoading: isLoadingAllRolesData } = useSWR(
-        `/api/groups/${groupToken}/score`,
+        groupToken && `/api/groups/${groupToken}/score`,
         { refreshInterval: 15000 }
     )
 
@@ -110,7 +103,7 @@ export const RoleSurveySummaryPage = () => {
 
     useTitle('Ilmastorooli - Tulokset')
     return (
-        <Container component={Box} paddingY={4} mb={2}>
+        <Container component={Box} paddingY={6}>
             <Stack spacing={3}>
                 <Card>
                     <Stack
@@ -121,8 +114,7 @@ export const RoleSurveySummaryPage = () => {
                         alignItems="center"
                     >
                         <Typography variant="h1">Ilmastoroolisi</Typography>
-                        {isLoadingRoles ||
-                        isLoadingSummary ? (
+                        {isLoadingRoles || isLoadingSummary ? (
                             <p>Loading...</p>
                         ) : filteredSummaryScores.length === 0 ? (
                             <>
@@ -192,9 +184,8 @@ export const RoleSurveySummaryPage = () => {
                             ) : (
                                 <>
                                     <Typography variant="h2">
-                                        Ryhmän {groupToken} jakauma.
-                                        Kyselyyn on vastannut{' '}
-                                        {allRolesData.response_amount}{' '}
+                                        Ryhmän {groupToken} jakauma. Kyselyyn on
+                                        vastannut {allRolesData.response_amount}{' '}
                                         {allRolesData.response_amount == 1 ? (
                                             <span>henkilö.</span>
                                         ) : (
@@ -206,19 +197,18 @@ export const RoleSurveySummaryPage = () => {
                                         <Typography variant="body1">
                                             Näet tässä ryhmäsi tulokset, kun
                                             vähintään viisi henkilöä on
-                                            vastannut kyselyyn. Nyt
-                                            kyselyyn on vastannut{' '}
+                                            vastannut kyselyyn. Nyt kyselyyn on
+                                            vastannut{' '}
                                             {allRolesData.response_amount}{' '}
-                                            {allRolesData.response_amount == 1 ? (
+                                            {allRolesData.response_amount ==
+                                            1 ? (
                                                 <span>henkilö.</span>
                                             ) : (
                                                 <span>henkilöä.</span>
                                             )}
                                         </Typography>
                                     ) : (
-                                        <SummaryDoughnut
-                                            data={groupRoleData}
-                                        />
+                                        <SummaryDoughnut data={groupRoleData} />
                                     )}
                                 </>
                             )}

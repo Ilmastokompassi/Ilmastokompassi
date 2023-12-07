@@ -1,11 +1,16 @@
 import PropTypes from 'prop-types'
-import { Stack, List, ListItem, ListItemText, ListItemIcon } from '@mui/material'
-import CircleIcon from '@mui/icons-material/Circle';
+import {
+    Stack,
+    List,
+    ListItem,
+    ListItemText,
+    ListItemIcon,
+} from '@mui/material'
+import CircleIcon from '@mui/icons-material/Circle'
 import { Chart as ChartJS, ArcElement, Tooltip, Legend, Colors } from 'chart.js'
 import { Doughnut } from 'react-chartjs-2'
 
 ChartJS.register(ArcElement, Tooltip, Legend, Colors)
-
 
 export const SummaryDoughnut = ({ data }) => (
     <Stack
@@ -19,7 +24,7 @@ export const SummaryDoughnut = ({ data }) => (
             sm: '45vw',
             md: '35vw',
         }}
-        direction={{ xs: 'column-reverse', sm:'row', md: 'row' }}
+        direction={{ xs: 'column-reverse', sm: 'row', md: 'row' }}
         spacing={1}
         sx={{ minWidth: 0 }}
     >
@@ -47,20 +52,22 @@ export const SummaryDoughnut = ({ data }) => (
                             },
                             color: 'black',
                         },
-                        position: 'top'
+                        position: 'top',
                     },
                 },
             }}
             aria-label="Rooliosuudet"
             role="img"
         />
-        <List dense='true'>
+        <List dense>
             {data.map((x) => (
-                <ListItem key={x}>
+                <ListItem key={x.label}>
                     <ListItemIcon>
-                        <CircleIcon sx={{color: x.color}} fontSize='large' />
+                        <CircleIcon sx={{ color: x.color }} fontSize="large" />
                     </ListItemIcon>
-                    <ListItemText primary={`${x.label}, ${Math.round(x.value)}%`} />
+                    <ListItemText
+                        primary={`${x.label}, ${Math.round(x.value)}%`}
+                    />
                 </ListItem>
             ))}
         </List>

@@ -128,7 +128,6 @@ export function RoleSurveyQuestionPage() {
                             }}
                             selectedOptionsIds={selectedOptionId}
                             onOptionSelected={onOptionSelected}
-                            questionId={questionId}
                             totalQuestions={totalQuestions}
                             handleSubmit={handleSubmit}
                         />

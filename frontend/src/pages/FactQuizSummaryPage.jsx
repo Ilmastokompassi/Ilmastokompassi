@@ -24,8 +24,7 @@ export const FactQuizSummaryPage = () => {
                 justifyContent="center"
                 alignItems="center"
                 padding={2}
-                paddingY={5}
-                mb={1}
+                paddingY={6}
             >
                 <Card>
                     <CardContent>
