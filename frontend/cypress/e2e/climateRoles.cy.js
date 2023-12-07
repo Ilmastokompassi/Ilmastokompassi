@@ -1,6 +1,6 @@
 Cypress.env('viewports').forEach((viewport) => {
     describe(
-        `Climateprofiles in SurveyPage on ${viewport[2]} viewport`,
+        `Climate roles in SurveyPage on ${viewport[2]} viewport`,
         {
             viewportWidth: viewport[0],
             viewportHeight: viewport[1],
@@ -21,7 +21,9 @@ Cypress.env('viewports').forEach((viewport) => {
 
             it('Ilmastoasiantuntija accordion has correct content', function () {
                 cy.contains('Ilmastoasiantuntija').click()
-                cy.contains('Ilmastoasiantuntija on kiinnostunut ilmastonmuutoksen tieteellisestä puolesta')
+                cy.contains(
+                    'Ilmastoasiantuntijana olet kiinnostunut ilmastonmuutoksen tieteellisestä puolesta.'
+                )
             })
         }
     )
