@@ -57,6 +57,13 @@ export const theme = responsiveFontSizes(
             MuiButtonBase: {
                 defaultProps: { LinkComponent: LinkBehavior },
             },
+            MuiCard: {
+                styleOverrides: {
+                    root: {
+                        borderRadius: 10,
+                    },
+                },
+            },
         },
         background: { paper: '#FAFAF8' },
         contrastThreshold: 4.5,

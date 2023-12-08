@@ -105,7 +105,7 @@ export const RoleSurveySummaryPage = () => {
     return (
         <Container component={Box} paddingY={6}>
             <Stack spacing={3}>
-                <Card>
+                <Card elevation={5}>
                     <Stack
                         spacing={4}
                         paddingX={2}
@@ -172,7 +172,7 @@ export const RoleSurveySummaryPage = () => {
                     </Stack>
                 </Card>
                 {groupToken && (
-                    <Card>
+                    <Card elevation={5}>
                         <Stack
                             spacing={4}
                             paddingX={2}

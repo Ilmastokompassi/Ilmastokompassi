@@ -91,7 +91,7 @@ export const RoleSurveyGroupSummaryPage = () => {
     useTitle('Ilmastorooli - Tulokset')
     return (
         <Container component={Box} paddingY={6}>
-            <Card>
+            <Card elevation={5}>
                 <CardContent>
                     <Stack
                         spacing={3}

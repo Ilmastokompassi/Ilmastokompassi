@@ -6,7 +6,7 @@ export function FaqPage() {
     return (
         <Container>
             <Box paddingY={6}>
-                <Card>
+                <Card elevation={5}>
                     <CardContent>
                         <Box marginLeft={1} paddingY={2}>
                             <Typography textAlign={'center'} variant="h1">

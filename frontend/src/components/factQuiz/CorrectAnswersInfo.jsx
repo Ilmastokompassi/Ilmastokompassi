@@ -20,7 +20,7 @@ const CorrectAnswersInfo = ({ options, correctAnswers, userAnswers }) => {
     })
 
     return (
-        <Accordion>
+        <Accordion elevation={5}>
             <AccordionSummary
                 expandIcon={<ExpandMoreIcon />}
                 aria-controls="panel2a-content"

@@ -11,7 +11,7 @@ import GroupForm from '../GroupForm'
 
 const GroupAccordion = () => {
     return (
-        <Accordion>
+        <Accordion >
             <AccordionSummary
                 expandIcon={<ExpandMoreIcon />}
                 aria-controls="panel-1-content"

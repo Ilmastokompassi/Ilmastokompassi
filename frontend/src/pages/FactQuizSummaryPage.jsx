@@ -26,7 +26,7 @@ export const FactQuizSummaryPage = () => {
                 padding={2}
                 paddingY={6}
             >
-                <Card>
+                <Card elevation={5}>
                     <CardContent>
                         <Stack
                             direction="column"
@@ -34,7 +34,7 @@ export const FactQuizSummaryPage = () => {
                             padding={{ xs: 1, md: 4 }}
                         >
                             <Stack alignItems="center" spacing={3} paddingY={2}>
-                                <Typography variant="h3" textAlign={'center'}>
+                                <Typography variant="h2" textAlign={'center'}>
                                     Hyvää työtä !
                                 </Typography>
                                 <Box

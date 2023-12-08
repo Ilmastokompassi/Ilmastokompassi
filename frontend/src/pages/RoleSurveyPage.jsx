@@ -40,7 +40,7 @@ export function RoleSurveyPage() {
     return (
         <Container>
             <Stack paddingY={6} spacing={3}>
-                <Card>
+                <Card elevation={5}>
                     <CardContent>
                         <Stack
                             spacing={4}

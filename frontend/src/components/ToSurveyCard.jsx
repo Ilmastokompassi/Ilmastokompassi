@@ -17,7 +17,7 @@ export const ToSurveyCard = ({ name, description, to, icon }) => {
 
     return (
         <Card
-            elevation={1}
+            elevation={5}
             sx={{
                 width: '100%',
                 height: 'auto',

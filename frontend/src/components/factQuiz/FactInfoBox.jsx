@@ -9,7 +9,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 
 const FactInfoBox = ({ content }) => {
     return (
-        <Accordion>
+        <Accordion elevation={5}>
             <AccordionSummary
                 expandIcon={<ExpandMoreIcon />}
                 aria-controls="panel1a-content"
