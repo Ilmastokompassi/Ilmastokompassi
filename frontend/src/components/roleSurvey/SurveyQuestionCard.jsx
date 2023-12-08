@@ -38,7 +38,7 @@ function SurveyQuestionCard({
                         }}
                     >
                         <Typography variant="h2" paddingY={6}>
-                            {question.id + '. ' + question.content + '.'}
+                            {question.id + '. ' + question.content}
                         </Typography>
                     </Container>
 
