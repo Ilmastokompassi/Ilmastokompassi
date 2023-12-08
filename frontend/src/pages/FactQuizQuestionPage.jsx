@@ -10,9 +10,10 @@ import { useSwipeable } from 'react-swipeable'
 
 export const FactQuizQuestionPage = () => {
     const { questionId: questionParamId } = useParams()
+
+    const [correctAnswers, setCorrectAnswers] = useState([])
     const [selectedOptionsIds, setSelectedOptionsIds] = useState(new Set())
     const [hasAnswered, setHasAnswered] = useState(false)
-    const [correctAnswers, setCorrectAnswers] = useState(null)
     const [infoText, setInfoText] = useState()
 
     const navigate = useNavigate()
@@ -25,65 +26,75 @@ export const FactQuizQuestionPage = () => {
     const groupToken = localStorage.getItem('groupToken')
 
     if (!responseId) {
-        const getResponseID = async () => {
-            const response = await fetch('/api/quiz/new', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ groupToken: groupToken }),
-            })
-            const responseJSON = await response.json()
-            localStorage.setItem('quizResponseId', responseJSON['response_id'])
-        }
-        getResponseID()
+        fetch('/api/quiz/new', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ groupToken: groupToken }),
+        })
+            .then((response) => response.json())
+            .then(() =>
+                localStorage.setItem(
+                    'quizResponseId',
+                    responseJSON['response_id']
+                )
+            )
     }
 
     const { data: allQuestions, isLoading: isLoadingAllQuestions } = useSWR(
         '/api/quiz/questions'
     )
-
     const questionId = Math.min(
         Object.keys(allQuestions || {}).length,
         Math.max(1, parseInt(questionParamId))
     )
 
+    // If we have responseId already in the localStorage, fetch our existing answers, if they exist
+    const { data: answers } = useSWR(
+        responseId && '/api/quiz/answers/' + responseId
+    )
+
+    const responseAnswers = answers?.response_answers ?? []
+
+    // If our existing answers contains our answers for current question (questionId), store them to variable for easier access
+    const responseSelectedOptionsIds = responseAnswers[questionId]
+
+    // If current questionId is in our existing answers, it means we have already answered to this question
+    const hasAnswered2 = questionId in responseAnswers
+    console.log('hasAnswered2', hasAnswered2)
+
+    // If we have already answered, fetch correct answers
+    const { data: correctAnswers2, isLoading: isLoadingCorrectAnswers } =
+        useSWR(hasAnswered2 && '/api/quiz/correct-answers/' + questionId)
+
+    console.log('RERENDER')
+    // Split infotext for newlines to work
+
+    if (hasAnswered2) {
+        //setInfoText(
+        //    handleInfoText(
+        //        correctAnswers?.info_text
+        //            .split('\n')
+        //            .map((line) => line.trim())
+        //            .filter((line) => line?.length > 0)
+        //    )
+        //)
+        console.log('RERENDER WHEN hasAnswered2=true')
+        setSelectedOptionsIds(new Set(responseSelectedOptionsIds))
+    } else {
+        return
+        setSelectedOptionsIds(new Set())
+    }
+
     const currentQuestion = allQuestions ? allQuestions[questionId] : null
-
-    useEffect(() => {
-        if (!currentQuestion) return
-        const oldAnswers = localStorage.getItem(`quiz${currentQuestion.id}`)
-
-        const getCorrectAnswers = async () => {
-            try {
-                const response = await fetch(
-                    `/api/quiz/answers/${currentQuestion.id}`
-                )
-
-                const oldAnswersArray = JSON.parse(oldAnswers)
-                const data = await response.json()
-                setCorrectAnswers(data.correct_answers)
-                setSelectedOptionsIds(new Set(oldAnswersArray))
-                setHasAnswered(true)
-            } catch (error) {
-                console.log(error)
-            }
-        }
-        if (oldAnswers) {
-            getCorrectAnswers()
-        } else {
-            setHasAnswered(false)
-            setSelectedOptionsIds(new Set())
-            setCorrectAnswers(null)
-        }
-    }, [currentQuestion])
 
     const totalQuestions = Object.keys(allQuestions || {})?.length
     const isLastQuestion = questionId == totalQuestions
 
     const handleAnswer = async () => {
         try {
-            const response = await fetch('/api/quiz/save', {
+            await fetch('/api/quiz/save', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -94,19 +105,8 @@ export const FactQuizQuestionPage = () => {
                     responseId: parseInt(responseId),
                 }),
             })
-            const data = await response.json()
-            setCorrectAnswers(data.correct_answers)
-            // Split infotext for newlines to work
-            const splittedInfoText = data.info_text
-                .split('\n')
-                .map((line) => line.trim())
-                .filter((line) => line?.length > 0)
-            setInfoText(splittedInfoText)
+
             setHasAnswered(true)
-            localStorage.setItem(
-                `quiz${currentQuestion.id}`,
-                JSON.stringify([...selectedOptionsIds])
-            )
         } catch (error) {
             console.log(error)
         }
@@ -124,7 +124,6 @@ export const FactQuizQuestionPage = () => {
 
     const handleNextQuestion = () => {
         setHasAnswered(false)
-        setCorrectAnswers(null)
         setInfoText(null)
         setSelectedOptionsIds(new Set())
     }
