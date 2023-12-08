@@ -102,6 +102,22 @@ export const RoleSurveySummaryPage = () => {
     const answerCount = summaryData?.count
     const totalQuestions = summaryData?.total_questions_count
 
+    const getRolesListText = (roles) => {
+        const highestRolesQuoted = roles.map((score) => '"' + score.name + '"')
+
+        if (roles.length > 1) {
+            return (
+                highestRolesQuoted.slice(0, -1).join(', ') +
+                ' ja ' +
+                highestRolesQuoted.slice(-1)
+            )
+        } else return highestRolesQuoted[0]
+    }
+
+    const shareText = `Sain ilmastoroolikseni ${getRolesListText(
+        highestScoreRoles
+    )}!`
+
     useTitle('Ilmastorooli - Tulokset')
     return (
         <Container component={Box} paddingY={6}>
@@ -157,6 +173,7 @@ export const RoleSurveySummaryPage = () => {
                                         'yhteenveto/' +
                                         userId
                                     }
+                                    text={shareText}
                                 />
                                 <Typography variant="h2">
                                     Eri roolien välinen jakauma
