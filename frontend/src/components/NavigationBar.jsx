@@ -140,7 +140,7 @@ const GroupMenu = () => {
                         <MenuItem
                             key="create-group"
                             data-testid="create-group"
-                            onClick={handleCloseMenu}
+                            onClick={() => setAnchorElement(null)}
                             component={NavLink}
                             to="/ilmastoroolikysely"
                         >
@@ -152,7 +152,7 @@ const GroupMenu = () => {
                     <MenuItem
                         key="open-group-summary"
                         data-testid="open-group-summary"
-                        onClick={handleCloseMenu}
+                        onClick={() => setAnchorElement(null)}
                         component={NavLink}
                         to={'/yhteenveto/ryhma/' + groupToken}
                     >
@@ -166,7 +166,7 @@ const GroupMenu = () => {
                             setGroupToken(null)
                             window.dispatchEvent(new Event('setGroupToken'))
 
-                            handleCloseMenu()
+                            setAnchorElement(null)
                         }}
                     >
                         Poistu ryhmästä
