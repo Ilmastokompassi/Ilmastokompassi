@@ -43,7 +43,10 @@ export const theme = responsiveFontSizes(
                 main: '#A9A9A9',
             },
             action: {
-                disabled: '#111111',
+                disabled: '#3b3939',
+            },
+            actionAlt: {
+                disabled: '#A9A9A9',
             },
             contrastThreshold: 4.5,
         },
