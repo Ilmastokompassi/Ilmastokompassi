@@ -2,6 +2,7 @@ import { Button, IconButton, Stack, Typography } from '@mui/material'
 import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight'
 import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft'
 import PropTypes from 'prop-types'
+import theme from '../../theme'
 
 export default function RoleQuestionButtons({
     questionId,
@@ -24,6 +25,12 @@ export default function RoleQuestionButtons({
                     aria-label="previous question"
                     href={`/kysymys/${questionId - 1}`}
                     disabled={questionId <= 1}
+                    style={{
+                        color:
+                            questionId <= 1
+                                ? theme.palette.actionAlt.disabled // Use the alternate disabled color from the theme
+                                : theme.palette.primary.main,
+                    }}
                 >
                     <ArrowCircleLeftIcon fontSize="large" />
                 </IconButton>
@@ -45,6 +52,12 @@ export default function RoleQuestionButtons({
                     aria-label="next question"
                     href={`/kysymys/${questionId + 1}`}
                     disabled={!totalQuestions || questionId >= totalQuestions}
+                    style={{
+                        color:
+                            !totalQuestions || questionId >= totalQuestions
+                                ? theme.palette.actionAlt.disabled // Use the alternate disabled color from the theme
+                                : theme.palette.primary.main,
+                    }}
                 >
                     <ArrowCircleRightIcon fontSize="large" />
                 </IconButton>

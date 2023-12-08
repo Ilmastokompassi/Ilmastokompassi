@@ -14,14 +14,20 @@ const QuizSummaryAccordion = ({ questionText, correctAnswers, infoText }) => {
                 <Typography>{questionText}</Typography>
             </AccordionSummary>
             <AccordionDetails>
-                <Typography textAlign={'center'}>Oikeat vastaukset</Typography>
+                <Typography textAlign={'center'} fontWeight={500}>
+                    Oikeat vastaukset
+                </Typography>
 
                 <ul>
                     {correctAnswers.map((answer, index) => (
                         <li key={index}>{answer}</li>
                     ))}
                 </ul>
-                <Typography paddingBottom={3} textAlign={'center'}>
+                <Typography
+                    paddingBottom={3}
+                    textAlign={'center'}
+                    fontWeight={500}
+                >
                     Mistä tässä on kyse?
                 </Typography>
                 {infoText.split('\n').map((line, index) => (

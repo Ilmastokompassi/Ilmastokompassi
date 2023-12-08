@@ -91,15 +91,15 @@ export const RoleSurveyGroupSummaryPage = () => {
     useTitle('Ilmastorooli - Tulokset')
     return (
         <Container component={Box} paddingY={6}>
-            <Card>
+            <Card elevation={5}>
                 <CardContent>
                     <Stack
-                        spacing={2}
+                        spacing={3}
                         paddingX={2}
                         paddingY={4}
                         alignItems="center"
                     >
-                        <Typography variant="h1">
+                        <Typography variant="h1" textAlign="center">
                             Ryhmän {groupToken} ilmastorooli
                         </Typography>
                         {isLoadingroles || isLoadingAllrolesData ? (
@@ -134,7 +134,9 @@ export const RoleSurveyGroupSummaryPage = () => {
                                         ))}
 
                                         <Typography variant="h2">
-                                            Ryhmän {groupToken} jakauma.
+                                            Ryhmän {groupToken} jakauma
+                                        </Typography>
+                                        <Typography>
                                             Kyselyyn on vastannut{' '}
                                             {allRolesData.response_amount}{' '}
                                             henkilöä.

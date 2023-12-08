@@ -1,4 +1,12 @@
-import { Typography, Container, Stack, Box } from '@mui/material'
+import {
+    Typography,
+    Container,
+    Stack,
+    Box,
+    Card,
+    CardContent,
+} from '@mui/material'
+import { alpha } from '@mui/material/styles'
 import { useTitle } from '../hooks/useTitle'
 import { ToSurveyCard } from '../components/ToSurveyCard'
 import ClimateCompassMap from '../assets/kompassi_tausta.png'
@@ -31,29 +39,41 @@ export const LandingPage = () => {
                     sx={{ width: ['70%', '55%', '40%'] }}
                 />
 
-                <Stack spacing={2} alignItems="center">
-                    <Box>
-                        <Typography
-                            variant="h1"
-                            align="center"
-                            fontFamily="Roboto condensed"
-                            fontWeight={700}
-                            marginBottom={2}
-                        >
-                            Tervetuloa Ilmastokompassiin!
-                        </Typography>
-                        <Typography
-                            variant="h3"
-                            component="div"
-                            align="center"
-                            fontFamily="Roboto condensed"
-                        >
-                            Täällä pääset kartuttamaan ilmastotietämystäsi ja
-                            ymmärtämään omaa suhtautumistasi ilmastonmuutokseen.
-                        </Typography>
-                    </Box>
-                </Stack>
                 <Stack spacing={2} width="100%" alignItems="stretch">
+                    <Stack paddingBottom={4}>
+                        <Card
+                            elevation={5}
+                            sx={{
+                                width: '100%',
+                                height: 'auto',
+                                backgroundColor: alpha('#fff', 0.7),
+                            }}
+                        >
+                            <CardContent>
+                                <Stack padding={{ md: 2 }}>
+                                    <Typography
+                                        variant="h1"
+                                        align="center"
+                                        fontFamily="Roboto condensed"
+                                        fontWeight={700}
+                                        marginBottom={2}
+                                    >
+                                        Tervetuloa Ilmastokompassiin!
+                                    </Typography>
+                                    <Typography
+                                        variant="h3"
+                                        component="div"
+                                        align="center"
+                                        fontFamily="Roboto condensed"
+                                    >
+                                        Täällä pääset kartuttamaan
+                                        ilmastotietämystäsi ja ymmärtämään omaa
+                                        suhtautumistasi ilmastonmuutokseen.
+                                    </Typography>
+                                </Stack>
+                            </CardContent>
+                        </Card>
+                    </Stack>
                     <ToSurveyCard
                         name="Ilmastoroolikysely"
                         description={cardDescription.roleSurvey}
