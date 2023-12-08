@@ -5,7 +5,7 @@ import { Footer } from './Footer'
 import { Box } from '@mui/material'
 
 export const Layout = () => (
-    <Box display="flex" flexDirection="column" minHeight="100%">
+    <Box display="flex" flexDirection="column" minHeight="100vh">
         <Background />
         <NavigationBar />
         <Outlet />
