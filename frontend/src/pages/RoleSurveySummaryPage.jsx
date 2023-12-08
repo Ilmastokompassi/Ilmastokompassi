@@ -184,8 +184,11 @@ export const RoleSurveySummaryPage = () => {
                             ) : (
                                 <>
                                     <Typography variant="h2">
-                                        Ryhmän {groupToken} jakauma. Kyselyyn on
-                                        vastannut {allRolesData.response_amount}{' '}
+                                        Ryhmän {groupToken} jakauma
+                                    </Typography>
+                                    <Typography>
+                                        Kyselyyn on vastannut{' '}
+                                        {allRolesData.response_amount}{' '}
                                         {allRolesData.response_amount == 1 ? (
                                             <span>henkilö.</span>
                                         ) : (

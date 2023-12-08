@@ -7,6 +7,7 @@ export const SummaryRole = ({ role }) => {
     return (
         <Stack
             spacing={2}
+            padding={{xs: 0, sm: 1, md: 2}}
             alignItems="center"
             direction={{ xs: 'column', sm: 'column', md: 'row' }}
             sx={{
@@ -16,10 +17,10 @@ export const SummaryRole = ({ role }) => {
             }}
         >
             <RoleImage role={role} />
-            <Box>
+            <Stack spacing={2} padding={{xs: 1, sm: 1, md: 2}}>
                 <Typography variant="h2">{role.name}</Typography>
                 <Typography variant="h3">{role.description}</Typography>
-            </Box>
+            </Stack>
         </Stack>
     )
 }
