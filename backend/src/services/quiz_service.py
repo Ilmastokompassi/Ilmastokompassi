@@ -1,4 +1,5 @@
 from src.repositories.quiz_repository import default_quiz_repository
+import logging
 
 
 class QuizService:
@@ -39,7 +40,23 @@ class QuizService:
         return response_id
 
     def get_response_answers(self, response_id):
-        return self.quiz_repository.get_response_answers(response_id)
+        values = self.quiz_repository.get_response_answers(response_id)
+        keys = {}
+        try:
+            for row in values:
+                if row[0] not in keys:
+                    keys[row[0]] = []
+                keys[row[0]].append(row[1])
+        except Exception as error:
+            logging.error(error)
+        logging.error(keys)
+        logging.error(values)
+        return keys
+
+    def get_response_question_answers(self, response_id, question_id):
+        tuples = self.quiz_repository.get_response_question_answers(
+            response_id, question_id)
+        return [x[0] for x in tuples]
 
     def get_correct_answers(self, question_id):
         return self.quiz_repository.get_correct_answers(question_id)

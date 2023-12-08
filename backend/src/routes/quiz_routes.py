@@ -18,10 +18,17 @@ def get_quiz_questions():
     return jsonify(default_quiz_service.get_questions())
 
 
-@quiz_routes.get("/answers/<string:question_id>")
+@quiz_routes.get("/correct-answers/<string:question_id>")
 def get_correct_answers(question_id):
+    info_text = default_quiz_service.get_info_text(question_id)
     correct_answers = default_quiz_service.get_correct_answers(question_id)
-    return jsonify(correct_answers=correct_answers)
+    return jsonify(correct_answers=correct_answers, info_text=info_text)
+
+
+@quiz_routes.get("/answers/<string:response_id>")
+def get_response_answers(response_id):
+    response_answers = default_quiz_service.get_response_answers(response_id)
+    return jsonify(response_answers=response_answers)
 
 
 @quiz_routes.post("/save")
@@ -43,3 +50,10 @@ def save_quiz_answer():
 def get_quiz_summary():
     summary = default_quiz_service.get_all_questions_and_answers()
     return jsonify(summary)
+
+
+@quiz_routes.get("/selected-options/<string:response_id>/<string:question_id>")
+def get_response_question_selected(response_id, question_id):
+    response = default_quiz_service.get_response_question_answers(
+        response_id, question_id)
+    return jsonify(response)

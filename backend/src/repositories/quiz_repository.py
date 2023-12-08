@@ -59,6 +59,15 @@ class QuizRepository:
         except Exception as error:
             raise error
 
+    def get_response_question_answers(self, response_id, question_id):
+        sql = text("""SELECT selected_option_id FROM quiz_answers
+                    WHERE response_id=:response_id AND question_id=:question_id;
+                    """)
+        try:
+            return db.session.execute(sql, {"response_id": response_id, "question_id": question_id}).fetchall()
+        except Exception as error:
+            raise error
+
     def get_correct_answers(self, question_id):
         sql = text("""
             SELECT id FROM quiz_question_options
