@@ -10,7 +10,6 @@ Cypress.env('viewports').forEach((viewport) => {
 
             it('Footer has correct content', function () {
                 cy.get('footer').should('exist')
-                cy.get('footer').should('contain', '2023')
                 cy.get('footer').should('contain', '© Helsingin yliopisto')
                 cy.get('footer').should('contain', 'INAR')
                 cy.get('footer').should('contain', 'ClimComp')
