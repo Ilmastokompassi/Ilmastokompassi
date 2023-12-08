@@ -26,9 +26,7 @@ beforeEach(async () => {
 })
 
 test('renders question heading', () => {
-    expect(
-        screen.getByText('1. How is the weather today?.')
-    ).toBeInTheDocument()
+    expect(screen.getByText('1. How is the weather today?')).toBeInTheDocument()
 })
 
 test('renders the default question options', () => {
