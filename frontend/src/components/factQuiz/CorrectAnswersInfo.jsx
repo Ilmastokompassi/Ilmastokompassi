@@ -1,19 +1,18 @@
-import {
-    Accordion,
-    AccordionDetails,
-    AccordionSummary,
-    Typography,
-} from '@mui/material'
+import { Accordion, AccordionDetails, AccordionSummary } from '@mui/material'
 import PropTypes from 'prop-types'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 
-const CorrectAnswersInfo = ({ options, correctAnswers, userAnswers }) => {
+const CorrectAnswersInfo = ({
+    options,
+    correctAnswers,
+    selectedOptionsIds,
+}) => {
     const correctOptions = options.filter((option) =>
         correctAnswers.includes(option.id)
     )
 
     let correctUserAnswersCount = 0
-    userAnswers.forEach((optionId) => {
+    selectedOptionsIds.forEach((optionId) => {
         if (correctAnswers.includes(optionId)) {
             correctUserAnswersCount += 1
         }
@@ -23,16 +22,14 @@ const CorrectAnswersInfo = ({ options, correctAnswers, userAnswers }) => {
         <Accordion>
             <AccordionSummary
                 expandIcon={<ExpandMoreIcon />}
-                aria-controls="panel2a-content"
-                id="panel2a-header"
+                aria-controls="correct-answers-content"
             >
-                <Typography>Oikeat vastaukset</Typography>
+                Oikeat vastaukset
             </AccordionSummary>
-            <AccordionDetails>
-                <Typography>
-                    Olet valinnut oikein {correctUserAnswersCount}
-                </Typography>
-                <ul>
+            <AccordionDetails id="correct-answers-content">
+                Olet valinnut oikein {correctUserAnswersCount}{' '}
+                {correctUserAnswersCount === 1 ? 'vastauksen' : 'vastausta'}:
+                <ul style={{ listStylePosition: 'inside' }}>
                     {correctOptions.map((option) => (
                         <li key={option.id}>{option.name}</li>
                     ))}
@@ -50,7 +47,7 @@ const optionProps = PropTypes.shape({
 CorrectAnswersInfo.propTypes = {
     options: PropTypes.arrayOf(optionProps).isRequired,
     correctAnswers: PropTypes.array,
-    userAnswers: PropTypes.array,
+    selectedOptionsIds: PropTypes.instanceOf(Set),
 }
 
 export default CorrectAnswersInfo
