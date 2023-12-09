@@ -185,42 +185,28 @@ describe('Quiz page', function () {
                 })
 
                 it('From start to finish', function () {
-                    cy.contains(
-                        'Käynnissä oleva kasvihuoneilmiön voimistuminen on seurausta ihmisen toimista'
-                    ).click()
+                    cy.findByTestId('answer-4').click()
                     cy.nextQuizQuestion()
 
-                    cy.contains(
-                        'Vesihöyryn lisääntyminen ilmakehässä ilmaston lämmetessä'
-                    ).click()
+                    cy.findByTestId('answer-8').click()
                     cy.nextQuizQuestion()
 
-                    cy.contains(
-                        'Arktinen alue on lämmennyt enemmän kuin päiväntasaaja'
-                    ).click()
+                    cy.findByTestId('answer-16').click()
                     cy.nextQuizQuestion()
 
-                    cy.contains(
-                        'Suomen suurimmat hiilipäästöt tulevat energiateollisuudesta ja liikenteestä'
-                    ).click()
+                    cy.findByTestId('answer-20').click()
                     cy.nextQuizQuestion()
 
-                    cy.contains(
-                        'Tekemällä parempia ja yksityiskohtaisempia mittauksia'
-                    ).click()
+                    cy.findByTestId('answer-22').click()
                     cy.nextQuizQuestion()
 
-                    cy.contains('Merenpinta').click()
+                    cy.findByTestId('answer-27').click()
                     cy.nextQuizQuestion()
 
-                    cy.contains(
-                        'Ilmastossa tapahtuneisiin muutoksiin mukautuminen'
-                    ).click()
+                    cy.findByTestId('answer-38').click()
                     cy.nextQuizQuestion()
 
-                    cy.contains(
-                        'Kaikki eliölajit eivät pysty sopeutumaan nopeasti muuttuviin elinolosuhteisiin'
-                    ).click()
+                    cy.findByTestId('answer-40').click()
                     cy.findByTestId('quiz-answer-button').click()
                     cy.findByTestId('quiz-end-button').click()
 
@@ -271,7 +257,9 @@ describe('Quiz page', function () {
                     cy.contains(
                         '2. Ilmastonmuutos aiheuttaa muutoksia luonnossa ja nämä muutokset puolestaan vaikuttavat ilmastonmuutokseen. Mitä luulet, mitkä seuraavista ilmiöistä voimistavat ilmastonmuutosta?'
                     )
-                    cy.visit('/oppimisvisa/1')
+
+                    cy.findByTestId('quiz-previous-button').click()
+
                     cy.findByTestId('wrong-answer-1').should(
                         'have.css',
                         'color',
@@ -297,7 +285,51 @@ describe('Quiz page', function () {
                     cy.findByTestId('quiz-answer-button').should('be.disabled')
                 })
 
-                it('Show responses in previous question after answered to next question', function () {
+                it('Show responses in previous question after answering and navigating to next question and back using button', function () {
+                    cy.contains(
+                        'Suurin osa saapuvasta auringonsäteilystä imeytyy maanpinnalle'
+                    ).click()
+                    cy.contains(
+                        'Ihmistoiminnasta johtuva otsonikato on aiheuttanut ilmaston lämpenemisen'
+                    ).click()
+                    cy.nextQuizQuestion()
+
+                    cy.contains(
+                        '2. Ilmastonmuutos aiheuttaa muutoksia luonnossa ja nämä muutokset puolestaan vaikuttavat ilmastonmuutokseen. Mitä luulet, mitkä seuraavista ilmiöistä voimistavat ilmastonmuutosta?'
+                    )
+                    cy.contains('Ikiroudan (ja jäätiköiden) sulaminen').click()
+                    cy.findByTestId('quiz-answer-button').click()
+
+                    cy.findByTestId('quiz-previous-button').click()
+
+                    cy.findByTestId('wrong-answer-1').should(
+                        'have.css',
+                        'color',
+                        errorColor
+                    )
+                    cy.findByTestId('correct-answer-5').should(
+                        'have.css',
+                        'color',
+                        successColor
+                    )
+                    cy.findByTestId('correct-answer-3').should(
+                        'have.css',
+                        'color',
+                        iconGray
+                    )
+                    cy.findByTestId('wrong-answer-6').should(
+                        'have.css',
+                        'color',
+                        iconGray
+                    )
+
+                    cy.findByTestId('quiz-next-button').click()
+
+                    cy.findByTestId('quiz-previous-button').should('exist')
+                    cy.findByTestId('quiz-next-button').should('exist')
+                })
+
+                it('Show responses in previous question after answering and navigating to next question and back using link', function () {
                     cy.contains(
                         'Suurin osa saapuvasta auringonsäteilystä imeytyy maanpinnalle'
                     ).click()

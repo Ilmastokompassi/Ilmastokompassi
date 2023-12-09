@@ -2,8 +2,6 @@ import { Button, Stack, Typography, Card, CardContent } from '@mui/material'
 import CheckRoundedIcon from '@mui/icons-material/CheckRounded'
 import ClearRoundedIcon from '@mui/icons-material/ClearRounded'
 import PropTypes from 'prop-types'
-import shuffleArray from '../../utils/shuffleArray'
-import { useEffect, useState } from 'react'
 
 const QuizQuestionCard = ({
     question,
@@ -13,13 +11,7 @@ const QuizQuestionCard = ({
     onOptionSelected,
     correctAnswers,
 }) => {
-    const [options, setOptions] = useState([])
-
-    // Use useEffect to only re-render the card component when question changes
-    // to avoid re-shuffling the options on answer
-    useEffect(() => setOptions(shuffleArray(question.options)), [question])
-
-    const renderResultIcon = (optionId) =>
+    const ResultIcon = ({ optionId }) =>
         correctAnswers.includes(optionId) ? (
             <CheckRoundedIcon
                 data-testid={`correct-answer-${optionId}`}
@@ -53,8 +45,9 @@ const QuizQuestionCard = ({
                     </Typography>
 
                     {question.introduction}
-                    {options.map((option) => (
+                    {question.options.map((option) => (
                         <Stack
+                            data-testid={`answer-${option.id}`}
                             key={option.id}
                             direction="row"
                             alignItems="center"
@@ -76,7 +69,9 @@ const QuizQuestionCard = ({
                             >
                                 <Typography>{option.name}</Typography>
                             </Button>
-                            {correctAnswers && renderResultIcon(option.id)}
+                            {correctAnswers && (
+                                <ResultIcon optionId={option.id} />
+                            )}
                         </Stack>
                     ))}
                     <Typography variant="h2" paddingY={2}>

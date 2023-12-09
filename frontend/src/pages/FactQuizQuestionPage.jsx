@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useParams, useNavigate } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import { Box, Button, LinearProgress, Stack, Typography } from '@mui/material'
 import QuizQuestionCard from '../components/factQuiz/QuizQuestionCard'
 import { useTitle } from '../hooks/useTitle'
@@ -7,18 +7,12 @@ import useSWR from 'swr'
 import useSWRImmutable from 'swr'
 import FactInfoBox from '../components/factQuiz/FactInfoBox'
 import CorrectAnswersInfo from '../components/factQuiz/CorrectAnswersInfo'
-import { useSwipeable } from 'react-swipeable'
+import shuffleArray from '../utils/shuffleArray'
 
 export const FactQuizQuestionPage = () => {
     const { questionId: questionParamId } = useParams()
 
     const [selectedOptionsIds, setSelectedOptionsIds] = useState(new Set())
-
-    const navigate = useNavigate()
-    const swipeHandlers = useSwipeable({
-        onSwipedLeft: () => navigate(`/oppimisvisa/${questionId + 1}`),
-        onSwipedRight: () => navigate(`/oppimisvisa/${questionId - 1}`),
-    })
 
     const responseId = localStorage.getItem('quizResponseId')
     const groupToken = localStorage.getItem('groupToken')
@@ -40,7 +34,19 @@ export const FactQuizQuestionPage = () => {
     const { data: allQuestions, isLoading: isLoadingAllQuestions } =
         useSWRImmutable('/api/quiz/questions')
 
-    const totalQuestions = Object.keys(allQuestions || {}).length
+    // Construct new questiosn object with shuffled options
+    const questions = Object.values(allQuestions || {}).reduce(
+        (shuffledQuestions, question) => {
+            shuffledQuestions[question.id] = {
+                ...question,
+                options: shuffleArray(question.options),
+            }
+            return shuffledQuestions
+        },
+        {}
+    )
+
+    const totalQuestions = Object.keys(questions || {}).length
 
     const questionId = Math.min(
         totalQuestions,
@@ -80,7 +86,7 @@ export const FactQuizQuestionPage = () => {
         .map((line) => line.trim())
         .filter((line) => line?.length > 0)
 
-    const currentQuestion = allQuestions ? allQuestions[questionId] : null
+    const currentQuestion = questions ? questions[questionId] : null
 
     const saveAnswers = () => {
         fetch('/api/quiz/save', {
@@ -110,126 +116,108 @@ export const FactQuizQuestionPage = () => {
 
     useTitle(`Oppimisvisa - Kysymys ${questionId}.`)
 
-    return (
-        <div {...swipeHandlers}>
-            <Stack
-                direction="column"
-                justifyContent="center"
-                alignItems="center"
-                spacing={2}
-                margin={2}
-                padding={{ xs: 2, sm: 2, md: 4 }}
-                minHeight="80vh"
-            >
-                {isLoading ? (
-                    <p>Ladataan...</p>
-                ) : (
-                    <Box textAlign="center">
-                        <QuizQuestionCard
-                            question={currentQuestion}
-                            questionId={questionId}
-                            totalQuestions={totalQuestions}
-                            selectedOptionsIds={selectedOptionsIds}
-                            onOptionSelected={onOptionSelected}
-                            correctAnswers={correctAnswers?.correct_answers}
-                        />
+    return isLoading ? (
+        <p>Ladataan...</p>
+    ) : (
+        <Stack
+            direction="column"
+            justifyContent="center"
+            alignItems="center"
+            spacing={2}
+            margin={2}
+            padding={{ xs: 2, sm: 2, md: 4 }}
+            minHeight="80vh"
+        >
+            <Box textAlign="center">
+                <QuizQuestionCard
+                    question={currentQuestion}
+                    questionId={questionId}
+                    totalQuestions={totalQuestions}
+                    selectedOptionsIds={selectedOptionsIds}
+                    onOptionSelected={onOptionSelected}
+                    correctAnswers={correctAnswers?.correct_answers}
+                />
 
-                        <Box
-                            paddingY={2}
-                            display="flex"
-                            justifyContent="center"
-                        >
-                            <LinearProgress
-                                variant="determinate"
-                                value={(questionId * 100) / totalQuestions}
-                                style={{
-                                    width: '80%',
-                                }}
-                                aria-label="progressbar"
+                <Box paddingY={2} display="flex" justifyContent="center">
+                    <LinearProgress
+                        variant="determinate"
+                        value={(questionId * 100) / totalQuestions}
+                        style={{
+                            width: '80%',
+                        }}
+                        aria-label="progressbar"
+                    />
+                </Box>
+                <Stack
+                    width="100%"
+                    direction="column"
+                    justifyContent="space-evenly"
+                    alignItems="center"
+                    spacing={4}
+                >
+                    {correctAnswers && (
+                        <Box width="100%">
+                            <CorrectAnswersInfo
+                                options={currentQuestion.options}
+                                correctAnswers={correctAnswers.correct_answers}
+                                selectedOptionsIds={selectedOptionsIds}
                             />
-                        </Box>
-                        {/* Buttons */}
-                        <Stack
-                            width="100%"
-                            direction="column"
-                            justifyContent="space-evenly"
-                            alignItems="center"
-                            spacing={4}
-                        >
-                            {correctAnswers === undefined ? (
-                                <Button
-                                    data-testid="quiz-answer-button"
-                                    variant="contained"
-                                    color="primary"
-                                    onClick={saveAnswers}
-                                    disabled={selectedOptionsIds.size === 0}
-                                >
-                                    <Typography>Vastaa</Typography>
-                                </Button>
-                            ) : (
-                                <>
-                                    <Box width="100%">
-                                        <CorrectAnswersInfo
-                                            options={currentQuestion.options}
-                                            correctAnswers={
-                                                correctAnswers.correct_answers
-                                            }
-                                            selectedOptionsIds={
-                                                selectedOptionsIds
-                                            }
-                                        />
-                                        {infoText?.length > 0 && (
-                                            <FactInfoBox content={infoText} />
-                                        )}
-                                    </Box>
-                                    {isLastQuestion ? (
-                                        <Button
-                                            data-testid="quiz-end-button"
-                                            variant="contained"
-                                            color="primary"
-                                            href="/oppimisvisa/yhteenveto"
-                                        >
-                                            <Typography>
-                                                Lopeta kysely
-                                            </Typography>
-                                        </Button>
-                                    ) : (
-                                        <Stack direction="row" spacing={2}>
-                                            <Button
-                                                data-testid="quiz-previous-button"
-                                                variant="contained"
-                                                color="primary"
-                                                href={`/oppimisvisa/${
-                                                    questionId - 1
-                                                }`}
-                                                disabled={questionId <= 1}
-                                                onClick={resetQuestionState}
-                                            >
-                                                <Typography>
-                                                    Edelllinen kysymys
-                                                </Typography>
-                                            </Button>
-                                            <Button
-                                                data-testid="quiz-next-button"
-                                                variant="contained"
-                                                color="primary"
-                                                href={`/oppimisvisa/${
-                                                    questionId + 1
-                                                }`}
-                                                onClick={resetQuestionState}
-                                            >
-                                                <Typography>
-                                                    Seuraava kysymys
-                                                </Typography>
-                                            </Button>
-                                        </Stack>
-                                    )}
-                                </>
+                            {infoText?.length > 0 && (
+                                <FactInfoBox content={infoText} />
                             )}
-                        </Stack>
-                    </Box>
-                )}
-            </Stack>
-        </div>
+                        </Box>
+                    )}
+                    {/* Buttons */}
+                    <Stack direction="row" spacing={2}>
+                        <Button
+                            data-testid="quiz-previous-button"
+                            variant="contained"
+                            color="primary"
+                            href={`/oppimisvisa/${questionId - 1}`}
+                            disabled={questionId <= 1}
+                            onClick={resetQuestionState}
+                        >
+                            <Typography>Edellinen kysymys</Typography>
+                        </Button>
+                        {!correctAnswers ? (
+                            <Button
+                                data-testid="quiz-answer-button"
+                                variant="contained"
+                                color="primary"
+                                onClick={saveAnswers}
+                                disabled={selectedOptionsIds.size === 0}
+                            >
+                                <Typography>Vastaa</Typography>
+                            </Button>
+                        ) : (
+                            <>
+                                {isLastQuestion ? (
+                                    <Button
+                                        data-testid="quiz-end-button"
+                                        variant="contained"
+                                        color="primary"
+                                        href="/oppimisvisa/yhteenveto"
+                                    >
+                                        <Typography>Lopeta kysely</Typography>
+                                    </Button>
+                                ) : (
+                                    <Button
+                                        data-testid="quiz-next-button"
+                                        variant="contained"
+                                        color="primary"
+                                        href={`/oppimisvisa/${questionId + 1}`}
+                                        onClick={resetQuestionState}
+                                    >
+                                        <Typography>
+                                            Seuraava kysymys
+                                        </Typography>
+                                    </Button>
+                                )}
+                            </>
+                        )}
+                    </Stack>
+                </Stack>
+            </Box>
+        </Stack>
     )
 }
