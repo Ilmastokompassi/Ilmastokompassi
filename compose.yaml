@@ -36,6 +36,8 @@ services:
           target: /app
         - action: rebuild
           path: ./backend/pyproject.toml
+        - action: rebuild
+          path: ./backend/.env.dev
 
   dev-db:
     image: bitnami/postgresql:14
