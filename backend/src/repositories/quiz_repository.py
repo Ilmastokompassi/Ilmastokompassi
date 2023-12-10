@@ -14,23 +14,20 @@ class QuizRepository:
         return questions
 
     def create_quiz_response(self, group_token=None):
-        try:
-            if group_token:
-                response = text("""
-                                INSERT INTO responses (group_token)
-                                VALUES (:group_token) RETURNING id;
+        if group_token:
+            response = text("""
+                            INSERT INTO responses (group_token)
+                            VALUES (:group_token) RETURNING id;
+                            """)
+            result = db.session.execute(
+                response, {"group_token": group_token})
+        else:
+            response = text("""
+                                INSERT INTO responses DEFAULT VALUES RETURNING id;
                                 """)
-                result = db.session.execute(
-                    response, {"group_token": group_token})
-            else:
-                response = text("""
-                                    INSERT INTO responses DEFAULT VALUES RETURNING id;
-                                    """)
-                result = db.session.execute(response)
-            db.session.commit()
-            return result.fetchone()[0]
-        except Exception as error:
-            raise error
+            result = db.session.execute(response)
+        db.session.commit()
+        return result.fetchone()[0]
 
     def save_answers(self, question_id, answers, response_id):
         try:
@@ -54,42 +51,30 @@ class QuizRepository:
         sql = text("""SELECT question_id, selected_option_id FROM quiz_answers
                     WHERE response_id=:response_id;
                     """)
-        try:
-            return db.session.execute(sql, {"response_id": response_id}).fetchall()
-        except Exception as error:
-            raise error
+        return db.session.execute(sql, {"response_id": response_id}).fetchall()
 
     def get_response_question_answers(self, response_id, question_id):
         sql = text("""SELECT selected_option_id FROM quiz_answers
                     WHERE response_id=:response_id AND question_id=:question_id;
                     """)
-        try:
-            return db.session.execute(sql, {"response_id": response_id, "question_id": question_id}).fetchall()
-        except Exception as error:
-            raise error
+        return db.session.execute(sql, {"response_id": response_id, "question_id": question_id}).fetchall()
 
     def get_correct_answers(self, question_id):
         sql = text("""
             SELECT id FROM quiz_question_options
                 WHERE is_correct=true AND question_id=:question_id
             """)
-        try:
-            result = db.session.execute(
-                sql, {"question_id": question_id}).fetchall()
-            return [id[0] for id in result]
-        except Exception as error:
-            raise error
+        result = db.session.execute(
+            sql, {"question_id": question_id}).fetchall()
+        return [id[0] for id in result]
 
     def get_info_text(self, question_id):
         sql = text("""
             SELECT info_text FROM quiz_questions WHERE id=:question_id
             """)
-        try:
-            return db.session.execute(
-                sql, {"question_id": question_id}
-            ).fetchone()[0]
-        except Exception as error:
-            raise error
+        return db.session.execute(
+            sql, {"question_id": question_id}
+        ).fetchone()[0]
 
     def get_all_questions_and_answers(self):
         sql = text("""
@@ -101,10 +86,7 @@ class QuizRepository:
                    WHERE o.is_correct = TRUE
                    ORDER BY q.id, o.id
                    """)
-        try:
-            return db.session.execute(sql).fetchall()
-        except Exception as error:
-            raise error
+        return db.session.execute(sql).fetchall()
 
 
 default_quiz_repository = QuizRepository()

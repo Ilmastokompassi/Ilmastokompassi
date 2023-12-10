@@ -1,5 +1,4 @@
 from src.repositories.quiz_repository import default_quiz_repository
-import logging
 
 
 class QuizService:
@@ -8,27 +7,24 @@ class QuizService:
         self.quiz_repository = quiz_repository
 
     def get_questions(self):
-        try:
-            questions_options_rows = self.quiz_repository.get_questions()
-            questions = {}
-            for question_options in questions_options_rows:
-                question_id = question_options["question_id"]
-                if question_id not in questions:
-                    questions[question_id] = {
-                        "id": question_id,
-                        "content": question_options["content"],
-                        "introduction": question_options["introduction"],
-                        "options": []}
-                questions[question_id]["options"].append(
-                    {
-                        "id": question_options["option_id"],
-                        "name": question_options["option"]
-                    }
-                )
+        questions_options_rows = self.quiz_repository.get_questions()
+        questions = {}
+        for question_options in questions_options_rows:
+            question_id = question_options["question_id"]
+            if question_id not in questions:
+                questions[question_id] = {
+                    "id": question_id,
+                    "content": question_options["content"],
+                    "introduction": question_options["introduction"],
+                    "options": []}
+            questions[question_id]["options"].append(
+                {
+                    "id": question_options["option_id"],
+                    "name": question_options["option"]
+                }
+            )
 
-            return questions
-        except Exception as error:
-            raise error
+        return questions
 
     def create_quiz_response(self, group_token=None):
         return self.quiz_repository.create_quiz_response(group_token)
@@ -42,15 +38,10 @@ class QuizService:
     def get_response_answers(self, response_id):
         values = self.quiz_repository.get_response_answers(response_id)
         keys = {}
-        try:
-            for row in values:
-                if row[0] not in keys:
-                    keys[row[0]] = []
-                keys[row[0]].append(row[1])
-        except Exception as error:
-            logging.error(error)
-        logging.error(keys)
-        logging.error(values)
+        for row in values:
+            if row[0] not in keys:
+                keys[row[0]] = []
+            keys[row[0]].append(row[1])
         return keys
 
     def get_response_question_answers(self, response_id, question_id):
