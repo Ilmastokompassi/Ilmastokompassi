@@ -10,8 +10,6 @@ SCORES = {
 
 
 class SurveyService:
-    # pylint: disable=too-few-public-methods
-
     def __init__(self, survey_repository=default_survey_repository):
         self.survey_repository = survey_repository
 

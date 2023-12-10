@@ -56,7 +56,8 @@ class QuizRepository:
         sql = text("""SELECT selected_option_id FROM quiz_answers
                     WHERE response_id=:response_id AND question_id=:question_id;
                     """)
-        return db.session.execute(sql, {"response_id": response_id, "question_id": question_id}).fetchall()
+        return db.session.execute(
+            sql, {"response_id": response_id, "question_id": question_id}).fetchall()
 
     def get_correct_answers(self, question_id):
         sql = text("""
