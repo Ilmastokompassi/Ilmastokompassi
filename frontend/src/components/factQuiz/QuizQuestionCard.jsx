@@ -3,6 +3,19 @@ import CheckRoundedIcon from '@mui/icons-material/CheckRounded'
 import ClearRoundedIcon from '@mui/icons-material/ClearRounded'
 import PropTypes from 'prop-types'
 
+const ResultIcon = ({ correctAnswers, selectedOptionsIds, optionId }) =>
+    correctAnswers.includes(optionId) ? (
+        <CheckRoundedIcon
+            data-testid={`correct-answer-${optionId}`}
+            color={selectedOptionsIds.has(optionId) ? 'success' : 'iconGray'}
+        />
+    ) : (
+        <ClearRoundedIcon
+            data-testid={`wrong-answer-${optionId}`}
+            color={selectedOptionsIds.has(optionId) ? 'error' : 'iconGray'}
+        />
+    )
+
 const QuizQuestionCard = ({
     question,
     questionId,
@@ -11,21 +24,6 @@ const QuizQuestionCard = ({
     onOptionSelected,
     correctAnswers,
 }) => {
-    const ResultIcon = ({ optionId }) =>
-        correctAnswers.includes(optionId) ? (
-            <CheckRoundedIcon
-                data-testid={`correct-answer-${optionId}`}
-                color={
-                    selectedOptionsIds.has(optionId) ? 'success' : 'iconGray'
-                }
-            />
-        ) : (
-            <ClearRoundedIcon
-                data-testid={`wrong-answer-${optionId}`}
-                color={selectedOptionsIds.has(optionId) ? 'error' : 'iconGray'}
-            />
-        )
-
     return (
         <Card elevation={5}>
             <CardContent>
@@ -70,7 +68,11 @@ const QuizQuestionCard = ({
                                 <Typography>{option.name}</Typography>
                             </Button>
                             {correctAnswers && (
-                                <ResultIcon optionId={option.id} />
+                                <ResultIcon
+                                    correctAnswers={correctAnswers}
+                                    selectedOptionsIds={selectedOptionsIds}
+                                    optionId={option.id}
+                                />
                             )}
                         </Stack>
                     ))}
@@ -81,6 +83,12 @@ const QuizQuestionCard = ({
             </CardContent>
         </Card>
     )
+}
+
+ResultIcon.propTypes = {
+    correctAnswers: PropTypes.array.isRequired,
+    selectedOptionsIds: PropTypes.instanceOf(Set).isRequired,
+    optionId: PropTypes.number.isRequired,
 }
 
 const questionProps = PropTypes.shape({
@@ -94,7 +102,7 @@ QuizQuestionCard.propTypes = {
     question: questionProps.isRequired,
     questionId: PropTypes.number.isRequired,
     totalQuestions: PropTypes.number.isRequired,
-    selectedOptionsIds: PropTypes.instanceOf(Set),
+    selectedOptionsIds: PropTypes.instanceOf(Set).isRequired,
     onOptionSelected: PropTypes.func,
     correctAnswers: PropTypes.array,
 }
