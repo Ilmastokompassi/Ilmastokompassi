@@ -24,14 +24,18 @@ export const ToSurveyCard = ({ name, description, to, icon }) => {
                 minHeight: '18.75rem',
             }}
         >
-            <CardActionArea href={to}>
-                <Stack direction={isDesktop ? 'row' : 'column'}>
+            <CardActionArea href={to} sx={{ padding: 0, margin: 0 }}>
+                <Stack
+                    direction={isDesktop ? 'row' : 'column'}
+                    alignItems={'flex-start'}
+                >
                     <CardMedia
                         sx={{
                             width: isDesktop ? '33%' : '100%',
                             display: 'grid',
                             alignItems: 'center',
                             justifyContent: 'center',
+                            alignSelf: 'flex-start',
                         }}
                     >
                         {icon}
