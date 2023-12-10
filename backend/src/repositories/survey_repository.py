@@ -3,8 +3,6 @@ from src.extensions import db
 
 
 class SurveyRepository:
-    # pylint: disable=too-few-public-methods
-
     def get_questions(self):
         result = db.session.execute(
             text("SELECT id, content FROM profile_questions;")).mappings().all()
@@ -20,7 +18,7 @@ class SurveyRepository:
                     INSERT INTO profile_answers (response_id, question_id, score)
                         VALUES (:response_id, :question_id, :score)"""),
                                    {"response_id": response_id, "question_id": question_id, "score": answer})  # pylint: disable=line-too-long
-        except Exception as error:  # pylint: disable=broad-except
+        except Exception as error:
             db.session.rollback()
             raise error
 
@@ -32,10 +30,7 @@ class SurveyRepository:
                         JOIN profile_questions Q on question_id=Q.id
                    WHERE response_id=:response_id;
                    """)
-        try:
-            return db.session.execute(sql, {"response_id": response_id}).fetchall()
-        except Exception as error:
-            raise error
+        return db.session.execute(sql, {"response_id": response_id}).fetchall()
 
     def get_answer_count(self, response_id):
         result = db.session.execute(

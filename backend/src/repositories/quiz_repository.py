@@ -3,7 +3,6 @@ from src.extensions import db
 
 
 class QuizRepository:
-
     def get_questions(self):
         result = db.session.execute(
             text("""
@@ -43,7 +42,7 @@ class QuizRepository:
                 })
 
             db.session.commit()
-        except Exception as error:  # pylint: disable=broad-except
+        except Exception as error:
             db.session.rollback()
             raise error
 
