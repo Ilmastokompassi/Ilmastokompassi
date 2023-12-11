@@ -1,6 +1,13 @@
 import { useMemo, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { Box, Button, LinearProgress, Stack, Typography } from '@mui/material'
+import {
+    Box,
+    Button,
+    Container,
+    LinearProgress,
+    Stack,
+    Typography,
+} from '@mui/material'
 import QuizQuestionCard from '../components/factQuiz/QuizQuestionCard'
 import { useTitle } from '../hooks/useTitle'
 import useSWR from 'swr'
@@ -121,107 +128,121 @@ export const FactQuizQuestionPage = () => {
 
     useTitle(`Oppimisvisa - Kysymys ${questionId}.`)
 
-    return isLoading ? (
-        <p>Ladataan...</p>
-    ) : (
-        <Stack
-            direction="column"
-            justifyContent="center"
-            alignItems="center"
-            spacing={2}
-            margin={2}
-            padding={{ xs: 2, sm: 2, md: 4 }}
-            minHeight="80vh"
-        >
-            <Box textAlign="center">
-                <QuizQuestionCard
-                    question={currentQuestion}
-                    totalQuestions={totalQuestions}
-                    selectedOptionsIds={selectedOptionsIds}
-                    onOptionSelected={onOptionSelected}
-                    correctAnswers={correctAnswers?.correct_answers}
-                />
-
-                <Box paddingY={2} display="flex" justifyContent="center">
-                    <LinearProgress
-                        variant="determinate"
-                        value={(questionId * 100) / totalQuestions}
-                        style={{
-                            width: '80%',
-                        }}
-                        aria-label="progressbar"
-                    />
-                </Box>
+    return (
+        <Container>
+            {isLoading ? (
+                <p>Ladataan...</p>
+            ) : (
                 <Stack
-                    width="100%"
                     direction="column"
-                    justifyContent="space-evenly"
+                    justifyContent="center"
                     alignItems="center"
-                    spacing={4}
+                    spacing={2}
+                    margin={2}
+                    padding={{ xs: 2, sm: 2, md: 4 }}
+                    minHeight="80vh"
                 >
-                    {correctAnswers && (
-                        <Box width="100%">
-                            <CorrectAnswersInfo
-                                options={currentQuestion.options}
-                                correctAnswers={correctAnswers.correct_answers}
-                                selectedOptionsIds={selectedOptionsIds}
-                            />
-                            {infoText?.length > 0 && (
-                                <FactInfoBox content={infoText} />
-                            )}
-                        </Box>
-                    )}
-                    {/* Buttons */}
-                    <Stack direction="row" spacing={2}>
-                        <Button
-                            data-testid="quiz-previous-button"
-                            variant="contained"
-                            color="primary"
-                            href={`/oppimisvisa/${questionId - 1}`}
-                            disabled={questionId <= 1}
-                            onClick={resetQuestionState}
+                    <Box textAlign="center">
+                        <QuizQuestionCard
+                            question={currentQuestion}
+                            totalQuestions={totalQuestions}
+                            selectedOptionsIds={selectedOptionsIds}
+                            onOptionSelected={onOptionSelected}
+                            correctAnswers={correctAnswers?.correct_answers}
+                        />
+
+                        <Box
+                            paddingY={2}
+                            display="flex"
+                            justifyContent="center"
                         >
-                            <Typography>Edellinen kysymys</Typography>
-                        </Button>
-                        {!correctAnswers ? (
-                            <Button
-                                data-testid="quiz-answer-button"
-                                variant="contained"
-                                color="primary"
-                                onClick={saveAnswers}
-                                disabled={selectedOptionsIds.size === 0}
-                            >
-                                <Typography>Vastaa</Typography>
-                            </Button>
-                        ) : (
-                            <>
-                                {isLastQuestion ? (
+                            <LinearProgress
+                                variant="determinate"
+                                value={(questionId * 100) / totalQuestions}
+                                style={{
+                                    width: '80%',
+                                }}
+                                aria-label="progressbar"
+                            />
+                        </Box>
+                        <Stack
+                            width="100%"
+                            direction="column"
+                            justifyContent="space-evenly"
+                            alignItems="center"
+                            spacing={4}
+                        >
+                            {correctAnswers && (
+                                <Box width="100%">
+                                    <CorrectAnswersInfo
+                                        options={currentQuestion.options}
+                                        correctAnswers={
+                                            correctAnswers.correct_answers
+                                        }
+                                        selectedOptionsIds={selectedOptionsIds}
+                                    />
+                                    {infoText?.length > 0 && (
+                                        <FactInfoBox content={infoText} />
+                                    )}
+                                </Box>
+                            )}
+                            {/* Buttons */}
+                            <Stack direction="row" spacing={2}>
+                                <Button
+                                    data-testid="quiz-previous-button"
+                                    variant="contained"
+                                    color="primary"
+                                    href={`/oppimisvisa/${questionId - 1}`}
+                                    disabled={questionId <= 1}
+                                    onClick={resetQuestionState}
+                                >
+                                    <Typography>Edellinen kysymys</Typography>
+                                </Button>
+                                {!correctAnswers ? (
                                     <Button
-                                        data-testid="quiz-end-button"
+                                        data-testid="quiz-answer-button"
                                         variant="contained"
                                         color="primary"
-                                        href="/oppimisvisa/yhteenveto"
+                                        onClick={saveAnswers}
+                                        disabled={selectedOptionsIds.size === 0}
                                     >
-                                        <Typography>Lopeta kysely</Typography>
+                                        <Typography>Vastaa</Typography>
                                     </Button>
                                 ) : (
-                                    <Button
-                                        data-testid="quiz-next-button"
-                                        variant="contained"
-                                        color="primary"
-                                        href={`/oppimisvisa/${questionId + 1}`}
-                                        onClick={resetQuestionState}
-                                    >
-                                        <Typography>
-                                            Seuraava kysymys
-                                        </Typography>
-                                    </Button>
+                                    <>
+                                        {isLastQuestion ? (
+                                            <Button
+                                                data-testid="quiz-end-button"
+                                                variant="contained"
+                                                color="primary"
+                                                href="/oppimisvisa/yhteenveto"
+                                            >
+                                                <Typography>
+                                                    Lopeta kysely
+                                                </Typography>
+                                            </Button>
+                                        ) : (
+                                            <Button
+                                                data-testid="quiz-next-button"
+                                                variant="contained"
+                                                color="primary"
+                                                href={`/oppimisvisa/${
+                                                    questionId + 1
+                                                }`}
+                                                onClick={resetQuestionState}
+                                            >
+                                                <Typography>
+                                                    Seuraava kysymys
+                                                </Typography>
+                                            </Button>
+                                        )}
+                                    </>
                                 )}
-                            </>
-                        )}
-                    </Stack>
+                            </Stack>
+                        </Stack>
+                    </Box>
                 </Stack>
-            </Box>
-        </Stack>
+            )}
+        </Container>
     )
 }
