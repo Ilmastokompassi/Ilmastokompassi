@@ -43,6 +43,8 @@ jobs:
         working-directory: ./backend
     env:
       DATABASE_URI: postgresql://postgres:postgres@localhost:5432/ilmastokompassi-test
+      BASE_URL: http://localhost:5173
+      ENVIRONMENT: dev
     steps:
       - uses: actions/checkout@v3
       - run: pipx install poetry==1.6.1

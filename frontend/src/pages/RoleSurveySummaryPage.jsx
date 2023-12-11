@@ -1,4 +1,5 @@
 import useSWR from 'swr'
+import useSWRImmutable from 'swr'
 import { SummaryRole } from '../components/roleSurvey/SummaryRole'
 import { Typography, Container, Stack, Button, Box, Card } from '@mui/material'
 import { useParams } from 'react-router-dom'
@@ -11,9 +12,13 @@ export const RoleSurveySummaryPage = () => {
     const userId = parseInt(userParamId)
     const groupToken = localStorage.getItem('groupToken')
 
+    // TODO: Move these to custom hooks
+    const { data: config, isLoading: isLoadingConfig } =
+        useSWRImmutable('/api/config')
+
     // Fetch all roles from api
     const { data: roleData, isLoading: isLoadingRoles } =
-        useSWR('/api/survey/roles')
+        useSWRImmutable('/api/survey/roles')
 
     // Fetch individual summary from api.
     const { data: summaryData, isLoading: isLoadingSummary } = useSWR(
@@ -118,6 +123,8 @@ export const RoleSurveySummaryPage = () => {
         highestScoreRoles
     )}!`
 
+    const isLoading = isLoadingRoles || isLoadingSummary || isLoadingConfig
+
     useTitle('Ilmastorooli - Tulokset')
     return (
         <Container component={Box} paddingY={6}>
@@ -131,8 +138,8 @@ export const RoleSurveySummaryPage = () => {
                         alignItems="center"
                     >
                         <Typography variant="h1">Ilmastoroolisi</Typography>
-                        {isLoadingRoles || isLoadingSummary ? (
-                            <p>Loading...</p>
+                        {isLoading ? (
+                            <p>Ladataan...</p>
                         ) : filteredSummaryScores.length === 0 ? (
                             <>
                                 <Typography variant="h2">
@@ -169,9 +176,7 @@ export const RoleSurveySummaryPage = () => {
                                 </Stack>
                                 <ShareButtons
                                     url={
-                                        import.meta.env.VITE_BASE_URL +
-                                        'yhteenveto/' +
-                                        userId
+                                        config?.baseUrl + 'yhteenveto/' + userId
                                     }
                                     text={shareText}
                                 />
