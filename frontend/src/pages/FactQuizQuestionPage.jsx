@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { Box, Button, LinearProgress, Stack, Typography } from '@mui/material'
 import QuizQuestionCard from '../components/factQuiz/QuizQuestionCard'
@@ -34,16 +34,21 @@ export const FactQuizQuestionPage = () => {
     const { data: allQuestions, isLoading: isLoadingAllQuestions } =
         useSWRImmutable('/api/quiz/questions')
 
-    // Construct new questiosn object with shuffled options
-    const questions = Object.values(allQuestions || {}).reduce(
-        (shuffledQuestions, question) => {
-            shuffledQuestions[question.id] = {
-                ...question,
-                options: shuffleArray(question.options),
-            }
-            return shuffledQuestions
-        },
-        {}
+    // Construct new questions object with shuffled options,
+    // memoize to avoid reshuffling on every re-render
+    const questions = useMemo(
+        () =>
+            Object.values(allQuestions || {}).reduce(
+                (shuffledQuestions, question) => {
+                    shuffledQuestions[question.id] = {
+                        ...question,
+                        options: shuffleArray(question.options),
+                    }
+                    return shuffledQuestions
+                },
+                {}
+            ),
+        [allQuestions]
     )
 
     const totalQuestions = Object.keys(questions || {}).length
@@ -131,7 +136,6 @@ export const FactQuizQuestionPage = () => {
             <Box textAlign="center">
                 <QuizQuestionCard
                     question={currentQuestion}
-                    questionId={questionId}
                     totalQuestions={totalQuestions}
                     selectedOptionsIds={selectedOptionsIds}
                     onOptionSelected={onOptionSelected}

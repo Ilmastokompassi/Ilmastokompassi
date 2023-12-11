@@ -18,72 +18,69 @@ const ResultIcon = ({ correctAnswers, selectedOptionsIds, optionId }) =>
 
 const QuizQuestionCard = ({
     question,
-    questionId,
     totalQuestions,
     selectedOptionsIds,
     onOptionSelected,
     correctAnswers,
-}) => {
-    return (
-        <Card elevation={5}>
-            <CardContent>
-                <Stack
-                    spacing={2}
-                    marginTop={1}
-                    direction="column"
-                    alignItems="center"
-                    marginX={{
-                        xs: 2,
-                        sm: 10,
-                        md: 20,
-                    }}
-                >
-                    <Typography variant="h2" textAlign="center" paddingY={6}>
-                        {question.id + '. ' + question.content}
-                    </Typography>
+}) => (
+    <Card elevation={5}>
+        <CardContent>
+            <Stack
+                spacing={2}
+                marginTop={1}
+                direction="column"
+                alignItems="center"
+                marginX={{
+                    xs: 2,
+                    sm: 10,
+                    md: 20,
+                }}
+            >
+                <Typography variant="h2" textAlign="center" paddingY={6}>
+                    {question.id + '. ' + question.content}
+                </Typography>
 
-                    {question.introduction}
-                    {question.options.map((option) => (
-                        <Stack
-                            data-testid={`answer-${option.id}`}
-                            key={option.id}
-                            direction="row"
-                            alignItems="center"
-                            gap={1}
-                            width="100%"
+                {question.introduction}
+                {question.options.map((option) => (
+                    <Stack
+                        data-testid={`answer-${option.id}`}
+                        key={option.id}
+                        direction="row"
+                        alignItems="center"
+                        gap={1}
+                        width="100%"
+                    >
+                        <Button
+                            variant={
+                                selectedOptionsIds.has(option.id)
+                                    ? 'contained'
+                                    : 'outlined'
+                            }
+                            onClick={() => onOptionSelected(option.id)}
+                            disabled={Boolean(correctAnswers)}
+                            sx={{
+                                width: '100%',
+                                margin: 'auto',
+                            }}
                         >
-                            <Button
-                                variant={
-                                    selectedOptionsIds.has(option.id)
-                                        ? 'contained'
-                                        : 'outlined'
-                                }
-                                onClick={() => onOptionSelected(option.id)}
-                                disabled={Boolean(correctAnswers)}
-                                sx={{
-                                    width: '100%',
-                                    margin: 'auto',
-                                }}
-                            >
-                                <Typography>{option.name}</Typography>
-                            </Button>
-                            {correctAnswers && (
-                                <ResultIcon
-                                    correctAnswers={correctAnswers}
-                                    selectedOptionsIds={selectedOptionsIds}
-                                    optionId={option.id}
-                                />
-                            )}
-                        </Stack>
-                    ))}
-                    <Typography variant="h2" paddingY={2}>
-                        {questionId}/{totalQuestions}
-                    </Typography>
-                </Stack>
-            </CardContent>
-        </Card>
-    )
-}
+                            <Typography>{option.name}</Typography>
+                        </Button>
+                        {correctAnswers && (
+                            <ResultIcon
+                                correctAnswers={correctAnswers}
+                                selectedOptionsIds={selectedOptionsIds}
+                                optionId={option.id}
+                            />
+                        )}
+                    </Stack>
+                ))}
+                <Typography variant="h2" paddingY={2}>
+                    {question.id}/{totalQuestions}
+                </Typography>
+            </Stack>
+        </CardContent>
+    </Card>
+)
 
 ResultIcon.propTypes = {
     correctAnswers: PropTypes.array.isRequired,
@@ -100,7 +97,6 @@ const questionProps = PropTypes.shape({
 
 QuizQuestionCard.propTypes = {
     question: questionProps.isRequired,
-    questionId: PropTypes.number.isRequired,
     totalQuestions: PropTypes.number.isRequired,
     selectedOptionsIds: PropTypes.instanceOf(Set).isRequired,
     onOptionSelected: PropTypes.func,
