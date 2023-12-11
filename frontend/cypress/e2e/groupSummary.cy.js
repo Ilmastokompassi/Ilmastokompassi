@@ -66,9 +66,8 @@ describe('Group summary page', function () {
                     cy.visit('/yhteenveto/ryhma/' + groupToken)
 
                     cy.contains('Ryhmän FOOBAR ilmastorooli')
-                    cy.contains(
-                        'Ryhmän FOOBAR jakauma. Kyselyyn on vastannut 5 henkilöä.'
-                    )
+                    cy.contains('Ryhmän FOOBAR jakauma')
+                    cy.contains('Kyselyyn on vastannut 5 henkilöä')
                     cy.contains('Ilmastoasiantuntija')
                     cy.contains('Mielipidevaikuttaja')
                     cy.contains('Kestävän elämäntavan etsijä')
@@ -91,9 +90,8 @@ describe('Group summary page', function () {
                     cy.visit('/yhteenveto/ryhma/' + groupToken)
 
                     cy.contains('Ryhmän FOOBAR ilmastorooli')
-                    cy.contains(
-                        'Ryhmän FOOBAR jakauma. Kyselyyn on vastannut 5 henkilöä.'
-                    )
+                    cy.contains('Ryhmän FOOBAR jakauma')
+                    cy.contains('Kyselyyn on vastannut 5 henkilöä')
                     cy.contains('Ilmastoasiantuntija')
                 })
             }
