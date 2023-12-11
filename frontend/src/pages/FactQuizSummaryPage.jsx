@@ -5,15 +5,16 @@ import {
     Typography,
     Card,
     CardContent,
+    Button,
 } from '@mui/material'
-import useSWR from 'swr'
+import useSWRImmutable from 'swr'
 import { useTitle } from '../hooks/useTitle'
-import QuizSummaryAccordion from '../components/factQuiz/QuizSummaryAccordion' // Import the new component
+import QuizSummaryAccordion from '../components/factQuiz/QuizSummaryAccordion'
 import FactQuizLogo from '../assets/oppimisvisalogo.png'
 
 export const FactQuizSummaryPage = () => {
     const { data: allSummaryInfo, isLoading: isLoadingAllSummaryInfo } =
-        useSWR('/api/quiz/summary')
+        useSWRImmutable('/api/quiz/summary')
 
     useTitle(`Oppimisvisa - Kertaus`)
 
@@ -34,7 +35,7 @@ export const FactQuizSummaryPage = () => {
                             padding={{ xs: 1, md: 4 }}
                         >
                             <Stack alignItems="center" spacing={3} paddingY={2}>
-                                <Typography variant="h2" textAlign={'center'}>
+                                <Typography variant="h2" textAlign="center">
                                     Hyvää työtä !
                                 </Typography>
                                 <Box
@@ -71,12 +72,19 @@ export const FactQuizSummaryPage = () => {
                             <Typography
                                 paddingTop={3}
                                 paddingBottom={2}
-                                textAlign={'center'}
+                                textAlign="center"
                             >
                                 Jäikö jokin epäselväksi tai mietityttämään?
                                 Uskalla keskustella ystävien ja läheisten
                                 kanssa. Et varmasti ole yksin ajatustesi kanssa!
                             </Typography>
+                            <Button
+                                href="/oppimisvisa/8"
+                                variant="contained"
+                                color="primary"
+                            >
+                                <Typography>Palaa oppimisvisaan</Typography>
+                            </Button>
                         </Stack>
                     </CardContent>
                 </Card>
