@@ -66,7 +66,6 @@ export const ShareButtons = ({ url, text }) => {
                         <Tooltip key={social.name} title={social.name}>
                             <IconButton
                                 target="about:blank"
-                                key={social.name}
                                 href={social.url}
                                 data-testid={social.name}
                             >
