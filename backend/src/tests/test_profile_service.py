@@ -3,7 +3,6 @@ from src.services.profile_service import ProfileService
 
 
 class MockProfileRepository:
-    # pylint: disable=too-few-public-methods
     def get_profiles(self):
         result = [
             {

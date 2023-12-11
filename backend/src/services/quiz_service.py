@@ -7,27 +7,24 @@ class QuizService:
         self.quiz_repository = quiz_repository
 
     def get_questions(self):
-        try:
-            questions_options_rows = self.quiz_repository.get_questions()
-            questions = {}
-            for question_options in questions_options_rows:
-                question_id = question_options["question_id"]
-                if question_id not in questions:
-                    questions[question_id] = {
-                        "id": question_id,
-                        "content": question_options["content"],
-                        "introduction": question_options["introduction"],
-                        "options": []}
-                questions[question_id]["options"].append(
-                    {
-                        "id": question_options["option_id"],
-                        "name": question_options["option"]
-                    }
-                )
+        questions_options_rows = self.quiz_repository.get_questions()
+        questions = {}
+        for question_options in questions_options_rows:
+            question_id = question_options["question_id"]
+            if question_id not in questions:
+                questions[question_id] = {
+                    "id": question_id,
+                    "content": question_options["content"],
+                    "introduction": question_options["introduction"],
+                    "options": []}
+            questions[question_id]["options"].append(
+                {
+                    "id": question_options["option_id"],
+                    "name": question_options["option"]
+                }
+            )
 
-            return questions
-        except Exception as error:
-            raise error
+        return questions
 
     def create_quiz_response(self, group_token=None):
         return self.quiz_repository.create_quiz_response(group_token)
@@ -39,7 +36,18 @@ class QuizService:
         return response_id
 
     def get_response_answers(self, response_id):
-        return self.quiz_repository.get_response_answers(response_id)
+        values = self.quiz_repository.get_response_answers(response_id)
+        keys = {}
+        for row in values:
+            if row[0] not in keys:
+                keys[row[0]] = []
+            keys[row[0]].append(row[1])
+        return keys
+
+    def get_response_question_answers(self, response_id, question_id):
+        tuples = self.quiz_repository.get_response_question_answers(
+            response_id, question_id)
+        return [x[0] for x in tuples]
 
     def get_correct_answers(self, question_id):
         return self.quiz_repository.get_correct_answers(question_id)
