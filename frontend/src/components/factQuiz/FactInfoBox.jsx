@@ -23,6 +23,7 @@ const FactInfoBox = ({ content }) => {
                         key={index}
                         sx={{
                             paddingBottom: '1em',
+                            textAlign: 'left',
                         }}
                     >
                         {line}
