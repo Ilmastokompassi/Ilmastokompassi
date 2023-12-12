@@ -54,22 +54,6 @@ describe('Quiz page', function () {
                     cy.contains('Vastaa').click()
 
                     cy.contains('Oikeat vastaukset').click()
-
-                    cy.contains('Olet valinnut oikein 1')
-                })
-
-                it('Select one wrong answer, press "Vastaa" and press "Oikeat vastaukset"', function () {
-                    cy.visit('/oppimisvisa/2')
-                    cy.title().should('eq', 'Oppimisvisa - Kysymys 2.')
-
-                    cy.contains(
-                        'Kasvien hiilensidonnan (photosynteesin) lisääntyminen'
-                    ).click()
-                    cy.contains('Vastaa').click()
-
-                    cy.contains('Oikeat vastaukset').click()
-
-                    cy.contains('Olet valinnut oikein 0')
                 })
 
                 it('Select multiple answers, both wrong and right press "Vastaa" and press "Oikeat vastaukset"', function () {
@@ -86,8 +70,6 @@ describe('Quiz page', function () {
                     cy.contains('Vastaa').click()
 
                     cy.contains('Oikeat vastaukset').click()
-
-                    cy.contains('Olet valinnut oikein 2')
                 })
 
                 it('Check that marks are correct color', function () {

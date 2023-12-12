@@ -179,7 +179,6 @@ export const FactQuizQuestionPage = () => {
                                         correctAnswers={
                                             correctAnswers.correct_answers
                                         }
-                                        selectedOptionsIds={selectedOptionsIds}
                                     />
                                     {infoText?.length > 0 && (
                                         <FactInfoBox content={infoText} />
