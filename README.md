@@ -8,7 +8,7 @@ The Climate compass is an online tool to inspire young people to take action to 
 This is a Software production project developed during University of Helsinki's Ohjelmistotuotanto -course for the Institute for Atmospheric and Earth System Research INAR and the Faculty of Education.
 
 ### Live environments
-- Production: https://ilmastokompassi.it.helsinki.fi
+- Production: https://ilmastokompassi.helsinki.fi
 - Staging: https://ilmastokompassi-staging.it.helsinki.fi
 
 ## Documents
