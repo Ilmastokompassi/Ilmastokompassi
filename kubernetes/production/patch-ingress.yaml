@@ -1,9 +1,9 @@
 - op: replace
   path: "/spec/rules/0/host"
-  value: ilmastokompassi.it.helsinki.fi
+  value: ilmastokompassi.helsinki.fi
 - op: replace
   path: "/spec/tls"
   value:
-    - hosts: 
-      - ilmastokompassi.it.helsinki.fi
+    - hosts:
+        - ilmastokompassi.helsinki.fi
       secretName: ilmastokompassi-tls

@@ -1,8 +1,8 @@
 [tool.poetry]
 name = "ilmastokompassi"
-version = "0.1.0"
+version = "0.1.1"
 description = ""
-authors = ["desipeli <mr.desipeli@gmail.com>"]
+authors = ["desipeli <mr.desipeli@gmail.com>", "Paulus Pärssinen <paulus.parssinen+ilmastokompassi@gmail.com>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
